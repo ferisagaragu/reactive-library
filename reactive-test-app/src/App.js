@@ -1,26 +1,56 @@
 import React from 'react';
-import logo from './logo.svg';
-import Fancy from 'react-fancy-component';
+import { Table } from 'reactive';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <Fancy></Fancy>
-      </header>
+    <div>
+      <Table 
+      header={ {
+        name: {
+          label: 'Nombre',
+          type: String
+        },
+        direccion: {
+          label: 'Direccion',
+          type: String
+        },
+        description:  {
+          label: 'Descripcion',
+          type: String
+        },
+        total:  {
+          label: 'Total',
+          type: Number
+        }
+      } }
+      tableData={
+        [
+          {
+            name: 'Juan rulfo',
+            direccion: 'Platon 12',
+            description: 'Es alto',
+            total: 500
+          },
+          { 
+            name: 'Juan rulfo 2',
+            direccion: 'Platon 12',
+            description: 'Es alto',
+            total: 500
+          },
+          {
+            name: 'Juan rulfo 3',
+            direccion: 'Platon 12',
+            description: 'Es alto',
+            total: 500
+          }
+        ]
+      } 
+      actionsLabel="Acciones"
+      erase
+      edit
+      create
+    />
     </div>
   );
 }

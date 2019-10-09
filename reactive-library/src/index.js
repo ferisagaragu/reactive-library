@@ -1,16 +1,11 @@
-import React from 'react';
-import { Button } from 'react-bootstrap';
+//COMPONENTS
+import { TableReactive as _table } from './components/table/table.reactive';
 
-class Fancy extends React.Component {
-  render() {
-    return (
-      <Button
-        variant="outline-dark"
-      >
-        Jjajajajajaja la maldad! 
-      </Button>
-    );
-  }
-}
+export const Table = _table;
+//==========================
 
-export default Fancy;
+//FUNCTIONS
+import { key as _key } from './components/key/key.reactive';
+
+export const key = _key;
+//==========================
