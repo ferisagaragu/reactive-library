@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Table } from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
 import { key } from '../key/key.reactive';
 import 'bootstrap/dist/css/bootstrap.css';
+import './table.css'
 
 let metaDataHead = { };
 
@@ -84,11 +85,11 @@ export class TableReactive extends Component {
     const out = [];
 
     if (edit) {
-      out.push(<button className="mr-3" key={ key() }>Editar</button>);
+      out.push(<Button className="mr-3" key={ key() }>Edit</Button>);
     }
 
     if (erase) {
-      out.push(<button key={ key() }>Eliminar</button>);
+      out.push(<Button key={ key() }>Drop</Button>);
     }
 
     return (
@@ -99,22 +100,36 @@ export class TableReactive extends Component {
   }
   
   render() {
-    const { className, edit } = this.props;
+    const { className, create } = this.props;
     
     return (
-      <Table className={ className } responsive>
-        <thead>
+      <div>
+        <div className="text-right mb-3">
           {
-            this.renderHeader()
+            create && 
+              <Button 
+                className="btn btn-circle btn-lg"
+                variant="outline-success"
+              >
+                x
+              </Button>
           }
-        </thead>
+        </div>
 
-        <tbody>
-          {
-            this.renderBody()
-          }
-        </tbody>
-      </Table>
+        <Table className={ className } responsive>
+          <thead>
+            {
+              this.renderHeader()
+            }
+          </thead>
+
+          <tbody>
+            {
+              this.renderBody()
+            }
+          </tbody>
+        </Table>
+      </div>
     );
   }
 }

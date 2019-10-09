@@ -115,6 +115,8 @@ var _key = __webpack_require__(0);
 
 __webpack_require__(6);
 
+__webpack_require__(12);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -242,17 +244,17 @@ var TableReactive = exports.TableReactive = function (_Component) {
 
       if (edit) {
         out.push(_react2.default.createElement(
-          'button',
+          _reactBootstrap.Button,
           { className: 'mr-3', key: (0, _key.key)() },
-          'Editar'
+          'Edit'
         ));
       }
 
       if (erase) {
         out.push(_react2.default.createElement(
-          'button',
+          _reactBootstrap.Button,
           { key: (0, _key.key)() },
-          'Eliminar'
+          'Drop'
         ));
       }
 
@@ -267,21 +269,37 @@ var TableReactive = exports.TableReactive = function (_Component) {
     value: function render() {
       var _props4 = this.props,
           className = _props4.className,
-          edit = _props4.edit;
+          create = _props4.create;
 
 
       return _react2.default.createElement(
-        _reactBootstrap.Table,
-        { className: className, responsive: true },
+        'div',
+        null,
         _react2.default.createElement(
-          'thead',
-          null,
-          this.renderHeader()
+          'div',
+          { className: 'text-right mb-3' },
+          create && _react2.default.createElement(
+            _reactBootstrap.Button,
+            {
+              className: 'btn btn-circle btn-lg',
+              variant: 'outline-success'
+            },
+            'x'
+          )
         ),
         _react2.default.createElement(
-          'tbody',
-          null,
-          this.renderBody()
+          _reactBootstrap.Table,
+          { className: className, responsive: true },
+          _react2.default.createElement(
+            'thead',
+            null,
+            this.renderHeader()
+          ),
+          _react2.default.createElement(
+            'tbody',
+            null,
+            this.renderBody()
+          )
         )
       );
     }
@@ -979,6 +997,37 @@ module.exports = require("react");
 /***/ (function(module, exports) {
 
 module.exports = require("react-bootstrap");
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(4)(false);
+// Module
+exports.push([module.i, ".btn-circle .btn-lg  {\r\n\twidth: 30px !important;\r\n\theight: 30px !important;\r\n\ttext-align: center;\r\n\tpadding: 6px 0;\r\n\tfont-size: 12px;\r\n\tline-height: 1.428571429;\r\n\tborder-radius: 15px;\r\n}", ""]);
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var content = __webpack_require__(11);
+
+if (typeof content === 'string') {
+  content = [[module.i, content, '']];
+}
+
+var options = {}
+
+options.insert = "head";
+options.singleton = false;
+
+var update = __webpack_require__(7)(content, options);
+
+if (content.locals) {
+  module.exports = content.locals;
+}
+
 
 /***/ })
 /******/ ]);
