@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import { Table, Button } from 'react-bootstrap';
 import { key } from '../key/key.reactive';
-import 'bootstrap/dist/css/bootstrap.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { alertQuestion } from '../swal/swal.reactive';
 import './table.css'
 
 let metaDataHead = { };
 
 export class TableReactive extends Component {
   
+  //RENDERS
+
   renderHeader() {
-    const { header, erase, edit, actionsLabel } = this.props;
+    const { header, drop, edit, actionsLabel } = this.props;
     
     if (header) {
       const out = [];
@@ -29,7 +32,7 @@ export class TableReactive extends Component {
         }
       }
 
-      if (erase || edit) {
+      if (drop || edit) {
         out.push(
           <th className="text-center" key={ key() }>
             { actionsLabel ? actionsLabel : 'Actions' }
@@ -43,7 +46,7 @@ export class TableReactive extends Component {
   }
 
   renderBody() {
-    const { tableData, erase, edit } = this.props;
+    const { tableData, drop, edit } = this.props;
 
     if (tableData) {
       const out = [];
@@ -52,23 +55,30 @@ export class TableReactive extends Component {
       tableData.forEach(element => {
         const outRow = [];
 
-        for (var jsonKey in element) {
-          if (element.hasOwnProperty(jsonKey)) {
-            if (typeof element[jsonKey] === metaDataHead[jsonKey].type) {
-              outRow.push(
-                <td key={ key() }>
-                  { element[jsonKey] }
-                </td>
-              );
-            } else {
-              console.error(`Type error in '${metaDataHead[jsonKey].name}' key`);
-              error = true;
-            }
-          } 
+        if (element.hasOwnProperty('uid')) {
+          for (var jsonKey in element) {
+            if (element.hasOwnProperty(jsonKey)) {
+              if (jsonKey !== 'uid') {
+                if (typeof element[jsonKey] === metaDataHead[jsonKey].type) {
+                  outRow.push(
+                    <td key={ key() }>
+                      { element[jsonKey] }
+                    </td>
+                  );
+                } else {
+                  console.error(`Type error in '${metaDataHead[jsonKey].name}' key`);
+                  error = true;
+                }
+              }
+            } 
+          }
+        } else {
+          console.error(`Table data not cointains uid key`);
+          error = true;
         }
 
-        if (erase || edit) {
-          outRow.push(this.renderActions());
+        if (drop || edit) {
+          outRow.push(this.renderActions(element));
         }
 
         out.push(<tr key={ key() }>{ outRow }</tr>);
@@ -80,16 +90,34 @@ export class TableReactive extends Component {
     }
   }
 
-  renderActions() {
-    const { erase, edit } = this.props;
+  renderActions(elementSelect) {
+    const { drop, edit } = this.props;
     const out = [];
 
     if (edit) {
-      out.push(<Button className="mr-3" key={ key() }>Edit</Button>);
+      out.push(
+        <Button 
+          key={ key() }
+          className="btn-circle mr-3"
+          variant="outline-info"
+          onClick={ () => this.onEditAction(elementSelect) }
+        >
+          <FontAwesomeIcon icon="edit" />
+        </Button>
+      );
     }
 
-    if (erase) {
-      out.push(<Button key={ key() }>Drop</Button>);
+    if (drop) {
+      out.push(
+        <Button 
+          key={ key() }
+          className="btn-circle"
+          variant="outline-danger"
+          onClick={ () => this.onDropAction(elementSelect) }
+        >
+          <FontAwesomeIcon icon="trash" />
+        </Button>
+      );
     }
 
     return (
@@ -98,20 +126,42 @@ export class TableReactive extends Component {
       </td>
     );
   }
-  
+
+  //FUCTIONS
+
+  onEditAction(elementSelect) {
+    const { onEdit } = this.props;
+    onEdit(elementSelect);
+  }
+
+  onDropAction(elementSelect) {
+    const { onDrop, dropAlertTitle, dropAlertText } = this.props;
+    
+    alertQuestion(
+      'question', 
+      dropAlertTitle ? dropAlertTitle : '',
+      dropAlertText ? dropAlertText : '',
+      () => {
+        onDrop(elementSelect);
+      }
+    );
+  }
+
+
   render() {
-    const { className, create } = this.props;
+    const { className, create, onCreate } = this.props;
     
     return (
       <div>
-        <div className="text-right mb-3">
+        <div className="text-right mb-2 mr-2">
           {
             create && 
               <Button 
-                className="btn btn-circle btn-lg"
+                className="btn-circle"
                 variant="outline-success"
+                onClick={ () => onCreate() }
               >
-                x
+                <FontAwesomeIcon icon="plus" />
               </Button>
           }
         </div>

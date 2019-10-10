@@ -1,10 +1,13 @@
 import React from 'react';
-import { Table } from 'reactive';
+import { Table, toast, key } from 'reactive';
 import './App.css';
 
 function App() {
   return (
     <div>
+      {
+        toast('success', 'vientos')
+      }
       <Table 
       header={ {
         name: {
@@ -27,18 +30,21 @@ function App() {
       tableData={
         [
           {
+            uid: key(),
             name: 'Juan rulfo',
             direccion: 'Platon 12',
             description: 'Es alto',
             total: 500
           },
           { 
+            uid: key(),
             name: 'Juan rulfo 2',
             direccion: 'Platon 12',
             description: 'Es alto',
             total: 500
           },
           {
+            uid: key(),
             name: 'Juan rulfo 3',
             direccion: 'Platon 12',
             description: 'Es alto',
@@ -46,10 +52,19 @@ function App() {
           }
         ]
       } 
+
       actionsLabel="Acciones"
-      erase
+      drop
       edit
       create
+      
+
+      onCreate={ () => { console.log('action') } }
+
+      dropAlertTitle="Borrar elemento"
+      dropAlertText="¿Deseas borrar el elemento ?"
+      onDrop={ (element) => { console.log(element) } }
+      
     />
     </div>
   );

@@ -27,6 +27,11 @@ module.exports = {
   },
   externals: {
     'react': 'commonjs react',
-    'react-bootstrap': 'commonjs react-bootstrap'
+    'react-bootstrap': 'commonjs react-bootstrap',
+    '@fortawesome/fontawesome-svg-core': 'commonjs @fortawesome/fontawesome-svg-core',
+    '@fortawesome/free-solid-svg-icons': 'commonjs @fortawesome/free-solid-svg-icons',
+    '@fortawesome/react-fontawesome': 'commonjs @fortawesome/react-fontawesome',
+    'sweetalert2': 'commonjs sweetalert2',
+    'sweetalert2-react-content': 'commonjs sweetalert2-react-content'
   }
 };
