@@ -9,8 +9,16 @@ let metaDataHead = { };
 
 export class TableReactive extends Component {
   
-  //RENDERS
+  constructor(props) {
+    super(props);
 
+    this.state = {
+      elementDrop: null,
+      indexDrop: -1
+    }
+  }
+
+  //RENDERS
   renderHeader() {
     const { header, drop, edit, actionsLabel } = this.props;
     
@@ -46,7 +54,8 @@ export class TableReactive extends Component {
   }
 
   renderBody() {
-    const { tableData, drop, edit } = this.props;
+    const { drop, edit, tableData } = this.props;
+    const { elementDrop } = this.state;
 
     if (tableData) {
       const out = [];
@@ -81,7 +90,25 @@ export class TableReactive extends Component {
           outRow.push(this.renderActions(element));
         }
 
-        out.push(<tr key={ key() }>{ outRow }</tr>);
+        if (elementDrop) {
+          if (elementDrop.uid === element.uid) {
+            const { indexDrop } = this.state;
+
+            out.push(
+              <tr 
+                className="drop" 
+                key={ key() }
+                onAnimationEnd={ () => this.onDropAnimationEnd(indexDrop) }
+              >
+                { outRow }
+              </tr>
+            );
+          } else {
+            out.push(<tr key={ key() }>{ outRow }</tr>);
+          }
+        } else {
+          out.push(<tr key={ key() }>{ outRow }</tr>);
+        }
       });
 
       if (!error) {
@@ -128,28 +155,42 @@ export class TableReactive extends Component {
   }
 
   //FUCTIONS
-
   onEditAction(elementSelect) {
     const { onEdit } = this.props;
-    onEdit(elementSelect);
+    if (onEdit) {
+      onEdit(elementSelect);
+    }
   }
 
   onDropAction(elementSelect) {
-    const { onDrop, dropAlertTitle, dropAlertText } = this.props;
+    const { tableData ,onDrop, dropAlertTitle, dropAlertText } = this.props;
     
-    alertQuestion(
-      'question', 
-      dropAlertTitle ? dropAlertTitle : '',
-      dropAlertText ? dropAlertText : '',
-      () => {
-        onDrop(elementSelect);
-      }
-    );
+    if (onDrop) {
+      alertQuestion(
+        'question', 
+        dropAlertTitle ? dropAlertTitle : '',
+        dropAlertText ? dropAlertText : '',
+        () => {
+          tableData.forEach((element, index) => {
+            if (element.uid === elementSelect.uid) {
+              this.setState({ elementDrop: element, indexDrop: index });
+            }
+          });
+
+          onDrop(elementSelect);
+        }
+      );
+    }
   }
 
+  onDropAnimationEnd(indexDrop) {
+    const { tableData } = this.props;
+    tableData.splice(indexDrop, 1);
+    this.setState({ elementDrop: null, indexDrop: -1 });
+  }
 
   render() {
-    const { className, create, onCreate } = this.props;
+    const { className, create, onCreate, tableData } = this.props;
     
     return (
       <div>
@@ -179,6 +220,13 @@ export class TableReactive extends Component {
             }
           </tbody>
         </Table>
+
+        {
+          !tableData &&
+            <div className="text-center">
+              No hay datos para mostrar
+            </div>
+        }
       </div>
     );
   }
