@@ -1,6 +1,5 @@
 import React from 'react';
 import { Table, toast, key } from 'reactive';
-import './App.css';
 
 function App() {
   return (
@@ -9,63 +8,65 @@ function App() {
         toast('success', 'vientos')
       }
       <Table 
-      header={ {
-        name: {
-          label: 'Nombre',
-          type: String
-        },
-        direccion: {
-          label: 'Direccion',
-          type: String
-        },
-        description:  {
-          label: 'Descripcion',
-          type: String
-        },
-        total:  {
-          label: 'Total',
-          type: Number
-        }
-      } }
-      tableData={
-        [
-          {
-            uid: key(),
-            name: 'Juan rulfo',
-            direccion: 'Platon 12',
-            description: 'Es alto',
-            total: 500
+        header={ {
+          name: {
+            label: 'Nombre',
+            type: String
           },
-          { 
-            uid: key(),
-            name: 'Juan rulfo 2',
-            direccion: 'Platon 12',
-            description: 'Es alto',
-            total: 500
+          direccion: {
+            label: 'Direccion',
+            type: String
           },
-          {
-            uid: key(),
-            name: 'Juan rulfo 3',
-            direccion: 'Platon 12',
-            description: 'Es alto',
-            total: 500
+          description:  {
+            label: 'Descripcion',
+            type: String
+          },
+          total:  {
+            label: 'Total',
+            type: Number
           }
-        ]
-      } 
+        } }
+        tableData={
+          [
+            {
+              uid: key(),
+              name: 'Juan rulfo',
+              direccion: 'Platon 12',
+              description: 'Es alto',
+              total: 500
+            },
+            { 
+              uid: key(),
+              name: 'Juan rulfo 2',
+              direccion: 'Platon 12',
+              description: 'Es alto',
+              total: 500
+            },
+            {
+              uid: key(),
+              name: 'Juan rulfo 3',
+              direccion: 'Platon 12',
+              description: 'Es alto',
+              total: 500
+            }
+          ]
+        } 
 
-      actionsLabel="Acciones"
-      drop
-      edit
-      create
-      
+        actionsLabel="Acciones"
+        noTableData="No hay datos para mostrar"
 
-      onCreate={ () => { console.log('action') } }
+        drop
+        edit
+        create
+        //animated
+        
+        onCreate={ () => { console.log('action') } }
 
-      dropAlertTitle="Borrar elemento"
-      dropAlertText="¿Deseas borrar el elemento ?"
-      onDrop={ (element) => { console.log(element) } }
-      
-    />
+        dropAlertTitle="Borrar elemento"
+        dropAlertText="¿Deseas borrar el elemento ?"
+        onDrop={ (element) => { console.log(element) } }
+        
+      />
     </div>
   );
 }

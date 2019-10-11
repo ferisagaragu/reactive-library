@@ -64,7 +64,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -79,7 +79,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.key = undefined;
 
-var _uniqid = __webpack_require__(13);
+var _uniqid = __webpack_require__(17);
 
 var _uniqid2 = _interopRequireDefault(_uniqid);
 
@@ -101,11 +101,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.alertQuestion = exports.alert = exports.toast = undefined;
 
-var _sweetalert = __webpack_require__(19);
+var _sweetalert = __webpack_require__(20);
 
 var _sweetalert2 = _interopRequireDefault(_sweetalert);
 
-var _sweetalert2ReactContent = __webpack_require__(20);
+var _sweetalert2ReactContent = __webpack_require__(21);
 
 var _sweetalert2ReactContent2 = _interopRequireDefault(_sweetalert2ReactContent);
 
@@ -538,6 +538,24 @@ module.exports = function (list, options) {
 
 /***/ }),
 /* 4 */
+/***/ (function(module, exports) {
+
+module.exports = require("@fortawesome/react-fontawesome");
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+module.exports = require("react");
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-bootstrap");
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -552,19 +570,21 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(17);
+var _react = __webpack_require__(5);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactBootstrap = __webpack_require__(18);
+var _reactBootstrap = __webpack_require__(6);
 
 var _key = __webpack_require__(0);
 
-var _reactFontawesome = __webpack_require__(16);
+var _reactFontawesome = __webpack_require__(4);
 
 var _swal = __webpack_require__(1);
 
-__webpack_require__(12);
+var _tableForm = __webpack_require__(10);
+
+__webpack_require__(16);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -687,29 +707,9 @@ var TableReactive = exports.TableReactive = function (_Component) {
             outRow.push(_this2.renderActions(element));
           }
 
+          //Render para cuando se elimina un elemento
           if (elementDrop) {
-            if (elementDrop.uid === element.uid) {
-              var indexDrop = _this2.state.indexDrop;
-
-
-              out.push(_react2.default.createElement(
-                'tr',
-                {
-                  className: 'drop',
-                  key: (0, _key.key)(),
-                  onAnimationEnd: function onAnimationEnd() {
-                    return _this2.onDropAnimationEnd(indexDrop);
-                  }
-                },
-                outRow
-              ));
-            } else {
-              out.push(_react2.default.createElement(
-                'tr',
-                { key: (0, _key.key)() },
-                outRow
-              ));
-            }
+            _this2.renderOnDrop(element, outRow, out);
           } else {
             out.push(_react2.default.createElement(
               'tr',
@@ -719,15 +719,47 @@ var TableReactive = exports.TableReactive = function (_Component) {
           }
         });
 
+        out.push(_react2.default.createElement(_tableForm.TableFormReactive, { key: (0, _key.key)(), formData: metaDataHead }));
+
         if (!error) {
           return out;
         }
       }
     }
   }, {
+    key: 'renderOnDrop',
+    value: function renderOnDrop(element, outRow, out) {
+      var _this3 = this;
+
+      var _state = this.state,
+          elementDrop = _state.elementDrop,
+          indexDrop = _state.indexDrop;
+
+
+      if (elementDrop.uid === element.uid) {
+        out.push(_react2.default.createElement(
+          'tr',
+          {
+            className: 'drop',
+            key: (0, _key.key)(),
+            onAnimationEnd: function onAnimationEnd() {
+              return _this3.onDropAnimationEnd(indexDrop);
+            }
+          },
+          outRow
+        ));
+      } else {
+        out.push(_react2.default.createElement(
+          'tr',
+          { key: (0, _key.key)() },
+          outRow
+        ));
+      }
+    }
+  }, {
     key: 'renderActions',
     value: function renderActions(elementSelect) {
-      var _this3 = this;
+      var _this4 = this;
 
       var _props3 = this.props,
           drop = _props3.drop,
@@ -743,7 +775,7 @@ var TableReactive = exports.TableReactive = function (_Component) {
             className: 'btn-circle mr-3',
             variant: 'outline-info',
             onClick: function onClick() {
-              return _this3.onEditAction(elementSelect);
+              return _this4.onEditAction(elementSelect);
             }
           },
           _react2.default.createElement(_reactFontawesome.FontAwesomeIcon, { icon: 'edit' })
@@ -758,7 +790,7 @@ var TableReactive = exports.TableReactive = function (_Component) {
             className: 'btn-circle',
             variant: 'outline-danger',
             onClick: function onClick() {
-              return _this3.onDropAction(elementSelect);
+              return _this4.onDropAction(elementSelect);
             }
           },
           _react2.default.createElement(_reactFontawesome.FontAwesomeIcon, { icon: 'trash' })
@@ -786,7 +818,7 @@ var TableReactive = exports.TableReactive = function (_Component) {
   }, {
     key: 'onDropAction',
     value: function onDropAction(elementSelect) {
-      var _this4 = this;
+      var _this5 = this;
 
       var _props4 = this.props,
           tableData = _props4.tableData,
@@ -799,7 +831,7 @@ var TableReactive = exports.TableReactive = function (_Component) {
         (0, _swal.alertQuestion)('question', dropAlertTitle ? dropAlertTitle : '', dropAlertText ? dropAlertText : '', function () {
           tableData.forEach(function (element, index) {
             if (element.uid === elementSelect.uid) {
-              _this4.setState({ elementDrop: element, indexDrop: index });
+              _this5.setState({ elementDrop: element, indexDrop: index });
             }
           });
 
@@ -822,7 +854,8 @@ var TableReactive = exports.TableReactive = function (_Component) {
           className = _props5.className,
           create = _props5.create,
           onCreate = _props5.onCreate,
-          tableData = _props5.tableData;
+          tableData = _props5.tableData,
+          noTableData = _props5.noTableData;
 
 
       return _react2.default.createElement(
@@ -857,10 +890,10 @@ var TableReactive = exports.TableReactive = function (_Component) {
             this.renderBody()
           )
         ),
-        !tableData && _react2.default.createElement(
+        tableData && tableData.length === 0 && _react2.default.createElement(
           'div',
-          { className: 'text-center' },
-          'No hay datos para mostrar'
+          { className: 'text-center no-result' },
+          noTableData
         )
       );
     }
@@ -870,15 +903,15 @@ var TableReactive = exports.TableReactive = function (_Component) {
 }(_react.Component);
 
 /***/ }),
-/* 5 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _fontawesomeSvgCore = __webpack_require__(14);
+var _fontawesomeSvgCore = __webpack_require__(18);
 
-var _fontawesome = __webpack_require__(7);
+var _fontawesome = __webpack_require__(11);
 
 var _fontawesome2 = _interopRequireDefault(_fontawesome);
 
@@ -888,10 +921,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _fontawesomeSvgCore.library.add(_fontawesome2.default);
 
 /***/ }),
-/* 6 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var content = __webpack_require__(9);
+var content = __webpack_require__(13);
 
 if (typeof content === 'string') {
   content = [[module.i, content, '']];
@@ -910,7 +943,140 @@ if (content.locals) {
 
 
 /***/ }),
-/* 7 */
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.TableFormReactive = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _key = __webpack_require__(0);
+
+var _reactBootstrap = __webpack_require__(6);
+
+var _reactFontawesome = __webpack_require__(4);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TableFormReactive = exports.TableFormReactive = function (_Component) {
+  _inherits(TableFormReactive, _Component);
+
+  function TableFormReactive(props) {
+    _classCallCheck(this, TableFormReactive);
+
+    var _this = _possibleConstructorReturn(this, (TableFormReactive.__proto__ || Object.getPrototypeOf(TableFormReactive)).call(this, props));
+
+    var formData = _this.props.formData;
+
+    var form = {};
+
+    for (var jsonKey in formData) {
+      if (formData.hasOwnProperty(jsonKey)) {
+        form[jsonKey] = '';
+      }
+    }
+
+    _this.state = _extends({}, form, {
+      renderForm: null,
+      trick: 0
+    });
+    return _this;
+  }
+
+  _createClass(TableFormReactive, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      var formData = this.props.formData;
+
+      var form = [];
+
+      for (var jsonKey in formData) {
+        if (formData.hasOwnProperty(jsonKey)) {
+          form.push(_react2.default.createElement(
+            'td',
+            { key: (0, _key.key)() },
+            _react2.default.createElement('input', {
+              id: jsonKey,
+              className: 'form-control',
+              type: 'text',
+              value: this.state.name,
+              onChange: function onChange(evt) {
+                return _this2.onChangeInput(evt);
+              }
+            })
+          ));
+        }
+      }
+
+      this.setState({ renderForm: form });
+    }
+  }, {
+    key: 'onChangeInput',
+    value: function onChangeInput(evt) {
+      console.log(this.state);
+      this.setState({ name: evt.target.value });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var renderForm = this.state.renderForm;
+
+
+      return _react2.default.createElement(
+        'tr',
+        null,
+        renderForm,
+        _react2.default.createElement(
+          'td',
+          { className: 'text-center' },
+          _react2.default.createElement(
+            _reactBootstrap.Button,
+            {
+              key: (0, _key.key)(),
+              className: 'btn-circle mr-3',
+              variant: 'outline-success'
+            },
+            _react2.default.createElement(_reactFontawesome.FontAwesomeIcon, { icon: 'check' })
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Button,
+            {
+              key: (0, _key.key)(),
+              className: 'btn-circle',
+              variant: 'outline-danger'
+            },
+            _react2.default.createElement(_reactFontawesome.FontAwesomeIcon, { icon: 'times' })
+          )
+        )
+      );
+    }
+  }]);
+
+  return TableFormReactive;
+}(_react.Component);
+
+/***/ }),
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -920,14 +1086,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _freeSolidSvgIcons = __webpack_require__(15);
+var _freeSolidSvgIcons = __webpack_require__(19);
 
-var icons = [_freeSolidSvgIcons.faPlus, _freeSolidSvgIcons.faTrash, _freeSolidSvgIcons.faEdit];
+var icons = [_freeSolidSvgIcons.faPlus, _freeSolidSvgIcons.faTrash, _freeSolidSvgIcons.faEdit, _freeSolidSvgIcons.faCheck, _freeSolidSvgIcons.faTimes];
 
 exports.default = icons;
 
 /***/ }),
-/* 8 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -938,11 +1104,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.alertQuestion = exports.alert = exports.toast = exports.key = exports.Table = undefined;
 
-__webpack_require__(5);
+__webpack_require__(8);
 
-__webpack_require__(6);
+__webpack_require__(9);
 
-var _table2 = __webpack_require__(4);
+var _table2 = __webpack_require__(7);
 
 var _key2 = __webpack_require__(0);
 
@@ -962,7 +1128,7 @@ var alertQuestion = exports.alertQuestion = _swal.alertQuestion;
 //==========================
 
 /***/ }),
-/* 9 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -971,16 +1137,16 @@ exports.push([module.i, "/*!\n * Bootstrap v4.3.1 (https://getbootstrap.com/)\n 
 
 
 /***/ }),
-/* 10 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
 // Module
-exports.push([module.i, "/*Circle Button*/\r\n.btn-circle {\r\n  width: 30px;\r\n  height: 30px;\r\n  text-align: center;\r\n  padding: 6px 0;\r\n  font-size: 12px;\r\n  line-height: 1.428571429;\r\n  border-radius: 15px;\r\n}\r\n\r\n/*Drop animation*/\r\n.drop {\r\n  animation: drop 1.2s forwards;\r\n}\r\n\r\n@keyframes drop {\r\n  0% {\r\n    transform-origin: center;\r\n    opacity: 1;\r\n  }\r\n  20% {\r\n    transform: \r\n      translate3d(0, 20px, 0)\r\n      rotate3d(0, 0, 1, -10deg);\r\n    opacity: 1;\r\n  }\r\n  40%, 45% {\r\n    transform: \r\n      translate3d(0, -120px, 0)\r\n      rotate3d(0, 0, 1, 10deg);\r\n    opacity: 1;\r\n  }\r\n  to {\r\n    opacity: 0;\r\n    transform: \r\n      translate3d(0, 2000px, 0)\r\n      rotate3d(0, 0, 1, 10deg);\r\n  }\r\n}", ""]);
+exports.push([module.i, "/*Circle Button*/\r\n.btn-circle {\r\n  width: 30px;\r\n  height: 30px;\r\n  text-align: center;\r\n  padding: 6px 0;\r\n  font-size: 12px;\r\n  line-height: 1.428571429;\r\n  border-radius: 15px;\r\n}\r\n\r\n/*Add animation*/\r\n.add {\r\n  animation: add .5s ease-in-out;\r\n}\r\n\r\n@keyframes add {\r\n  from {\r\n    transform: scale(0);\r\n    opacity: 0;\r\n    background: #5470B0;\r\n  }\r\n}\r\n\r\n/*Drop animation*/\r\n.drop {\r\n  animation: drop 1.2s forwards;\r\n}\r\n\r\n@keyframes drop {\r\n  0% {\r\n    transform-origin: center;\r\n    opacity: 1;\r\n  }\r\n  20% {\r\n    transform: \r\n      translate3d(0, 20px, 0)\r\n      rotate3d(0, 0, 1, -10deg);\r\n    opacity: 1;\r\n  }\r\n  40%, 45% {\r\n    transform: \r\n      translate3d(0, -120px, 0)\r\n      rotate3d(0, 0, 1, 10deg);\r\n    opacity: 1;\r\n  }\r\n  to {\r\n    opacity: 0;\r\n    transform: \r\n      translate3d(0, 2000px, 0)\r\n      rotate3d(0, 0, 1, 10deg);\r\n  }\r\n}\r\n\r\n\r\n.no-result {\r\n\tanimation-name: no-result;\r\n\t-webkit-animation-name: no-result;\t\r\n\r\n\tanimation-duration: 1s;\t\r\n\t-webkit-animation-duration: 1s;\r\n\r\n\tanimation-timing-function: ease;\t\r\n\t-webkit-animation-timing-function: ease;\t\r\n\r\n\tvisibility: visible !important;\t\t\t\t\t\t\r\n}\r\n\r\n@keyframes no-result {\r\n\t0% {\r\n\t\ttransform: translateY(-100%);\r\n\t}\r\n\t50%{\r\n\t\ttransform: translateY(8%);\r\n\t}\r\n\t65%{\r\n\t\ttransform: translateY(-4%);\r\n\t}\r\n\t80%{\r\n\t\ttransform: translateY(4%);\r\n\t}\r\n\t95%{\r\n\t\ttransform: translateY(-2%);\r\n\t}\t\t\t\r\n\t100% {\r\n\t\ttransform: translateY(0%);\r\n\t}\t\t\r\n}\r\n\r\n@-webkit-keyframes no-result {\r\n\t0% {\r\n\t\t-webkit-transform: translateY(-100%);\r\n\t}\r\n\t50%{\r\n\t\t-webkit-transform: translateY(8%);\r\n\t}\r\n\t65%{\r\n\t\t-webkit-transform: translateY(-4%);\r\n\t}\r\n\t80%{\r\n\t\t-webkit-transform: translateY(4%);\r\n\t}\r\n\t95%{\r\n\t\t-webkit-transform: translateY(-2%);\r\n\t}\t\t\t\r\n\t100% {\r\n\t\t-webkit-transform: translateY(0%);\r\n\t}\t\r\n}", ""]);
 
 
 /***/ }),
-/* 11 */
+/* 15 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -1170,10 +1336,10 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 12 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var content = __webpack_require__(10);
+var content = __webpack_require__(14);
 
 if (typeof content === 'string') {
   content = [[module.i, content, '']];
@@ -1192,7 +1358,7 @@ if (content.locals) {
 
 
 /***/ }),
-/* 13 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {/* 
@@ -1238,46 +1404,28 @@ function now(){
     return now.last = time > last ? time : last + 1;
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports) {
-
-module.exports = require("@fortawesome/fontawesome-svg-core");
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports) {
-
-module.exports = require("@fortawesome/free-solid-svg-icons");
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports) {
-
-module.exports = require("@fortawesome/react-fontawesome");
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports) {
-
-module.exports = require("react");
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(15)))
 
 /***/ }),
 /* 18 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-bootstrap");
+module.exports = require("@fortawesome/fontawesome-svg-core");
 
 /***/ }),
 /* 19 */
 /***/ (function(module, exports) {
 
-module.exports = require("sweetalert2");
+module.exports = require("@fortawesome/free-solid-svg-icons");
 
 /***/ }),
 /* 20 */
+/***/ (function(module, exports) {
+
+module.exports = require("sweetalert2");
+
+/***/ }),
+/* 21 */
 /***/ (function(module, exports) {
 
 module.exports = require("sweetalert2-react-content");

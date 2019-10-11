@@ -1,13 +1,17 @@
 import { 
   faPlus,
   faTrash,
-  faEdit
+  faEdit,
+  faCheck,
+  faTimes
 } from '@fortawesome/free-solid-svg-icons';
 
 const icons = [ 
   faPlus,
   faTrash,
-  faEdit
+  faEdit,
+  faCheck,
+  faTimes
 ];
 
 export default icons;

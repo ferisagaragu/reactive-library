@@ -3,6 +3,7 @@ import { Table, Button } from 'react-bootstrap';
 import { key } from '../key/key.reactive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { alertQuestion } from '../swal/swal.reactive';
+import { TableFormReactive } from './table-form.reactive';
 import './table.css'
 
 let metaDataHead = { };
@@ -90,32 +91,42 @@ export class TableReactive extends Component {
           outRow.push(this.renderActions(element));
         }
 
+        //Render para cuando se elimina un elemento
         if (elementDrop) {
-          if (elementDrop.uid === element.uid) {
-            const { indexDrop } = this.state;
-
-            out.push(
-              <tr 
-                className="drop" 
-                key={ key() }
-                onAnimationEnd={ () => this.onDropAnimationEnd(indexDrop) }
-              >
-                { outRow }
-              </tr>
-            );
-          } else {
-            out.push(<tr key={ key() }>{ outRow }</tr>);
-          }
+          this.renderOnDrop(element, outRow, out);
         } else {
           out.push(<tr key={ key() }>{ outRow }</tr>);
         }
       });
+
+      out.push(<TableFormReactive key={ key() } formData={ metaDataHead } />);
 
       if (!error) {
         return out;
       }
     }
   }
+
+  renderOnDrop(element, outRow, out) {
+    const { elementDrop, indexDrop } = this.state;
+
+    if (elementDrop.uid === element.uid) {
+      out.push(
+        <tr 
+          className="drop" 
+          key={ key() }
+          onAnimationEnd={ () => this.onDropAnimationEnd(indexDrop) }
+        >
+          { outRow }
+        </tr>
+      );
+    } else {
+      out.push(<tr key={ key() }>{ outRow }</tr>);
+    }
+  }
+
+
+
 
   renderActions(elementSelect) {
     const { drop, edit } = this.props;
@@ -189,8 +200,10 @@ export class TableReactive extends Component {
     this.setState({ elementDrop: null, indexDrop: -1 });
   }
 
+
+  
   render() {
-    const { className, create, onCreate, tableData } = this.props;
+    const { className, create, onCreate, tableData, noTableData } = this.props;
     
     return (
       <div>
@@ -220,12 +233,13 @@ export class TableReactive extends Component {
             }
           </tbody>
         </Table>
-
+        
         {
-          !tableData &&
-            <div className="text-center">
-              No hay datos para mostrar
-            </div>
+          tableData &&
+            tableData.length === 0 &&
+              <div className="text-center no-result">
+                { noTableData }
+              </div>
         }
       </div>
     );
