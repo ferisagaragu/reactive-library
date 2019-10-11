@@ -608,17 +608,23 @@ var TableReactive = exports.TableReactive = function (_Component) {
 
     _this.state = {
       elementDrop: null,
-      indexDrop: -1
+      indexDrop: -1,
+      form: []
     };
 
     formRef = _react2.default.createRef();
     return _this;
   }
 
-  //RENDERS
-
-
   _createClass(TableReactive, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.setState({ form: form });
+    }
+
+    //RENDERS
+
+  }, {
     key: 'renderHeader',
     value: function renderHeader() {
       var _props = this.props,
@@ -630,6 +636,7 @@ var TableReactive = exports.TableReactive = function (_Component) {
 
       if (header) {
         var out = [];
+        form = [];
 
         for (var jsonKey in header) {
           if (header.hasOwnProperty(jsonKey)) {
@@ -649,7 +656,8 @@ var TableReactive = exports.TableReactive = function (_Component) {
               placeholder: '',
               required: true,
               type: 'text',
-              value: 'La mera vena'
+              value: '',
+              error: false
             });
           }
         }
@@ -731,9 +739,13 @@ var TableReactive = exports.TableReactive = function (_Component) {
           }
         });
 
-        out.push(_react2.default.createElement(_formTable.FormTableReactive, { key: (0, _key.key)(), formData: form, onApproved: function onApproved() {
+        out.push(_react2.default.createElement(_formTable.FormTableReactive, {
+          key: (0, _key.key)(),
+          formData: this.state.form,
+          onApproved: function onApproved() {
             return _this2.onSubmitForm();
-          } }));
+          }
+        }));
 
         if (!error) {
           return out;
@@ -866,18 +878,26 @@ var TableReactive = exports.TableReactive = function (_Component) {
     value: function onSubmitForm() {
       var formElemets = formRef.current.getElementsByTagName('input');
       var outData = {};
+      var error = false;
 
       for (var i = 0; i < formElemets.length; i++) {
         var item = formElemets.item(i);
+
         if (item.value) {
           outData[item.name] = item.value;
-          item.classList.remove('error-field');
+          form[i].value = item.value;
         } else {
           item.classList.add('error-field');
+          form[i].error = true;
+          error = true;
         }
       }
 
-      console.log(outData);
+      if (error) {
+        this.setState({ form: form });
+      } else {
+        console.log(outData);
+      }
     }
   }, {
     key: 'render',
@@ -1399,7 +1419,8 @@ var FormTableReactive = exports.FormTableReactive = function (_Component) {
             placeholder: inputElement.placeholder,
             required: inputElement.required,
             type: inputElement.type,
-            value: ''
+            value: inputElement.value,
+            error: inputElement.error
           });
         }),
         _react2.default.createElement(
@@ -1458,7 +1479,7 @@ var InputTable = exports.InputTable = function (_Component) {
 
     _this.state = {
       value: _this.props.value,
-      error: ''
+      error: _this.props.error ? 'error-field' : ''
     };
     return _this;
   }

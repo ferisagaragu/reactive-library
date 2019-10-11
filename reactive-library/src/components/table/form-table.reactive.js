@@ -8,7 +8,7 @@ export class FormTableReactive extends Component {
 
   constructor(props) {
     super(props);
-
+    
     this.state = { 
       renderForm: this.props.formData
     };
@@ -29,7 +29,8 @@ export class FormTableReactive extends Component {
                 placeholder={ inputElement.placeholder }
                 required={ inputElement.required }
                 type={ inputElement.type }
-                value=""
+                value={ inputElement.value }
+                error={ inputElement.error }
               />
             ))
         }

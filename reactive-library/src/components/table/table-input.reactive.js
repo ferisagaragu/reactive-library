@@ -7,7 +7,7 @@ export class InputTable extends Component {
 
     this.state = {
       value: this.props.value,
-      error: ''
+      error: this.props.error ? 'error-field' : ''
     }
   }
 

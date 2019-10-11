@@ -7,7 +7,7 @@ import { FormTableReactive } from './form-table.reactive';
 import './table.css'
 
 let metaDataHead = { };
-const form = [];
+let form = [];
 let formRef = null;
 
 export class TableReactive extends Component {
@@ -17,10 +17,15 @@ export class TableReactive extends Component {
 
     this.state = {
       elementDrop: null,
-      indexDrop: -1
+      indexDrop: -1,
+      form: []
     }
 
     formRef = React.createRef();
+  }
+
+  componentDidMount() {
+    this.setState({ form });
   }
 
   //RENDERS
@@ -29,6 +34,7 @@ export class TableReactive extends Component {
     
     if (header) {
       const out = [];
+      form = [];
     
       for (var jsonKey in header) {
         if (header.hasOwnProperty(jsonKey)) {
@@ -48,7 +54,8 @@ export class TableReactive extends Component {
             placeholder: '',
             required: true,
             type: 'text',
-            value: 'La mera vena'
+            value: '',
+            error: false
           });
         }
       }
@@ -111,7 +118,13 @@ export class TableReactive extends Component {
         }
       });
 
-      out.push(<FormTableReactive key={ key() } formData={ form } onApproved={ () => this.onSubmitForm() } />);
+      out.push(
+        <FormTableReactive 
+          key={ key() } 
+          formData={ this.state.form } 
+          onApproved={ () => this.onSubmitForm() } 
+        />
+      );
 
       if (!error) {
         return out;
@@ -215,18 +228,26 @@ export class TableReactive extends Component {
   onSubmitForm() {
     const formElemets = formRef.current.getElementsByTagName('input');
     let outData = { };
+    let error = false;
 
     for(var i = 0 ; i < formElemets.length ; i++){
       var item = formElemets.item(i);
+
       if (item.value) {
         outData[item.name] = item.value;
-        item.classList.remove('error-field');
+        form[i].value = item.value;
       } else {
         item.classList.add('error-field');
+        form[i].error = true;
+        error = true;
       }
     }
 
-    console.log(outData);
+    if (error) {
+      this.setState({ form })
+    } else {
+      console.log(outData);
+    }
   }
   
   render() {
