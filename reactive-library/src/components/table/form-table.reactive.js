@@ -3,7 +3,7 @@ import { key } from '../key/key.reactive';
 import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export class TableFormReactive extends Component {
+export class FormTableReactive extends Component {
 
   constructor(props) {
     super(props);

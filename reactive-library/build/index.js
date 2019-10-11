@@ -582,7 +582,7 @@ var _reactFontawesome = __webpack_require__(4);
 
 var _swal = __webpack_require__(1);
 
-var _tableForm = __webpack_require__(10);
+var _formTable = __webpack_require__(22);
 
 __webpack_require__(16);
 
@@ -719,7 +719,7 @@ var TableReactive = exports.TableReactive = function (_Component) {
           }
         });
 
-        out.push(_react2.default.createElement(_tableForm.TableFormReactive, { key: (0, _key.key)(), formData: metaDataHead }));
+        out.push(_react2.default.createElement(_formTable.FormTableReactive, { key: (0, _key.key)(), formData: metaDataHead }));
 
         if (!error) {
           return out;
@@ -943,139 +943,7 @@ if (content.locals) {
 
 
 /***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.TableFormReactive = undefined;
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(5);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _key = __webpack_require__(0);
-
-var _reactBootstrap = __webpack_require__(6);
-
-var _reactFontawesome = __webpack_require__(4);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var TableFormReactive = exports.TableFormReactive = function (_Component) {
-  _inherits(TableFormReactive, _Component);
-
-  function TableFormReactive(props) {
-    _classCallCheck(this, TableFormReactive);
-
-    var _this = _possibleConstructorReturn(this, (TableFormReactive.__proto__ || Object.getPrototypeOf(TableFormReactive)).call(this, props));
-
-    var formData = _this.props.formData;
-
-    var form = {};
-
-    for (var jsonKey in formData) {
-      if (formData.hasOwnProperty(jsonKey)) {
-        form[jsonKey] = '';
-      }
-    }
-
-    _this.state = _extends({}, form, {
-      renderForm: null,
-      trick: 0
-    });
-    return _this;
-  }
-
-  _createClass(TableFormReactive, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      var _this2 = this;
-
-      var formData = this.props.formData;
-
-      var form = [];
-
-      for (var jsonKey in formData) {
-        if (formData.hasOwnProperty(jsonKey)) {
-          form.push(_react2.default.createElement(
-            'td',
-            { key: (0, _key.key)() },
-            _react2.default.createElement('input', {
-              id: jsonKey,
-              className: 'form-control',
-              type: 'text',
-              value: this.state.name,
-              onChange: function onChange(evt) {
-                return _this2.onChangeInput(evt);
-              }
-            })
-          ));
-        }
-      }
-
-      this.setState({ renderForm: form });
-    }
-  }, {
-    key: 'onChangeInput',
-    value: function onChangeInput(evt) {
-      console.log(this.state);
-      this.setState({ name: evt.target.value });
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var renderForm = this.state.renderForm;
-
-
-      return _react2.default.createElement(
-        'tr',
-        null,
-        renderForm,
-        _react2.default.createElement(
-          'td',
-          { className: 'text-center' },
-          _react2.default.createElement(
-            _reactBootstrap.Button,
-            {
-              key: (0, _key.key)(),
-              className: 'btn-circle mr-3',
-              variant: 'outline-success'
-            },
-            _react2.default.createElement(_reactFontawesome.FontAwesomeIcon, { icon: 'check' })
-          ),
-          _react2.default.createElement(
-            _reactBootstrap.Button,
-            {
-              key: (0, _key.key)(),
-              className: 'btn-circle',
-              variant: 'outline-danger'
-            },
-            _react2.default.createElement(_reactFontawesome.FontAwesomeIcon, { icon: 'times' })
-          )
-        )
-      );
-    }
-  }]);
-
-  return TableFormReactive;
-}(_react.Component);
-
-/***/ }),
+/* 10 */,
 /* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1429,6 +1297,139 @@ module.exports = require("sweetalert2");
 /***/ (function(module, exports) {
 
 module.exports = require("sweetalert2-react-content");
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.FormTableReactive = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _key = __webpack_require__(0);
+
+var _reactBootstrap = __webpack_require__(6);
+
+var _reactFontawesome = __webpack_require__(4);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var FormTableReactive = exports.FormTableReactive = function (_Component) {
+  _inherits(FormTableReactive, _Component);
+
+  function FormTableReactive(props) {
+    _classCallCheck(this, FormTableReactive);
+
+    var _this = _possibleConstructorReturn(this, (FormTableReactive.__proto__ || Object.getPrototypeOf(FormTableReactive)).call(this, props));
+
+    var formData = _this.props.formData;
+
+    var form = {};
+
+    for (var jsonKey in formData) {
+      if (formData.hasOwnProperty(jsonKey)) {
+        form[jsonKey] = '';
+      }
+    }
+
+    _this.state = _extends({}, form, {
+      renderForm: null,
+      trick: 0
+    });
+    return _this;
+  }
+
+  _createClass(FormTableReactive, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      var formData = this.props.formData;
+
+      var form = [];
+
+      for (var jsonKey in formData) {
+        if (formData.hasOwnProperty(jsonKey)) {
+          form.push(_react2.default.createElement(
+            'td',
+            { key: (0, _key.key)() },
+            _react2.default.createElement('input', {
+              id: jsonKey,
+              className: 'form-control',
+              type: 'text',
+              value: this.state.name,
+              onChange: function onChange(evt) {
+                return _this2.onChangeInput(evt);
+              }
+            })
+          ));
+        }
+      }
+
+      this.setState({ renderForm: form });
+    }
+  }, {
+    key: 'onChangeInput',
+    value: function onChangeInput(evt) {
+      console.log(this.state);
+      this.setState({ name: evt.target.value });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var renderForm = this.state.renderForm;
+
+
+      return _react2.default.createElement(
+        'tr',
+        null,
+        renderForm,
+        _react2.default.createElement(
+          'td',
+          { className: 'text-center' },
+          _react2.default.createElement(
+            _reactBootstrap.Button,
+            {
+              key: (0, _key.key)(),
+              className: 'btn-circle mr-3',
+              variant: 'outline-success'
+            },
+            _react2.default.createElement(_reactFontawesome.FontAwesomeIcon, { icon: 'check' })
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Button,
+            {
+              key: (0, _key.key)(),
+              className: 'btn-circle',
+              variant: 'outline-danger'
+            },
+            _react2.default.createElement(_reactFontawesome.FontAwesomeIcon, { icon: 'times' })
+          )
+        )
+      );
+    }
+  }]);
+
+  return FormTableReactive;
+}(_react.Component);
 
 /***/ })
 /******/ ]);

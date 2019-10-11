@@ -3,7 +3,7 @@ import { Table, Button } from 'react-bootstrap';
 import { key } from '../key/key.reactive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { alertQuestion } from '../swal/swal.reactive';
-import { TableFormReactive } from './table-form.reactive';
+import { FormTableReactive } from './form-table.reactive';
 import './table.css'
 
 let metaDataHead = { };
@@ -99,7 +99,7 @@ export class TableReactive extends Component {
         }
       });
 
-      out.push(<TableFormReactive key={ key() } formData={ metaDataHead } />);
+      out.push(<FormTableReactive key={ key() } formData={ metaDataHead } />);
 
       if (!error) {
         return out;
