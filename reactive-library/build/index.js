@@ -595,6 +595,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var metaDataHead = {};
+var form = [];
+var formRef = null;
 
 var TableReactive = exports.TableReactive = function (_Component) {
   _inherits(TableReactive, _Component);
@@ -608,6 +610,8 @@ var TableReactive = exports.TableReactive = function (_Component) {
       elementDrop: null,
       indexDrop: -1
     };
+
+    formRef = _react2.default.createRef();
     return _this;
   }
 
@@ -639,6 +643,14 @@ var TableReactive = exports.TableReactive = function (_Component) {
               name: jsonKey,
               type: header[jsonKey].type.name.toLocaleLowerCase()
             };
+
+            form.push({
+              name: jsonKey,
+              placeholder: '',
+              required: true,
+              type: 'text',
+              value: 'La mera vena'
+            });
           }
         }
 
@@ -719,7 +731,9 @@ var TableReactive = exports.TableReactive = function (_Component) {
           }
         });
 
-        out.push(_react2.default.createElement(_formTable.FormTableReactive, { key: (0, _key.key)(), formData: metaDataHead }));
+        out.push(_react2.default.createElement(_formTable.FormTableReactive, { key: (0, _key.key)(), formData: form, onApproved: function onApproved() {
+            return _this2.onSubmitForm();
+          } }));
 
         if (!error) {
           return out;
@@ -848,6 +862,24 @@ var TableReactive = exports.TableReactive = function (_Component) {
       this.setState({ elementDrop: null, indexDrop: -1 });
     }
   }, {
+    key: 'onSubmitForm',
+    value: function onSubmitForm() {
+      var formElemets = formRef.current.getElementsByTagName('input');
+      var outData = {};
+
+      for (var i = 0; i < formElemets.length; i++) {
+        var item = formElemets.item(i);
+        if (item.value) {
+          outData[item.name] = item.value;
+          item.classList.remove('error-field');
+        } else {
+          item.classList.add('error-field');
+        }
+      }
+
+      console.log(outData);
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _props5 = this.props,
@@ -877,17 +909,21 @@ var TableReactive = exports.TableReactive = function (_Component) {
           )
         ),
         _react2.default.createElement(
-          _reactBootstrap.Table,
-          { className: className, responsive: true },
+          'div',
+          { ref: formRef },
           _react2.default.createElement(
-            'thead',
-            null,
-            this.renderHeader()
-          ),
-          _react2.default.createElement(
-            'tbody',
-            null,
-            this.renderBody()
+            _reactBootstrap.Table,
+            { className: className, responsive: true },
+            _react2.default.createElement(
+              'thead',
+              null,
+              this.renderHeader()
+            ),
+            _react2.default.createElement(
+              'tbody',
+              null,
+              this.renderBody()
+            )
           )
         ),
         tableData && tableData.length === 0 && _react2.default.createElement(
@@ -1010,7 +1046,7 @@ exports.push([module.i, "/*!\n * Bootstrap v4.3.1 (https://getbootstrap.com/)\n 
 
 exports = module.exports = __webpack_require__(2)(false);
 // Module
-exports.push([module.i, "/*Circle Button*/\r\n.btn-circle {\r\n  width: 30px;\r\n  height: 30px;\r\n  text-align: center;\r\n  padding: 6px 0;\r\n  font-size: 12px;\r\n  line-height: 1.428571429;\r\n  border-radius: 15px;\r\n}\r\n\r\n/*Add animation*/\r\n.add {\r\n  animation: add .5s ease-in-out;\r\n}\r\n\r\n@keyframes add {\r\n  from {\r\n    transform: scale(0);\r\n    opacity: 0;\r\n    background: #5470B0;\r\n  }\r\n}\r\n\r\n/*Drop animation*/\r\n.drop {\r\n  animation: drop 1.2s forwards;\r\n}\r\n\r\n@keyframes drop {\r\n  0% {\r\n    transform-origin: center;\r\n    opacity: 1;\r\n  }\r\n  20% {\r\n    transform: \r\n      translate3d(0, 20px, 0)\r\n      rotate3d(0, 0, 1, -10deg);\r\n    opacity: 1;\r\n  }\r\n  40%, 45% {\r\n    transform: \r\n      translate3d(0, -120px, 0)\r\n      rotate3d(0, 0, 1, 10deg);\r\n    opacity: 1;\r\n  }\r\n  to {\r\n    opacity: 0;\r\n    transform: \r\n      translate3d(0, 2000px, 0)\r\n      rotate3d(0, 0, 1, 10deg);\r\n  }\r\n}\r\n\r\n\r\n.no-result {\r\n\tanimation-name: no-result;\r\n\t-webkit-animation-name: no-result;\t\r\n\r\n\tanimation-duration: 1s;\t\r\n\t-webkit-animation-duration: 1s;\r\n\r\n\tanimation-timing-function: ease;\t\r\n\t-webkit-animation-timing-function: ease;\t\r\n\r\n\tvisibility: visible !important;\t\t\t\t\t\t\r\n}\r\n\r\n@keyframes no-result {\r\n\t0% {\r\n\t\ttransform: translateY(-100%);\r\n\t}\r\n\t50%{\r\n\t\ttransform: translateY(8%);\r\n\t}\r\n\t65%{\r\n\t\ttransform: translateY(-4%);\r\n\t}\r\n\t80%{\r\n\t\ttransform: translateY(4%);\r\n\t}\r\n\t95%{\r\n\t\ttransform: translateY(-2%);\r\n\t}\t\t\t\r\n\t100% {\r\n\t\ttransform: translateY(0%);\r\n\t}\t\t\r\n}\r\n\r\n@-webkit-keyframes no-result {\r\n\t0% {\r\n\t\t-webkit-transform: translateY(-100%);\r\n\t}\r\n\t50%{\r\n\t\t-webkit-transform: translateY(8%);\r\n\t}\r\n\t65%{\r\n\t\t-webkit-transform: translateY(-4%);\r\n\t}\r\n\t80%{\r\n\t\t-webkit-transform: translateY(4%);\r\n\t}\r\n\t95%{\r\n\t\t-webkit-transform: translateY(-2%);\r\n\t}\t\t\t\r\n\t100% {\r\n\t\t-webkit-transform: translateY(0%);\r\n\t}\t\r\n}", ""]);
+exports.push([module.i, "/*Circle Button*/\r\n.btn-circle {\r\n  width: 30px;\r\n  height: 30px;\r\n  text-align: center;\r\n  padding: 6px 0;\r\n  font-size: 12px;\r\n  line-height: 1.428571429;\r\n  border-radius: 15px;\r\n}\r\n\r\n/*Field animation*/ \r\n.error-field {\r\n\tanimation: error-field 0.2s ease-in-out 0s 2;\r\n\tbox-shadow: 0 0 0.5em #F44336;\r\n}\r\n\r\n@keyframes error-field {\r\n\t0% { margin-left: 0rem; }\r\n\t25% { margin-left: 0.5rem; }\r\n\t75% { margin-left: -0.5rem; }\r\n\t100% { margin-left: 0rem; }\r\n}\r\n\r\n/*Add animation*/\r\n.add {\r\n  animation: add .5s ease-in-out;\r\n}\r\n\r\n@keyframes add {\r\n  from {\r\n    transform: scale(0);\r\n    opacity: 0;\r\n    background: #5470B0;\r\n  }\r\n}\r\n\r\n/*Drop animation*/\r\n.drop {\r\n  animation: drop 1.2s forwards;\r\n}\r\n\r\n@keyframes drop {\r\n  0% {\r\n    transform-origin: center;\r\n    opacity: 1;\r\n  }\r\n  20% {\r\n    transform: \r\n      translate3d(0, 20px, 0)\r\n      rotate3d(0, 0, 1, -10deg);\r\n    opacity: 1;\r\n  }\r\n  40%, 45% {\r\n    transform: \r\n      translate3d(0, -120px, 0)\r\n      rotate3d(0, 0, 1, 10deg);\r\n    opacity: 1;\r\n  }\r\n  to {\r\n    opacity: 0;\r\n    transform: \r\n      translate3d(0, 2000px, 0)\r\n      rotate3d(0, 0, 1, 10deg);\r\n  }\r\n}\r\n\r\n\r\n.no-result {\r\n\tanimation-name: no-result;\r\n\t-webkit-animation-name: no-result;\t\r\n\r\n\tanimation-duration: 1s;\t\r\n\t-webkit-animation-duration: 1s;\r\n\r\n\tanimation-timing-function: ease;\t\r\n\t-webkit-animation-timing-function: ease;\t\r\n\r\n\tvisibility: visible !important;\t\t\t\t\t\t\r\n}\r\n\r\n@keyframes no-result {\r\n\t0% {\r\n\t\ttransform: translateY(-100%);\r\n\t}\r\n\t50%{\r\n\t\ttransform: translateY(8%);\r\n\t}\r\n\t65%{\r\n\t\ttransform: translateY(-4%);\r\n\t}\r\n\t80%{\r\n\t\ttransform: translateY(4%);\r\n\t}\r\n\t95%{\r\n\t\ttransform: translateY(-2%);\r\n\t}\t\t\t\r\n\t100% {\r\n\t\ttransform: translateY(0%);\r\n\t}\t\t\r\n}\r\n\r\n@-webkit-keyframes no-result {\r\n\t0% {\r\n\t\t-webkit-transform: translateY(-100%);\r\n\t}\r\n\t50%{\r\n\t\t-webkit-transform: translateY(8%);\r\n\t}\r\n\t65%{\r\n\t\t-webkit-transform: translateY(-4%);\r\n\t}\r\n\t80%{\r\n\t\t-webkit-transform: translateY(4%);\r\n\t}\r\n\t95%{\r\n\t\t-webkit-transform: translateY(-2%);\r\n\t}\t\t\t\r\n\t100% {\r\n\t\t-webkit-transform: translateY(0%);\r\n\t}\t\r\n}", ""]);
 
 
 /***/ }),
@@ -1310,8 +1346,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.FormTableReactive = undefined;
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(5);
@@ -1323,6 +1357,8 @@ var _key = __webpack_require__(0);
 var _reactBootstrap = __webpack_require__(6);
 
 var _reactFontawesome = __webpack_require__(4);
+
+var _tableInput = __webpack_require__(23);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1340,88 +1376,43 @@ var FormTableReactive = exports.FormTableReactive = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (FormTableReactive.__proto__ || Object.getPrototypeOf(FormTableReactive)).call(this, props));
 
-    var formData = _this.props.formData;
-
-    var form = {};
-
-    for (var jsonKey in formData) {
-      if (formData.hasOwnProperty(jsonKey)) {
-        form[jsonKey] = '';
-      }
-    }
-
-    _this.state = _extends({}, form, {
-      renderForm: null,
-      trick: 0
-    });
+    _this.state = {
+      renderForm: _this.props.formData
+    };
     return _this;
   }
 
   _createClass(FormTableReactive, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      var _this2 = this;
-
-      var formData = this.props.formData;
-
-      var form = [];
-
-      for (var jsonKey in formData) {
-        if (formData.hasOwnProperty(jsonKey)) {
-          form.push(_react2.default.createElement(
-            'td',
-            { key: (0, _key.key)() },
-            _react2.default.createElement('input', {
-              id: jsonKey,
-              className: 'form-control',
-              type: 'text',
-              value: this.state.name,
-              onChange: function onChange(evt) {
-                return _this2.onChangeInput(evt);
-              }
-            })
-          ));
-        }
-      }
-
-      this.setState({ renderForm: form });
-    }
-  }, {
-    key: 'onChangeInput',
-    value: function onChangeInput(evt) {
-      console.log(this.state);
-      this.setState({ name: evt.target.value });
-    }
-  }, {
     key: 'render',
     value: function render() {
       var renderForm = this.state.renderForm;
+      var onApproved = this.props.onApproved;
 
 
       return _react2.default.createElement(
         'tr',
         null,
-        renderForm,
+        renderForm && renderForm.map(function (inputElement) {
+          return _react2.default.createElement(_tableInput.InputTable, {
+            key: (0, _key.key)(),
+            name: inputElement.name,
+            placeholder: inputElement.placeholder,
+            required: inputElement.required,
+            type: inputElement.type,
+            value: ''
+          });
+        }),
         _react2.default.createElement(
           'td',
-          { className: 'text-center' },
+          null,
           _react2.default.createElement(
             _reactBootstrap.Button,
             {
-              key: (0, _key.key)(),
-              className: 'btn-circle mr-3',
-              variant: 'outline-success'
+              onClick: function onClick() {
+                return onApproved();
+              }
             },
-            _react2.default.createElement(_reactFontawesome.FontAwesomeIcon, { icon: 'check' })
-          ),
-          _react2.default.createElement(
-            _reactBootstrap.Button,
-            {
-              key: (0, _key.key)(),
-              className: 'btn-circle',
-              variant: 'outline-danger'
-            },
-            _react2.default.createElement(_reactFontawesome.FontAwesomeIcon, { icon: 'times' })
+            'Enviar'
           )
         )
       );
@@ -1429,6 +1420,92 @@ var FormTableReactive = exports.FormTableReactive = function (_Component) {
   }]);
 
   return FormTableReactive;
+}(_react.Component);
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.InputTable = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var InputTable = exports.InputTable = function (_Component) {
+  _inherits(InputTable, _Component);
+
+  function InputTable(props) {
+    _classCallCheck(this, InputTable);
+
+    var _this = _possibleConstructorReturn(this, (InputTable.__proto__ || Object.getPrototypeOf(InputTable)).call(this, props));
+
+    _this.state = {
+      value: _this.props.value,
+      error: ''
+    };
+    return _this;
+  }
+
+  _createClass(InputTable, [{
+    key: 'onChange',
+    value: function onChange(evt) {
+      if (evt.target.value) {
+        this.setState({ value: evt.target.value, error: '' });
+      } else {
+        this.setState({ value: evt.target.value, error: 'error-field' });
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var _props = this.props,
+          type = _props.type,
+          name = _props.name,
+          required = _props.required,
+          placeholder = _props.placeholder;
+      var _state = this.state,
+          value = _state.value,
+          error = _state.error;
+
+
+      return _react2.default.createElement(
+        'td',
+        null,
+        _react2.default.createElement('input', {
+          className: 'form-control ' + error,
+          type: type,
+          name: name,
+          required: required,
+          placeholder: placeholder,
+          onChange: function onChange(evt) {
+            return _this2.onChange(evt);
+          },
+          value: value
+        })
+      );
+    }
+  }]);
+
+  return InputTable;
 }(_react.Component);
 
 /***/ })

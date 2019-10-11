@@ -62,6 +62,8 @@ function App() {
         
         onCreate={ () => { console.log('action') } }
 
+        onEdit={ () => { } }
+
         dropAlertTitle="Borrar elemento"
         dropAlertText="¿Deseas borrar el elemento ?"
         onDrop={ (element) => { console.log(element) } }

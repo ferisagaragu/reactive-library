@@ -7,6 +7,8 @@ import { FormTableReactive } from './form-table.reactive';
 import './table.css'
 
 let metaDataHead = { };
+const form = [];
+let formRef = null;
 
 export class TableReactive extends Component {
   
@@ -17,6 +19,8 @@ export class TableReactive extends Component {
       elementDrop: null,
       indexDrop: -1
     }
+
+    formRef = React.createRef();
   }
 
   //RENDERS
@@ -25,7 +29,7 @@ export class TableReactive extends Component {
     
     if (header) {
       const out = [];
-
+    
       for (var jsonKey in header) {
         if (header.hasOwnProperty(jsonKey)) {
           out.push(
@@ -38,6 +42,14 @@ export class TableReactive extends Component {
             name: jsonKey,
             type: header[jsonKey].type.name.toLocaleLowerCase()
           };
+
+          form.push({
+            name: jsonKey,
+            placeholder: '',
+            required: true,
+            type: 'text',
+            value: 'La mera vena'
+          });
         }
       }
 
@@ -99,7 +111,7 @@ export class TableReactive extends Component {
         }
       });
 
-      out.push(<FormTableReactive key={ key() } formData={ metaDataHead } />);
+      out.push(<FormTableReactive key={ key() } formData={ form } onApproved={ () => this.onSubmitForm() } />);
 
       if (!error) {
         return out;
@@ -200,7 +212,22 @@ export class TableReactive extends Component {
     this.setState({ elementDrop: null, indexDrop: -1 });
   }
 
+  onSubmitForm() {
+    const formElemets = formRef.current.getElementsByTagName('input');
+    let outData = { };
 
+    for(var i = 0 ; i < formElemets.length ; i++){
+      var item = formElemets.item(i);
+      if (item.value) {
+        outData[item.name] = item.value;
+        item.classList.remove('error-field');
+      } else {
+        item.classList.add('error-field');
+      }
+    }
+
+    console.log(outData);
+  }
   
   render() {
     const { className, create, onCreate, tableData, noTableData } = this.props;
@@ -219,20 +246,22 @@ export class TableReactive extends Component {
               </Button>
           }
         </div>
+        
+        <div ref={ formRef } >
+          <Table className={ className } responsive>
+            <thead>
+              {
+                this.renderHeader()
+              }
+            </thead>
 
-        <Table className={ className } responsive>
-          <thead>
-            {
-              this.renderHeader()
-            }
-          </thead>
-
-          <tbody>
-            {
-              this.renderBody()
-            }
-          </tbody>
-        </Table>
+            <tbody>
+              {
+                this.renderBody()
+              }
+            </tbody>
+          </Table>
+        </div>
         
         {
           tableData &&

@@ -1,19 +1,40 @@
 import React, { Component } from 'react';
 
 export class InputTable extends Component {
-	render() {
-		const { type, name, required, placeholder, _handleChange } = this.props;
+  
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      value: this.props.value,
+      error: ''
+    }
+  }
+
+  onChange(evt) {
+    if (evt.target.value) {
+      this.setState({ value: evt.target.value, error: '' });
+    } else {
+      this.setState({ value: evt.target.value, error: 'error-field' });
+    }
+  }
+  
+  render() {
+    const { type, name, required, placeholder } = this.props;
+    const { value, error } = this.state;
 
 		return (
-			<div>
-				<input 
+			<td>
+				<input
+          className={ `form-control ${error}` }
 					type={ type }
 					name={ name }
 					required={ required }
 					placeholder={ placeholder }
-					onChange={ _handleChange }
+          onChange={ (evt) => this.onChange(evt) }
+          value={ value }
 				/>
-			</div>
+			</td>
 		);
 	}
 }
