@@ -55,8 +55,8 @@ function App() {
             },
             {
               uid: key(),
-              name: 'Juan rulfo 3',
-              direccion: 'Platon 12',
+              name: 'Hola',
+              direccion: 'Ñostra',
               description: 'Es alto',
               total: 500
             }
@@ -71,7 +71,8 @@ function App() {
         create
 
         search
-        //searchPlaceholder="Buscar..."
+        searchPlaceholder="Buscar..."
+        noSearchResult="No se encontraron resultados"
 
         onCreate={ (element) => { console.log(element) } }
         onEdit={ (element) => { console.log(element) }  }

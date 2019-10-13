@@ -608,7 +608,7 @@ var TableReactive = exports.TableReactive = function (_Component) {
     _this.state = {
       headerRender: null,
       tableData: _this.props.tableData,
-      tableDataSearch: {},
+      isSearch: true,
       createMode: false,
       elementCreated: {},
       createEdited: false,
@@ -872,6 +872,7 @@ var TableReactive = exports.TableReactive = function (_Component) {
       if (formData) {
         formData.uid = (0, _key.key)();
         tableData.push(formData);
+        this.props.tableData.push(formData);
         this.setState({ tableData: tableData, createMode: false, elementCreated: formData, form: form });
       }
     }
@@ -912,27 +913,35 @@ var TableReactive = exports.TableReactive = function (_Component) {
   }, {
     key: 'onEditSubmit',
     value: function onEditSubmit() {
-      var _state3 = this.state,
-          tableData = _state3.tableData,
-          elementEditedUid = _state3.elementEditedUid;
+      var tableData = this.state.tableData;
 
       var formData = this.submitForm();
 
       if (formData) {
-        tableData.map(function (element) {
-          if (elementEditedUid === element.uid) {
-            for (var jsonKey in element) {
-              if (element.hasOwnProperty(jsonKey)) {
-                if (jsonKey !== 'uid') {
-                  element[jsonKey] = formData[jsonKey];
-                }
+        var tableDataOut = this.editElemet(tableData, formData);
+        this.editElemet(this.props.tableData, formData);
+        this.setState({ tableData: tableDataOut, elementEditedAnimation: true, createEdited: false, form: form });
+      }
+    }
+  }, {
+    key: 'editElemet',
+    value: function editElemet(tableData, formData) {
+      var elementEditedUid = this.state.elementEditedUid;
+
+
+      tableData.map(function (element) {
+        if (elementEditedUid === element.uid) {
+          for (var jsonKey in element) {
+            if (element.hasOwnProperty(jsonKey)) {
+              if (jsonKey !== 'uid') {
+                element[jsonKey] = formData[jsonKey];
               }
             }
           }
-        });
+        }
+      });
 
-        this.setState({ tableData: tableData, elementEditedAnimation: true, createEdited: false, form: form });
-      }
+      return tableData;
     }
   }, {
     key: 'onAnimationEndEdit',
@@ -967,15 +976,48 @@ var TableReactive = exports.TableReactive = function (_Component) {
   }, {
     key: 'onAnimationEndDrop',
     value: function onAnimationEndDrop() {
-      var _state4 = this.state,
-          indexDrop = _state4.indexDrop,
-          tableData = _state4.tableData,
-          elementDroped = _state4.elementDroped;
+      var _state3 = this.state,
+          indexDrop = _state3.indexDrop,
+          tableData = _state3.tableData,
+          elementDroped = _state3.elementDroped;
       var onDrop = this.props.onDrop;
 
       tableData.splice(indexDrop, 1);
       onDrop(elementDroped);
       this.setState({ indexDrop: -1, elementDroped: {}, tableData: tableData });
+    }
+
+    //Search functions
+
+  }, {
+    key: 'onSearch',
+    value: function onSearch(value) {
+      if (value) {
+        var tableData = this.props.tableData;
+
+
+        var filterData = tableData.filter(function (element) {
+          var tableText = '';
+
+          for (var jsonKey in element) {
+            if (element.hasOwnProperty(jsonKey)) {
+              if (jsonKey !== 'uid') {
+                tableText += element[jsonKey];
+              }
+            }
+          }
+
+          if (tableText.toLowerCase().includes(value)) {
+            return element;
+          }
+        });
+
+        this.setState({ tableData: filterData, isSearch: true });
+      } else {
+        var _tableData = this.props.tableData;
+
+        this.setState({ tableData: _tableData, isSearch: false });
+      }
     }
 
     //Submit from function
@@ -1021,11 +1063,14 @@ var TableReactive = exports.TableReactive = function (_Component) {
       var _props5 = this.props,
           className = _props5.className,
           create = _props5.create,
-          tableData = _props5.tableData,
           noTableData = _props5.noTableData,
           search = _props5.search,
-          searchPlaceholder = _props5.searchPlaceholder;
-      var createEdited = this.state.createEdited;
+          searchPlaceholder = _props5.searchPlaceholder,
+          noSearchResult = _props5.noSearchResult;
+      var _state4 = this.state,
+          createEdited = _state4.createEdited,
+          tableData = _state4.tableData,
+          isSearch = _state4.isSearch;
 
 
       return _react2.default.createElement(
@@ -1041,7 +1086,7 @@ var TableReactive = exports.TableReactive = function (_Component) {
               className: 'input-search',
               placeholder: searchPlaceholder,
               onChange: function onChange(value) {
-                return console.log(value);
+                return _this5.onSearch(value);
               }
             })
           ),
@@ -1083,7 +1128,7 @@ var TableReactive = exports.TableReactive = function (_Component) {
         tableData && tableData.length === 0 && _react2.default.createElement(
           'div',
           { className: 'text-center no-result' },
-          noTableData
+          isSearch ? noSearchResult : noTableData
         )
       );
     }

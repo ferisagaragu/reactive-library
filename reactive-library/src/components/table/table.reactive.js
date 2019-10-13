@@ -18,7 +18,7 @@ export class TableReactive extends Component {
     this.state = {
       headerRender: null,
       tableData: this.props.tableData,
-      tableDataSearch: {},
+      isSearch: true,
       createMode: false,
       elementCreated: {},
       createEdited: false,
@@ -230,6 +230,7 @@ export class TableReactive extends Component {
     if (formData) {
       formData.uid = key();
       tableData.push(formData);
+      this.props.tableData.push(formData);
       this.setState( { tableData, createMode: false, elementCreated: formData, form } );
     }
   }
@@ -262,24 +263,32 @@ export class TableReactive extends Component {
   }
 
   onEditSubmit() {
-    const { tableData, elementEditedUid } = this.state;
+    const { tableData } = this.state;
     const formData = this.submitForm();
 
     if (formData) {
-      tableData.map(element => {
-        if (elementEditedUid === element.uid) {
-          for (var jsonKey in element) {
-            if (element.hasOwnProperty(jsonKey)) {
-              if (jsonKey !== 'uid') {
-                element[jsonKey] = formData[jsonKey];
-              }
+      const tableDataOut = this.editElemet(tableData, formData);
+      this.editElemet(this.props.tableData, formData);
+      this.setState( { tableData: tableDataOut, elementEditedAnimation: true, createEdited: false, form } );
+    }
+  }
+
+  editElemet(tableData, formData) {
+    const { elementEditedUid } = this.state;
+
+    tableData.map(element => {
+      if (elementEditedUid === element.uid) {
+        for (var jsonKey in element) {
+          if (element.hasOwnProperty(jsonKey)) {
+            if (jsonKey !== 'uid') {
+              element[jsonKey] = formData[jsonKey];
             }
           }
         }
-      });
+      }
+    });
 
-      this.setState( { tableData, elementEditedAnimation: true, createEdited: false, form } );
-    }
+    return tableData;
   }
 
   onAnimationEndEdit(elementEdit) {
@@ -315,6 +324,34 @@ export class TableReactive extends Component {
     this.setState({ indexDrop: -1, elementDroped: {}, tableData });
   }
 
+  //Search functions
+  onSearch(value) {
+    if (value) {
+      const { tableData } = this.props;
+
+      const filterData = tableData.filter(element => {
+        let tableText = '';
+
+        for (var jsonKey in element) {
+          if (element.hasOwnProperty(jsonKey)) {
+            if (jsonKey !== 'uid') {
+              tableText += element[jsonKey];
+            }
+          }
+        }
+        
+        if (tableText.toLowerCase().includes(value)) {
+          return element;
+        }
+      });
+
+      this.setState({ tableData: filterData, isSearch: true });
+    } else {
+      const { tableData } = this.props;
+      this.setState({ tableData, isSearch: false });
+    }
+  }
+
   //Submit from function
   submitForm() {
     const formElemets = formRef.current.getElementsByTagName('input');
@@ -348,8 +385,8 @@ export class TableReactive extends Component {
   }
 
   render() {
-    const { className, create, tableData, noTableData, search, searchPlaceholder } = this.props;
-    const { createEdited } = this.state;
+    const { className, create, noTableData, search, searchPlaceholder, noSearchResult } = this.props;
+    const { createEdited, tableData, isSearch } = this.state;
     
     return (
       <div className={ className }>
@@ -360,7 +397,7 @@ export class TableReactive extends Component {
                 <InputSearchTable 
                   className="input-search" 
                   placeholder={ searchPlaceholder }
-                  onChange={ (value) => console.log(value) }
+                  onChange={ (value) => this.onSearch(value) }
                 />
             }
           </Col>
@@ -400,7 +437,7 @@ export class TableReactive extends Component {
           tableData &&
             tableData.length === 0 &&
               <div className="text-center no-result">
-                { noTableData }
+                { isSearch ? noSearchResult : noTableData }
               </div>
         }
       </div>
