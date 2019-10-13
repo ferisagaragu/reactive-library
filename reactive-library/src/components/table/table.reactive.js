@@ -18,6 +18,7 @@ export class TableReactive extends Component {
     this.state = {
       headerRender: null,
       tableData: this.props.tableData,
+      tableDataSearch: {},
       createMode: false,
       elementCreated: {},
       createEdited: false,
@@ -347,7 +348,7 @@ export class TableReactive extends Component {
   }
 
   render() {
-    const { className, create, tableData, noTableData, search } = this.props;
+    const { className, create, tableData, noTableData, search, searchPlaceholder } = this.props;
     const { createEdited } = this.state;
     
     return (
@@ -356,7 +357,11 @@ export class TableReactive extends Component {
           <Col md={ 11 }>
             {
               search &&
-                <InputSearchTable className="input-search" />
+                <InputSearchTable 
+                  className="input-search" 
+                  placeholder={ searchPlaceholder }
+                  onChange={ (value) => console.log(value) }
+                />
             }
           </Col>
 

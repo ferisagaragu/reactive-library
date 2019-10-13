@@ -69,8 +69,10 @@ function App() {
         drop
         edit
         create
+
         search
-        
+        //searchPlaceholder="Buscar..."
+
         onCreate={ (element) => { console.log(element) } }
         onEdit={ (element) => { console.log(element) }  }
 

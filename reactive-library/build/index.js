@@ -64,11 +64,17 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 13);
+/******/ 	return __webpack_require__(__webpack_require__.s = 14);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports) {
+
+module.exports = require("react");
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79,7 +85,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.key = undefined;
 
-var _uniqid = __webpack_require__(18);
+var _uniqid = __webpack_require__(19);
 
 var _uniqid2 = _interopRequireDefault(_uniqid);
 
@@ -88,12 +94,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var key = exports.key = function key() {
   return _uniqid2.default.process();
 };
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports) {
-
-module.exports = require("react");
 
 /***/ }),
 /* 2 */
@@ -107,11 +107,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.alertQuestion = exports.alert = exports.toast = undefined;
 
-var _sweetalert = __webpack_require__(21);
+var _sweetalert = __webpack_require__(22);
 
 var _sweetalert2 = _interopRequireDefault(_sweetalert);
 
-var _sweetalert2ReactContent = __webpack_require__(22);
+var _sweetalert2ReactContent = __webpack_require__(23);
 
 var _sweetalert2ReactContent2 = _interopRequireDefault(_sweetalert2ReactContent);
 
@@ -568,13 +568,13 @@ exports.TableReactive = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(1);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
 var _reactBootstrap = __webpack_require__(6);
 
-var _key = __webpack_require__(0);
+var _key = __webpack_require__(1);
 
 var _reactFontawesome = __webpack_require__(5);
 
@@ -582,9 +582,9 @@ var _swal = __webpack_require__(2);
 
 var _formTable = __webpack_require__(10);
 
-var _inputSearchTable = __webpack_require__(23);
+var _inputSearchTable = __webpack_require__(11);
 
-__webpack_require__(17);
+__webpack_require__(18);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -608,6 +608,7 @@ var TableReactive = exports.TableReactive = function (_Component) {
     _this.state = {
       headerRender: null,
       tableData: _this.props.tableData,
+      tableDataSearch: {},
       createMode: false,
       elementCreated: {},
       createEdited: false,
@@ -1022,7 +1023,8 @@ var TableReactive = exports.TableReactive = function (_Component) {
           create = _props5.create,
           tableData = _props5.tableData,
           noTableData = _props5.noTableData,
-          search = _props5.search;
+          search = _props5.search,
+          searchPlaceholder = _props5.searchPlaceholder;
       var createEdited = this.state.createEdited;
 
 
@@ -1035,7 +1037,13 @@ var TableReactive = exports.TableReactive = function (_Component) {
           _react2.default.createElement(
             _reactBootstrap.Col,
             { md: 11 },
-            search && _react2.default.createElement(_inputSearchTable.InputSearchTable, { className: 'input-search' })
+            search && _react2.default.createElement(_inputSearchTable.InputSearchTable, {
+              className: 'input-search',
+              placeholder: searchPlaceholder,
+              onChange: function onChange(value) {
+                return console.log(value);
+              }
+            })
           ),
           _react2.default.createElement(
             _reactBootstrap.Col,
@@ -1091,9 +1099,9 @@ var TableReactive = exports.TableReactive = function (_Component) {
 "use strict";
 
 
-var _fontawesomeSvgCore = __webpack_require__(19);
+var _fontawesomeSvgCore = __webpack_require__(20);
 
-var _fontawesome = __webpack_require__(12);
+var _fontawesome = __webpack_require__(13);
 
 var _fontawesome2 = _interopRequireDefault(_fontawesome);
 
@@ -1106,7 +1114,7 @@ _fontawesomeSvgCore.library.add(_fontawesome2.default);
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var content = __webpack_require__(14);
+var content = __webpack_require__(15);
 
 if (typeof content === 'string') {
   content = [[module.i, content, '']];
@@ -1138,17 +1146,17 @@ exports.FormTableReactive = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(1);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _key = __webpack_require__(0);
+var _key = __webpack_require__(1);
 
 var _reactBootstrap = __webpack_require__(6);
 
 var _reactFontawesome = __webpack_require__(5);
 
-var _inputTable = __webpack_require__(11);
+var _inputTable = __webpack_require__(12);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1238,11 +1246,74 @@ var FormTableReactive = exports.FormTableReactive = function (_Component) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.InputSearchTable = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var InputSearchTable = exports.InputSearchTable = function (_Component) {
+  _inherits(InputSearchTable, _Component);
+
+  function InputSearchTable(props) {
+    _classCallCheck(this, InputSearchTable);
+
+    var _this = _possibleConstructorReturn(this, (InputSearchTable.__proto__ || Object.getPrototypeOf(InputSearchTable)).call(this, props));
+
+    _this.state = {
+      value: _this.props.value
+    };
+    return _this;
+  }
+
+  _createClass(InputSearchTable, [{
+    key: "render",
+    value: function render() {
+      var _props = this.props,
+          className = _props.className,
+          placeholder = _props.placeholder,
+          _onChange = _props.onChange;
+
+
+      return _react2.default.createElement("input", {
+        className: className + " form-control",
+        type: "text",
+        placeholder: placeholder,
+        onChange: function onChange(evt) {
+          return _onChange(evt.target.value);
+        }
+      });
+    }
+  }]);
+
+  return InputSearchTable;
+}(_react.Component);
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.InputTable = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(1);
+var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -1315,7 +1386,7 @@ var InputTable = exports.InputTable = function (_Component) {
 }(_react.Component);
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1325,14 +1396,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _freeSolidSvgIcons = __webpack_require__(20);
+var _freeSolidSvgIcons = __webpack_require__(21);
 
 var icons = [_freeSolidSvgIcons.faPlus, _freeSolidSvgIcons.faTrash, _freeSolidSvgIcons.faEdit, _freeSolidSvgIcons.faCheck, _freeSolidSvgIcons.faTimes];
 
 exports.default = icons;
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1349,7 +1420,7 @@ __webpack_require__(9);
 
 var _table2 = __webpack_require__(7);
 
-var _key2 = __webpack_require__(0);
+var _key2 = __webpack_require__(1);
 
 var _swal = __webpack_require__(2);
 
@@ -1367,7 +1438,7 @@ var alertQuestion = exports.alertQuestion = _swal.alertQuestion;
 //==========================
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)(false);
@@ -1376,7 +1447,7 @@ exports.push([module.i, "/*!\n * Bootstrap v4.3.1 (https://getbootstrap.com/)\n 
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)(false);
@@ -1385,7 +1456,7 @@ exports.push([module.i, "/*Circle Button*/\r\n.btn-circle {\r\n  width: 30px;\r\
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -1575,10 +1646,10 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var content = __webpack_require__(15);
+var content = __webpack_require__(16);
 
 if (typeof content === 'string') {
   content = [[module.i, content, '']];
@@ -1597,7 +1668,7 @@ if (content.locals) {
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {/* 
@@ -1643,105 +1714,31 @@ function now(){
     return now.last = time > last ? time : last + 1;
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16)))
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports) {
-
-module.exports = require("@fortawesome/fontawesome-svg-core");
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(17)))
 
 /***/ }),
 /* 20 */
 /***/ (function(module, exports) {
 
-module.exports = require("@fortawesome/free-solid-svg-icons");
+module.exports = require("@fortawesome/fontawesome-svg-core");
 
 /***/ }),
 /* 21 */
 /***/ (function(module, exports) {
 
-module.exports = require("sweetalert2");
+module.exports = require("@fortawesome/free-solid-svg-icons");
 
 /***/ }),
 /* 22 */
 /***/ (function(module, exports) {
 
-module.exports = require("sweetalert2-react-content");
+module.exports = require("sweetalert2");
 
 /***/ }),
 /* 23 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.InputSearchTable = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var InputSearchTable = exports.InputSearchTable = function (_Component) {
-  _inherits(InputSearchTable, _Component);
-
-  function InputSearchTable(props) {
-    _classCallCheck(this, InputSearchTable);
-
-    var _this = _possibleConstructorReturn(this, (InputSearchTable.__proto__ || Object.getPrototypeOf(InputSearchTable)).call(this, props));
-
-    _this.state = {
-      value: _this.props.value
-    };
-    return _this;
-  }
-
-  _createClass(InputSearchTable, [{
-    key: 'onChange',
-    value: function onChange(evt) {
-      this.setState({ value: evt.target.value });
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _this2 = this;
-
-      var _props = this.props,
-          className = _props.className,
-          type = _props.type,
-          name = _props.name,
-          placeholder = _props.placeholder;
-      var value = this.state.value;
-
-
-      return _react2.default.createElement('input', {
-        className: className + ' form-control',
-        type: type,
-        name: name,
-        placeholder: placeholder,
-        onChange: function onChange(evt) {
-          return _this2.onChange(evt);
-        },
-        value: value
-      });
-    }
-  }]);
-
-  return InputSearchTable;
-}(_react.Component);
+module.exports = require("sweetalert2-react-content");
 
 /***/ })
 /******/ ]);
