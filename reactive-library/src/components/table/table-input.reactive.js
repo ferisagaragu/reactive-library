@@ -26,10 +26,9 @@ export class InputTable extends Component {
 		return (
 			<td>
 				<input
-          className={ `form-control ${error}` }
+          className={ `form-control ${required ? error : ''}` }
 					type={ type }
 					name={ name }
-					required={ required }
 					placeholder={ placeholder }
           onChange={ (evt) => this.onChange(evt) }
           value={ value }

@@ -4,9 +4,8 @@ import { key } from '../key/key.reactive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { alertQuestion } from '../swal/swal.reactive';
 import { FormTableReactive } from './form-table.reactive';
-import './table.css'
+import './style/table.css'
 
-let metaDataHead = { };
 let form = [];
 let formRef = null;
 
@@ -16,8 +15,17 @@ export class TableReactive extends Component {
     super(props);
 
     this.state = {
-      elementDrop: null,
+      headerRender: null,
+      tableData: this.props.tableData,
+      createMode: false,
+      elementCreated: {},
+
+      createEdited: false,
+      elementEditedUid: '',
+      elementEdited: {},
+
       indexDrop: -1,
+      elementDroped: {},
       form: []
     }
 
@@ -28,133 +36,131 @@ export class TableReactive extends Component {
     this.setState({ form });
   }
 
-  //RENDERS
   renderHeader() {
     const { header, drop, edit, actionsLabel } = this.props;
-    
-    if (header) {
-      const out = [];
-      form = [];
-    
-      for (var jsonKey in header) {
-        if (header.hasOwnProperty(jsonKey)) {
-          out.push(
-            <th key={ key() }>
-              { header[jsonKey].label }
-            </th>
-          );
+    const out = [];
+    form = [];
 
-          metaDataHead[jsonKey] = {
-            name: jsonKey,
-            type: header[jsonKey].type.name.toLocaleLowerCase()
-          };
-
-          form.push({
-            name: jsonKey,
-            placeholder: '',
-            required: true,
-            type: 'text',
-            value: '',
-            error: false
-          });
-        }
-      }
-
-      if (drop || edit) {
+    for (var jsonKey in header) {
+      if (header.hasOwnProperty(jsonKey)) {
         out.push(
-          <th className="text-center" key={ key() }>
-            { actionsLabel ? actionsLabel : 'Actions' }
+          <th
+            className="text-center" 
+            key={ key() }
+          >
+            { header[jsonKey].label }
           </th>
         );
-        return <tr>{ out }</tr>;
-      } else {
-        return <tr>{ out }</tr>;
+
+        form.push({
+          name: jsonKey,
+          placeholder: header[jsonKey].placeholder,
+          required: header[jsonKey].required,
+          type: header[jsonKey].type.name.toLocaleLowerCase(),
+          value: '',
+          error: false
+        });
       }
     }
+
+    if (drop || edit) {
+      out.push(
+        <th className="text-center" key={ key() }>
+          { actionsLabel ? actionsLabel : 'Actions' }
+        </th>
+      );
+    }
+
+    return (
+      <tr>
+        { out }
+      </tr>
+    );
   }
 
   renderBody() {
-    const { drop, edit, tableData } = this.props;
-    const { elementDrop } = this.state;
-
-    if (tableData) {
-      const out = [];
-      let error = false;
-
-      tableData.forEach(element => {
-        const outRow = [];
-
-        if (element.hasOwnProperty('uid')) {
-          for (var jsonKey in element) {
-            if (element.hasOwnProperty(jsonKey)) {
-              if (jsonKey !== 'uid') {
-                if (typeof element[jsonKey] === metaDataHead[jsonKey].type) {
-                  outRow.push(
-                    <td key={ key() }>
-                      { element[jsonKey] }
-                    </td>
-                  );
-                } else {
-                  console.error(`Type error in '${metaDataHead[jsonKey].name}' key`);
-                  error = true;
-                }
-              }
-            } 
-          }
-        } else {
-          console.error(`Table data not cointains uid key`);
-          error = true;
-        }
-
-        if (drop || edit) {
-          outRow.push(this.renderActions(element));
-        }
-
-        //Render para cuando se elimina un elemento
-        if (elementDrop) {
-          this.renderOnDrop(element, outRow, out);
-        } else {
-          out.push(<tr key={ key() }>{ outRow }</tr>);
-        }
-      });
-
-      out.push(
-        <FormTableReactive 
-          key={ key() } 
-          formData={ this.state.form } 
-          onApproved={ () => this.onSubmitForm() } 
-        />
-      );
-
-      if (!error) {
-        return out;
+    const { tableData, createMode, form, elementCreated, elementEdited, elementDroped } = this.state;
+    
+    let rowOut = tableData.map(element => {
+      if (elementCreated.uid === element.uid) {
+        return (
+          <tr 
+            className="add" 
+            key={ key() }
+            onAnimationEnd={ () => this.setState({ elementCreated: {} }) }
+          >
+            { this.renderBodyTd(element) }
+          </tr>
+        );
       }
-    }
-  }
 
-  renderOnDrop(element, outRow, out) {
-    const { elementDrop, indexDrop } = this.state;
+      if (elementEdited.uid === element.uid) {
+        return (
+          <FormTableReactive 
+            key={ key() } 
+            formData={ form } 
+            onApproved={ () => this.onEditSubmit() }
+            onCancel={ () => this.onCancelEdit() }
+          />
+        );
+      }
 
-    if (elementDrop.uid === element.uid) {
-      out.push(
-        <tr 
-          className="drop" 
-          key={ key() }
-          onAnimationEnd={ () => this.onDropAnimationEnd(indexDrop) }
-        >
-          { outRow }
+      if (elementDroped.uid === element.uid) {
+        return (
+          <tr 
+            className="drop" 
+            key={ key() }
+            onAnimationEnd={ () => this.onAnimationEndDrop() }
+          >
+            { this.renderBodyTd(element) }
+          </tr>
+        );
+      }
+      
+      return (
+        <tr key={ key() }>
+          { this.renderBodyTd(element) }
         </tr>
       );
-    } else {
-      out.push(<tr key={ key() }>{ outRow }</tr>);
+    });
+    
+    if (createMode) {
+      rowOut.push(
+        <FormTableReactive 
+          key={ key() } 
+          formData={ form } 
+          onApproved={ () => this.onCreateSubmit() }
+          onCancel={ () => this.onCancelCreate() }
+        />
+      );
     }
+    
+    return rowOut;
   }
 
+  renderBodyTd(element) {
+    const out = [];
 
+    for (var jsonKey in element) {
+      if (element.hasOwnProperty(jsonKey) && element.hasOwnProperty('uid')) {
+        if (jsonKey !== 'uid') {
+          out.push(
+            <td className="text-center" key={ key() }>
+              { element[jsonKey] }
+            </td> 
+          );
+        }
+      }
+    }
 
+    out.push(this.renderActions(element));
 
-  renderActions(elementSelect) {
+    return out;
+  }
+
+  renderActions(elementSelectd) {
     const { drop, edit } = this.props;
+    const { createMode, createEdited } = this.state;
     const out = [];
 
     if (edit) {
@@ -163,7 +169,8 @@ export class TableReactive extends Component {
           key={ key() }
           className="btn-circle mr-3"
           variant="outline-info"
-          onClick={ () => this.onEditAction(elementSelect) }
+          onClick={ () => this.onEditAction(elementSelectd) }
+          disabled={ createMode || createEdited }
         >
           <FontAwesomeIcon icon="edit" />
         </Button>
@@ -176,7 +183,8 @@ export class TableReactive extends Component {
           key={ key() }
           className="btn-circle"
           variant="outline-danger"
-          onClick={ () => this.onDropAction(elementSelect) }
+          onClick={ () => this.onDropAction(elementSelectd) }
+          disabled={ createMode || createEdited }
         >
           <FontAwesomeIcon icon="trash" />
         </Button>
@@ -190,68 +198,132 @@ export class TableReactive extends Component {
     );
   }
 
-  //FUCTIONS
-  onEditAction(elementSelect) {
-    const { onEdit } = this.props;
-    if (onEdit) {
-      onEdit(elementSelect);
-    }
+  //Create functions
+  onCreateAction() {
+    this.setState({ createMode: true });
   }
 
-  onDropAction(elementSelect) {
-    const { tableData ,onDrop, dropAlertTitle, dropAlertText } = this.props;
+  onCancelCreate() {
+    this.setState({ createMode: false, form });
+  }
+
+  onCreateSubmit() {
+    const { tableData } = this.state;
+    const { onCreate } = this.props;
+    const formData = this.submitForm();
     
-    if (onDrop) {
-      alertQuestion(
-        'question', 
-        dropAlertTitle ? dropAlertTitle : '',
-        dropAlertText ? dropAlertText : '',
-        () => {
-          tableData.forEach((element, index) => {
-            if (element.uid === elementSelect.uid) {
-              this.setState({ elementDrop: element, indexDrop: index });
-            }
-          });
-
-          onDrop(elementSelect);
-        }
-      );
+    if (formData) {
+      formData.uid = key();
+      tableData.push(formData);
+      this.setState( { tableData, createMode: false, elementCreated: formData, form } );
+      onCreate(formData);
     }
   }
 
-  onDropAnimationEnd(indexDrop) {
-    const { tableData } = this.props;
-    tableData.splice(indexDrop, 1);
-    this.setState({ elementDrop: null, indexDrop: -1 });
+  //Edit functions
+  onEditAction(elementSelectd) {
+    let { form } = this.state;
+    let i = 0;
+    
+    for (var jsonKey in elementSelectd) {
+      if (elementSelectd.hasOwnProperty(jsonKey)) {
+        if (jsonKey !== 'uid') {
+          form[i].value = elementSelectd[jsonKey];
+          i++;
+        }
+      }
+    }
+
+    this.setState({ elementEdited: elementSelectd, elementEditedUid: elementSelectd.uid, createEdited: true ,form });
   }
 
-  onSubmitForm() {
+  onCancelEdit() {
+    this.setState({ elementEdited: {}, elementEditedUid: '', createEdited: false, form });
+  }
+
+  onEditSubmit() {
+    const { tableData, elementEditedUid } = this.state;
+    const formData = this.submitForm();
+
+    if (formData) {
+      tableData.map(element => {
+        if (elementEditedUid === element.uid) {
+          for (var jsonKey in element) {
+            if (element.hasOwnProperty(jsonKey)) {
+              if (jsonKey !== 'uid') {
+                element[jsonKey] = formData[jsonKey];
+              }
+            }
+          }
+        }
+      });
+
+      this.setState( { tableData, elementEdited: {}, elementEditedUid: '', createEdited: false, form } );
+    }
+  }
+
+  //Drop functions
+  onDropAction(elementSelectd) {
+    const { tableData } = this.state;
+    const { dropAlertTitle, dropAlertText, onDrop } = this.props;
+
+    alertQuestion(
+      'question', 
+      dropAlertTitle ? dropAlertTitle : '',
+      dropAlertText ? dropAlertText : '',
+      () => {
+        tableData.forEach((element, index) => {
+          if (element.uid === elementSelectd.uid) {
+            this.setState({ elementDroped: element, indexDrop: index });
+          }
+        });
+
+        onDrop(elementSelectd);
+      }
+    );
+  }
+
+  onAnimationEndDrop() {
+    const { indexDrop, tableData } = this.state;
+    tableData.splice(indexDrop, 1);
+    this.setState({ indexDrop: -1, elementDroped: {}, tableData });
+  }
+
+  //Submit from function
+  submitForm() {
     const formElemets = formRef.current.getElementsByTagName('input');
+    const { form } = this.state;
     let outData = { };
     let error = false;
 
     for(var i = 0 ; i < formElemets.length ; i++){
       var item = formElemets.item(i);
 
-      if (item.value) {
+      if (form[i].required) {
+        if (item.value) {
+          outData[item.name] = item.value;
+          form[i].value = item.value;
+        } else {
+          form[i].error = true;
+          error = true;
+        }
+      } else {
         outData[item.name] = item.value;
         form[i].value = item.value;
-      } else {
-        item.classList.add('error-field');
-        form[i].error = true;
-        error = true;
       }
     }
 
     if (error) {
-      this.setState({ form })
+      this.setState({ form });
+      return null;
     } else {
-      console.log(outData);
+      return outData;
     }
   }
-  
+
   render() {
-    const { className, create, onCreate, tableData, noTableData } = this.props;
+    const { className, create, tableData, noTableData } = this.props;
+    const { createEdited } = this.state;
     
     return (
       <div>
@@ -261,7 +333,8 @@ export class TableReactive extends Component {
               <Button 
                 className="btn-circle"
                 variant="outline-success"
-                onClick={ () => onCreate() }
+                onClick={ () => this.onCreateAction() }
+                disabled={ createEdited }
               >
                 <FontAwesomeIcon icon="plus" />
               </Button>

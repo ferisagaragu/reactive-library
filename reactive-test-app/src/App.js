@@ -11,19 +11,29 @@ function App() {
         header={ {
           name: {
             label: 'Nombre',
-            type: String
+            type: String,
+            required: true,
+            mask: '',
+            placeholder: ''
           },
           direccion: {
             label: 'Direccion',
-            type: String
+            type: String,
+            required: true,
+            mask: '',
+            placeholder: ''
           },
           description:  {
             label: 'Descripcion',
-            type: String
+            type: String,
+            placeholder: ''
           },
           total:  {
             label: 'Total',
-            type: Number
+            type: Number,
+            required: true,
+            mask: '',
+            placeholder: ''
           }
         } }
         tableData={

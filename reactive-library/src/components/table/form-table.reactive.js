@@ -16,7 +16,7 @@ export class FormTableReactive extends Component {
 
   render() {
     const { renderForm } = this.state;
-    const { onApproved } = this.props; 
+    const { onApproved, onCancel } = this.props; 
 
     return (
       <tr>
@@ -27,19 +27,29 @@ export class FormTableReactive extends Component {
                 key={ key() }
                 name={ inputElement.name }
                 placeholder={ inputElement.placeholder }
-                required={ inputElement.required }
                 type={ inputElement.type }
                 value={ inputElement.value }
                 error={ inputElement.error }
+                required={ inputElement.required }
               />
             ))
         }
 
-        <td>
+        <td className="text-center">
           <Button 
+            className="btn-circle mr-3"
             onClick={ () => onApproved() }
+            variant="outline-success"
           > 
-            Enviar
+            <FontAwesomeIcon icon="check" />
+          </Button>
+
+          <Button
+            className="btn-circle"
+            onClick={ () => onCancel() }
+            variant="outline-danger"
+          > 
+            <FontAwesomeIcon icon="times" />
           </Button>
         </td>
         
