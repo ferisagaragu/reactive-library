@@ -596,6 +596,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var form = [];
 var formRef = null;
+var numberIndex = -1;
 
 var TableReactive = exports.TableReactive = function (_Component) {
   _inherits(TableReactive, _Component);
@@ -971,6 +972,12 @@ var TableReactive = exports.TableReactive = function (_Component) {
             _this4.setState({ elementDroped: element, indexDrop: index });
           }
         });
+
+        _this4.props.tableData.forEach(function (element, index) {
+          if (element.uid === elementSelectd.uid) {
+            numberIndex = index;
+          }
+        });
       });
     }
   }, {
@@ -983,8 +990,10 @@ var TableReactive = exports.TableReactive = function (_Component) {
       var onDrop = this.props.onDrop;
 
       tableData.splice(indexDrop, 1);
+      this.props.tableData.splice(numberIndex, 1);
       onDrop(elementDroped);
       this.setState({ indexDrop: -1, elementDroped: {}, tableData: tableData });
+      numberIndex = -1;
     }
 
     //Search functions

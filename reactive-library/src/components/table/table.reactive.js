@@ -9,6 +9,7 @@ import './style/table.css';
 
 let form = [];
 let formRef = null;
+let numberIndex = -1;
 
 export class TableReactive extends Component {
   
@@ -277,7 +278,7 @@ export class TableReactive extends Component {
     const { elementEditedUid } = this.state;
 
     tableData.map(element => {
-      if (elementEditedUid === element.uid) {
+      if (elementEditedUid === element.uid) { 
         for (var jsonKey in element) {
           if (element.hasOwnProperty(jsonKey)) {
             if (jsonKey !== 'uid') {
@@ -312,6 +313,12 @@ export class TableReactive extends Component {
             this.setState({ elementDroped: element, indexDrop: index });
           }
         });
+
+        this.props.tableData.forEach((element, index) => {
+          if (element.uid === elementSelectd.uid) {
+            numberIndex = index;
+          }
+        });
       }
     );
   }
@@ -320,8 +327,10 @@ export class TableReactive extends Component {
     const { indexDrop, tableData, elementDroped } = this.state;
     const { onDrop } = this.props;
     tableData.splice(indexDrop, 1);
+    this.props.tableData.splice(numberIndex, 1);
     onDrop(elementDroped);
     this.setState({ indexDrop: -1, elementDroped: {}, tableData });
+    numberIndex = -1;
   }
 
   //Search functions
