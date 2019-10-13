@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { key } from '../key/key.reactive';
 import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { InputTable } from './table-input.reactive';
+import { InputTable } from './input-table.reactive';
 
 export class FormTableReactive extends Component {
 

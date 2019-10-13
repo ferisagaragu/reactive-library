@@ -20,13 +20,13 @@ export class InputTable extends Component {
   }
   
   render() {
-    const { type, name, required, placeholder } = this.props;
+    const { className, type, name, required, placeholder } = this.props;
     const { value, error } = this.state;
 
 		return (
 			<td>
 				<input
-          className={ `form-control ${required ? error : ''}` }
+          className={ `${className} form-control ${required ? error : ''}` }
 					type={ type }
 					name={ name }
 					placeholder={ placeholder }

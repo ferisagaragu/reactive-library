@@ -35,6 +35,22 @@
   }
 }
 
+/*Edit animation*/
+.edit {
+	animation: edit 0.4s ease;
+}
+
+@keyframes edit {
+	0% {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
 /*Drop animation*/
 .drop {
   animation: drop 1.2s forwards;
@@ -65,7 +81,12 @@
   }
 }
 
+.input-search {
+	width: 100%;
+	margin-left: 15px;
+}
 
+/*No result animation*/
 .no-result {
 	animation-name: no-result;
 	-webkit-animation-name: no-result;	

@@ -8,32 +8,33 @@ function App() {
         toast('success', 'vientos')
       }
       <Table 
+        className="mt-5"
         header={ {
           name: {
             label: 'Nombre',
             type: String,
             required: true,
             mask: '',
-            placeholder: ''
+            placeholder: 'Nombre del usuario'
           },
           direccion: {
             label: 'Direccion',
             type: String,
             required: true,
             mask: '',
-            placeholder: ''
+            placeholder: 'Direccion bine hecha'
           },
           description:  {
             label: 'Descripcion',
             type: String,
-            placeholder: ''
+            placeholder: 'Descripcion de genial'
           },
           total:  {
             label: 'Total',
             type: Number,
             required: true,
             mask: '',
-            placeholder: ''
+            placeholder: 'El total completo'
           }
         } }
         tableData={
@@ -68,11 +69,10 @@ function App() {
         drop
         edit
         create
-        //animated
+        search
         
-        onCreate={ () => { console.log('action') } }
-
-        onEdit={ () => { } }
+        onCreate={ (element) => { console.log(element) } }
+        onEdit={ (element) => { console.log(element) }  }
 
         dropAlertTitle="Borrar elemento"
         dropAlertText="¿Deseas borrar el elemento ?"

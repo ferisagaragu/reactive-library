@@ -582,6 +582,8 @@ var _swal = __webpack_require__(2);
 
 var _formTable = __webpack_require__(10);
 
+var _inputSearchTable = __webpack_require__(23);
+
 __webpack_require__(17);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -608,11 +610,10 @@ var TableReactive = exports.TableReactive = function (_Component) {
       tableData: _this.props.tableData,
       createMode: false,
       elementCreated: {},
-
       createEdited: false,
       elementEditedUid: '',
+      elementEditedAnimation: false,
       elementEdited: {},
-
       indexDrop: -1,
       elementDroped: {},
       form: []
@@ -686,7 +687,8 @@ var TableReactive = exports.TableReactive = function (_Component) {
           form = _state.form,
           elementCreated = _state.elementCreated,
           elementEdited = _state.elementEdited,
-          elementDroped = _state.elementDroped;
+          elementDroped = _state.elementDroped,
+          elementEditedAnimation = _state.elementEditedAnimation;
 
 
       var rowOut = tableData.map(function (element) {
@@ -697,7 +699,7 @@ var TableReactive = exports.TableReactive = function (_Component) {
               className: 'add',
               key: (0, _key.key)(),
               onAnimationEnd: function onAnimationEnd() {
-                return _this2.setState({ elementCreated: {} });
+                return _this2.onAnimationEndCreate(element);
               }
             },
             _this2.renderBodyTd(element)
@@ -705,6 +707,20 @@ var TableReactive = exports.TableReactive = function (_Component) {
         }
 
         if (elementEdited.uid === element.uid) {
+          if (elementEditedAnimation) {
+            return _react2.default.createElement(
+              'tr',
+              {
+                className: 'edit',
+                key: (0, _key.key)(),
+                onAnimationEnd: function onAnimationEnd() {
+                  return _this2.onAnimationEndEdit(element);
+                }
+              },
+              _this2.renderBodyTd(element)
+            );
+          }
+
           return _react2.default.createElement(_formTable.FormTableReactive, {
             key: (0, _key.key)(),
             formData: form,
@@ -756,6 +772,10 @@ var TableReactive = exports.TableReactive = function (_Component) {
   }, {
     key: 'renderBodyTd',
     value: function renderBodyTd(element) {
+      var _props2 = this.props,
+          edit = _props2.edit,
+          drop = _props2.drop;
+
       var out = [];
 
       for (var jsonKey in element) {
@@ -770,7 +790,9 @@ var TableReactive = exports.TableReactive = function (_Component) {
         }
       }
 
-      out.push(this.renderActions(element));
+      if (edit || drop) {
+        out.push(this.renderActions(element));
+      }
 
       return out;
     }
@@ -779,9 +801,9 @@ var TableReactive = exports.TableReactive = function (_Component) {
     value: function renderActions(elementSelectd) {
       var _this3 = this;
 
-      var _props2 = this.props,
-          drop = _props2.drop,
-          edit = _props2.edit;
+      var _props3 = this.props,
+          drop = _props3.drop,
+          edit = _props3.edit;
       var _state2 = this.state,
           createMode = _state2.createMode,
           createEdited = _state2.createEdited;
@@ -843,7 +865,6 @@ var TableReactive = exports.TableReactive = function (_Component) {
     key: 'onCreateSubmit',
     value: function onCreateSubmit() {
       var tableData = this.state.tableData;
-      var onCreate = this.props.onCreate;
 
       var formData = this.submitForm();
 
@@ -851,8 +872,15 @@ var TableReactive = exports.TableReactive = function (_Component) {
         formData.uid = (0, _key.key)();
         tableData.push(formData);
         this.setState({ tableData: tableData, createMode: false, elementCreated: formData, form: form });
-        onCreate(formData);
       }
+    }
+  }, {
+    key: 'onAnimationEndCreate',
+    value: function onAnimationEndCreate(formData) {
+      var onCreate = this.props.onCreate;
+
+      this.setState({ elementCreated: {} });
+      onCreate(formData);
     }
 
     //Edit functions
@@ -902,8 +930,16 @@ var TableReactive = exports.TableReactive = function (_Component) {
           }
         });
 
-        this.setState({ tableData: tableData, elementEdited: {}, elementEditedUid: '', createEdited: false, form: form });
+        this.setState({ tableData: tableData, elementEditedAnimation: true, createEdited: false, form: form });
       }
+    }
+  }, {
+    key: 'onAnimationEndEdit',
+    value: function onAnimationEndEdit(elementEdit) {
+      var onEdit = this.props.onEdit;
+
+      this.setState({ elementEdited: {}, elementEditedAnimation: false });
+      onEdit(elementEdit);
     }
 
     //Drop functions
@@ -914,10 +950,9 @@ var TableReactive = exports.TableReactive = function (_Component) {
       var _this4 = this;
 
       var tableData = this.state.tableData;
-      var _props3 = this.props,
-          dropAlertTitle = _props3.dropAlertTitle,
-          dropAlertText = _props3.dropAlertText,
-          onDrop = _props3.onDrop;
+      var _props4 = this.props,
+          dropAlertTitle = _props4.dropAlertTitle,
+          dropAlertText = _props4.dropAlertText;
 
 
       (0, _swal.alertQuestion)('question', dropAlertTitle ? dropAlertTitle : '', dropAlertText ? dropAlertText : '', function () {
@@ -926,8 +961,6 @@ var TableReactive = exports.TableReactive = function (_Component) {
             _this4.setState({ elementDroped: element, indexDrop: index });
           }
         });
-
-        onDrop(elementSelectd);
       });
     }
   }, {
@@ -935,9 +968,12 @@ var TableReactive = exports.TableReactive = function (_Component) {
     value: function onAnimationEndDrop() {
       var _state4 = this.state,
           indexDrop = _state4.indexDrop,
-          tableData = _state4.tableData;
+          tableData = _state4.tableData,
+          elementDroped = _state4.elementDroped;
+      var onDrop = this.props.onDrop;
 
       tableData.splice(indexDrop, 1);
+      onDrop(elementDroped);
       this.setState({ indexDrop: -1, elementDroped: {}, tableData: tableData });
     }
 
@@ -981,31 +1017,41 @@ var TableReactive = exports.TableReactive = function (_Component) {
     value: function render() {
       var _this5 = this;
 
-      var _props4 = this.props,
-          className = _props4.className,
-          create = _props4.create,
-          tableData = _props4.tableData,
-          noTableData = _props4.noTableData;
+      var _props5 = this.props,
+          className = _props5.className,
+          create = _props5.create,
+          tableData = _props5.tableData,
+          noTableData = _props5.noTableData,
+          search = _props5.search;
       var createEdited = this.state.createEdited;
 
 
       return _react2.default.createElement(
         'div',
-        null,
+        { className: className },
         _react2.default.createElement(
-          'div',
-          { className: 'text-right mb-2 mr-2' },
-          create && _react2.default.createElement(
-            _reactBootstrap.Button,
-            {
-              className: 'btn-circle',
-              variant: 'outline-success',
-              onClick: function onClick() {
-                return _this5.onCreateAction();
+          _reactBootstrap.Row,
+          { className: 'mb-2' },
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { md: 11 },
+            search && _react2.default.createElement(_inputSearchTable.InputSearchTable, { className: 'input-search' })
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { className: 'text-center mt-1', md: 1 },
+            create && _react2.default.createElement(
+              _reactBootstrap.Button,
+              {
+                className: 'btn-circle',
+                variant: 'outline-success',
+                onClick: function onClick() {
+                  return _this5.onCreateAction();
+                },
+                disabled: createEdited
               },
-              disabled: createEdited
-            },
-            _react2.default.createElement(_reactFontawesome.FontAwesomeIcon, { icon: 'plus' })
+              _react2.default.createElement(_reactFontawesome.FontAwesomeIcon, { icon: 'plus' })
+            )
           )
         ),
         _react2.default.createElement(
@@ -1013,7 +1059,7 @@ var TableReactive = exports.TableReactive = function (_Component) {
           { ref: formRef },
           _react2.default.createElement(
             _reactBootstrap.Table,
-            { className: className, responsive: true },
+            { responsive: true },
             _react2.default.createElement(
               'thead',
               null,
@@ -1102,7 +1148,7 @@ var _reactBootstrap = __webpack_require__(6);
 
 var _reactFontawesome = __webpack_require__(5);
 
-var _tableInput = __webpack_require__(11);
+var _inputTable = __webpack_require__(11);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1139,7 +1185,7 @@ var FormTableReactive = exports.FormTableReactive = function (_Component) {
         'tr',
         null,
         renderForm && renderForm.map(function (inputElement) {
-          return _react2.default.createElement(_tableInput.InputTable, {
+          return _react2.default.createElement(_inputTable.InputTable, {
             key: (0, _key.key)(),
             name: inputElement.name,
             placeholder: inputElement.placeholder,
@@ -1238,6 +1284,7 @@ var InputTable = exports.InputTable = function (_Component) {
       var _this2 = this;
 
       var _props = this.props,
+          className = _props.className,
           type = _props.type,
           name = _props.name,
           required = _props.required,
@@ -1251,7 +1298,7 @@ var InputTable = exports.InputTable = function (_Component) {
         'td',
         null,
         _react2.default.createElement('input', {
-          className: 'form-control ' + (required ? error : ''),
+          className: className + ' form-control ' + (required ? error : ''),
           type: type,
           name: name,
           placeholder: placeholder,
@@ -1334,7 +1381,7 @@ exports.push([module.i, "/*!\n * Bootstrap v4.3.1 (https://getbootstrap.com/)\n 
 
 exports = module.exports = __webpack_require__(3)(false);
 // Module
-exports.push([module.i, "/*Circle Button*/\r\n.btn-circle {\r\n  width: 30px;\r\n  height: 30px;\r\n  text-align: center;\r\n  padding: 6px 0;\r\n  font-size: 12px;\r\n  line-height: 1.428571429;\r\n  border-radius: 15px;\r\n}\r\n\r\n/*Field animation*/ \r\n.error-field {\r\n\tanimation: error-field 0.2s ease-in-out 0s 2;\r\n\tbox-shadow: 0 0 0.5em #F44336;\r\n}\r\n\r\n@keyframes error-field {\r\n\t0% { margin-left: 0rem; }\r\n\t25% { margin-left: 0.5rem; }\r\n\t75% { margin-left: -0.5rem; }\r\n\t100% { margin-left: 0rem; }\r\n}\r\n\r\n/*Add animation*/\r\n.add {\r\n  animation: add .5s ease-in-out;\r\n}\r\n\r\n@keyframes add {\r\n  from {\r\n    transform: scale(0);\r\n    opacity: 0;\r\n    background: #5470B0;\r\n  }\r\n}\r\n\r\n/*Drop animation*/\r\n.drop {\r\n  animation: drop 1.2s forwards;\r\n}\r\n\r\n@keyframes drop {\r\n  0% {\r\n    transform-origin: center;\r\n    opacity: 1;\r\n  }\r\n  20% {\r\n    transform: \r\n      translate3d(0, 20px, 0)\r\n      rotate3d(0, 0, 1, -10deg);\r\n    opacity: 1;\r\n  }\r\n  40%, 45% {\r\n    transform: \r\n      translate3d(0, -120px, 0)\r\n      rotate3d(0, 0, 1, 10deg);\r\n    opacity: 1;\r\n  }\r\n  to {\r\n    opacity: 0;\r\n    transform: \r\n      translate3d(0, 2000px, 0)\r\n      rotate3d(0, 0, 1, 10deg);\r\n  }\r\n}\r\n\r\n\r\n.no-result {\r\n\tanimation-name: no-result;\r\n\t-webkit-animation-name: no-result;\t\r\n\r\n\tanimation-duration: 1s;\t\r\n\t-webkit-animation-duration: 1s;\r\n\r\n\tanimation-timing-function: ease;\t\r\n\t-webkit-animation-timing-function: ease;\t\r\n\r\n\tvisibility: visible !important;\t\t\t\t\t\t\r\n}\r\n\r\n@keyframes no-result {\r\n\t0% {\r\n\t\ttransform: translateY(-100%);\r\n\t}\r\n\t50%{\r\n\t\ttransform: translateY(8%);\r\n\t}\r\n\t65%{\r\n\t\ttransform: translateY(-4%);\r\n\t}\r\n\t80%{\r\n\t\ttransform: translateY(4%);\r\n\t}\r\n\t95%{\r\n\t\ttransform: translateY(-2%);\r\n\t}\t\t\t\r\n\t100% {\r\n\t\ttransform: translateY(0%);\r\n\t}\t\t\r\n}\r\n\r\n@-webkit-keyframes no-result {\r\n\t0% {\r\n\t\t-webkit-transform: translateY(-100%);\r\n\t}\r\n\t50%{\r\n\t\t-webkit-transform: translateY(8%);\r\n\t}\r\n\t65%{\r\n\t\t-webkit-transform: translateY(-4%);\r\n\t}\r\n\t80%{\r\n\t\t-webkit-transform: translateY(4%);\r\n\t}\r\n\t95%{\r\n\t\t-webkit-transform: translateY(-2%);\r\n\t}\t\t\t\r\n\t100% {\r\n\t\t-webkit-transform: translateY(0%);\r\n\t}\t\r\n}", ""]);
+exports.push([module.i, "/*Circle Button*/\r\n.btn-circle {\r\n  width: 30px;\r\n  height: 30px;\r\n  text-align: center;\r\n  padding: 6px 0;\r\n  font-size: 12px;\r\n  line-height: 1.428571429;\r\n  border-radius: 15px;\r\n}\r\n\r\n/*Field animation*/ \r\n.error-field {\r\n\tanimation: error-field 0.2s ease-in-out 0s 2;\r\n\tbox-shadow: 0 0 0.5em #F44336;\r\n}\r\n\r\n@keyframes error-field {\r\n\t0% { margin-left: 0rem; }\r\n\t25% { margin-left: 0.5rem; }\r\n\t75% { margin-left: -0.5rem; }\r\n\t100% { margin-left: 0rem; }\r\n}\r\n\r\n/*Add animation*/\r\n.add {\r\n  animation: add .5s ease-in-out;\r\n}\r\n\r\n@keyframes add {\r\n  from {\r\n    transform: scale(0);\r\n    opacity: 0;\r\n    background: #5470B0;\r\n  }\r\n}\r\n\r\n/*Edit animation*/\r\n.edit {\r\n\tanimation: edit 0.4s ease;\r\n}\r\n\r\n@keyframes edit {\r\n\t0% {\r\n\t\topacity: 0;\r\n\t\ttransform: translateY(20px);\r\n\t}\r\n\t100% {\r\n\t\topacity: 1;\r\n\t\ttransform: translateY(0);\r\n\t}\r\n}\r\n\r\n/*Drop animation*/\r\n.drop {\r\n  animation: drop 1.2s forwards;\r\n}\r\n\r\n@keyframes drop {\r\n  0% {\r\n    transform-origin: center;\r\n    opacity: 1;\r\n  }\r\n  20% {\r\n    transform: \r\n      translate3d(0, 20px, 0)\r\n      rotate3d(0, 0, 1, -10deg);\r\n    opacity: 1;\r\n  }\r\n  40%, 45% {\r\n    transform: \r\n      translate3d(0, -120px, 0)\r\n      rotate3d(0, 0, 1, 10deg);\r\n    opacity: 1;\r\n  }\r\n  to {\r\n    opacity: 0;\r\n    transform: \r\n      translate3d(0, 2000px, 0)\r\n      rotate3d(0, 0, 1, 10deg);\r\n  }\r\n}\r\n\r\n.input-search {\r\n\twidth: 100%;\r\n\tmargin-left: 15px;\r\n}\r\n\r\n/*No result animation*/\r\n.no-result {\r\n\tanimation-name: no-result;\r\n\t-webkit-animation-name: no-result;\t\r\n\r\n\tanimation-duration: 1s;\t\r\n\t-webkit-animation-duration: 1s;\r\n\r\n\tanimation-timing-function: ease;\t\r\n\t-webkit-animation-timing-function: ease;\t\r\n\r\n\tvisibility: visible !important;\t\t\t\t\t\t\r\n}\r\n\r\n@keyframes no-result {\r\n\t0% {\r\n\t\ttransform: translateY(-100%);\r\n\t}\r\n\t50%{\r\n\t\ttransform: translateY(8%);\r\n\t}\r\n\t65%{\r\n\t\ttransform: translateY(-4%);\r\n\t}\r\n\t80%{\r\n\t\ttransform: translateY(4%);\r\n\t}\r\n\t95%{\r\n\t\ttransform: translateY(-2%);\r\n\t}\t\t\t\r\n\t100% {\r\n\t\ttransform: translateY(0%);\r\n\t}\t\t\r\n}\r\n\r\n@-webkit-keyframes no-result {\r\n\t0% {\r\n\t\t-webkit-transform: translateY(-100%);\r\n\t}\r\n\t50%{\r\n\t\t-webkit-transform: translateY(8%);\r\n\t}\r\n\t65%{\r\n\t\t-webkit-transform: translateY(-4%);\r\n\t}\r\n\t80%{\r\n\t\t-webkit-transform: translateY(4%);\r\n\t}\r\n\t95%{\r\n\t\t-webkit-transform: translateY(-2%);\r\n\t}\t\t\t\r\n\t100% {\r\n\t\t-webkit-transform: translateY(0%);\r\n\t}\t\r\n}", ""]);
 
 
 /***/ }),
@@ -1621,6 +1668,80 @@ module.exports = require("sweetalert2");
 /***/ (function(module, exports) {
 
 module.exports = require("sweetalert2-react-content");
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.InputSearchTable = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var InputSearchTable = exports.InputSearchTable = function (_Component) {
+  _inherits(InputSearchTable, _Component);
+
+  function InputSearchTable(props) {
+    _classCallCheck(this, InputSearchTable);
+
+    var _this = _possibleConstructorReturn(this, (InputSearchTable.__proto__ || Object.getPrototypeOf(InputSearchTable)).call(this, props));
+
+    _this.state = {
+      value: _this.props.value
+    };
+    return _this;
+  }
+
+  _createClass(InputSearchTable, [{
+    key: 'onChange',
+    value: function onChange(evt) {
+      this.setState({ value: evt.target.value });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var _props = this.props,
+          className = _props.className,
+          type = _props.type,
+          name = _props.name,
+          placeholder = _props.placeholder;
+      var value = this.state.value;
+
+
+      return _react2.default.createElement('input', {
+        className: className + ' form-control',
+        type: type,
+        name: name,
+        placeholder: placeholder,
+        onChange: function onChange(evt) {
+          return _this2.onChange(evt);
+        },
+        value: value
+      });
+    }
+  }]);
+
+  return InputSearchTable;
+}(_react.Component);
 
 /***/ })
 /******/ ]);

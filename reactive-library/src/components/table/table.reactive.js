@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Table, Button } from 'react-bootstrap';
+import { Table, Button, Row, Col } from 'react-bootstrap';
 import { key } from '../key/key.reactive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { alertQuestion } from '../swal/swal.reactive';
 import { FormTableReactive } from './form-table.reactive';
-import './style/table.css'
+import { InputSearchTable } from './input-search-table.reactive';
+import './style/table.css';
 
 let form = [];
 let formRef = null;
@@ -19,11 +20,10 @@ export class TableReactive extends Component {
       tableData: this.props.tableData,
       createMode: false,
       elementCreated: {},
-
       createEdited: false,
       elementEditedUid: '',
+      elementEditedAnimation: false,
       elementEdited: {},
-
       indexDrop: -1,
       elementDroped: {},
       form: []
@@ -79,7 +79,7 @@ export class TableReactive extends Component {
   }
 
   renderBody() {
-    const { tableData, createMode, form, elementCreated, elementEdited, elementDroped } = this.state;
+    const { tableData, createMode, form, elementCreated, elementEdited, elementDroped, elementEditedAnimation } = this.state;
     
     let rowOut = tableData.map(element => {
       if (elementCreated.uid === element.uid) {
@@ -87,7 +87,7 @@ export class TableReactive extends Component {
           <tr 
             className="add" 
             key={ key() }
-            onAnimationEnd={ () => this.setState({ elementCreated: {} }) }
+            onAnimationEnd={ () => this.onAnimationEndCreate(element) }
           >
             { this.renderBodyTd(element) }
           </tr>
@@ -95,6 +95,18 @@ export class TableReactive extends Component {
       }
 
       if (elementEdited.uid === element.uid) {
+        if (elementEditedAnimation) {
+          return (
+            <tr 
+              className="edit" 
+              key={ key() }
+              onAnimationEnd={ () => this.onAnimationEndEdit(element) }
+            >
+              { this.renderBodyTd(element) }
+            </tr>
+          );
+        }
+
         return (
           <FormTableReactive 
             key={ key() } 
@@ -139,6 +151,7 @@ export class TableReactive extends Component {
   }
 
   renderBodyTd(element) {
+    const { edit, drop } = this.props;
     const out = [];
 
     for (var jsonKey in element) {
@@ -153,7 +166,9 @@ export class TableReactive extends Component {
       }
     }
 
-    out.push(this.renderActions(element));
+    if (edit || drop) {
+      out.push(this.renderActions(element));
+    }
 
     return out;
   }
@@ -209,15 +224,19 @@ export class TableReactive extends Component {
 
   onCreateSubmit() {
     const { tableData } = this.state;
-    const { onCreate } = this.props;
     const formData = this.submitForm();
     
     if (formData) {
       formData.uid = key();
       tableData.push(formData);
       this.setState( { tableData, createMode: false, elementCreated: formData, form } );
-      onCreate(formData);
     }
+  }
+
+  onAnimationEndCreate(formData) {
+    const { onCreate } = this.props;
+    this.setState({ elementCreated: {} });
+    onCreate(formData);
   }
 
   //Edit functions
@@ -258,14 +277,20 @@ export class TableReactive extends Component {
         }
       });
 
-      this.setState( { tableData, elementEdited: {}, elementEditedUid: '', createEdited: false, form } );
+      this.setState( { tableData, elementEditedAnimation: true, createEdited: false, form } );
     }
+  }
+
+  onAnimationEndEdit(elementEdit) {
+    const { onEdit } = this.props;
+    this.setState({ elementEdited: {}, elementEditedAnimation: false })
+    onEdit(elementEdit);
   }
 
   //Drop functions
   onDropAction(elementSelectd) {
     const { tableData } = this.state;
-    const { dropAlertTitle, dropAlertText, onDrop } = this.props;
+    const { dropAlertTitle, dropAlertText } = this.props;
 
     alertQuestion(
       'question', 
@@ -277,15 +302,15 @@ export class TableReactive extends Component {
             this.setState({ elementDroped: element, indexDrop: index });
           }
         });
-
-        onDrop(elementSelectd);
       }
     );
   }
 
   onAnimationEndDrop() {
-    const { indexDrop, tableData } = this.state;
+    const { indexDrop, tableData, elementDroped } = this.state;
+    const { onDrop } = this.props;
     tableData.splice(indexDrop, 1);
+    onDrop(elementDroped);
     this.setState({ indexDrop: -1, elementDroped: {}, tableData });
   }
 
@@ -322,27 +347,36 @@ export class TableReactive extends Component {
   }
 
   render() {
-    const { className, create, tableData, noTableData } = this.props;
+    const { className, create, tableData, noTableData, search } = this.props;
     const { createEdited } = this.state;
     
     return (
-      <div>
-        <div className="text-right mb-2 mr-2">
-          {
-            create && 
-              <Button 
-                className="btn-circle"
-                variant="outline-success"
-                onClick={ () => this.onCreateAction() }
-                disabled={ createEdited }
-              >
-                <FontAwesomeIcon icon="plus" />
-              </Button>
-          }
-        </div>
+      <div className={ className }>
+        <Row className="mb-2">
+          <Col md={ 11 }>
+            {
+              search &&
+                <InputSearchTable className="input-search" />
+            }
+          </Col>
+
+          <Col className="text-center mt-1" md={ 1 }>
+            {
+              create && 
+                <Button 
+                  className="btn-circle"
+                  variant="outline-success"
+                  onClick={ () => this.onCreateAction() }
+                  disabled={ createEdited }
+                >
+                  <FontAwesomeIcon icon="plus" />
+                </Button>
+            }
+          </Col>
+        </Row>
         
         <div ref={ formRef } >
-          <Table className={ className } responsive>
+          <Table responsive>
             <thead>
               {
                 this.renderHeader()
