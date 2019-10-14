@@ -66,8 +66,8 @@ function App() {
         actionsLabel="Acciones"
         noTableData="No hay datos para mostrar"
 
-        drop
-        edit
+        //drop
+        //edit
         create
 
         search

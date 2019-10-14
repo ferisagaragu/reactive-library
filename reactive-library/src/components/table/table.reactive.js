@@ -19,7 +19,7 @@ export class TableReactive extends Component {
     this.state = {
       headerRender: null,
       tableData: this.props.tableData,
-      isSearch: true,
+      isSearch: false,
       createMode: false,
       elementCreated: {},
       createEdited: false,
@@ -225,14 +225,16 @@ export class TableReactive extends Component {
   }
 
   onCreateSubmit() {
-    const { tableData } = this.state;
+    const { tableData, isSearch } = this.state;
     const formData = this.submitForm();
     
     if (formData) {
       formData.uid = key();
       tableData.push(formData);
-      this.props.tableData.push(formData);
       this.setState( { tableData, createMode: false, elementCreated: formData, form } );
+      if (isSearch) {
+        this.props.tableData.push(formData);
+      }
     }
   }
 
@@ -264,13 +266,15 @@ export class TableReactive extends Component {
   }
 
   onEditSubmit() {
-    const { tableData } = this.state;
+    const { tableData, isSearch } = this.state;
     const formData = this.submitForm();
 
     if (formData) {
       const tableDataOut = this.editElemet(tableData, formData);
-      this.editElemet(this.props.tableData, formData);
       this.setState( { tableData: tableDataOut, elementEditedAnimation: true, createEdited: false, form } );
+      if (isSearch) {
+        this.editElemet(this.props.tableData, formData);
+      }
     }
   }
 
@@ -324,13 +328,16 @@ export class TableReactive extends Component {
   }
 
   onAnimationEndDrop() {
-    const { indexDrop, tableData, elementDroped } = this.state;
+    const { indexDrop, tableData, elementDroped, isSearch } = this.state;
     const { onDrop } = this.props;
     tableData.splice(indexDrop, 1);
-    this.props.tableData.splice(numberIndex, 1);
-    onDrop(elementDroped);
     this.setState({ indexDrop: -1, elementDroped: {}, tableData });
-    numberIndex = -1;
+    onDrop(elementDroped);
+
+    if (isSearch) {
+      this.props.tableData.splice(numberIndex, 1);
+      numberIndex = -1;
+    }
   }
 
   //Search functions
@@ -349,7 +356,7 @@ export class TableReactive extends Component {
           }
         }
         
-        if (tableText.toLowerCase().includes(value)) {
+        if (tableText.toLowerCase().includes(value.toLowerCase())) {
           return element;
         }
       });
@@ -376,6 +383,7 @@ export class TableReactive extends Component {
           outData[item.name] = item.value;
           form[i].value = item.value;
         } else {
+          form[i].value = item.value;
           form[i].error = true;
           error = true;
         }
@@ -400,30 +408,30 @@ export class TableReactive extends Component {
     return (
       <div className={ className }>
         <Row className="mb-2">
-          <Col md={ 11 }>
-            {
-              search &&
-                <InputSearchTable 
-                  className="input-search" 
-                  placeholder={ searchPlaceholder }
-                  onChange={ (value) => this.onSearch(value) }
-                />
-            }
-          </Col>
-
-          <Col className="text-center mt-1" md={ 1 }>
-            {
-              create && 
-                <Button 
-                  className="btn-circle"
-                  variant="outline-success"
-                  onClick={ () => this.onCreateAction() }
-                  disabled={ createEdited }
-                >
-                  <FontAwesomeIcon icon="plus" />
-                </Button>
-            }
-          </Col>
+          {
+            search &&
+            <Col md={ 11 }>
+              <InputSearchTable 
+                className="input-search" 
+                placeholder={ searchPlaceholder }
+                onChange={ (value) => this.onSearch(value) }
+              />
+            </Col>
+          }
+        
+          {
+            create && 
+            <Col className="text-center mt-1" md={ 1 }>
+              <Button 
+                className="btn-circle"
+                variant="outline-success"
+                onClick={ () => this.onCreateAction() }
+                disabled={ createEdited }
+              >
+                <FontAwesomeIcon icon="plus" />
+              </Button>
+            </Col>
+          }
         </Row>
         
         <div ref={ formRef } >

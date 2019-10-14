@@ -609,7 +609,7 @@ var TableReactive = exports.TableReactive = function (_Component) {
     _this.state = {
       headerRender: null,
       tableData: _this.props.tableData,
-      isSearch: true,
+      isSearch: false,
       createMode: false,
       elementCreated: {},
       createEdited: false,
@@ -866,15 +866,19 @@ var TableReactive = exports.TableReactive = function (_Component) {
   }, {
     key: 'onCreateSubmit',
     value: function onCreateSubmit() {
-      var tableData = this.state.tableData;
+      var _state3 = this.state,
+          tableData = _state3.tableData,
+          isSearch = _state3.isSearch;
 
       var formData = this.submitForm();
 
       if (formData) {
         formData.uid = (0, _key.key)();
         tableData.push(formData);
-        this.props.tableData.push(formData);
         this.setState({ tableData: tableData, createMode: false, elementCreated: formData, form: form });
+        if (isSearch) {
+          this.props.tableData.push(formData);
+        }
       }
     }
   }, {
@@ -914,14 +918,18 @@ var TableReactive = exports.TableReactive = function (_Component) {
   }, {
     key: 'onEditSubmit',
     value: function onEditSubmit() {
-      var tableData = this.state.tableData;
+      var _state4 = this.state,
+          tableData = _state4.tableData,
+          isSearch = _state4.isSearch;
 
       var formData = this.submitForm();
 
       if (formData) {
         var tableDataOut = this.editElemet(tableData, formData);
-        this.editElemet(this.props.tableData, formData);
         this.setState({ tableData: tableDataOut, elementEditedAnimation: true, createEdited: false, form: form });
+        if (isSearch) {
+          this.editElemet(this.props.tableData, formData);
+        }
       }
     }
   }, {
@@ -983,17 +991,21 @@ var TableReactive = exports.TableReactive = function (_Component) {
   }, {
     key: 'onAnimationEndDrop',
     value: function onAnimationEndDrop() {
-      var _state3 = this.state,
-          indexDrop = _state3.indexDrop,
-          tableData = _state3.tableData,
-          elementDroped = _state3.elementDroped;
+      var _state5 = this.state,
+          indexDrop = _state5.indexDrop,
+          tableData = _state5.tableData,
+          elementDroped = _state5.elementDroped,
+          isSearch = _state5.isSearch;
       var onDrop = this.props.onDrop;
 
       tableData.splice(indexDrop, 1);
-      this.props.tableData.splice(numberIndex, 1);
-      onDrop(elementDroped);
       this.setState({ indexDrop: -1, elementDroped: {}, tableData: tableData });
-      numberIndex = -1;
+      onDrop(elementDroped);
+
+      if (isSearch) {
+        this.props.tableData.splice(numberIndex, 1);
+        numberIndex = -1;
+      }
     }
 
     //Search functions
@@ -1016,7 +1028,7 @@ var TableReactive = exports.TableReactive = function (_Component) {
             }
           }
 
-          if (tableText.toLowerCase().includes(value)) {
+          if (tableText.toLowerCase().includes(value.toLowerCase())) {
             return element;
           }
         });
@@ -1048,6 +1060,7 @@ var TableReactive = exports.TableReactive = function (_Component) {
             outData[item.name] = item.value;
             form[i].value = item.value;
           } else {
+            form[i].value = item.value;
             form[i].error = true;
             error = true;
           }
@@ -1076,10 +1089,10 @@ var TableReactive = exports.TableReactive = function (_Component) {
           search = _props5.search,
           searchPlaceholder = _props5.searchPlaceholder,
           noSearchResult = _props5.noSearchResult;
-      var _state4 = this.state,
-          createEdited = _state4.createEdited,
-          tableData = _state4.tableData,
-          isSearch = _state4.isSearch;
+      var _state6 = this.state,
+          createEdited = _state6.createEdited,
+          tableData = _state6.tableData,
+          isSearch = _state6.isSearch;
 
 
       return _react2.default.createElement(
@@ -1088,10 +1101,10 @@ var TableReactive = exports.TableReactive = function (_Component) {
         _react2.default.createElement(
           _reactBootstrap.Row,
           { className: 'mb-2' },
-          _react2.default.createElement(
+          search && _react2.default.createElement(
             _reactBootstrap.Col,
             { md: 11 },
-            search && _react2.default.createElement(_inputSearchTable.InputSearchTable, {
+            _react2.default.createElement(_inputSearchTable.InputSearchTable, {
               className: 'input-search',
               placeholder: searchPlaceholder,
               onChange: function onChange(value) {
@@ -1099,10 +1112,10 @@ var TableReactive = exports.TableReactive = function (_Component) {
               }
             })
           ),
-          _react2.default.createElement(
+          create && _react2.default.createElement(
             _reactBootstrap.Col,
             { className: 'text-center mt-1', md: 1 },
-            create && _react2.default.createElement(
+            _react2.default.createElement(
               _reactBootstrap.Button,
               {
                 className: 'btn-circle',
@@ -1506,7 +1519,7 @@ exports.push([module.i, "/*!\n * Bootstrap v4.3.1 (https://getbootstrap.com/)\n 
 
 exports = module.exports = __webpack_require__(3)(false);
 // Module
-exports.push([module.i, "/*Circle Button*/\r\n.btn-circle {\r\n  width: 30px;\r\n  height: 30px;\r\n  text-align: center;\r\n  padding: 6px 0;\r\n  font-size: 12px;\r\n  line-height: 1.428571429;\r\n  border-radius: 15px;\r\n}\r\n\r\n/*Field animation*/ \r\n.error-field {\r\n\tanimation: error-field 0.2s ease-in-out 0s 2;\r\n\tbox-shadow: 0 0 0.5em #F44336;\r\n}\r\n\r\n@keyframes error-field {\r\n\t0% { margin-left: 0rem; }\r\n\t25% { margin-left: 0.5rem; }\r\n\t75% { margin-left: -0.5rem; }\r\n\t100% { margin-left: 0rem; }\r\n}\r\n\r\n/*Add animation*/\r\n.add {\r\n  animation: add .5s ease-in-out;\r\n}\r\n\r\n@keyframes add {\r\n  from {\r\n    transform: scale(0);\r\n    opacity: 0;\r\n    background: #5470B0;\r\n  }\r\n}\r\n\r\n/*Edit animation*/\r\n.edit {\r\n\tanimation: edit 0.4s ease;\r\n}\r\n\r\n@keyframes edit {\r\n\t0% {\r\n\t\topacity: 0;\r\n\t\ttransform: translateY(20px);\r\n\t}\r\n\t100% {\r\n\t\topacity: 1;\r\n\t\ttransform: translateY(0);\r\n\t}\r\n}\r\n\r\n/*Drop animation*/\r\n.drop {\r\n  animation: drop 1.2s forwards;\r\n}\r\n\r\n@keyframes drop {\r\n  0% {\r\n    transform-origin: center;\r\n    opacity: 1;\r\n  }\r\n  20% {\r\n    transform: \r\n      translate3d(0, 20px, 0)\r\n      rotate3d(0, 0, 1, -10deg);\r\n    opacity: 1;\r\n  }\r\n  40%, 45% {\r\n    transform: \r\n      translate3d(0, -120px, 0)\r\n      rotate3d(0, 0, 1, 10deg);\r\n    opacity: 1;\r\n  }\r\n  to {\r\n    opacity: 0;\r\n    transform: \r\n      translate3d(0, 2000px, 0)\r\n      rotate3d(0, 0, 1, 10deg);\r\n  }\r\n}\r\n\r\n.input-search {\r\n\twidth: 100%;\r\n\tmargin-left: 15px;\r\n}\r\n\r\n/*No result animation*/\r\n.no-result {\r\n\tanimation-name: no-result;\r\n\t-webkit-animation-name: no-result;\t\r\n\r\n\tanimation-duration: 1s;\t\r\n\t-webkit-animation-duration: 1s;\r\n\r\n\tanimation-timing-function: ease;\t\r\n\t-webkit-animation-timing-function: ease;\t\r\n\r\n\tvisibility: visible !important;\t\t\t\t\t\t\r\n}\r\n\r\n@keyframes no-result {\r\n\t0% {\r\n\t\ttransform: translateY(-100%);\r\n\t}\r\n\t50%{\r\n\t\ttransform: translateY(8%);\r\n\t}\r\n\t65%{\r\n\t\ttransform: translateY(-4%);\r\n\t}\r\n\t80%{\r\n\t\ttransform: translateY(4%);\r\n\t}\r\n\t95%{\r\n\t\ttransform: translateY(-2%);\r\n\t}\t\t\t\r\n\t100% {\r\n\t\ttransform: translateY(0%);\r\n\t}\t\t\r\n}\r\n\r\n@-webkit-keyframes no-result {\r\n\t0% {\r\n\t\t-webkit-transform: translateY(-100%);\r\n\t}\r\n\t50%{\r\n\t\t-webkit-transform: translateY(8%);\r\n\t}\r\n\t65%{\r\n\t\t-webkit-transform: translateY(-4%);\r\n\t}\r\n\t80%{\r\n\t\t-webkit-transform: translateY(4%);\r\n\t}\r\n\t95%{\r\n\t\t-webkit-transform: translateY(-2%);\r\n\t}\t\t\t\r\n\t100% {\r\n\t\t-webkit-transform: translateY(0%);\r\n\t}\t\r\n}", ""]);
+exports.push([module.i, "/*Circle Button*/\r\n.btn-circle {\r\n  width: 30px;\r\n  height: 30px;\r\n  text-align: center;\r\n  padding: 6px 0;\r\n  font-size: 12px;\r\n  line-height: 1.428571429;\r\n  border-radius: 15px;\r\n}\r\n\r\n/*Field animation*/ \r\n.error-field {\r\n\tanimation: error-field 0.2s ease-in-out 0s 2;\r\n\tbox-shadow: 0 0 0.5em #F44336;\r\n}\r\n\r\n@keyframes error-field {\r\n\t0% { margin-left: 0rem; }\r\n\t25% { margin-left: 0.5rem; }\r\n\t75% { margin-left: -0.5rem; }\r\n\t100% { margin-left: 0rem; }\r\n}\r\n\r\n/*Add animation*/\r\n.add {\r\n  animation: add .5s ease-in-out;\r\n}\r\n\r\n@keyframes add {\r\n  from {\r\n    transform: scale(0);\r\n    opacity: 0;\r\n    background: #5470B0;\r\n  }\r\n}\r\n\r\n/*Edit animation*/\r\n.edit {\r\n\tanimation: edit 0.4s ease;\r\n}\r\n\r\n@keyframes edit {\r\n\t0% {\r\n\t\topacity: 0;\r\n\t\ttransform: translateY(20px);\r\n\t}\r\n\t100% {\r\n\t\topacity: 1;\r\n\t\ttransform: translateY(0);\r\n\t}\r\n}\r\n\r\n/*Drop animation*/\r\n.drop {\r\n  animation: drop 1.2s forwards;\r\n}\r\n\r\n@keyframes drop {\r\n  0% {\r\n    transform-origin: center;\r\n    opacity: 1;\r\n  }\r\n  20% {\r\n    transform: \r\n      translate3d(0, 20px, 0)\r\n      rotate3d(0, 0, 1, -10deg);\r\n    opacity: 1;\r\n  }\r\n  40%, 45% {\r\n    transform: \r\n      translate3d(0, -120px, 0)\r\n      rotate3d(0, 0, 1, 10deg);\r\n    opacity: 1;\r\n  }\r\n  to {\r\n    opacity: 0;\r\n    transform: \r\n      translate3d(0, 2000px, 0)\r\n      rotate3d(0, 0, 1, 10deg);\r\n  }\r\n}\r\n\r\n.input-search {\r\n\twidth: 40%;\r\n\tmargin-left: 15px;\r\n}\r\n\r\n/*No result animation*/\r\n.no-result {\r\n\tanimation-name: no-result;\r\n\t-webkit-animation-name: no-result;\t\r\n\r\n\tanimation-duration: 1s;\t\r\n\t-webkit-animation-duration: 1s;\r\n\r\n\tanimation-timing-function: ease;\t\r\n\t-webkit-animation-timing-function: ease;\t\r\n\r\n\tvisibility: visible !important;\t\t\t\t\t\t\r\n}\r\n\r\n@keyframes no-result {\r\n\t0% {\r\n\t\ttransform: translateY(-100%);\r\n\t}\r\n\t50%{\r\n\t\ttransform: translateY(8%);\r\n\t}\r\n\t65%{\r\n\t\ttransform: translateY(-4%);\r\n\t}\r\n\t80%{\r\n\t\ttransform: translateY(4%);\r\n\t}\r\n\t95%{\r\n\t\ttransform: translateY(-2%);\r\n\t}\t\t\t\r\n\t100% {\r\n\t\ttransform: translateY(0%);\r\n\t}\t\t\r\n}\r\n\r\n@-webkit-keyframes no-result {\r\n\t0% {\r\n\t\t-webkit-transform: translateY(-100%);\r\n\t}\r\n\t50%{\r\n\t\t-webkit-transform: translateY(8%);\r\n\t}\r\n\t65%{\r\n\t\t-webkit-transform: translateY(-4%);\r\n\t}\r\n\t80%{\r\n\t\t-webkit-transform: translateY(4%);\r\n\t}\r\n\t95%{\r\n\t\t-webkit-transform: translateY(-2%);\r\n\t}\t\t\t\r\n\t100% {\r\n\t\t-webkit-transform: translateY(0%);\r\n\t}\t\r\n}", ""]);
 
 
 /***/ }),
