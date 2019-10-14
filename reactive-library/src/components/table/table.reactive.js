@@ -60,7 +60,8 @@ export class TableReactive extends Component {
           required: header[jsonKey].required,
           type: header[jsonKey].type.name.toLocaleLowerCase(),
           value: '',
-          error: false
+          error: false,
+          mask: header[jsonKey].mask
         });
       }
     }
@@ -402,7 +403,7 @@ export class TableReactive extends Component {
   }
 
   render() {
-    const { className, create, noTableData, search, searchPlaceholder, noSearchResult } = this.props;
+    const { className, create, noTableData, search, searchPlaceholder, noSearchResult, variant, isLoad, loadColor } = this.props;
     const { createEdited, tableData, isSearch } = this.state;
     
     return (
@@ -415,6 +416,7 @@ export class TableReactive extends Component {
                 className="input-search" 
                 placeholder={ searchPlaceholder }
                 onChange={ (value) => this.onSearch(value) }
+                disabled={ isLoad }
               />
             </Col>
           }
@@ -426,7 +428,7 @@ export class TableReactive extends Component {
                 className="btn-circle"
                 variant="outline-success"
                 onClick={ () => this.onCreateAction() }
-                disabled={ createEdited }
+                disabled={ createEdited || isLoad }
               >
                 <FontAwesomeIcon icon="plus" />
               </Button>
@@ -435,7 +437,7 @@ export class TableReactive extends Component {
         </Row>
         
         <div ref={ formRef } >
-          <Table responsive>
+          <Table variant={ variant } responsive>
             <thead>
               {
                 this.renderHeader()
@@ -443,8 +445,9 @@ export class TableReactive extends Component {
             </thead>
 
             <tbody>
-              {
-                this.renderBody()
+              { 
+                !isLoad &&
+                  this.renderBody()
               }
             </tbody>
           </Table>
@@ -456,6 +459,12 @@ export class TableReactive extends Component {
               <div className="text-center no-result">
                 { isSearch ? noSearchResult : noTableData }
               </div>
+        }
+        {
+          isLoad && 
+            <div className="text-center">
+              <FontAwesomeIcon color={ loadColor } size="2x" icon="spinner" spin/>
+            </div>
         }
       </div>
     );

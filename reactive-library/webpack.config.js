@@ -32,6 +32,7 @@ module.exports = {
     '@fortawesome/free-solid-svg-icons': 'commonjs @fortawesome/free-solid-svg-icons',
     '@fortawesome/react-fontawesome': 'commonjs @fortawesome/react-fontawesome',
     'sweetalert2': 'commonjs sweetalert2',
-    'sweetalert2-react-content': 'commonjs sweetalert2-react-content'
+    'sweetalert2-react-content': 'commonjs sweetalert2-react-content',
+    'inputmask': 'commonjs inputmask'
   }
 };

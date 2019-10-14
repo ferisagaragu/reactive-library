@@ -3,7 +3,8 @@ import {
   faTrash,
   faEdit,
   faCheck,
-  faTimes
+  faTimes,
+  faSpinner
 } from '@fortawesome/free-solid-svg-icons';
 
 const icons = [ 
@@ -11,7 +12,8 @@ const icons = [
   faTrash,
   faEdit,
   faCheck,
-  faTimes
+  faTimes,
+  faSpinner
 ];
 
 export default icons;

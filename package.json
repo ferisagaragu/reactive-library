@@ -3,5 +3,8 @@
   "scripts": {
     "library": "cd reactive-library && yarn start",
     "test": "cd reactive-test-app && yarn start"
+  },
+  "devDependencies": {
+    "inputmask": "^4.0.9"
   }
 }

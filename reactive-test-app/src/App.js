@@ -1,27 +1,25 @@
 import React from 'react';
-import { Table, toast, key } from 'reactive';
+import { Table, key } from 'reactive';
 
 function App() {
   return (
-    <div>
-      {
-        toast('success', 'vientos')
-      }
+    <div className="container">
       <Table 
         className="mt-5"
+        variant=""
+        isLoad={ false }
+        loadColor="#00C6E1"
         header={ {
           name: {
             label: 'Nombre',
             type: String,
             required: true,
-            mask: '',
             placeholder: 'Nombre del usuario'
           },
           direccion: {
             label: 'Direccion',
             type: String,
             required: true,
-            mask: '',
             placeholder: 'Direccion bine hecha'
           },
           description:  {
@@ -33,7 +31,6 @@ function App() {
             label: 'Total',
             type: Number,
             required: true,
-            mask: '',
             placeholder: 'El total completo'
           }
         } }
@@ -66,8 +63,8 @@ function App() {
         actionsLabel="Acciones"
         noTableData="No hay datos para mostrar"
 
-        //drop
-        //edit
+        drop
+        edit
         create
 
         search

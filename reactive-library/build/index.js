@@ -69,12 +69,6 @@ module.exports =
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
-
-module.exports = require("react");
-
-/***/ }),
-/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -94,6 +88,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var key = exports.key = function key() {
   return _uniqid2.default.process();
 };
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+module.exports = require("react");
 
 /***/ }),
 /* 2 */
@@ -568,13 +568,13 @@ exports.TableReactive = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(0);
+var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
 var _reactBootstrap = __webpack_require__(6);
 
-var _key = __webpack_require__(1);
+var _key = __webpack_require__(0);
 
 var _reactFontawesome = __webpack_require__(5);
 
@@ -659,7 +659,8 @@ var TableReactive = exports.TableReactive = function (_Component) {
             required: header[jsonKey].required,
             type: header[jsonKey].type.name.toLocaleLowerCase(),
             value: '',
-            error: false
+            error: false,
+            mask: header[jsonKey].mask
           });
         }
       }
@@ -1088,7 +1089,10 @@ var TableReactive = exports.TableReactive = function (_Component) {
           noTableData = _props5.noTableData,
           search = _props5.search,
           searchPlaceholder = _props5.searchPlaceholder,
-          noSearchResult = _props5.noSearchResult;
+          noSearchResult = _props5.noSearchResult,
+          variant = _props5.variant,
+          isLoad = _props5.isLoad,
+          loadColor = _props5.loadColor;
       var _state6 = this.state,
           createEdited = _state6.createEdited,
           tableData = _state6.tableData,
@@ -1109,7 +1113,8 @@ var TableReactive = exports.TableReactive = function (_Component) {
               placeholder: searchPlaceholder,
               onChange: function onChange(value) {
                 return _this5.onSearch(value);
-              }
+              },
+              disabled: isLoad
             })
           ),
           create && _react2.default.createElement(
@@ -1123,7 +1128,7 @@ var TableReactive = exports.TableReactive = function (_Component) {
                 onClick: function onClick() {
                   return _this5.onCreateAction();
                 },
-                disabled: createEdited
+                disabled: createEdited || isLoad
               },
               _react2.default.createElement(_reactFontawesome.FontAwesomeIcon, { icon: 'plus' })
             )
@@ -1134,7 +1139,7 @@ var TableReactive = exports.TableReactive = function (_Component) {
           { ref: formRef },
           _react2.default.createElement(
             _reactBootstrap.Table,
-            { responsive: true },
+            { variant: variant, responsive: true },
             _react2.default.createElement(
               'thead',
               null,
@@ -1143,7 +1148,7 @@ var TableReactive = exports.TableReactive = function (_Component) {
             _react2.default.createElement(
               'tbody',
               null,
-              this.renderBody()
+              !isLoad && this.renderBody()
             )
           )
         ),
@@ -1151,6 +1156,11 @@ var TableReactive = exports.TableReactive = function (_Component) {
           'div',
           { className: 'text-center no-result' },
           isSearch ? noSearchResult : noTableData
+        ),
+        isLoad && _react2.default.createElement(
+          'div',
+          { className: 'text-center' },
+          _react2.default.createElement(_reactFontawesome.FontAwesomeIcon, { color: loadColor, size: '2x', icon: 'spinner', spin: true })
         )
       );
     }
@@ -1213,11 +1223,11 @@ exports.FormTableReactive = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(0);
+var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _key = __webpack_require__(1);
+var _key = __webpack_require__(0);
 
 var _reactBootstrap = __webpack_require__(6);
 
@@ -1267,7 +1277,8 @@ var FormTableReactive = exports.FormTableReactive = function (_Component) {
             type: inputElement.type,
             value: inputElement.value,
             error: inputElement.error,
-            required: inputElement.required
+            required: inputElement.required,
+            mask: inputElement.mask
           });
         }),
         _react2.default.createElement(
@@ -1317,7 +1328,7 @@ exports.InputSearchTable = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(0);
+var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -1349,7 +1360,8 @@ var InputSearchTable = exports.InputSearchTable = function (_Component) {
       var _props = this.props,
           className = _props.className,
           placeholder = _props.placeholder,
-          _onChange = _props.onChange;
+          _onChange = _props.onChange,
+          disabled = _props.disabled;
 
 
       return _react2.default.createElement("input", {
@@ -1358,7 +1370,8 @@ var InputSearchTable = exports.InputSearchTable = function (_Component) {
         placeholder: placeholder,
         onChange: function onChange(evt) {
           return _onChange(evt.target.value);
-        }
+        },
+        disabled: disabled
       });
     }
   }]);
@@ -1380,7 +1393,7 @@ exports.InputTable = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(0);
+var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -1465,7 +1478,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _freeSolidSvgIcons = __webpack_require__(21);
 
-var icons = [_freeSolidSvgIcons.faPlus, _freeSolidSvgIcons.faTrash, _freeSolidSvgIcons.faEdit, _freeSolidSvgIcons.faCheck, _freeSolidSvgIcons.faTimes];
+var icons = [_freeSolidSvgIcons.faPlus, _freeSolidSvgIcons.faTrash, _freeSolidSvgIcons.faEdit, _freeSolidSvgIcons.faCheck, _freeSolidSvgIcons.faTimes, _freeSolidSvgIcons.faSpinner];
 
 exports.default = icons;
 
@@ -1487,7 +1500,7 @@ __webpack_require__(9);
 
 var _table2 = __webpack_require__(7);
 
-var _key2 = __webpack_require__(1);
+var _key2 = __webpack_require__(0);
 
 var _swal = __webpack_require__(2);
 
@@ -1519,7 +1532,7 @@ exports.push([module.i, "/*!\n * Bootstrap v4.3.1 (https://getbootstrap.com/)\n 
 
 exports = module.exports = __webpack_require__(3)(false);
 // Module
-exports.push([module.i, "/*Circle Button*/\r\n.btn-circle {\r\n  width: 30px;\r\n  height: 30px;\r\n  text-align: center;\r\n  padding: 6px 0;\r\n  font-size: 12px;\r\n  line-height: 1.428571429;\r\n  border-radius: 15px;\r\n}\r\n\r\n/*Field animation*/ \r\n.error-field {\r\n\tanimation: error-field 0.2s ease-in-out 0s 2;\r\n\tbox-shadow: 0 0 0.5em #F44336;\r\n}\r\n\r\n@keyframes error-field {\r\n\t0% { margin-left: 0rem; }\r\n\t25% { margin-left: 0.5rem; }\r\n\t75% { margin-left: -0.5rem; }\r\n\t100% { margin-left: 0rem; }\r\n}\r\n\r\n/*Add animation*/\r\n.add {\r\n  animation: add .5s ease-in-out;\r\n}\r\n\r\n@keyframes add {\r\n  from {\r\n    transform: scale(0);\r\n    opacity: 0;\r\n    background: #5470B0;\r\n  }\r\n}\r\n\r\n/*Edit animation*/\r\n.edit {\r\n\tanimation: edit 0.4s ease;\r\n}\r\n\r\n@keyframes edit {\r\n\t0% {\r\n\t\topacity: 0;\r\n\t\ttransform: translateY(20px);\r\n\t}\r\n\t100% {\r\n\t\topacity: 1;\r\n\t\ttransform: translateY(0);\r\n\t}\r\n}\r\n\r\n/*Drop animation*/\r\n.drop {\r\n  animation: drop 1.2s forwards;\r\n}\r\n\r\n@keyframes drop {\r\n  0% {\r\n    transform-origin: center;\r\n    opacity: 1;\r\n  }\r\n  20% {\r\n    transform: \r\n      translate3d(0, 20px, 0)\r\n      rotate3d(0, 0, 1, -10deg);\r\n    opacity: 1;\r\n  }\r\n  40%, 45% {\r\n    transform: \r\n      translate3d(0, -120px, 0)\r\n      rotate3d(0, 0, 1, 10deg);\r\n    opacity: 1;\r\n  }\r\n  to {\r\n    opacity: 0;\r\n    transform: \r\n      translate3d(0, 2000px, 0)\r\n      rotate3d(0, 0, 1, 10deg);\r\n  }\r\n}\r\n\r\n.input-search {\r\n\twidth: 40%;\r\n\tmargin-left: 15px;\r\n}\r\n\r\n/*No result animation*/\r\n.no-result {\r\n\tanimation-name: no-result;\r\n\t-webkit-animation-name: no-result;\t\r\n\r\n\tanimation-duration: 1s;\t\r\n\t-webkit-animation-duration: 1s;\r\n\r\n\tanimation-timing-function: ease;\t\r\n\t-webkit-animation-timing-function: ease;\t\r\n\r\n\tvisibility: visible !important;\t\t\t\t\t\t\r\n}\r\n\r\n@keyframes no-result {\r\n\t0% {\r\n\t\ttransform: translateY(-100%);\r\n\t}\r\n\t50%{\r\n\t\ttransform: translateY(8%);\r\n\t}\r\n\t65%{\r\n\t\ttransform: translateY(-4%);\r\n\t}\r\n\t80%{\r\n\t\ttransform: translateY(4%);\r\n\t}\r\n\t95%{\r\n\t\ttransform: translateY(-2%);\r\n\t}\t\t\t\r\n\t100% {\r\n\t\ttransform: translateY(0%);\r\n\t}\t\t\r\n}\r\n\r\n@-webkit-keyframes no-result {\r\n\t0% {\r\n\t\t-webkit-transform: translateY(-100%);\r\n\t}\r\n\t50%{\r\n\t\t-webkit-transform: translateY(8%);\r\n\t}\r\n\t65%{\r\n\t\t-webkit-transform: translateY(-4%);\r\n\t}\r\n\t80%{\r\n\t\t-webkit-transform: translateY(4%);\r\n\t}\r\n\t95%{\r\n\t\t-webkit-transform: translateY(-2%);\r\n\t}\t\t\t\r\n\t100% {\r\n\t\t-webkit-transform: translateY(0%);\r\n\t}\t\r\n}", ""]);
+exports.push([module.i, "/*Circle Button*/\r\n.btn-circle {\r\n  width: 30px;\r\n  height: 30px;\r\n  text-align: center;\r\n  padding: 6px 0;\r\n  font-size: 12px;\r\n  line-height: 1.428571429;\r\n  border-radius: 15px;\r\n}\r\n\r\n/*Field animation*/ \r\n.error-field {\r\n\tanimation: error-field 0.2s ease-in-out 0s 2;\r\n\tbox-shadow: 0 0 0.5em #F44336;\r\n}\r\n\r\n@keyframes error-field {\r\n\t0% { margin-left: 0rem; }\r\n\t25% { margin-left: 0.5rem; }\r\n\t75% { margin-left: -0.5rem; }\r\n\t100% { margin-left: 0rem; }\r\n}\r\n\r\n/*Add animation*/\r\n.add {\r\n  animation: add .5s ease-in-out;\r\n}\r\n\r\n@keyframes add {\r\n  from {\r\n    transform: scale(0);\r\n    opacity: 0;\r\n    background: #5470B0;\r\n  }\r\n}\r\n\r\n/*Edit animation*/\r\n.edit {\r\n\tanimation: edit 0.4s ease;\r\n}\r\n\r\n@keyframes edit {\r\n\t0% {\r\n\t\topacity: 0;\r\n\t\ttransform: translateY(20px);\r\n\t}\r\n\t100% {\r\n\t\topacity: 1;\r\n\t\ttransform: translateY(0);\r\n\t}\r\n}\r\n\r\n/*Drop animation*/\r\n.drop {\r\n  animation: drop 1.2s forwards;\r\n}\r\n\r\n@keyframes drop {\r\n  0% {\r\n    transform-origin: center;\r\n    opacity: 1;\r\n  }\r\n  20% {\r\n    transform: \r\n      translate3d(0, 20px, 0)\r\n      rotate3d(0, 0, 1, -10deg);\r\n    opacity: 1;\r\n  }\r\n  40%, 45% {\r\n    transform: \r\n      translate3d(0, -120px, 0)\r\n      rotate3d(0, 0, 1, 10deg);\r\n    opacity: 1;\r\n  }\r\n  to {\r\n    opacity: 0;\r\n    transform: \r\n      translate3d(0, 2000px, 0)\r\n      rotate3d(0, 0, 1, 10deg);\r\n  }\r\n}\r\n\r\n.input-search {\r\n\twidth: 40%;\r\n}\r\n\r\n/*No result animation*/\r\n.no-result {\r\n\tanimation-name: no-result;\r\n\t-webkit-animation-name: no-result;\t\r\n\r\n\tanimation-duration: 1s;\t\r\n\t-webkit-animation-duration: 1s;\r\n\r\n\tanimation-timing-function: ease;\t\r\n\t-webkit-animation-timing-function: ease;\t\r\n\r\n\tvisibility: visible !important;\t\t\t\t\t\t\r\n}\r\n\r\n@keyframes no-result {\r\n\t0% {\r\n\t\ttransform: translateY(-100%);\r\n\t}\r\n\t50%{\r\n\t\ttransform: translateY(8%);\r\n\t}\r\n\t65%{\r\n\t\ttransform: translateY(-4%);\r\n\t}\r\n\t80%{\r\n\t\ttransform: translateY(4%);\r\n\t}\r\n\t95%{\r\n\t\ttransform: translateY(-2%);\r\n\t}\t\t\t\r\n\t100% {\r\n\t\ttransform: translateY(0%);\r\n\t}\t\t\r\n}\r\n\r\n@-webkit-keyframes no-result {\r\n\t0% {\r\n\t\t-webkit-transform: translateY(-100%);\r\n\t}\r\n\t50%{\r\n\t\t-webkit-transform: translateY(8%);\r\n\t}\r\n\t65%{\r\n\t\t-webkit-transform: translateY(-4%);\r\n\t}\r\n\t80%{\r\n\t\t-webkit-transform: translateY(4%);\r\n\t}\r\n\t95%{\r\n\t\t-webkit-transform: translateY(-2%);\r\n\t}\t\t\t\r\n\t100% {\r\n\t\t-webkit-transform: translateY(0%);\r\n\t}\t\r\n}", ""]);
 
 
 /***/ }),

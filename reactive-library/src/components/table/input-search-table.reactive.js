@@ -11,7 +11,7 @@ export class InputSearchTable extends Component {
   }
   
   render() {
-    const { className, placeholder, onChange } = this.props;
+    const { className, placeholder, onChange, disabled } = this.props;
 
 		return (
       <input
@@ -19,6 +19,7 @@ export class InputSearchTable extends Component {
         type="text"
         placeholder={ placeholder }
         onChange={ (evt) => onChange(evt.target.value) }
+        disabled={ disabled }
       />
 		);
 	}

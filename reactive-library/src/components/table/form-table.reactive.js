@@ -31,6 +31,7 @@ export class FormTableReactive extends Component {
                 value={ inputElement.value }
                 error={ inputElement.error }
                 required={ inputElement.required }
+                mask={ inputElement.mask }
               />
             ))
         }
