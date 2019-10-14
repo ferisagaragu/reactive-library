@@ -4,11 +4,6 @@
 /reactive-test-app/.pnp
 .pnp.js
 
-/reactive-test-typescript/node_modules
-/reactive-test-typescript/.pnp
-/reactive-test-typescript/test/node_modules
-/reactive-test-typescript/test/.pnp
-
 # testing
 /reactive-test-app/coverage
 
