@@ -4,6 +4,11 @@
 /reactive-test-app/.pnp
 .pnp.js
 
+# Typescript
+/reactive/node_modules
+/reactive/example/node_modules
+/reactive/dist
+
 # testing
 /reactive-test-app/coverage
 
