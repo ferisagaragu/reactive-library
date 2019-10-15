@@ -1,10 +1,12 @@
 import React from 'react';
-import ExampleComponent from 'reactive';
+import { key, toast, alert } from 'reactive';
 
 const App: React.FC = () => {
   return (
     <div>
-      <ExampleComponent text="hola"/>
+      { key() }
+      { toast('success', 'Hola prro') }
+      { alert('success', 'Hola', 'hola amigo') }
     </div>
   );
 }

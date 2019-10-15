@@ -1,22 +1,11 @@
-import * as React from 'react'
-import { Button } from 'react-bootstrap';
+import keyReactive from './components/key/key.reactive';
+import { toastReactive, alertReactive, alertQuestionReactive } from './components/swal/swal.reactive';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export type Props = { text: string }
+//uniqid
+export const key = keyReactive;
 
-export default class ExampleComponent extends React.Component<Props> {
-  render() {
-    const {
-      text
-    } = this.props
-
-    return (
-      <div>
-        Example Component: {text}
-        <Button variant="outline-danger">
-          Hola
-        </Button>
-      </div>
-    )
-  }
-}
+//sweetalert2
+export const toast = toastReactive;
+export const alert = alertReactive;
+export const alertQuestion = alertQuestionReactive;
