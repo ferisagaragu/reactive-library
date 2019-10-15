@@ -1,5 +1,5 @@
 import React from 'react';
-import { key, toast, alert } from 'reactive';
+import { key, toast, alert, Table, HeaderTable } from 'reactive';
 
 const App: React.FC = () => {
   return (
@@ -7,6 +7,23 @@ const App: React.FC = () => {
       { key() }
       { toast('success', 'Hola prro') }
       { alert('success', 'Hola', 'hola amigo') }
+      <Table 
+        header={ 
+          [
+            new HeaderTable({
+              
+            }),
+            new HeaderTable({
+
+            })
+          ]
+        }
+        tableData={
+          [
+
+          ]
+        }
+      />
     </div>
   );
 }
