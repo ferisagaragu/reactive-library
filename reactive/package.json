@@ -17,9 +17,8 @@
     "test:watch": "react-scripts-ts test --env=jsdom",
     "build": "rollup -c",
     "start": "rollup -c -w",
-    "prepare": "yarn run build",
-    "predeploy": "cd example && yarn install && yarn run build",
-    "deploy": "gh-pages -d example/build"
+    "prepare": "npm run build",
+    "predeploy": "cd example && npm install && npm run build"
   },
   "dependencies": {},
   "peerDependencies": {
