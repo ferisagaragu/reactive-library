@@ -28,7 +28,12 @@
     "react-bootstrap": "^1.0.0-beta.14",
     "react-dom": "^15.0.0 || ^16.0.0",
     "sweetalert2-react-content": "^1.1.0",
-    "sweetalert2": "^8.18.3"
+    "sweetalert2": "^8.18.3",
+    "react-redux": "^7.1.1",
+    "redux": "^4.0.4",
+    "redux-form": "^8.2.6",
+    "redux-thunk": "^2.3.0",
+    "firebase": "^7.2.0"
   },
   "devDependencies": {
     "@svgr/rollup": "^2.4.1",
@@ -54,7 +59,12 @@
     "sweetalert2": "^8.18.3",
     "typescript": "^2.8.3",
     "uniqid": "^5.0.3",
-    "sweetalert2-react-content": "^1.1.0"
+    "sweetalert2-react-content": "^1.1.0",
+    "react-redux": "^7.1.1",
+    "redux": "^4.0.4",
+    "redux-form": "^8.2.6",
+    "redux-thunk": "^2.3.0",
+    "firebase": "^7.2.0"
   },
   "files": [
     "dist"

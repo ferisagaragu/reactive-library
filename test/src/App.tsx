@@ -45,6 +45,10 @@ const App: React.FC = () => {
             new ExampleData({
               name: 'Pedro',
               lastName: 'Rodriges Martinez'
+            }),
+            new ExampleData({
+              name: 'Panfilo',
+              lastName: 'Anstencio Robles'
             })
           ]
         }

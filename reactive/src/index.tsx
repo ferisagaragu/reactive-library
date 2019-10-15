@@ -14,6 +14,20 @@ export const alertQuestion = alertQuestionReactive;
 //reactive
 export const Table = TableReactive;
 
+//redux
+export const { createStore, applyMiddleware, compose, combineReducers } = require('redux');
+export const { Provider, connect } = require('react-redux');
+export const thunk = require('redux-thunk');
+export const {
+  reducer,
+  Field,
+  reduxForm,
+  SubmissionError,
+  reset
+} = require('redux-form');
+
+
+
 //reactive - types
 export class HeaderTable {
   key: string;
