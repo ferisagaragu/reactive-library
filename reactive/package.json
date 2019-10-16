@@ -29,10 +29,6 @@
     "react-dom": "^15.0.0 || ^16.0.0",
     "sweetalert2-react-content": "^1.1.0",
     "sweetalert2": "^8.18.3",
-    "react-redux": "^7.1.1",
-    "redux": "^4.0.4",
-    "redux-form": "^8.2.6",
-    "redux-thunk": "^2.3.0",
     "firebase": "^7.2.0"
   },
   "devDependencies": {
@@ -45,6 +41,7 @@
     "babel-runtime": "^6.26.0",
     "bootstrap": "^4.3.1",
     "cross-env": "^5.1.4",
+    "firebase": "^7.2.0",
     "gh-pages": "^1.2.0",
     "react-bootstrap": "^1.0.0-beta.14",
     "react-scripts-ts": "^2.16.0",
@@ -54,17 +51,12 @@
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-peer-deps-external": "^2.2.0",
     "rollup-plugin-postcss": "^1.6.2",
-    "rollup-plugin-typescript2": "^0.17.0",
+    "rollup-plugin-typescript2": "^0.24.3",
     "rollup-plugin-url": "^1.4.0",
     "sweetalert2": "^8.18.3",
-    "typescript": "^2.8.3",
-    "uniqid": "^5.0.3",
     "sweetalert2-react-content": "^1.1.0",
-    "react-redux": "^7.1.1",
-    "redux": "^4.0.4",
-    "redux-form": "^8.2.6",
-    "redux-thunk": "^2.3.0",
-    "firebase": "^7.2.0"
+    "typescript": "^2.8.3",
+    "uniqid": "^5.0.3"
   },
   "files": [
     "dist"
