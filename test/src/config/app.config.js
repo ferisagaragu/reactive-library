@@ -1,9 +1,9 @@
-//REDUX
 import { createStore, applyMiddleware, compose } from 'redux';
 import { reducers, initState } from '../declarations/redux.declarations';
 import thunk from 'redux-thunk';
-import { initializeFirebaseApp, Firebase } from 'reactive';
+import { initializeFirebaseApp } from 'reactive';
 
+//REDUX
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 export const store = createStore(reducers, initState, composeEnhancers(applyMiddleware(thunk)));
 
@@ -18,12 +18,6 @@ const firebaseConfig = {
   appId: "1:344892035551:web:f9560ed3de45962033f46a"
 }
 initializeFirebaseApp(firebaseConfig);
-
-const firebase = new Firebase();
-
-firebase.once('budgets',(data) => {
-  console.log(data.val());
-});
 
 //FONT AWESOME
 //import { library } from '@fortawesome/fontawesome-svg-core';

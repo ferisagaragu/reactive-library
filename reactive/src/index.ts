@@ -1,7 +1,7 @@
 import keyReactive from './components/key/key.reactive';
 import { toastReactive, alertReactive, alertQuestionReactive } from './components/swal/swal.reactive';
 import TableReactive from './components/table/table.reactive';
-import { Firebase as _Firebase, initializeFirebaseApp as _initializeFirebaseApp } from './components/firebase/firebase.reactive';
+import { FirebaseReactive, initializeFirebaseAppReactive } from './components/firebase/firebase.reactive';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 //uniqid
@@ -16,8 +16,8 @@ export const alertQuestion = alertQuestionReactive;
 export const Table = TableReactive;
 
 //firebase
-export const Firebase = _Firebase;
-export const initializeFirebaseApp = _initializeFirebaseApp;
+export const Firebase = FirebaseReactive;
+export const initializeFirebaseApp = initializeFirebaseAppReactive;
 
 //reactive - types
 export class HeaderTable {

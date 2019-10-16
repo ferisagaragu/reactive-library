@@ -2,11 +2,11 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 
-export function initializeFirebaseApp(firebaseConfig: string) {
+export function initializeFirebaseAppReactive(firebaseConfig: string) {
   firebase.initializeApp(firebaseConfig);
 }
 
-export class Firebase {
+export class FirebaseReactive {
 
   //REGIST AND LOGIN WHIT EMAIL
   public createUserWithEmailAndPassword(email: string, password: string, onRegist: Function, onError?: Function | undefined): void {

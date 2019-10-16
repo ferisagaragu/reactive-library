@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, HeaderTable, key } from 'reactive';
+import { Table, HeaderTable, key, Firebase } from 'reactive';
 
 class ExampleData {
   uid: string;
@@ -15,8 +15,14 @@ class ExampleData {
 }
 
 const App: React.FC = () => {
+  const firebase = new Firebase();
+
+  firebase.once('budgets',(data: any) => {
+    console.log(data.val());
+  });  
+  
   return (
-    <div>
+    <>
       <Table 
         header={ 
           [
@@ -53,7 +59,7 @@ const App: React.FC = () => {
           ]
         }
       />
-    </div>
+    </>
   );
 }
 
