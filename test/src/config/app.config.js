@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { reducers, initState } from '../declarations/redux.declarations';
-import thunk from 'redux-thunk';
 import { initializeFirebaseApp } from 'reactive';
+import thunk from 'redux-thunk';
 
 //REDUX
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
