@@ -4,6 +4,7 @@ import HeaderTable from './model/header-table.reactive.model';
 import keyReactive from '../../components/key/key.reactive';
 import FormTable from './model/form-table.reactive.model';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { foreachJSON } from '../util/json.reactive';
 
 interface Props {
   className?: string;
@@ -101,6 +102,12 @@ export default class TableReactive extends React.Component<Props, State> {
   renderTd(element: any): Array<React.ReactElement> {
     const { edit, drop } = this.props;
     const out = [];
+
+    foreachJSON(element, (value: any, key: string, index: number) => {
+      console.log(value);
+      console.log(key);
+      console.log(index);
+    });
 
     for (var jsonKey in element) {
       if (element.hasOwnProperty(jsonKey) && element.hasOwnProperty('uid')) {

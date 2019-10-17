@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Table, HeaderTable, Firebase, Modal } from 'reactive';
 import './table.css';
 
+const reactRedux = require('react-redux');
+
 class App extends Component<any, any> {
   
   constructor(props: any) {
@@ -99,4 +101,13 @@ class App extends Component<any, any> {
   }
 }
 
-export default App;
+const mapStateToProps = (state: any) => {
+  console.log(state);
+  return {
+    userData: state.userData
+  }
+};
+
+const mapDispatchToProps = (dispatch: Function) => ({});
+
+export default reactRedux.connect(mapStateToProps, mapDispatchToProps)(App);
