@@ -2,7 +2,17 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 
-export function initializeFirebaseAppReactive(firebaseConfig: string) {
+export function initializeFirebaseAppReactive(
+  firebaseConfig: {
+    apiKey: string,
+    authDomain: string,
+    databaseURL: string,
+    projectId: string,
+    storageBucket: string,
+    messagingSenderId: string,
+    appId: string
+  }
+) {
   firebase.initializeApp(firebaseConfig);
 }
 

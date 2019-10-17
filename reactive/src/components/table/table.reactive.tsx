@@ -1,14 +1,14 @@
 import * as React from 'react';
-import { Table } from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
 import HeaderTable from './model/header-table.reactive.model';
 import keyReactive from '../../components/key/key.reactive';
 import FormTable from './model/form-table.reactive.model';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface Props {
   className?: string;
   variant?: string;
   isLoad?: boolean;
-  loadColor?: string;
   header: Array<HeaderTable>;
   tableData: Array<any>;
   actionsLabel?: string;
@@ -26,15 +26,12 @@ interface Props {
   dropAlertText?: string;
 }
 
-interface State {
-
-}
+interface State {}
 
 export default class TableReactive extends React.Component<Props, State> {
 
   form: Array<FormTable> = [];
   formRef: any = null;
-  //numberIndex: number = -1;
 
   constructor(props: Props) {
     super(props);
@@ -102,7 +99,7 @@ export default class TableReactive extends React.Component<Props, State> {
   }
 
   renderTd(element: any): Array<React.ReactElement> {
-    //const { edit, drop } = this.props;
+    const { edit, drop } = this.props;
     const out = [];
 
     for (var jsonKey in element) {
@@ -119,25 +116,73 @@ export default class TableReactive extends React.Component<Props, State> {
       }
     }
 
-    /*if (edit || drop) {
+    if (edit || drop) {
       out.push(this.renderActions(element));
-    }*/
+    }
 
     return out;
   }
 
+  renderActions(element: any) {
+    const { drop, edit, onEdit, onDrop } = this.props;
+    const out = [];
 
+    if (edit) {
+      out.push(
+        <Button 
+          key={ keyReactive() }
+          className="btn-circle mr-3"
+          variant="outline-info"
+          onClick={ () => onEdit && onEdit(element) }
+          //disabled={ createMode || createEdited }
+        >
+          <FontAwesomeIcon icon="edit" />
+        </Button>
+      );
+    }
+
+    if (drop) {
+      out.push(
+        <Button 
+          key={ keyReactive() }
+          className="btn-circle"
+          variant="outline-danger"
+          onClick={ () => onDrop && onDrop(element) }
+          //disabled={ createMode || createEdited }
+        >
+          <FontAwesomeIcon icon="trash" />
+        </Button>
+      );
+    }
+
+    return (
+      <td className="text-center" key={ keyReactive() }>
+        { out }
+      </td>
+    );
+  }
 
   render() {
+    const { tableData } = this.props;
+
     return (
-      <Table responsive>
-        <thead>
-          { this.renderHeader() }
-        </thead>
-        <tbody>
-          { this.renderBody() }
-        </tbody>
-      </Table>
+      <>
+        <Table responsive>
+          <thead>
+            { this.renderHeader() }
+          </thead>
+          <tbody>
+            { this.renderBody() }
+          </tbody>
+        </Table>
+
+        {
+          tableData.length === 0 &&
+            <div className="text-center">
+              <FontAwesomeIcon className="load-table-indicator" size="2x" icon="spinner" spin/>
+            </div>
+        }
+      </>  
     );
   }
 }

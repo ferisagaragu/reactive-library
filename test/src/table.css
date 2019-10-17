@@ -1,0 +1,146 @@
+.load-table-indicator {
+  color: aqua;
+}
+
+/*Circle Button*/
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+
+/*Field animation*/ 
+.error-field {
+	animation: error-field 0.2s ease-in-out 0s 2;
+	box-shadow: 0 0 0.5em #F44336;
+}
+
+@keyframes error-field {
+	0% { margin-left: 0rem; }
+	25% { margin-left: 0.5rem; }
+	75% { margin-left: -0.5rem; }
+	100% { margin-left: 0rem; }
+}
+
+/*Add animation*/
+.add {
+  animation: add .5s ease-in-out;
+}
+
+@keyframes add {
+  from {
+    transform: scale(0);
+    opacity: 0;
+    background: #5470B0;
+  }
+}
+
+/*Edit animation*/
+.edit {
+	animation: edit 0.4s ease;
+}
+
+@keyframes edit {
+	0% {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/*Drop animation*/
+.drop {
+  animation: drop 1.2s forwards;
+}
+
+@keyframes drop {
+  0% {
+    transform-origin: center;
+    opacity: 1;
+  }
+  20% {
+    transform: 
+      translate3d(0, 20px, 0)
+      rotate3d(0, 0, 1, -10deg);
+    opacity: 1;
+  }
+  40%, 45% {
+    transform: 
+      translate3d(0, -120px, 0)
+      rotate3d(0, 0, 1, 10deg);
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: 
+      translate3d(0, 2000px, 0)
+      rotate3d(0, 0, 1, 10deg);
+  }
+}
+
+.input-search {
+	width: 40%;
+}
+
+/*No result animation*/
+.no-result {
+	animation-name: no-result;
+	-webkit-animation-name: no-result;	
+
+	animation-duration: 1s;	
+	-webkit-animation-duration: 1s;
+
+	animation-timing-function: ease;	
+	-webkit-animation-timing-function: ease;	
+
+	visibility: visible !important;						
+}
+
+@keyframes no-result {
+	0% {
+		transform: translateY(-100%);
+	}
+	50%{
+		transform: translateY(8%);
+	}
+	65%{
+		transform: translateY(-4%);
+	}
+	80%{
+		transform: translateY(4%);
+	}
+	95%{
+		transform: translateY(-2%);
+	}			
+	100% {
+		transform: translateY(0%);
+	}		
+}
+
+@-webkit-keyframes no-result {
+	0% {
+		-webkit-transform: translateY(-100%);
+	}
+	50%{
+		-webkit-transform: translateY(8%);
+	}
+	65%{
+		-webkit-transform: translateY(-4%);
+	}
+	80%{
+		-webkit-transform: translateY(4%);
+	}
+	95%{
+		-webkit-transform: translateY(-2%);
+	}			
+	100% {
+		-webkit-transform: translateY(0%);
+	}	
+}
