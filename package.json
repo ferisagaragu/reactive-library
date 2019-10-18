@@ -1,7 +1,7 @@
 {
   "lockfileVersion": 1,
   "scripts": {
-    "library": "cd reactive-library && yarn start",
-    "test": "cd reactive-test-app && yarn start"
+    "library": "cd reactive && npm start",
+    "test": "cd test && npm start"
   }
 }

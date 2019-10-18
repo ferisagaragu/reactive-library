@@ -6,6 +6,8 @@ const reactRedux = require('react-redux');
 
 class App extends Component<any, any> {
   
+  firebase = new Firebase();
+
   constructor(props: any) {
     super(props);
 
@@ -16,8 +18,7 @@ class App extends Component<any, any> {
   }
 
   componentDidMount() {
-    const firebase = new Firebase();
-    firebase.once('tableReactive',(data: any) => {
+    this.firebase.once('tableReactive',(data: any) => {
       this.setState({ dataTable: data.val() });
       console.log(data.val());
     });  
@@ -93,8 +94,13 @@ class App extends Component<any, any> {
           }
           tableData={ dataTable }
           isLoad={ dataTable.length === 0 }
+          actionsLabel="AccionesAcciones"
           edit
           drop
+
+          onDrop={ (elemet: any, index: number) => {  
+            this.firebase.remove(`tableReactive/${index}`);
+          }}
         />
       </>
     );

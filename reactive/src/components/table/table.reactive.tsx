@@ -4,7 +4,8 @@ import HeaderTable from './model/header-table.reactive.model';
 import keyReactive from '../../components/key/key.reactive';
 import FormTable from './model/form-table.reactive.model';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { foreachJSON } from '../util/json.reactive';
+import { foreachJSONReactive, oderJSONBy } from '../util/json.reactive';
+import { alertQuestionReactive } from '../swal/swal.reactive';
 
 interface Props {
   className?: string;
@@ -33,6 +34,7 @@ export default class TableReactive extends React.Component<Props, State> {
 
   form: Array<FormTable> = [];
   formRef: any = null;
+  order: Array<string> = [];
 
   constructor(props: Props) {
     super(props);
@@ -51,6 +53,7 @@ export default class TableReactive extends React.Component<Props, State> {
   private renderHeader(): React.ReactElement {
     const { header, drop, edit, actionsLabel } = this.props;
     this.form = [];
+    this.order = [];
 
     const out = header.map((headerData: HeaderTable) => {
       this.form.push( 
@@ -63,6 +66,10 @@ export default class TableReactive extends React.Component<Props, State> {
           error: false
         })
       );
+
+      header.forEach((element: HeaderTable) => {
+        this.order.push(element.key);
+      });
 
       return (
         <th
@@ -92,46 +99,38 @@ export default class TableReactive extends React.Component<Props, State> {
   private renderBody(): Array<React.ReactElement> {
     const { tableData } = this.props;
 
-    return tableData.map((element: any) => (
+    return tableData.map((element: any, index: number) => (
       <tr>
-        { this.renderTd(element) }
+        { this.renderTd(element, index) }
       </tr>
     ));
   }
 
-  renderTd(element: any): Array<React.ReactElement> {
+  renderTd(element: any, index: number): Array<React.ReactElement> {
     const { edit, drop } = this.props;
-    const out = [];
+    const out: Array<any> = [];
 
-    foreachJSON(element, (value: any, key: string, index: number) => {
-      console.log(value);
-      console.log(key);
-      console.log(index);
-    });
-
-    for (var jsonKey in element) {
-      if (element.hasOwnProperty(jsonKey) && element.hasOwnProperty('uid')) {
-        if (jsonKey !== 'uid') {
+    foreachJSONReactive(oderJSONBy(element, this.order), 
+      (value: any, key: string) => {
+        if (key !== 'uid') {
           out.push(
             <td className="text-center" key={ keyReactive() }>
-              { element[jsonKey] }
+              { value }
             </td> 
           );
         }
-      } else {
-        console.error(`tableData does not contain the 'uid' key`);
       }
-    }
+    );
 
     if (edit || drop) {
-      out.push(this.renderActions(element));
+      out.push(this.renderActions(element, index));
     }
 
     return out;
   }
 
-  renderActions(element: any) {
-    const { drop, edit, onEdit, onDrop } = this.props;
+  renderActions(element: any, index: number) {
+    const { drop, edit, onEdit } = this.props;
     const out = [];
 
     if (edit) {
@@ -154,7 +153,7 @@ export default class TableReactive extends React.Component<Props, State> {
           key={ keyReactive() }
           className="btn-circle"
           variant="outline-danger"
-          onClick={ () => onDrop && onDrop(element) }
+          onClick={ () => this.onDrop(element, index) }
           //disabled={ createMode || createEdited }
         >
           <FontAwesomeIcon icon="trash" />
@@ -163,9 +162,24 @@ export default class TableReactive extends React.Component<Props, State> {
     }
 
     return (
-      <td className="text-center" key={ keyReactive() }>
+      <td className="text-center action-row" key={ keyReactive() }>
         { out }
       </td>
+    );
+  }
+
+  private onDrop(element: any, index: number): void {
+    const { onDrop, dropAlertTitle, dropAlertText } = this.props;
+
+    alertQuestionReactive(
+      'question',
+      dropAlertTitle ? dropAlertTitle: 'Delete',
+      dropAlertText ? dropAlertText: 'Are you sure you want to delete the row?',
+      () => {
+        if (onDrop) {
+          onDrop(element, index);
+        }
+      }
     );
   }
 

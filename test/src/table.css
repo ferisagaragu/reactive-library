@@ -2,6 +2,10 @@
   color: aqua;
 }
 
+.action-row {
+	width: 100px;
+}
+
 /*Circle Button*/
 .btn-circle {
   width: 30px;

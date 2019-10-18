@@ -1,4 +1,4 @@
-export function foreachJSON(jsonElement: any, forEach: Function): void {
+export function foreachJSONReactive(jsonElement: any, forEach: Function): void {
   let index = 0;
   
   for (var jsonKey in jsonElement) {
@@ -7,4 +7,14 @@ export function foreachJSON(jsonElement: any, forEach: Function): void {
       index++;
     } 
   }
+}
+
+export function oderJSONBy(jsonElement: any, orderElements: Array<string>): any {
+  let out = {};
+
+  orderElements.forEach(element => {
+    out[element] = jsonElement[element];
+  });
+
+  return out;
 }

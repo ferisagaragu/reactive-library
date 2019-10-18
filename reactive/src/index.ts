@@ -3,6 +3,7 @@ import { toastReactive, alertReactive, alertQuestionReactive } from './component
 import TableReactive from './components/table/table.reactive';
 import { FirebaseReactive, initializeFirebaseAppReactive } from './components/firebase/firebase.reactive';
 import { ModalReactive } from './components/modal/modal.component';
+import { foreachJSONReactive } from './components/util/json.reactive'; 
 import './config/app.config';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -17,6 +18,9 @@ export const alertQuestion = alertQuestionReactive;
 //reactive
 export const Table = TableReactive;
 export const Modal = ModalReactive;
+
+//util
+export const foreachJSON = foreachJSONReactive;
 
 //firebase
 export const Firebase = FirebaseReactive;
