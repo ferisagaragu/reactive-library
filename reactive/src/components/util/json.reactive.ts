@@ -1,7 +1,7 @@
 export function foreachJSONReactive(jsonElement: any, forEach: Function): void {
-  let index = 0;
+  let index: number = 0;
   
-  for (var jsonKey in jsonElement) {
+  for (let jsonKey in jsonElement) {
     if (jsonElement.hasOwnProperty(jsonKey)) {
       forEach(jsonElement[jsonKey], jsonKey, index);
       index++;
@@ -9,12 +9,24 @@ export function foreachJSONReactive(jsonElement: any, forEach: Function): void {
   }
 }
 
-export function oderJSONBy(jsonElement: any, orderElements: Array<string>): any {
-  let out = {};
+export function oderJSONByReactive(jsonElement: any, orderElements: Array<string>): any {
+  let out: any = {};
 
   orderElements.forEach(element => {
     out[element] = jsonElement[element];
   });
+
+  return out;
+}
+
+export function convertJSONToArrayReactive(jsonElement: any) {
+  const out: Array<any> = [];
+  
+  for (let jsonKey in jsonElement) {
+    if (jsonElement.hasOwnProperty(jsonKey)) {
+      out.push(jsonElement[jsonKey]);
+    } 
+  }
 
   return out;
 }

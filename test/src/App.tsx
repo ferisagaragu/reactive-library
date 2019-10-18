@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, HeaderTable, Firebase, Modal } from 'reactive';
+import { Table, HeaderTable, Firebase, Modal, convertJSONToArray } from 'reactive';
 import './table.css';
 
 const reactRedux = require('react-redux');
@@ -7,6 +7,7 @@ const reactRedux = require('react-redux');
 class App extends Component<any, any> {
   
   firebase = new Firebase();
+  baseData: any = [];
 
   constructor(props: any) {
     super(props);
@@ -18,9 +19,9 @@ class App extends Component<any, any> {
   }
 
   componentDidMount() {
-    this.firebase.once('tableReactive',(data: any) => {
-      this.setState({ dataTable: data.val() });
-      console.log(data.val());
+    this.firebase.on('tableReactive',(data: any) => {
+      this.baseData = convertJSONToArray(data.val());
+      this.setState({ dataTable: convertJSONToArray(data.val()) });
     });  
   }
   
@@ -95,11 +96,17 @@ class App extends Component<any, any> {
           tableData={ dataTable }
           isLoad={ dataTable.length === 0 }
           actionsLabel="AccionesAcciones"
+
+          search
           edit
           drop
 
-          onDrop={ (elemet: any, index: number) => {  
-            this.firebase.remove(`tableReactive/${index}`);
+          onDrop={ (elemet: any) => {  
+            this.firebase.remove(`tableReactive/${elemet.uid}`);
+          }}
+
+          onSearch={ (elements: Array<any>, searchText: string) => {
+            this.setState({ dataTable: searchText === '' ? this.baseData : elements });
           }}
         />
       </>
@@ -108,7 +115,6 @@ class App extends Component<any, any> {
 }
 
 const mapStateToProps = (state: any) => {
-  console.log(state);
   return {
     userData: state.userData
   }

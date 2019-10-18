@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { Table, Button } from 'react-bootstrap';
+import { Table, Button, Row, Col } from 'react-bootstrap';
 import HeaderTable from './model/header-table.reactive.model';
 import keyReactive from '../../components/key/key.reactive';
 import FormTable from './model/form-table.reactive.model';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { foreachJSONReactive, oderJSONBy } from '../util/json.reactive';
+import { foreachJSONReactive, oderJSONByReactive } from '../util/json.reactive';
 import { alertQuestionReactive } from '../swal/swal.reactive';
+import InputSearchTable from './input-search-table.reactive';
 
 interface Props {
   className?: string;
@@ -21,6 +22,7 @@ interface Props {
   search?: boolean;
   searchPlaceholder?: string;
   noSearchResult?: string;
+  onSearch?: Function;
   onCreate?: Function;
   onEdit?: Function;
   onDrop?: Function;
@@ -28,7 +30,12 @@ interface Props {
   dropAlertText?: string;
 }
 
-interface State {}
+interface State {
+  form: Array<FormTable>;
+  tableData: Array<any>;
+  isSearch: boolean;
+  elementDrop: any;
+}
 
 export default class TableReactive extends React.Component<Props, State> {
 
@@ -40,7 +47,10 @@ export default class TableReactive extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-
+      form: [],
+      tableData: [],
+      isSearch: false,
+      elementDrop: {}
     }
 
     this.formRef = React.createRef();
@@ -48,6 +58,16 @@ export default class TableReactive extends React.Component<Props, State> {
   
   componentDidMount() {
     this.setState({ form: this.form });
+  }
+
+  static getDerivedStateFromProps(nextProps: Props, state: State) {
+    if (nextProps.tableData !== state.tableData) {
+      return {
+        tableData: nextProps.tableData,
+      };
+    }
+
+    return null;
   }
 
   private renderHeader(): React.ReactElement {
@@ -97,20 +117,34 @@ export default class TableReactive extends React.Component<Props, State> {
   }
 
   private renderBody(): Array<React.ReactElement> {
-    const { tableData } = this.props;
+    const { tableData, elementDrop } = this.state;
 
-    return tableData.map((element: any, index: number) => (
-      <tr>
-        { this.renderTd(element, index) }
-      </tr>
-    ));
+    return tableData.map((element: any, index: number) => { 
+      if (element.uid === elementDrop.uid) {
+        return (
+          <tr 
+            className="drop" 
+            key={ keyReactive() } 
+            onAnimationEnd={ () => this.onDropEmit() }
+          >
+            { this.renderTd(element, index) }
+          </tr>
+        );
+      }
+
+      return (
+        <tr key={ keyReactive() }>
+          { this.renderTd(element, index) }
+        </tr>
+      );
+    });
   }
 
-  renderTd(element: any, index: number): Array<React.ReactElement> {
+  private renderTd(element: any, index: number): Array<React.ReactElement> {
     const { edit, drop } = this.props;
     const out: Array<any> = [];
 
-    foreachJSONReactive(oderJSONBy(element, this.order), 
+    foreachJSONReactive(oderJSONByReactive(element, this.order), 
       (value: any, key: string) => {
         if (key !== 'uid') {
           out.push(
@@ -129,7 +163,7 @@ export default class TableReactive extends React.Component<Props, State> {
     return out;
   }
 
-  renderActions(element: any, index: number) {
+  private renderActions(element: any, index: number): React.ReactElement {
     const { drop, edit, onEdit } = this.props;
     const out = [];
 
@@ -177,17 +211,69 @@ export default class TableReactive extends React.Component<Props, State> {
       dropAlertText ? dropAlertText: 'Are you sure you want to delete the row?',
       () => {
         if (onDrop) {
-          onDrop(element, index);
+          console.log(index);
+          this.setState({ elementDrop: element });
         }
       }
     );
   }
 
+  private onDropEmit(): void {
+    const { onDrop } = this.props;
+    const { elementDrop } = this.state;
+
+    if (onDrop) {
+      onDrop(elementDrop);
+    }
+    
+    this.setState({ elementDrop: {} });
+  }
+
+  private onSearch(value: string) {
+    const { tableData, onSearch } = this.props;
+
+    const filterData = tableData.filter(element => {
+      let tableText = '';
+
+      foreachJSONReactive(element, (value: string, key: string) => {
+        if (key !== 'uid') {
+          tableText += value;
+        }
+      });
+
+      if (tableText.toLowerCase().includes(value.toLowerCase())) {
+        return element;
+      }
+    });
+    
+    if(onSearch) {
+      onSearch(filterData, value);
+      if (value) {
+        this.setState({ isSearch: true });
+      } else {
+        this.setState({ isSearch: false });
+      }
+    }
+  }
+
   render() {
-    const { tableData } = this.props;
+    const { search, searchPlaceholder, isLoad } = this.props;
+    const { tableData, isSearch } = this.state;
 
     return (
       <>
+        <Row className="mb-2">
+          {
+            search &&
+              <Col md={ 6 }>
+                <InputSearchTable 
+                  placeholder={ searchPlaceholder ? searchPlaceholder : '' }
+                  onChange={ (value: string) => this.onSearch(value) }
+                />
+              </Col>
+          }
+        </Row>
+
         <Table responsive>
           <thead>
             { this.renderHeader() }
@@ -197,11 +283,16 @@ export default class TableReactive extends React.Component<Props, State> {
           </tbody>
         </Table>
 
-        {
-          tableData.length === 0 &&
+        { 
+          isLoad && !isSearch ?
             <div className="text-center">
               <FontAwesomeIcon className="load-table-indicator" size="2x" icon="spinner" spin/>
             </div>
+          :
+            tableData.length === 0 &&
+              <div className="text-center no-result">
+                { isSearch ? 'No se encontraron resultados' : 'No hay datos para mostrar' }
+              </div>
         }
       </>  
     );

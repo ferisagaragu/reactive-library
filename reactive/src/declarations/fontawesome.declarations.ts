@@ -4,7 +4,8 @@ import {
   faEdit,
   faCheck,
   faTimes,
-  faSpinner
+  faSpinner,
+  faSearch
 } from '@fortawesome/free-solid-svg-icons';
 
 const icons: any = [ 
@@ -13,7 +14,8 @@ const icons: any = [
   faEdit,
   faCheck,
   faTimes,
-  faSpinner
+  faSpinner,
+  faSearch
 ];
 
 export default icons;
