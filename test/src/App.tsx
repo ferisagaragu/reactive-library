@@ -7,7 +7,6 @@ const reactRedux = require('react-redux');
 class App extends Component<any, any> {
   
   firebase = new Firebase();
-  baseData: any = [];
 
   constructor(props: any) {
     super(props);
@@ -20,7 +19,6 @@ class App extends Component<any, any> {
 
   componentDidMount() {
     this.firebase.on('tableReactive',(data: any) => {
-      this.baseData = convertJSONToArray(data.val());
       this.setState({ dataTable: convertJSONToArray(data.val()) });
     });  
   }
@@ -64,7 +62,7 @@ class App extends Component<any, any> {
                 placeholder: 'Escribe aquí tu apellido' 
               }),
               new HeaderTable({
-                key: 'phoneNumber',
+                key: 'phonNumber',
                 label: 'Numero telefonico',
                 type: 'text',
                 required: true,
@@ -95,18 +93,18 @@ class App extends Component<any, any> {
           }
           tableData={ dataTable }
           isLoad={ dataTable.length === 0 }
-          actionsLabel="AccionesAcciones"
+          actionsLabel="Acciones"
+          noTableData="No hay datos para mostrar."
 
           search
+          searchPlaceholder="Buscar..."
+          noSearchResult="No se encontraron resultados."
+
           edit
           drop
 
           onDrop={ (elemet: any) => {  
             this.firebase.remove(`tableReactive/${elemet.uid}`);
-          }}
-
-          onSearch={ (elements: Array<any>, searchText: string) => {
-            this.setState({ dataTable: searchText === '' ? this.baseData : elements });
           }}
         />
       </>

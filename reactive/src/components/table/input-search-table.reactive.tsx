@@ -12,12 +12,11 @@ interface State {
 
 export default class InputSearchTable extends React.Component<Props, State> {
   
+  input: any = null;
+
   constructor(props: Props) {
     super(props);
-
-    this.state = {
-      value: this.props.value ? this.props.value : ''
-    }
+    this.input = React.createRef();
   }
   
   render() {
@@ -26,10 +25,11 @@ export default class InputSearchTable extends React.Component<Props, State> {
 		return (
       <>
         <input
+          ref={ this.input }
           className="form-control"
           type="text"
           placeholder={ placeholder }
-          onChange={ (evt) => onChange(evt.target.value) }
+          onChange={ (evt) => onChange(evt.target.value, this.input) }
         />
       </>
 		);
