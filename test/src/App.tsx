@@ -20,7 +20,6 @@ class App extends Component<any, any> {
 
   componentDidMount() {
     this.firebase.on('tableReactive',(data: any) => {
-      console.log(convertJSONToArray(data.val()));
       this.setState({ dataTable: convertJSONToArray(data.val()), isLoading: false });
     });  
   }
@@ -97,6 +96,9 @@ class App extends Component<any, any> {
             this.firebase.remove(`tableReactive/${elemet.uid}`);
             this.setState({ isLoading: true })
           }}
+
+          pager
+          pagerShowNumber={ 5 }
         />
       </>
     );

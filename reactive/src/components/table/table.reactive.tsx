@@ -9,7 +9,6 @@ import { alertQuestionReactive } from '../swal/swal.reactive';
 import InputSearchTable from './input-search-table.reactive';
 import ActionTableReactive from './action-table.reactive';
 import FormTableReactive from './form-table.reactive';
-import PaginatorTableReactive from './paginator-table.reactive';
 
 interface Props {
   //className?: string;
@@ -297,8 +296,7 @@ export default class TableReactive extends React.Component<Props, State> {
             { this.renderBody(!isSearch ? tableData : searchElements) }
           </tbody>
         </Table>
-        <PaginatorTableReactive />
-
+        
         { 
           isLoad && !isSearch ?
             <div className="text-center">

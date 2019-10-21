@@ -3,38 +3,37 @@ import { Pagination } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import keyReactive from '../key/key.reactive';
 
-interface Props {}
+interface Props {
+  elementsLength: number;
+  defaultSelect: number;
+  showNumber: number;
+  onSelectedPage: Function;
+}
 
 interface State {
-  maxPage: number;
   pageSelected: number;
   nodeSelected: number;
 }
 
 export default class PaginatorTableReactive extends React.Component<Props, State> {
   
-  maxPageLength: number = 0;
+  maxPage: number = 0;
 
   constructor(props: Props) {
     super(props);
 
     this.state = {
-      maxPage: -1,
       pageSelected: 0,
-      nodeSelected: 1
+      nodeSelected: this.props.defaultSelect
     }
   }
 
-  componentDidMount() {
-    this.setState({ maxPage: this.maxPageLength });
-  }
-  
   private renderPagination(): Array<React.ReactElement> {
     const { nodeSelected } = this.state;
-    const pageNumber = 20;
+    const { elementsLength, showNumber } = this.props;
+    const pageNumber = Math.round(elementsLength / showNumber);
     let pages: Array<React.ReactElement> = [];
     let countPages: number = 1;
-    let passPage: boolean = true;
     const out: Array<any> = [];
 
     for (let i: number = 0; i < pageNumber; i++) {
@@ -55,38 +54,38 @@ export default class PaginatorTableReactive extends React.Component<Props, State
         );
       }
 
-      if (countPages === 5) {
+      if (countPages === showNumber) {
         out.push(pages);
         pages = [];
         countPages = 1;
-        passPage = false;
       } else {
         countPages++;
-        passPage = true;
       }
 
-      if (pageNumber === (i + 1) && passPage) {
+      if (pageNumber === (i + 1)) {
         out.push(pages);
       }
     }
 
-    this.maxPageLength = out.length - 1;
+    this.maxPage = out.length - 1;
     return out;
   }
 
   private onClickNode(nodeSelected: number): void {
+    const { onSelectedPage } = this.props;
     this.setState({ nodeSelected });
+    onSelectedPage(nodeSelected);
   }
 
   render() {
-    const { pageSelected, maxPage } = this.state;
-
-    console.log(pageSelected);
-    console.log(maxPage);
+    const { pageSelected, nodeSelected } = this.state;
+    const { elementsLength, showNumber } = this.props;
 
     return (
-      <>
-        <Pagination className="ml-5">
+      <div>
+        { `Mostrando ${nodeSelected * showNumber} a ${(nodeSelected * showNumber) + showNumber} de ${elementsLength} elementos` }
+
+        <Pagination className="float-right">
           <Pagination.Item
             onClick={ () => this.setState({ pageSelected: pageSelected - 1 }) }
             disabled={ pageSelected === 0 }
@@ -98,12 +97,12 @@ export default class PaginatorTableReactive extends React.Component<Props, State
 
           <Pagination.Item
             onClick={ () => this.setState({ pageSelected: pageSelected + 1 }) }
-            disabled={ maxPage === pageSelected }
+            disabled={ this.maxPage === pageSelected }
           >
             <FontAwesomeIcon icon="angle-right" />
           </Pagination.Item>
         </Pagination>
-      </>  
+      </div>
     );
   }
 }

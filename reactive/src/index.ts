@@ -1,6 +1,6 @@
 import keyReactive from './components/key/key.reactive';
 import { toastReactive, alertReactive, alertQuestionReactive } from './components/swal/swal.reactive';
-import TableReactive from './components/table/table.reactive';
+import RenderTableReactive from './components/table/render-table.reactive';
 import { FirebaseReactive, initializeFirebaseAppReactive } from './components/firebase/firebase.reactive';
 import { ModalReactive } from './components/modal/modal.component';
 import { foreachJSONReactive, oderJSONByReactive, convertJSONToArrayReactive, removeInJSONArrayReactive } from './components/util/json.reactive'; 
@@ -16,7 +16,7 @@ export const alert = alertReactive;
 export const alertQuestion = alertQuestionReactive;
 
 //reactive
-export const Table = TableReactive;
+export const Table = RenderTableReactive;
 export const Modal = ModalReactive;
 
 //util
