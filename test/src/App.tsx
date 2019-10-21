@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, HeaderTable, Firebase, Modal, convertJSONToArray } from 'reactive';
+import { Table, HeaderTable, Firebase, convertJSONToArray } from 'reactive';
 import './table.css';
 
 const reactRedux = require('react-redux');
@@ -13,38 +13,25 @@ class App extends Component<any, any> {
 
     this.state = {
       dataTable: [],
-      show: false
+      show: false,
+      isLoading: true
     }
   }
 
   componentDidMount() {
     this.firebase.on('tableReactive',(data: any) => {
-      this.setState({ dataTable: convertJSONToArray(data.val()) });
+      console.log(convertJSONToArray(data.val()));
+      this.setState({ dataTable: convertJSONToArray(data.val()), isLoading: false });
     });  
   }
   
   render() {
-    const { dataTable, show } = this.state;
+    const { dataTable } = this.state;
 
     return (
       <>
-        <Modal
-          title="Hola amigo"
-          modalShow={ show }
-          onHide={ () => this.setState({ show: !show }) }
-          size="xl"
-        >
-          <label>Hola amigos aqui estamos</label>
-          <button>Si!!</button>
-        </Modal>
-
-        <button
-          onClick={ () => this.setState({ show: true }) }
-        >
-          Modal
-        </button>
-
         <Table 
+          animate
           header={ 
             [
               new HeaderTable({
@@ -62,7 +49,7 @@ class App extends Component<any, any> {
                 placeholder: 'Escribe aquí tu apellido' 
               }),
               new HeaderTable({
-                key: 'phonNumber',
+                key: 'phoneNumber',
                 label: 'Numero telefonico',
                 type: 'text',
                 required: true,
@@ -91,20 +78,24 @@ class App extends Component<any, any> {
               })
             ]
           }
+
           tableData={ dataTable }
           isLoad={ dataTable.length === 0 }
-          actionsLabel="Acciones"
+          
           noTableData="No hay datos para mostrar."
 
           search
           searchPlaceholder="Buscar..."
           noSearchResult="No se encontraron resultados."
 
+          actionsLabel="Acciones"
+          create
           edit
           drop
 
           onDrop={ (elemet: any) => {  
             this.firebase.remove(`tableReactive/${elemet.uid}`);
+            this.setState({ isLoading: true })
           }}
         />
       </>

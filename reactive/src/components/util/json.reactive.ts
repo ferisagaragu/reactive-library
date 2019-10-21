@@ -19,7 +19,7 @@ export function oderJSONByReactive(jsonElement: any, orderElements: Array<string
   return out;
 }
 
-export function convertJSONToArrayReactive(jsonElement: any) {
+export function convertJSONToArrayReactive(jsonElement: any): any {
   const out: Array<any> = [];
   
   for (let jsonKey in jsonElement) {
@@ -29,4 +29,17 @@ export function convertJSONToArrayReactive(jsonElement: any) {
   }
 
   return out;
+}
+
+export function removeInJSONArrayReactive(jsonElement: Array<any>, jsonKey: any, matchRemove: any): any {
+  let removeIndex = -1;
+  
+  jsonElement.forEach((element: any, index: number) => {
+    if (element[jsonKey] === matchRemove) {
+      removeIndex = index;
+    }
+  });
+
+  jsonElement.splice(removeIndex, 1);
+  return jsonElement;
 }

@@ -1,31 +1,39 @@
 import * as React from 'react';
-import { Table, Row, Col } from 'react-bootstrap';
+import { Table, Row, Col, Button } from 'react-bootstrap';
 import HeaderTable from './model/header-table.reactive.model';
 import keyReactive from '../../components/key/key.reactive';
 import FormTable from './model/form-table.reactive.model';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { foreachJSONReactive, oderJSONByReactive } from '../util/json.reactive';
+import { foreachJSONReactive, oderJSONByReactive, removeInJSONArrayReactive } from '../util/json.reactive';
 import { alertQuestionReactive } from '../swal/swal.reactive';
 import InputSearchTable from './input-search-table.reactive';
 import ActionTableReactive from './action-table.reactive';
+import FormTableReactive from './form-table.reactive';
+import PaginatorTableReactive from './paginator-table.reactive';
 
 interface Props {
-  className?: string;
-  variant?: string;
-  isLoad?: boolean;
+  //className?: string;
+  //variant?: string;
+  animate?: boolean;
   header: Array<HeaderTable>;
   tableData: Array<any>;
-  actionsLabel?: string;
+  isLoad?: boolean;
   noTableData?: string;
-  drop?: boolean;
-  edit?: boolean;
-  create?: boolean;
+  
   search?: boolean;
   searchPlaceholder?: string;
   noSearchResult?: string;
+
+  actionsLabel?: string;
+  
+  create?: boolean;
+  edit?: boolean;
+  drop?: boolean;
+  
   onCreate?: Function;
   onEdit?: Function;
   onDrop?: Function;
+
   dropAlertTitle?: string;
   dropAlertText?: string;
 }
@@ -43,7 +51,6 @@ export default class TableReactive extends React.Component<Props, State> {
   form: Array<FormTable> = [];
   order: Array<string> = [];
   formRef: any = null;
-  searchInput: any = null;
 
   constructor(props: Props) {
     super(props);
@@ -182,7 +189,7 @@ export default class TableReactive extends React.Component<Props, State> {
   }
 
   private onDrop(element: any): void {
-    const { onDrop, dropAlertTitle, dropAlertText } = this.props;
+    const { onDrop, dropAlertTitle, dropAlertText, animate } = this.props;
 
     alertQuestionReactive(
       'question',
@@ -190,7 +197,12 @@ export default class TableReactive extends React.Component<Props, State> {
       dropAlertText ? dropAlertText: 'Are you sure you want to delete the row?',
       () => {
         if (onDrop) {
-          this.setState({ elementDrop: element });
+          if (animate) {
+            this.setState({ elementDrop: element });
+          } else {
+            this.setState({ elementDrop: element });
+            this.onDropEmit();
+          }
         }
       }
     );
@@ -198,21 +210,30 @@ export default class TableReactive extends React.Component<Props, State> {
 
   private onDropEmit(): void {
     const { onDrop } = this.props;
-    const { elementDrop, isSearch } = this.state;
+    const { elementDrop, searchElements, isSearch } = this.state;
 
     if (onDrop) {
       onDrop(elementDrop);
     }
 
     if (isSearch) {
-      this.searchInput.current.value = '';
-      this.setState({ elementDrop: {}, isSearch: false });
+      this.setState(
+        { 
+          elementDrop: {}, 
+          searchElements: 
+            removeInJSONArrayReactive(
+              searchElements, 
+              'uid', 
+              elementDrop.uid
+            ) 
+        }
+      );
     } else { 
       this.setState({ elementDrop: {} });
     }
   }
 
-  private onSearch(value: string, input: any): void {
+  private onSearch(value: string): void {
     const { tableData, searchElements } = this.state;
 
     const filterData = tableData.filter(element => {
@@ -234,12 +255,10 @@ export default class TableReactive extends React.Component<Props, State> {
     } else {
       this.setState({ isSearch: false, searchElements });
     }
-
-    this.searchInput = input;
   }
 
   render() {
-    const { search, searchPlaceholder, isLoad, noSearchResult, noTableData } = this.props;
+    const { search, searchPlaceholder, isLoad, noSearchResult, noTableData, animate, create } = this.props;
     const { tableData, searchElements, isSearch } = this.state;
     
     return (
@@ -250,8 +269,20 @@ export default class TableReactive extends React.Component<Props, State> {
               <Col md={ 6 }>
                 <InputSearchTable 
                   placeholder={ searchPlaceholder ? searchPlaceholder : '' }
-                  onChange={ (value: string, input: any) => this.onSearch(value, input) }
+                  onChange={ (value: string) => this.onSearch(value) }
                 />
+              </Col>
+          }
+
+          {
+            create && 
+              <Col className="text-right pt-1 pr-5" md={ 6 }>
+                <Button
+                  className="btn-circle"
+                  variant="outline-success"
+                >
+                  <FontAwesomeIcon icon="plus" />
+                </Button>
               </Col>
           }
         </Row>
@@ -260,10 +291,13 @@ export default class TableReactive extends React.Component<Props, State> {
           <thead>
             { this.renderHeader() }
           </thead>
+
           <tbody>
+            <FormTableReactive form={ this.form }></FormTableReactive>
             { this.renderBody(!isSearch ? tableData : searchElements) }
           </tbody>
         </Table>
+        <PaginatorTableReactive />
 
         { 
           isLoad && !isSearch ?
@@ -272,12 +306,12 @@ export default class TableReactive extends React.Component<Props, State> {
             </div>
           :
             tableData.length === 0 ?
-              <div className="text-center no-result">
+              <div className={ `text-center ${ animate ? 'no-result' : ''}` }>
                 { noTableData ? noTableData : 'No data to display.' }
               </div>
             :  
               isSearch && (searchElements.length === 0) &&
-                <div className="text-center no-result">
+                <div className={ `text-center ${ animate ? 'no-result' : ''}` }>
                   { noSearchResult ? noSearchResult : 'No results found.' }
                 </div>
         }
