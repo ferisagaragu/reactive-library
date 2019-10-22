@@ -28,6 +28,7 @@ interface Props {
 
   dropAlertTitle?: string;
   dropAlertText?: string;
+  showElements?: number;
   pager?: boolean;
   pagerShowNumber?: number;
 }
@@ -38,6 +39,8 @@ interface State {
 
 export default class RenderTableReactive extends React.Component<Props, State> {
   
+  pageNumberLength: number = 0;
+
   constructor(props: Props) {
     super(props);
 
@@ -47,14 +50,14 @@ export default class RenderTableReactive extends React.Component<Props, State> {
   }
 
   private renderPagerElements() {
-    const { tableData, pager, pagerShowNumber } = this.props;
+    const { tableData, pager, showElements } = this.props;
 
     if (pager) {
       let countPages: number = 1;
       let pageNumber: number = tableData.length;
       let pages: Array<any> = [];
       const out: Array<any> = [];
-      const pagerShowEnd = pagerShowNumber ? pagerShowNumber : 5;
+      const pagerShowEnd = showElements ? showElements : 5;
 
       for (let i: number = 0; i < pageNumber; i++) {
         pages.push(tableData[i]);
@@ -68,15 +71,35 @@ export default class RenderTableReactive extends React.Component<Props, State> {
         }
 
         if (pageNumber === (i + 1)) {
-          out.push(pages);
+          if (pages.length !== 0) {
+            out.push(pages);
+          }
         }
       }
 
       console.log(out);
+      this.pageNumberLength = out.length;
       return out;
     }
 
     return tableData;
+  }
+
+  private validDropPage(pageSelected: number): any {
+    const elements = this.renderPagerElements()[pageSelected];
+
+    console.log(`pageNumberLength ${this.pageNumberLength - 1}`);
+    console.log(`pageSelect ${pageSelected}`);
+    console.log(this.pageNumberLength > pageSelected);
+
+    if (elements) {
+      if (!(this.pageNumberLength > pageSelected)) {
+        this.setState({ pageSelected: pageSelected - 1 });
+      }
+      return elements;
+    }
+
+    return [];
   }
 
   render() {
@@ -103,12 +126,14 @@ export default class RenderTableReactive extends React.Component<Props, State> {
     } = this.props;
     const { pageSelected } = this.state;
 
+    console.log(this.validDropPage(pageSelected));
+
     return (
       <>
         <Table 
           animate={ animate }
           header={ header }
-          tableData={ this.renderPagerElements()[0] ? this.renderPagerElements()[pageSelected] : [] }
+          tableData={ this.validDropPage(pageSelected) ? this.validDropPage(pageSelected) : [] }
           isLoad={ isLoad }
           noTableData={ noTableData }
           search={ search }
@@ -130,8 +155,9 @@ export default class RenderTableReactive extends React.Component<Props, State> {
             tableData.length !== 0 &&
               <PaginatorTableReactive 
                 elementsLength={ tableData.length }
-                defaultSelect={ 1 }
-                showNumber={ pagerShowNumber ? pagerShowNumber : 5 }
+                pageNumber={ this.pageNumberLength }
+                defaultSelect={ pageSelected + 1 }
+                maxPagesRender={ pagerShowNumber ? pagerShowNumber : 5 }
                 onSelectedPage={ (nodeSelected: number) => this.setState({ pageSelected: nodeSelected - 1 }) }
               />
         }

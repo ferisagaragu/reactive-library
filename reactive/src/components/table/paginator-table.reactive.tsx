@@ -6,7 +6,8 @@ import keyReactive from '../key/key.reactive';
 interface Props {
   elementsLength: number;
   defaultSelect: number;
-  showNumber: number;
+  maxPagesRender: number;
+  pageNumber: number;
   onSelectedPage: Function;
 }
 
@@ -30,8 +31,7 @@ export default class PaginatorTableReactive extends React.Component<Props, State
 
   private renderPagination(): Array<React.ReactElement> {
     const { nodeSelected } = this.state;
-    const { elementsLength, showNumber } = this.props;
-    const pageNumber = Math.round(elementsLength / showNumber);
+    const { maxPagesRender, pageNumber } = this.props;
     let pages: Array<React.ReactElement> = [];
     let countPages: number = 1;
     const out: Array<any> = [];
@@ -54,7 +54,7 @@ export default class PaginatorTableReactive extends React.Component<Props, State
         );
       }
 
-      if (countPages === showNumber) {
+      if (countPages === maxPagesRender) {
         out.push(pages);
         pages = [];
         countPages = 1;
@@ -79,11 +79,11 @@ export default class PaginatorTableReactive extends React.Component<Props, State
 
   render() {
     const { pageSelected, nodeSelected } = this.state;
-    const { elementsLength, showNumber } = this.props;
+    const { elementsLength, maxPagesRender } = this.props;
 
     return (
       <div>
-        { `Mostrando ${nodeSelected * showNumber} a ${(nodeSelected * showNumber) + showNumber} de ${elementsLength} elementos` }
+        { `Mostrando ${nodeSelected * maxPagesRender} a ${(nodeSelected * maxPagesRender) + maxPagesRender} de ${elementsLength} elementos` }
 
         <Pagination className="float-right">
           <Pagination.Item
