@@ -32,6 +32,7 @@ interface Props {
   showElements?: number;
   pager?: boolean;
   pageShow?: number;
+  pageMessage?: string;
 }
 
 interface State {
@@ -55,6 +56,30 @@ export default class RenderTableReactive extends React.Component<Props, State> {
       tableData, 
       showElements ? showElements : 5
     );
+  }
+
+  private renderElmentShowMessage(): Array<any> {
+    const { tableData, showElements, pageMessage } = this.props;
+    const split = showElements ? showElements : 5;
+    let elmentNumber: Array<number> = [];
+    const out: Array<string> = [];
+
+    for (let index = 1; index <= tableData.length; index++) {
+      elmentNumber.push(index);
+    }
+
+    elmentNumber = splitArrayReactive(elmentNumber, split);
+    elmentNumber.forEach((element: any) => {
+      const message = pageMessage ?
+        pageMessage
+          .replace('${init}', element[0])
+          .replace('${end}', element[element.length - 1])
+          .replace('${length}', `${tableData.length}`)
+        : `Showing ${element[0]} to ${element[element.length - 1]} of ${tableData.length} entries`;
+      out.push(message);
+    });
+
+    return out;
   }
 
   render() {
@@ -111,6 +136,7 @@ export default class RenderTableReactive extends React.Component<Props, State> {
                 value={ pageSelected }
                 numberPages={ finalData.length }
                 split={ pageShow ? pageShow : 5 }
+                pageMessage={ this.renderElmentShowMessage()[pageSelected] }
                 onChange={ (select: number) => this.setState({ pageSelected: select }) }
               />
         }

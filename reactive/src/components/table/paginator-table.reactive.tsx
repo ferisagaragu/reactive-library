@@ -8,6 +8,7 @@ interface Props {
   numberPages: number;
   split: number;
   value: number;
+  pageMessage: React.ReactElement;
   onChange: Function;
 }
 
@@ -46,11 +47,14 @@ export default class PaginatorTableReactive extends React.Component<Props, State
   
   render() {
     const { showPages } = this.state;
+    const { pageMessage } = this.props;
     const pages: any = this.renderPages();
     const renderPages: Array<React.ReactElement> = pages[showPages];
     
     return (
       <div>
+        { pageMessage }
+
         <Pagination className="float-right">
           <Pagination.Item
             onClick={ () => this.setState({ showPages: 0 }) }
