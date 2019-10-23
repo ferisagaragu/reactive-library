@@ -98,7 +98,8 @@ class App extends Component<any, any> {
           }}
 
           pager
-          pagerShowNumber={ 5 }
+          showElements={ 10 }
+          pageShow={ 13 }
         />
       </>
     );

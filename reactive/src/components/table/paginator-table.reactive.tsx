@@ -1,105 +1,85 @@
 import * as React from 'react';
 import { Pagination } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { splitArrayReactive } from '../util/array.reactive';
 import keyReactive from '../key/key.reactive';
 
 interface Props {
-  elementsLength: number;
-  defaultSelect: number;
-  maxPagesRender: number;
-  pageNumber: number;
-  onSelectedPage: Function;
+  numberPages: number;
+  split: number;
+  value: number;
+  onChange: Function;
 }
 
 interface State {
-  pageSelected: number;
-  nodeSelected: number;
+  showPages: number;
 }
 
 export default class PaginatorTableReactive extends React.Component<Props, State> {
   
-  maxPage: number = 0;
-
   constructor(props: Props) {
     super(props);
 
     this.state = {
-      pageSelected: 0,
-      nodeSelected: this.props.defaultSelect
+      showPages: 0
     }
   }
 
-  private renderPagination(): Array<React.ReactElement> {
-    const { nodeSelected } = this.state;
-    const { maxPagesRender, pageNumber } = this.props;
-    let pages: Array<React.ReactElement> = [];
-    let countPages: number = 1;
-    const out: Array<any> = [];
-
-    for (let i: number = 0; i < pageNumber; i++) {
-      if ((i + 1) === nodeSelected) {
-        pages.push(
-          <Pagination.Item key={ keyReactive() } active>
-            { 1 + i }
-          </Pagination.Item>
-        );
-      } else {
-        pages.push(
-          <Pagination.Item 
-            key={ keyReactive() }
-            onClick={ () => this.onClickNode(i + 1) }
-          >
-            { 1 + i }
-          </Pagination.Item>
-        );
-      }
-
-      if (countPages === maxPagesRender) {
-        out.push(pages);
-        pages = [];
-        countPages = 1;
-      } else {
-        countPages++;
-      }
-
-      if (pageNumber === (i + 1)) {
-        out.push(pages);
-      }
+  private renderPages(): Array<React.ReactElement> {
+    const { value, onChange, numberPages, split } = this.props;
+    const pages: Array<React.ReactElement> = [];
+    
+    for (let index: number = 0; index < numberPages; index++) {
+      pages.push(
+        <Pagination.Item
+          key={ keyReactive() }
+          active={ index === value }
+          onClick={ () => onChange(index) }
+        >
+          { (index + 1) }
+        </Pagination.Item>
+      );
     }
 
-    this.maxPage = out.length - 1;
-    return out;
+    return splitArrayReactive(pages, split);
   }
-
-  private onClickNode(nodeSelected: number): void {
-    const { onSelectedPage } = this.props;
-    this.setState({ nodeSelected });
-    onSelectedPage(nodeSelected);
-  }
-
+  
   render() {
-    const { pageSelected, nodeSelected } = this.state;
-    const { elementsLength, maxPagesRender } = this.props;
-
+    const { showPages } = this.state;
+    const pages: any = this.renderPages();
+    const renderPages: Array<React.ReactElement> = pages[showPages];
+    
     return (
       <div>
-        { `Mostrando ${nodeSelected * maxPagesRender} a ${(nodeSelected * maxPagesRender) + maxPagesRender} de ${elementsLength} elementos` }
-
         <Pagination className="float-right">
           <Pagination.Item
-            onClick={ () => this.setState({ pageSelected: pageSelected - 1 }) }
-            disabled={ pageSelected === 0 }
+            onClick={ () => this.setState({ showPages: 0 }) }
+            disabled={ showPages === 0 }
+          >
+            <FontAwesomeIcon icon="angle-double-left" />
+          </Pagination.Item>
+
+          <Pagination.Item
+            onClick={ () => this.setState({ showPages: showPages - 1 }) }
+            disabled={ showPages === 0 }
           >
             <FontAwesomeIcon icon="angle-left" />
           </Pagination.Item>
 
-          { this.renderPagination()[pageSelected] }
+          { renderPages }
 
           <Pagination.Item
-            onClick={ () => this.setState({ pageSelected: pageSelected + 1 }) }
-            disabled={ this.maxPage === pageSelected }
+            onClick={ () => this.setState({ showPages: showPages + 1 }) }
+            disabled={ (pages.length - 1) === showPages }
           >
             <FontAwesomeIcon icon="angle-right" />
+          </Pagination.Item>
+
+          <Pagination.Item
+            onClick={ () => this.setState({ showPages: (pages.length - 1) }) }
+            disabled={ (pages.length - 1) === showPages }
+          >
+            <FontAwesomeIcon icon="angle-double-right" />
           </Pagination.Item>
         </Pagination>
       </div>

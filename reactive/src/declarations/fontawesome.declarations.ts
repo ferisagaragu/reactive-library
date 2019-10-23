@@ -7,7 +7,9 @@ import {
   faSpinner,
   faSearch,
   faAngleLeft,
-  faAngleRight
+  faAngleRight,
+  faAngleDoubleLeft,
+  faAngleDoubleRight
 } from '@fortawesome/free-solid-svg-icons';
 
 const icons: any = [ 
@@ -19,7 +21,9 @@ const icons: any = [
   faSpinner,
   faSearch,
   faAngleLeft,
-  faAngleRight
+  faAngleRight,
+  faAngleDoubleLeft,
+  faAngleDoubleRight
 ];
 
 export default icons;

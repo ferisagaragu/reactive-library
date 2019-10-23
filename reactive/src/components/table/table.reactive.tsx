@@ -127,8 +127,9 @@ export default class TableReactive extends React.Component<Props, State> {
 
   private renderBody(tableData: Array<any>): Array<React.ReactElement> {
     const { elementDrop } = this.state;
+    const finalData = tableData ? tableData : [];
 
-    return tableData.map((element: any) => { 
+    return finalData.map((element: any) => { 
       if (element.uid === elementDrop.uid) {
         return (
           <tr 
