@@ -8,6 +8,7 @@ interface Props {
   numberPages: number;
   split: number;
   value: number;
+  disabled: boolean;
   pageMessage: React.ReactElement;
   onChange: Function;
 }
@@ -27,7 +28,7 @@ export default class PaginatorTableReactive extends React.Component<Props, State
   }
 
   private renderPages(): Array<React.ReactElement> {
-    const { value, onChange, numberPages, split } = this.props;
+    const { value, onChange, numberPages, split, disabled } = this.props;
     const pages: Array<React.ReactElement> = [];
     
     for (let index: number = 0; index < numberPages; index++) {
@@ -36,6 +37,7 @@ export default class PaginatorTableReactive extends React.Component<Props, State
           key={ keyReactive() }
           active={ index === value }
           onClick={ () => onChange(index) }
+          disabled={ disabled }
         >
           { (index + 1) }
         </Pagination.Item>
@@ -47,7 +49,7 @@ export default class PaginatorTableReactive extends React.Component<Props, State
   
   render() {
     const { showPages } = this.state;
-    const { pageMessage } = this.props;
+    const { pageMessage, disabled } = this.props;
     const pages: any = this.renderPages();
     const renderPages: Array<React.ReactElement> = pages[showPages];
     
@@ -58,14 +60,14 @@ export default class PaginatorTableReactive extends React.Component<Props, State
         <Pagination className="float-right">
           <Pagination.Item
             onClick={ () => this.setState({ showPages: 0 }) }
-            disabled={ showPages === 0 }
+            disabled={ showPages === 0 || disabled }
           >
             <FontAwesomeIcon icon="angle-double-left" />
           </Pagination.Item>
 
           <Pagination.Item
             onClick={ () => this.setState({ showPages: showPages - 1 }) }
-            disabled={ showPages === 0 }
+            disabled={ showPages === 0 || disabled }
           >
             <FontAwesomeIcon icon="angle-left" />
           </Pagination.Item>
@@ -74,14 +76,14 @@ export default class PaginatorTableReactive extends React.Component<Props, State
 
           <Pagination.Item
             onClick={ () => this.setState({ showPages: showPages + 1 }) }
-            disabled={ (pages.length - 1) === showPages }
+            disabled={ (pages.length - 1) === showPages || disabled }
           >
             <FontAwesomeIcon icon="angle-right" />
           </Pagination.Item>
 
           <Pagination.Item
             onClick={ () => this.setState({ showPages: (pages.length - 1) }) }
-            disabled={ (pages.length - 1) === showPages }
+            disabled={ (pages.length - 1) === showPages || disabled }
           >
             <FontAwesomeIcon icon="angle-double-right" />
           </Pagination.Item>

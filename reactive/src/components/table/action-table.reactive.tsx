@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 interface Props {
   edit: boolean;
   drop: boolean;
+  disabled: boolean;
   onEdit: Function;
   onDrop: Function;
 }
@@ -13,7 +14,7 @@ interface State {}
 
 export default class ActionTableReactive extends React.Component<Props, State> {
   render() {
-    const { onEdit, onDrop, edit, drop } = this.props;
+    const { onEdit, onDrop, edit, drop, disabled } = this.props;
 
     return (
       <>
@@ -23,7 +24,7 @@ export default class ActionTableReactive extends React.Component<Props, State> {
               className="btn-circle mr-3"
               variant="outline-info"
               onClick={ () => onEdit() }
-              //disabled={ createMode || createEdited }
+              disabled={ disabled }
             >
               <FontAwesomeIcon icon="edit" />
             </Button>
@@ -35,7 +36,7 @@ export default class ActionTableReactive extends React.Component<Props, State> {
               className="btn-circle"
               variant="outline-danger"
               onClick={ () => onDrop() }
-              //disabled={ createMode || createEdited }
+              disabled={ disabled }
             >
               <FontAwesomeIcon icon="trash" />
             </Button>

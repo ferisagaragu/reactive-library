@@ -29,7 +29,9 @@ interface Props {
   edit?: boolean;
   drop?: boolean;
   
+  initCreate: Function;
   onCreate?: Function;
+  onCreateCancel: Function;
   onEdit?: Function;
   onDrop?: Function;
 
@@ -174,6 +176,7 @@ export default class TableReactive extends React.Component<Props, State> {
 
   private renderActions(element: any): React.ReactElement {
     const { drop, edit, onEdit } = this.props;
+    const { isCreate } = this.state;
 
     return (
       <td className="text-center action-row" key={ keyReactive() }>
@@ -182,18 +185,22 @@ export default class TableReactive extends React.Component<Props, State> {
           edit={ edit ? true : false }
           onEdit={ () => onEdit && onEdit(element) }  
           onDrop={ () => this.onDrop(element) }
+          disabled={ isCreate }
         />
       </td>
     );
   }
 
-  private onCreate(): void {
-    const { onCreate } = this.props;
-
+  private initCreate(): void {
+    const { initCreate } = this.props;
     this.setState({ isCreate: true });
-    if (onCreate) {
-      onCreate();
-    }
+    initCreate();
+  }
+
+  private onCreateCancel(): void {
+    const { onCreateCancel } = this.props;
+    this.setState({ isCreate: false });
+    onCreateCancel();
   }
 
   private onDrop(element: any): void {
@@ -266,7 +273,7 @@ export default class TableReactive extends React.Component<Props, State> {
   }
 
   render() {
-    const { search, searchPlaceholder, isLoad, noSearchResult, noTableData, animate, create } = this.props;
+    const { search, searchPlaceholder, isLoad, noSearchResult, noTableData, animate, create, onCreate } = this.props;
     const { tableData, searchElements, isSearch, isCreate } = this.state;
     
     return (
@@ -288,7 +295,7 @@ export default class TableReactive extends React.Component<Props, State> {
                 <Button
                   className="btn-circle"
                   variant="outline-success"
-                  onClick={ () => this.onCreate() }
+                  onClick={ () => this.initCreate() }
                 >
                   <FontAwesomeIcon icon="plus" />
                 </Button>
@@ -308,7 +315,8 @@ export default class TableReactive extends React.Component<Props, State> {
               isCreate &&
                 <FormTableReactive 
                   form={ this.form }
-                  onApproved={ (formData: any) => { console.log(formData) } }
+                  onApproved={ (formData: any) => onCreate && onCreate(formData) }
+                  onCancel={ () => this.onCreateCancel() }
                 />
             }
           </tbody>

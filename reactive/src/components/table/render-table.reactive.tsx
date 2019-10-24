@@ -37,6 +37,7 @@ interface Props {
 
 interface State {
   pageSelected: number;
+  disabledPage: boolean;
 }
 
 export default class RenderTableReactive extends React.Component<Props, State> {
@@ -47,7 +48,8 @@ export default class RenderTableReactive extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      pageSelected: 0
+      pageSelected: 0,
+      disabledPage: false
     }
 
     this.pagerRef = React.createRef();
@@ -86,8 +88,8 @@ export default class RenderTableReactive extends React.Component<Props, State> {
     return out;
   }
 
-  private onCreateEnd(element: any, finalData: Array<any>): void {
-    const { onCreate, pageShow, pager } = this.props;
+  private onCreateEnd(finalData: Array<any>): void {
+    const { pageShow, pager } = this.props;
     
     if (pager) {
       this.pagerRef.current.state.showPages =
@@ -95,11 +97,7 @@ export default class RenderTableReactive extends React.Component<Props, State> {
           finalData.length / (pageShow ? pageShow : 5)
         );
       
-      this.setState({ pageSelected: finalData.length - 1 });
-    }
-    
-    if (onCreate) {
-      onCreate(element);
+      this.setState({ pageSelected: finalData.length - 1, disabledPage: true });
     }
   }
 
@@ -142,9 +140,11 @@ export default class RenderTableReactive extends React.Component<Props, State> {
       dropAlertTitle,
       dropAlertText,
       pager,
-      pageShow
+      pageShow,
+      onCreate
     } = this.props;
-    const { pageSelected } = this.state;
+    const { pageSelected, disabledPage } = this.state;
+
     const finalData = this.renderPagerElements();
     const showMessage = this.renderElmentShowMessage();
 
@@ -163,7 +163,9 @@ export default class RenderTableReactive extends React.Component<Props, State> {
           create={ create }
           edit={ edit }
           drop={ drop }
-          onCreate={ (element: any) => this.onCreateEnd(element, finalData) }
+          initCreate={ () => this.onCreateEnd(finalData) }
+          onCreate={ (element: any) => onCreate && onCreate(element) }
+          onCreateCancel={ () => this.setState({ pageSelected: finalData.length - 1, disabledPage: false }) }
           onEdit={ onEdit }
           onDrop={ (element: any) => this.onDropEnd(element, finalData[pageSelected]) }
           dropAlertTitle={ dropAlertTitle }
@@ -180,6 +182,7 @@ export default class RenderTableReactive extends React.Component<Props, State> {
                 split={ pageShow ? pageShow : 5 }
                 pageMessage={ showMessage[pageSelected] }
                 onChange={ (select: number) => this.setState({ pageSelected: select }) }
+                disabled={ disabledPage }
               />
         }
       </>  

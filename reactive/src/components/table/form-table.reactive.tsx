@@ -8,6 +8,7 @@ import keyReactive from '../key/key.reactive';
 interface Props {
   form: Array<FormTable>;
   onApproved: Function;
+  onCancel: Function;
 }
 
 interface State {}
@@ -49,7 +50,7 @@ export default class FormTableReactive extends React.Component<Props, State> {
   }
 
   render() {
-    const { form } = this.props;
+    const { form, onCancel } = this.props;
 
     return (
       <tr ref={ this.tdRef }>
@@ -79,6 +80,7 @@ export default class FormTableReactive extends React.Component<Props, State> {
           <Button
             className="btn-circle"
             variant="outline-danger"
+            onClick={ () => onCancel() }
           >
             <FontAwesomeIcon icon="times" />
           </Button>
