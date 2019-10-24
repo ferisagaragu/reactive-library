@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, HeaderTable, Firebase, convertJSONToArray } from 'reactive';
+import { Table, HeaderTable, Firebase, convertJSONToArray, key } from 'reactive';
 import './table.css';
 
 const reactRedux = require('react-redux');
@@ -92,7 +92,10 @@ class App extends Component<any, any> {
           edit
           drop
 
-          onCreate={ (data: any) => console.log(data) }
+          onCreate={ (data: any) => {
+            data.uid = key();
+            this.firebase.update(`tableReactive/${data.uid}`, data);
+          } }
 
           onDrop={ (elemet: any) => {  
             this.firebase.remove(`tableReactive/${elemet.uid}`);
