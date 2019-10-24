@@ -258,7 +258,7 @@ export default class TableReactive extends React.Component<Props, State> {
   }
 
   render() {
-    const { search, searchPlaceholder, isLoad, noSearchResult, noTableData, animate, create } = this.props;
+    const { search, searchPlaceholder, isLoad, noSearchResult, noTableData, animate, create, onCreate } = this.props;
     const { tableData, searchElements, isSearch } = this.state;
     
     return (
@@ -280,6 +280,7 @@ export default class TableReactive extends React.Component<Props, State> {
                 <Button
                   className="btn-circle"
                   variant="outline-success"
+                  onClick={ () => onCreate && onCreate() }
                 >
                   <FontAwesomeIcon icon="plus" />
                 </Button>

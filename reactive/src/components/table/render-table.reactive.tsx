@@ -41,12 +41,16 @@ interface State {
 
 export default class RenderTableReactive extends React.Component<Props, State> {
 
+  pagerRef: any = null;
+
   constructor(props: Props) {
     super(props);
 
     this.state = {
       pageSelected: 0
     }
+
+    this.pagerRef = React.createRef();
   }
 
   private renderPagerElements(): Array<any> {
@@ -82,6 +86,29 @@ export default class RenderTableReactive extends React.Component<Props, State> {
     return out;
   }
 
+  private onCreateEnd(element: any, finalData: Array<any>, showMessage: Array<string>): void {
+    const { onCreate } = this.props;
+    this.pagerRef.current.state.showPages = 14; 
+    console.log(showMessage);
+    this.setState({ pageSelected: finalData.length - 1 });
+    if (onCreate) {
+      onCreate(element);
+    }
+  }
+
+  private onDropEnd(element: any, finalData: Array<any>): void {
+    const { onDrop } = this.props;
+    const { pageSelected } = this.state;
+
+    if (finalData.length === 1) {
+      this.setState({ pageSelected: pageSelected - 1 })
+    }
+
+    if (onDrop) {
+      onDrop(element);
+    }
+  }
+
   render() {
     const { 
       animate,
@@ -96,9 +123,7 @@ export default class RenderTableReactive extends React.Component<Props, State> {
       create,
       edit,
       drop,
-      onCreate,
       onEdit,
-      onDrop,
       dropAlertTitle,
       dropAlertText,
       pager,
@@ -106,13 +131,14 @@ export default class RenderTableReactive extends React.Component<Props, State> {
     } = this.props;
     const { pageSelected } = this.state;
     const finalData = this.renderPagerElements();
+    const showMessage = this.renderElmentShowMessage();
 
     return (
       <>
         <Table 
           animate={ animate }
           header={ header }
-          tableData={ pager ? finalData[pageSelected]: tableData }
+          tableData={ pager ? finalData[pageSelected] : tableData }
           isLoad={ isLoad }
           noTableData={ noTableData }
           search={ search }
@@ -122,9 +148,9 @@ export default class RenderTableReactive extends React.Component<Props, State> {
           create={ create }
           edit={ edit }
           drop={ drop }
-          onCreate={ onCreate }
+          onCreate={ (element: any) => this.onCreateEnd(element, finalData, showMessage) }
           onEdit={ onEdit }
-          onDrop={ onDrop }
+          onDrop={ (element: any) => this.onDropEnd(element, finalData[pageSelected]) }
           dropAlertTitle={ dropAlertTitle }
           dropAlertText={ dropAlertText }
         />
@@ -133,10 +159,11 @@ export default class RenderTableReactive extends React.Component<Props, State> {
           (tableData && pager) &&
             tableData.length !== 0 &&
               <PaginatorTableReactive 
+                ref={ this.pagerRef }
                 value={ pageSelected }
                 numberPages={ finalData.length }
                 split={ pageShow ? pageShow : 5 }
-                pageMessage={ this.renderElmentShowMessage()[pageSelected] }
+                pageMessage={ showMessage[pageSelected] }
                 onChange={ (select: number) => this.setState({ pageSelected: select }) }
               />
         }
