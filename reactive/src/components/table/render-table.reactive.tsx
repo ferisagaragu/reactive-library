@@ -86,10 +86,14 @@ export default class RenderTableReactive extends React.Component<Props, State> {
     return out;
   }
 
-  private onCreateEnd(element: any, finalData: Array<any>, showMessage: Array<string>): void {
-    const { onCreate } = this.props;
-    this.pagerRef.current.state.showPages = 14; 
-    console.log(showMessage);
+  private onCreateEnd(element: any, finalData: Array<any>): void {
+    const { onCreate, pageShow } = this.props;
+    console.log(finalData.length / (pageShow ? pageShow : 5));
+    this.pagerRef.current.state.showPages =
+      this.convertToInteger(
+        finalData.length / (pageShow ? pageShow : 5)
+      );
+    
     this.setState({ pageSelected: finalData.length - 1 });
     if (onCreate) {
       onCreate(element);
@@ -106,6 +110,14 @@ export default class RenderTableReactive extends React.Component<Props, State> {
 
     if (onDrop) {
       onDrop(element);
+    }
+  }
+
+  private convertToInteger(convert: number) {
+    if (convert % 1 == 0) {
+      return convert;
+    } else {
+      return Math.trunc(convert);
     }
   }
 
@@ -148,7 +160,7 @@ export default class RenderTableReactive extends React.Component<Props, State> {
           create={ create }
           edit={ edit }
           drop={ drop }
-          onCreate={ (element: any) => this.onCreateEnd(element, finalData, showMessage) }
+          onCreate={ (element: any) => this.onCreateEnd(element, finalData) }
           onEdit={ onEdit }
           onDrop={ (element: any) => this.onDropEnd(element, finalData[pageSelected]) }
           dropAlertTitle={ dropAlertTitle }

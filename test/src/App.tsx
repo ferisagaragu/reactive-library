@@ -98,8 +98,8 @@ class App extends Component<any, any> {
           }}
 
           pager
-          showElements={ 10 }
-          pageShow={ 10 }
+          showElements={ 11 }
+          pageShow={ 13 }
           pageMessage={ 'Mostrando desde ${init} hasta ${end} de ${length} registros' }
         />
       </>
