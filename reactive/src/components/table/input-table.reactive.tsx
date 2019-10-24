@@ -4,7 +4,7 @@ interface Props {
   className?: string; 
   type?: string;
   name?: string;
-  required?: string;
+  required?: boolean;
   placeholder?: string;
   value?: string;
   error?: string;
@@ -12,40 +12,53 @@ interface Props {
 
 interface State {
   value: string;
-  error: string;
 }
 
 export class InputTableReactive extends React.Component<Props, State> {
   
+  inputRef: any = null;
+
   constructor(props: Props) {
     super(props);
 
     this.state = {
-      value: this.props.value ? this.props.value : '',
-      error: this.props.error ? 'error-field' : ''
+      value: this.props.value ? this.props.value : ''
     }
+
+    this.inputRef = React.createRef();
   }
 
-  onChange(evt: any) {
+  private onChange(evt: any): void {
+    const { required } = this.props;
+
     if (evt.target.value) {
-      this.setState({ value: evt.target.value, error: '' });
+      this.setState({ value: evt.target.value });
+      if (required) {
+        this.inputRef.current.classList.remove('error');
+      }
     } else {
-      this.setState({ value: evt.target.value, error: 'error-field' });
+      this.setState({ value: evt.target.value });
+      if (required) {
+        this.inputRef.current.classList.add('error');
+      }
     }
   }
   
   render() {
-    const { className, type, name, required, placeholder } = this.props;
-    const { value, error } = this.state;
+    const { type, name, required, placeholder } = this.props;
+    const { value } = this.state;
 
 		return (
       <input
-        className={ `${className} form-control ${required ? error : ''}` }
+        ref={ this.inputRef }
+        id={ name }
+        className={ `form-control` }
         type={ type }
         name={ name }
         placeholder={ placeholder }
         onChange={ (evt) => this.onChange(evt) }
         value={ value }
+        required={ required }
       />
 		);
 	}

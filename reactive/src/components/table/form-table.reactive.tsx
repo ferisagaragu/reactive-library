@@ -6,7 +6,8 @@ import { InputTableReactive } from './input-table.reactive';
 import keyReactive from '../key/key.reactive';
 
 interface Props {
-  form: Array<FormTable>; 
+  form: Array<FormTable>;
+  onApproved: Function;
 }
 
 interface State {}
@@ -20,6 +21,33 @@ export default class FormTableReactive extends React.Component<Props, State> {
     this.tdRef = React.createRef();
   }
   
+  private submitForm(): void {
+    const { onApproved } = this.props;
+    const inputList = this.tdRef.current.getElementsByTagName('input');
+    let dataOut = {};
+    let isSuccess = true;
+
+    for (let input of inputList) {
+      if (input.value) {
+        dataOut[input.id] = input.value;
+        if (input.required) {
+          input.classList.remove('error');
+        }
+      } else if (!input.required) {
+        dataOut[input.id] = input.value;
+      }else {
+        if (input.required) {
+          input.classList.add('error');
+        }
+        isSuccess = false;
+      }
+    }
+
+    if (isSuccess) {
+      onApproved(dataOut)
+    }
+  }
+
   render() {
     const { form } = this.props;
 
@@ -28,11 +56,12 @@ export default class FormTableReactive extends React.Component<Props, State> {
         
         {
           form.map((element: FormTable) => (
-            <td>
-              <InputTableReactive 
-                key={ keyReactive() }
+            <td key={ keyReactive() }>
+              <InputTableReactive
+                name={ element.name } 
                 type={ element.type } 
-                value={ 'pedro' }
+                value={ element.value }
+                required={ element.required }
               />
             </td>
           ))
@@ -42,6 +71,7 @@ export default class FormTableReactive extends React.Component<Props, State> {
           <Button
             className="btn-circle mr-3"
             variant="outline-success"
+            onClick={ () => this.submitForm() }
           >
             <FontAwesomeIcon icon="check" />
           </Button>

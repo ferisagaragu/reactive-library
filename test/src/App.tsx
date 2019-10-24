@@ -37,7 +37,7 @@ class App extends Component<any, any> {
                 key: 'name',
                 label: 'Nombre',
                 type: 'text',
-                required: true,
+                required: false,
                 placeholder: 'Escribe aquí un nombre' 
               }),
               new HeaderTable({
@@ -50,7 +50,7 @@ class App extends Component<any, any> {
               new HeaderTable({
                 key: 'phoneNumber',
                 label: 'Numero telefonico',
-                type: 'text',
+                type: 'number',
                 required: true,
                 placeholder: 'Escribe aquí tu apellido' 
               }),
@@ -98,8 +98,8 @@ class App extends Component<any, any> {
           }}
 
           pager
-          showElements={ 11 }
-          pageShow={ 13 }
+          showElements={ 5 }
+          pageShow={ 5 }
           pageMessage={ 'Mostrando desde ${init} hasta ${end} de ${length} registros' }
         />
       </>

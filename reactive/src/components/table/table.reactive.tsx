@@ -42,6 +42,7 @@ interface State {
   tableData: Array<any>;
   searchElements: Array<any>;
   isSearch: boolean;
+  isCreate: boolean;
   elementDrop: any;
 }
 
@@ -49,7 +50,6 @@ export default class TableReactive extends React.Component<Props, State> {
 
   form: Array<FormTable> = [];
   order: Array<string> = [];
-  formRef: any = null;
 
   constructor(props: Props) {
     super(props);
@@ -58,11 +58,10 @@ export default class TableReactive extends React.Component<Props, State> {
       form: [],
       tableData: [],
       isSearch: false,
+      isCreate: false,
       elementDrop: {},
       searchElements: []
     }
-
-    this.formRef = React.createRef();
   }
   
   componentDidMount() {
@@ -188,6 +187,15 @@ export default class TableReactive extends React.Component<Props, State> {
     );
   }
 
+  private onCreate(): void {
+    const { onCreate } = this.props;
+
+    this.setState({ isCreate: true });
+    if (onCreate) {
+      onCreate();
+    }
+  }
+
   private onDrop(element: any): void {
     const { onDrop, dropAlertTitle, dropAlertText, animate } = this.props;
 
@@ -258,8 +266,8 @@ export default class TableReactive extends React.Component<Props, State> {
   }
 
   render() {
-    const { search, searchPlaceholder, isLoad, noSearchResult, noTableData, animate, create, onCreate } = this.props;
-    const { tableData, searchElements, isSearch } = this.state;
+    const { search, searchPlaceholder, isLoad, noSearchResult, noTableData, animate, create } = this.props;
+    const { tableData, searchElements, isSearch, isCreate } = this.state;
     
     return (
       <>
@@ -280,7 +288,7 @@ export default class TableReactive extends React.Component<Props, State> {
                 <Button
                   className="btn-circle"
                   variant="outline-success"
-                  onClick={ () => onCreate && onCreate() }
+                  onClick={ () => this.onCreate() }
                 >
                   <FontAwesomeIcon icon="plus" />
                 </Button>
@@ -294,8 +302,15 @@ export default class TableReactive extends React.Component<Props, State> {
           </thead>
 
           <tbody>
-            <FormTableReactive form={ this.form }></FormTableReactive>
             { this.renderBody(!isSearch ? tableData : searchElements) }
+            
+            {
+              isCreate &&
+                <FormTableReactive 
+                  form={ this.form }
+                  onApproved={ (formData: any) => { console.log(formData) } }
+                />
+            }
           </tbody>
         </Table>
         
