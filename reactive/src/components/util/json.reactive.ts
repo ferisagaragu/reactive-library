@@ -31,7 +31,7 @@ export function convertJSONToArrayReactive(jsonElement: any): any {
   return out;
 }
 
-export function removeInJSONArrayReactive(jsonElement: Array<any>, jsonKey: any, matchRemove: any): any {
+export function removeInJSONArrayReactive(jsonElement: Array<any>, jsonKey: any, matchRemove: any): Array<any> {
   let removeIndex = -1;
   
   jsonElement.forEach((element: any, index: number) => {
@@ -42,4 +42,23 @@ export function removeInJSONArrayReactive(jsonElement: Array<any>, jsonKey: any,
 
   jsonElement.splice(removeIndex, 1);
   return jsonElement;
+}
+
+export function replaceInJSONArrayReactive(
+  jsonElement: Array<any>, 
+  jsonKey: any, 
+  matchUpdate: any, 
+  replaceElement: any
+): Array<any> {
+  let replaceIndex = -1;
+  
+  jsonElement.forEach((element: any, index: number) => {
+    if (element[jsonKey] === matchUpdate) {
+      replaceIndex = index;
+    }
+  });
+
+  jsonElement[replaceIndex] = replaceElement;
+  return jsonElement;
+
 }

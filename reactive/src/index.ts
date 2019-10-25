@@ -3,7 +3,7 @@ import { toastReactive, alertReactive, alertQuestionReactive } from './component
 import RenderTableReactive from './components/table/render-table.reactive';
 import { FirebaseReactive, initializeFirebaseAppReactive } from './components/firebase/firebase.reactive';
 import { ModalReactive } from './components/modal/modal.component';
-import { foreachJSONReactive, oderJSONByReactive, convertJSONToArrayReactive, removeInJSONArrayReactive } from './components/util/json.reactive'; 
+import { foreachJSONReactive, oderJSONByReactive, convertJSONToArrayReactive, removeInJSONArrayReactive, replaceInJSONArrayReactive } from './components/util/json.reactive'; 
 import { splitArrayReactive } from './components/util/array.reactive';
 import './config/app.config';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -26,6 +26,7 @@ export const oderJSONBy = oderJSONByReactive;
 export const convertJSONToArray = convertJSONToArrayReactive;
 export const removeInJSONArray = removeInJSONArrayReactive;
 export const splitArray = splitArrayReactive;
+export const replaceInJSONArray = replaceInJSONArrayReactive;
 
 //firebase
 export const Firebase = FirebaseReactive;

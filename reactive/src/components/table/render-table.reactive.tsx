@@ -185,6 +185,8 @@ export default class RenderTableReactive extends React.Component<Props, State> {
           initCreate={ () => this.onCreateEnd(finalData) }
           onCreate={ (element: any) => this.onCreate(element, finalData) }
           onCreateCancel={ () => this.setState({ pageSelected: finalData.length - 1, disabledPage: false }) }
+          initEdit={ () =>  this.setState({ disabledPage: true }) }
+          onEditCancel={ () =>  this.setState({ disabledPage: false }) }
           onEdit={ onEdit }
           onDrop={ (element: any) => this.onDropEnd(element, finalData[pageSelected]) }
           dropAlertTitle={ dropAlertTitle }

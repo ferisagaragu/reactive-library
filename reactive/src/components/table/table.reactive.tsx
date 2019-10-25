@@ -4,7 +4,7 @@ import HeaderTable from './model/header-table.reactive.model';
 import keyReactive from '../../components/key/key.reactive';
 import FormTable from './model/form-table.reactive.model';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { foreachJSONReactive, oderJSONByReactive, removeInJSONArrayReactive } from '../util/json.reactive';
+import { foreachJSONReactive, oderJSONByReactive, removeInJSONArrayReactive, replaceInJSONArrayReactive } from '../util/json.reactive';
 import { alertQuestionReactive } from '../swal/swal.reactive';
 import InputSearchTable from './input-search-table.reactive';
 import ActionTableReactive from './action-table.reactive';
@@ -31,11 +31,12 @@ interface Props {
   
   showElements: number;
   initCreate: Function;
+  initEdit: Function;
   onCreate?: Function;
   onCreateCancel: Function;
+  onEditCancel: Function;
   onEdit?: Function;
   onDrop?: Function;
-
   dropAlertTitle?: string;
   dropAlertText?: string;
 }
@@ -46,7 +47,10 @@ interface State {
   searchElements: Array<any>;
   isSearch: boolean;
   isCreate: boolean;
+  isEdit: boolean;
   elementCreate: any;
+  elementEdit: any;
+  renderEdit: string;
   elementDrop: any;
 }
 
@@ -63,7 +67,10 @@ export default class TableReactive extends React.Component<Props, State> {
       tableData: [],
       isSearch: false,
       isCreate: false,
+      isEdit: false,
       elementCreate: {},
+      elementEdit: {},
+      renderEdit: '',
       elementDrop: {},
       searchElements: []
     }
@@ -130,10 +137,21 @@ export default class TableReactive extends React.Component<Props, State> {
   }
 
   private renderBody(tableData: Array<any>): Array<React.ReactElement> {
-    const { elementDrop, elementCreate } = this.state;
+    const { elementDrop, elementCreate, elementEdit } = this.state;
     const finalData = tableData ? tableData : [];
 
     const out = finalData.map((element: any) => { 
+      if (element.uid === elementEdit.uid) {
+        return (
+          <FormTableReactive 
+            key={ keyReactive() }
+            form={ this.createEditForm(element) }
+            onApproved={ (formData: any) => this.onEdit(formData) }
+            onCancel={ () => this.onEditCancel() }
+          />
+        );
+      }
+      
       if (element.uid === elementDrop.uid) {
         return (
           <tr 
@@ -192,17 +210,17 @@ export default class TableReactive extends React.Component<Props, State> {
   }
 
   private renderActions(element: any): React.ReactElement {
-    const { drop, edit, onEdit } = this.props;
-    const { isCreate } = this.state;
+    const { drop, edit } = this.props;
+    const { isCreate, isEdit } = this.state;
 
     return (
       <td className="text-center action-row" key={ keyReactive() }>
         <ActionTableReactive 
           drop={ drop ? true : false } 
           edit={ edit ? true : false }
-          onEdit={ () => onEdit && onEdit(element) }  
+          onEdit={ () => this.initEdit(element) }  
           onDrop={ () => this.onDrop(element) }
-          disabled={ isCreate }
+          disabled={ isCreate || isEdit }
         />
       </td>
     );
@@ -245,6 +263,46 @@ export default class TableReactive extends React.Component<Props, State> {
     const { onCreateCancel } = this.props;
     this.setState({ isCreate: false });
     onCreateCancel();
+  }
+
+  private onEdit(formData: any): void {
+    const { animate, tableData } = this.props;
+    const out = replaceInJSONArrayReactive(tableData, 'uid', formData.uid, formData);
+    
+    if (animate) {
+      this.setState({ elementEdit: out });
+    } else {
+      this.onEditEmit(out);
+    }
+  }
+
+  private onEditEmit(element?: any): void {
+    const { onEdit } = this.props;
+    const { elementCreate } = this.state;
+    
+    this.setState({ elementEdit: {}, isEdit: false });
+    if (onEdit) {
+      //onCreate(element ? element : elementCreate);
+    }
+  }
+
+  private initEdit(element: any): void {
+    const { initEdit } = this.props;
+    this.setState({ elementEdit: element, isEdit: true });
+    initEdit();
+  }
+
+  private onEditCancel(): void {
+    const { onEditCancel } = this.props;
+    this.setState({ elementEdit: {}, isEdit: false });
+    onEditCancel();
+  }
+
+  private createEditForm(element: any): Array<FormTable> {
+    this.form.forEach((data: FormTable) => {
+      data.value = element[data.name];
+    });
+    return this.form;
   }
 
   private onDrop(element: any): void {
@@ -318,7 +376,7 @@ export default class TableReactive extends React.Component<Props, State> {
 
   render() {
     const { search, searchPlaceholder, isLoad, noSearchResult, noTableData, animate, create, variant } = this.props;
-    const { tableData, searchElements, isSearch, isCreate } = this.state;
+    const { tableData, searchElements, isSearch, isCreate, isEdit } = this.state;
     
     return (
       <>
@@ -340,6 +398,7 @@ export default class TableReactive extends React.Component<Props, State> {
                   className="btn-circle"
                   variant="outline-success"
                   onClick={ () => this.initCreate() }
+                  disabled={ isCreate || isEdit }
                 >
                   <FontAwesomeIcon icon="plus" />
                 </Button>
