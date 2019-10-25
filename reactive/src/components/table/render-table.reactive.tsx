@@ -115,6 +115,15 @@ export default class RenderTableReactive extends React.Component<Props, State> {
     }
   }
 
+  private onEdit(element: any) {
+    const { onEdit } = this.props;
+    this.setState({ disabledPage: false });
+    console.log(element);
+    if (onEdit) {
+      onEdit(element);
+    }
+  }
+
   private onDropEnd(element: any, finalData: Array<any>): void {
     const { onDrop, pager } = this.props;
     const { pageSelected } = this.state;
@@ -152,7 +161,6 @@ export default class RenderTableReactive extends React.Component<Props, State> {
       create,
       edit,
       drop,
-      onEdit,
       dropAlertTitle,
       dropAlertText,
       pager,
@@ -187,7 +195,7 @@ export default class RenderTableReactive extends React.Component<Props, State> {
           onCreateCancel={ () => this.setState({ pageSelected: finalData.length - 1, disabledPage: false }) }
           initEdit={ () =>  this.setState({ disabledPage: true }) }
           onEditCancel={ () =>  this.setState({ disabledPage: false }) }
-          onEdit={ onEdit }
+          onEdit={ (element: any) => this.onEdit(element) }
           onDrop={ (element: any) => this.onDropEnd(element, finalData[pageSelected]) }
           dropAlertTitle={ dropAlertTitle }
           dropAlertText={ dropAlertText }

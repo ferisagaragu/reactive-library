@@ -266,23 +266,23 @@ export default class TableReactive extends React.Component<Props, State> {
   }
 
   private onEdit(formData: any): void {
-    const { animate, tableData } = this.props;
+    const { /*animate,*/ tableData } = this.props;
     const out = replaceInJSONArrayReactive(tableData, 'uid', formData.uid, formData);
     
-    if (animate) {
-      this.setState({ elementEdit: out });
-    } else {
+    /*if (animate) {
+      this.setState({ renderEdit: formData.uid });
+    } else {*/
       this.onEditEmit(out);
-    }
+    //}
   }
 
   private onEditEmit(element?: any): void {
     const { onEdit } = this.props;
-    const { elementCreate } = this.state;
+    const { elementEdit } = this.state;
     
     this.setState({ elementEdit: {}, isEdit: false });
     if (onEdit) {
-      //onCreate(element ? element : elementCreate);
+      onEdit(element ? element : elementEdit);
     }
   }
 
