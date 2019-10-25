@@ -217,21 +217,22 @@ export default class TableReactive extends React.Component<Props, State> {
         tableData.pop();
       }
     }
-
+    
     if (animate) {
       this.setState({ elementCreate: formData });
     } else {
-      this.setState({ elementCreate: formData });
-      this.onCreateEmit();
+      this.setState({ elementCreate: {} });
+      this.onCreateEmit(formData);
     }
   }
 
-  private onCreateEmit(): void {
+  private onCreateEmit(element?: any): void {
     const { onCreate } = this.props;
     const { elementCreate } = this.state;
+    
     this.setState({ elementCreate: {}, isCreate: false });
     if (onCreate) {
-      onCreate(elementCreate);
+      onCreate(element ? element : elementCreate);
     }
   }
 
