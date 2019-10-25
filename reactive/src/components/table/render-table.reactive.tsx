@@ -6,7 +6,7 @@ import { splitArrayReactive } from '../util/array.reactive';
 
 interface Props {
   //className?: string;
-  //variant?: string;
+  variant?: 'dark';
   animate?: boolean;
   header: Array<HeaderTable>;
   tableData: Array<any>;
@@ -88,10 +88,16 @@ export default class RenderTableReactive extends React.Component<Props, State> {
     return out;
   }
 
-  private onCreate(fromData: any) {
+  private onCreate(fromData: any, finalData: Array<any>) {
     const { onCreate } = this.props;
+    const { pageSelected } = this.state;
 
     if (onCreate) {
+      if (finalData[pageSelected].length === 0) {
+        this.setState({ pageSelected: finalData.length , disabledPage: false });
+      } else {
+        this.setState({ disabledPage: false });
+      }
       onCreate(fromData);
     }
   }
@@ -110,12 +116,14 @@ export default class RenderTableReactive extends React.Component<Props, State> {
   }
 
   private onDropEnd(element: any, finalData: Array<any>): void {
-    const { onDrop } = this.props;
+    const { onDrop, pager } = this.props;
     const { pageSelected } = this.state;
 
-    if (finalData.length === 1) {
-      this.setState({ pageSelected: pageSelected - 1 })
-    }
+    if (pager) {
+      if (finalData.length === 1) {
+        this.setState({ pageSelected: pageSelected - 1 })
+      }
+    } 
 
     if (onDrop) {
       onDrop(element);
@@ -124,7 +132,7 @@ export default class RenderTableReactive extends React.Component<Props, State> {
 
   private convertToInteger(convert: number) {
     if (convert % 1 == 0) {
-      return convert;
+      return convert - 1;
     } else {
       return Math.trunc(convert);
     }
@@ -148,7 +156,9 @@ export default class RenderTableReactive extends React.Component<Props, State> {
       dropAlertTitle,
       dropAlertText,
       pager,
-      pageShow
+      pageShow,
+      showElements,
+      variant
     } = this.props;
     const { pageSelected, disabledPage } = this.state;
 
@@ -158,6 +168,7 @@ export default class RenderTableReactive extends React.Component<Props, State> {
     return (
       <>
         <Table 
+          variant={ variant }
           animate={ animate }
           header={ header }
           tableData={ pager ? finalData[pageSelected] : tableData }
@@ -170,8 +181,9 @@ export default class RenderTableReactive extends React.Component<Props, State> {
           create={ create }
           edit={ edit }
           drop={ drop }
+          showElements={ showElements ? showElements : 5 }
           initCreate={ () => this.onCreateEnd(finalData) }
-          onCreate={ (element: any) => this.onCreate(element) }
+          onCreate={ (element: any) => this.onCreate(element, finalData) }
           onCreateCancel={ () => this.setState({ pageSelected: finalData.length - 1, disabledPage: false }) }
           onEdit={ onEdit }
           onDrop={ (element: any) => this.onDropEnd(element, finalData[pageSelected]) }

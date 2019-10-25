@@ -12,7 +12,7 @@ import FormTableReactive from './form-table.reactive';
 
 interface Props {
   //className?: string;
-  //variant?: string;
+  variant?: string;
   animate?: boolean;
   header: Array<HeaderTable>;
   tableData: Array<any>;
@@ -29,6 +29,7 @@ interface Props {
   edit?: boolean;
   drop?: boolean;
   
+  showElements: number;
   initCreate: Function;
   onCreate?: Function;
   onCreateCancel: Function;
@@ -45,6 +46,7 @@ interface State {
   searchElements: Array<any>;
   isSearch: boolean;
   isCreate: boolean;
+  elementCreate: any;
   elementDrop: any;
 }
 
@@ -61,6 +63,7 @@ export default class TableReactive extends React.Component<Props, State> {
       tableData: [],
       isSearch: false,
       isCreate: false,
+      elementCreate: {},
       elementDrop: {},
       searchElements: []
     }
@@ -127,10 +130,10 @@ export default class TableReactive extends React.Component<Props, State> {
   }
 
   private renderBody(tableData: Array<any>): Array<React.ReactElement> {
-    const { elementDrop } = this.state;
+    const { elementDrop, elementCreate } = this.state;
     const finalData = tableData ? tableData : [];
 
-    return finalData.map((element: any) => { 
+    const out = finalData.map((element: any) => { 
       if (element.uid === elementDrop.uid) {
         return (
           <tr 
@@ -149,6 +152,20 @@ export default class TableReactive extends React.Component<Props, State> {
         </tr>
       );
     });
+
+    if (elementCreate.uid) {
+      out.push(
+        <tr 
+          className="add" 
+          key={ keyReactive() } 
+          onAnimationEnd={ () => this.onCreateEmit() }
+        >
+          { this.renderTd(elementCreate) }
+        </tr>
+      );
+    }
+
+    return out;
   }
 
   private renderTd(element: any): Array<React.ReactElement> {
@@ -189,6 +206,33 @@ export default class TableReactive extends React.Component<Props, State> {
         />
       </td>
     );
+  }
+
+  private onCreate(formData: any): void {
+    const { animate, tableData, showElements } = this.props;
+
+    formData.uid = keyReactive();
+    if (tableData.length === showElements ) {
+      while(tableData.length > 0) {
+        tableData.pop();
+      }
+    }
+
+    if (animate) {
+      this.setState({ elementCreate: formData });
+    } else {
+      this.setState({ elementCreate: formData });
+      this.onCreateEmit();
+    }
+  }
+
+  private onCreateEmit(): void {
+    const { onCreate } = this.props;
+    const { elementCreate } = this.state;
+    this.setState({ elementCreate: {}, isCreate: false });
+    if (onCreate) {
+      onCreate(elementCreate);
+    }
   }
 
   private initCreate(): void {
@@ -273,7 +317,7 @@ export default class TableReactive extends React.Component<Props, State> {
   }
 
   render() {
-    const { search, searchPlaceholder, isLoad, noSearchResult, noTableData, animate, create, onCreate } = this.props;
+    const { search, searchPlaceholder, isLoad, noSearchResult, noTableData, animate, create, variant } = this.props;
     const { tableData, searchElements, isSearch, isCreate } = this.state;
     
     return (
@@ -303,7 +347,7 @@ export default class TableReactive extends React.Component<Props, State> {
           }
         </Row>
 
-        <Table responsive>
+        <Table responsive variant={ variant }>
           <thead>
             { this.renderHeader() }
           </thead>
@@ -315,7 +359,7 @@ export default class TableReactive extends React.Component<Props, State> {
               isCreate &&
                 <FormTableReactive 
                   form={ this.form }
-                  onApproved={ (formData: any) => onCreate && onCreate(formData) }
+                  onApproved={ (formData: any) => this.onCreate(formData) }
                   onCancel={ () => this.onCreateCancel() }
                 />
             }
