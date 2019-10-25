@@ -221,7 +221,6 @@ export default class TableReactive extends React.Component<Props, State> {
     if (animate) {
       this.setState({ elementCreate: formData });
     } else {
-      this.setState({ elementCreate: {} });
       this.onCreateEmit(formData);
     }
   }
