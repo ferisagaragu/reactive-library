@@ -367,7 +367,7 @@ export default class TableReactive extends React.Component<Props, State> {
                   className="btn-circle"
                   variant="outline-success"
                   onClick={ () => this.initCreate() }
-                  disabled={ isCreate || isEdit || isSearch }
+                  disabled={ isCreate || isEdit || isSearch || isLoad }
                 >
                   <FontAwesomeIcon icon="plus" />
                 </Button>

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Table, HeaderTable, Firebase, convertJSONToArray, key } from 'reactive';
+import { Table, HeaderTable, Firebase, convertJSONToArray, key, connect } from 'reactive';
 import './table.css';
-
-const reactRedux = require('react-redux');
 
 class App extends Component<any, any> {
   
@@ -111,7 +109,7 @@ class App extends Component<any, any> {
           pager
           showElements={ 10 }
           pageShow={ 11 }
-          pageMessage={ 'Mostrando desde ${init} hasta ${end} de ${length} registros' }
+          pageMessage="Mostrando desde $(init) hasta $(end) de $(length) registros"
         />
       </>
     );
@@ -126,4 +124,4 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: Function) => ({});
 
-export default reactRedux.connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

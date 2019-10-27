@@ -82,9 +82,9 @@ export default class RenderTableReactive extends React.Component<Props, State> {
     elmentNumber.forEach((element: any) => {
       const message = pageMessage ?
         pageMessage
-          .replace('${init}', element[0])
-          .replace('${end}', element[element.length - 1])
-          .replace('${length}', `${baseData.length}`)
+          .replace('$(init)', element[0])
+          .replace('$(end)', element[element.length - 1])
+          .replace('$(length)', `${baseData.length}`)
         : `Showing ${element[0]} to ${element[element.length - 1]} of ${baseData.length} entries`;
       out.push(message);
     });
@@ -237,7 +237,7 @@ export default class RenderTableReactive extends React.Component<Props, State> {
             <InputSearchTable 
               placeholder={ searchPlaceholder ? searchPlaceholder : '' }
               onSearch={ (value: string) => this.onSearch(value) }
-              disabled={ disabledPage }
+              disabled={ disabledPage || (isLoad ? isLoad : false) }
             />
           }
           isSearch={ isSearch }

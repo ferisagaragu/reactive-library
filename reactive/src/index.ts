@@ -5,6 +5,7 @@ import { FirebaseReactive, initializeFirebaseAppReactive } from './components/fi
 import { ModalReactive } from './components/modal/modal.component';
 import { foreachJSONReactive, oderJSONByReactive, convertJSONToArrayReactive, removeInJSONArrayReactive, replaceInJSONArrayReactive } from './components/util/json.reactive'; 
 import { splitArrayReactive } from './components/util/array.reactive';
+//import thunk from 'redux-thunk';
 import './config/app.config';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css';
@@ -32,6 +33,21 @@ export const replaceInJSONArray = replaceInJSONArrayReactive;
 //firebase
 export const Firebase = FirebaseReactive;
 export const initializeFirebaseApp = initializeFirebaseAppReactive;
+
+//redux
+const redux = require('redux');
+const reactRedux = require('react-redux');
+const reduxThunk = require('redux-thunk');
+const reduxForm = require('redux-form');
+
+export const createStore = redux.createStore;
+export const applyMiddleware = redux.applyMiddleware;
+export const compose = redux.compose;
+export const combineReducers = redux.combineReducers;
+export const Provider = reactRedux.Provider;
+export const connect = reactRedux.connect;
+export const thunk = reduxThunk.default;
+export const reducer = reduxForm.reducer;
 
 //reactive - types
 export class HeaderTable {

@@ -65,7 +65,11 @@
     "sweetalert2-react-content": "^1.1.0",
     "typescript": "^2.8.3",
     "uniqid": "^5.0.3",
-    "animate.css": "^3.7.2"
+    "animate.css": "^3.7.2",
+    "redux": "^4.0.4",
+    "redux-form": "^8.2.6",
+    "redux-thunk": "^2.3.0",
+    "react-redux": "^7.1.1"
   },
   "files": [
     "dist"
