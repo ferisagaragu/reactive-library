@@ -4,7 +4,7 @@ import HeaderTable from './model/header-table.reactive.model';
 import keyReactive from '../../components/key/key.reactive';
 import FormTable from './model/form-table.reactive.model';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { foreachJSONReactive, oderJSONByReactive, removeInJSONArrayReactive, replaceInJSONArrayReactive } from '../util/json.reactive';
+import { foreachJSONReactive, oderJSONByReactive, removeInJSONArrayReactive, getIndexInJSONArrayReactive } from '../util/json.reactive';
 import { alertQuestionReactive } from '../swal/swal.reactive';
 import InputSearchTable from './input-search-table.reactive';
 import ActionTableReactive from './action-table.reactive';
@@ -50,7 +50,7 @@ interface State {
   isEdit: boolean;
   elementCreate: any;
   elementEdit: any;
-  renderEdit: string;
+  renderEdit: boolean;
   elementDrop: any;
 }
 
@@ -70,7 +70,7 @@ export default class TableReactive extends React.Component<Props, State> {
       isEdit: false,
       elementCreate: {},
       elementEdit: {},
-      renderEdit: '',
+      renderEdit: false,
       elementDrop: {},
       searchElements: []
     }
@@ -137,19 +137,31 @@ export default class TableReactive extends React.Component<Props, State> {
   }
 
   private renderBody(tableData: Array<any>): Array<React.ReactElement> {
-    const { elementDrop, elementCreate, elementEdit } = this.state;
+    const { elementDrop, elementCreate, elementEdit, renderEdit } = this.state;
     const finalData = tableData ? tableData : [];
 
     const out = finalData.map((element: any) => { 
       if (element.uid === elementEdit.uid) {
-        return (
-          <FormTableReactive 
-            key={ keyReactive() }
-            form={ this.createEditForm(element) }
-            onApproved={ (formData: any) => this.onEdit(formData) }
-            onCancel={ () => this.onEditCancel() }
-          />
-        );
+        if (!renderEdit) {
+          return (
+            <FormTableReactive 
+              key={ keyReactive() }
+              form={ this.createEditForm(element) }
+              onApproved={ (formData: any) => this.onEdit(formData) }
+              onCancel={ () => this.onEditCancel() }
+            />
+          );
+        } else {
+          return (
+            <tr 
+              className="edit" 
+              key={ keyReactive() } 
+              onAnimationEnd={ () => this.onEditEmit() }
+            >
+              { this.renderTd(element) }
+            </tr>
+          );
+        }
       }
       
       if (element.uid === elementDrop.uid) {
@@ -266,21 +278,31 @@ export default class TableReactive extends React.Component<Props, State> {
   }
 
   private onEdit(formData: any): void {
-    const { /*animate,*/ tableData } = this.props;
-    const out = replaceInJSONArrayReactive(tableData, 'uid', formData.uid, formData);
+    const { animate, tableData } = this.props;
+    const { elementEdit } = this.state;
+    const index = getIndexInJSONArrayReactive(tableData, 'uid', elementEdit.uid);
     
-    /*if (animate) {
-      this.setState({ renderEdit: formData.uid });
-    } else {*/
-      this.onEditEmit(out);
-    //}
+    foreachJSONReactive(tableData[index], 
+      (data: string, key: string) => {
+        if (key !== 'uid') {
+          tableData[index][key] = formData[key];    
+        } else {
+          tableData[index][key] = data;
+        }
+      }
+    );
+
+    if (animate) {
+      this.setState({ renderEdit: true });
+    } else {
+      this.onEditEmit(elementEdit);
+    }
   }
 
   private onEditEmit(element?: any): void {
     const { onEdit } = this.props;
     const { elementEdit } = this.state;
-    
-    this.setState({ elementEdit: {}, isEdit: false });
+    this.setState({ elementEdit: {}, isEdit: false, renderEdit: false });
     if (onEdit) {
       onEdit(element ? element : elementEdit);
     }

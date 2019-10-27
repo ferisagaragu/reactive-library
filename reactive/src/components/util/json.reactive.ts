@@ -60,5 +60,20 @@ export function replaceInJSONArrayReactive(
 
   jsonElement[replaceIndex] = replaceElement;
   return jsonElement;
+}
 
+export function getIndexInJSONArrayReactive(
+  jsonElement: Array<any>, 
+  jsonKey: any, 
+  matchUpdate: any,
+): number {
+  let replaceIndex = -1;
+  
+  jsonElement.forEach((element: any, index: number) => {
+    if (element[jsonKey] === matchUpdate) {
+      replaceIndex = index;
+    }
+  });
+
+  return replaceIndex;
 }

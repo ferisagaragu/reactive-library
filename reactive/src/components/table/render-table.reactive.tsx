@@ -118,7 +118,6 @@ export default class RenderTableReactive extends React.Component<Props, State> {
   private onEdit(element: any) {
     const { onEdit } = this.props;
     this.setState({ disabledPage: false });
-    console.log(element);
     if (onEdit) {
       onEdit(element);
     }
