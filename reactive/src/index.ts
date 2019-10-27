@@ -7,6 +7,7 @@ import { foreachJSONReactive, oderJSONByReactive, convertJSONToArrayReactive, re
 import { splitArrayReactive } from './components/util/array.reactive';
 import './config/app.config';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'animate.css';
 
 //uniqid
 export const key = keyReactive;

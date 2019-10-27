@@ -99,9 +99,11 @@ class App extends Component<any, any> {
 
           onEdit={ (data: any) => {
             console.log(data);
+            this.firebase.update(`tableReactive/${data.uid}`, data);
           } }
 
           onDrop={ (elemet: any) => {  
+            console.log(elemet);
             this.firebase.remove(`tableReactive/${elemet.uid}`);
             this.setState({ isLoading: true })
           }}

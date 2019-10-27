@@ -5,6 +5,20 @@
 .action-row {
 	width: 100px;
 }
+ 
+.fadeInLeft-animation {
+  animation: fadeInLeft;
+  animation-duration: 1s;
+  animation-delay: 0s;
+  animation-iteration-count: initial;
+}
+
+.fadeInRight-animation {
+  animation: fadeInRight;
+  animation-duration: 1s;
+  animation-delay: 0s;
+  animation-iteration-count: initial;
+}
 
 /*Form input*/
 .error {

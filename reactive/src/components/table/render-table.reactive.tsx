@@ -3,30 +3,27 @@ import HeaderTable from './model/header-table.reactive.model';
 import Table from './table.reactive';
 import PaginatorTableReactive from './paginator-table.reactive';
 import { splitArrayReactive } from '../util/array.reactive';
+import InputSearchTable from './input-search-table.reactive';
+import { foreachJSONReactive, removeInJSONArrayReactive } from '../util/json.reactive';
 
 interface Props {
-  //className?: string;
+  className?: string;
   variant?: 'dark';
   animate?: boolean;
   header: Array<HeaderTable>;
   tableData: Array<any>;
   isLoad?: boolean;
   noTableData?: string;
-  
   search?: boolean;
   searchPlaceholder?: string;
   noSearchResult?: string;
-
   actionsLabel?: string;
-  
   create?: boolean;
   edit?: boolean;
   drop?: boolean;
-  
   onCreate?: Function;
   onEdit?: Function;
   onDrop?: Function;
-
   dropAlertTitle?: string;
   dropAlertText?: string;
   showElements?: number;
@@ -38,6 +35,8 @@ interface Props {
 interface State {
   pageSelected: number;
   disabledPage: boolean;
+  searchData: Array<any>;
+  isSearch: boolean;
 }
 
 export default class RenderTableReactive extends React.Component<Props, State> {
@@ -49,7 +48,9 @@ export default class RenderTableReactive extends React.Component<Props, State> {
 
     this.state = {
       pageSelected: 0,
-      disabledPage: false
+      disabledPage: false,
+      searchData: [],
+      isSearch: false
     }
 
     this.pagerRef = React.createRef();
@@ -57,20 +58,23 @@ export default class RenderTableReactive extends React.Component<Props, State> {
 
   private renderPagerElements(): Array<any> {
     const { tableData, showElements } = this.props;
+    const { searchData, isSearch } = this.state;
 
     return splitArrayReactive(
-      tableData, 
+      isSearch ? searchData : tableData, 
       showElements ? showElements : 5
     );
   }
 
   private renderElmentShowMessage(): Array<any> {
     const { tableData, showElements, pageMessage } = this.props;
+    const { searchData, isSearch }: any = this.state;
     const split = showElements ? showElements : 5;
     let elmentNumber: Array<number> = [];
     const out: Array<string> = [];
+    let baseData: Array<any> = isSearch ? searchData : tableData;
 
-    for (let index = 1; index <= tableData.length; index++) {
+    for (let index = 1; index <= baseData.length; index++) {
       elmentNumber.push(index);
     }
 
@@ -80,8 +84,8 @@ export default class RenderTableReactive extends React.Component<Props, State> {
         pageMessage
           .replace('${init}', element[0])
           .replace('${end}', element[element.length - 1])
-          .replace('${length}', `${tableData.length}`)
-        : `Showing ${element[0]} to ${element[element.length - 1]} of ${tableData.length} entries`;
+          .replace('${length}', `${baseData.length}`)
+        : `Showing ${element[0]} to ${element[element.length - 1]} of ${baseData.length} entries`;
       out.push(message);
     });
 
@@ -125,7 +129,11 @@ export default class RenderTableReactive extends React.Component<Props, State> {
 
   private onDropEnd(element: any, finalData: Array<any>): void {
     const { onDrop, pager } = this.props;
-    const { pageSelected } = this.state;
+    const { pageSelected, isSearch, searchData } = this.state;
+
+    if (isSearch) {
+      removeInJSONArrayReactive(searchData, 'uid', element.uid);
+    }
 
     if (pager) {
       if (finalData.length === 1) {
@@ -136,6 +144,32 @@ export default class RenderTableReactive extends React.Component<Props, State> {
     if (onDrop) {
       onDrop(element);
     }
+  }
+
+  private onSearch(value: string): void {
+    const { tableData } = this.props;
+
+    const filterData = tableData.filter(element => {
+      let tableText = '';
+
+      foreachJSONReactive(element, (value: string, key: string) => {
+        if (key !== 'uid') {
+          tableText += value;
+        }
+      });
+
+      if (tableText.toLowerCase().includes(value.toLowerCase())) {
+        return element;
+      }
+    });
+
+    this.setState({ 
+      searchData: 
+        filterData ? 
+        filterData : [], 
+      isSearch: value !== '',
+      pageSelected: 0 
+    });
   }
 
   private convertToInteger(convert: number) {
@@ -165,24 +199,25 @@ export default class RenderTableReactive extends React.Component<Props, State> {
       pager,
       pageShow,
       showElements,
-      variant
+      variant,
+      className
     } = this.props;
-    const { pageSelected, disabledPage } = this.state;
+    const { pageSelected, disabledPage, searchData, isSearch } = this.state;
 
     const finalData = this.renderPagerElements();
     const showMessage = this.renderElmentShowMessage();
 
     return (
-      <div>
+      <>
         <Table 
+          className={ className }
           variant={ variant }
           animate={ animate }
           header={ header }
-          tableData={ pager ? finalData[pageSelected] : tableData }
+          tableData={ pager ? finalData[pageSelected] : isSearch ? searchData : tableData }
           isLoad={ isLoad }
           noTableData={ noTableData }
           search={ search }
-          searchPlaceholder={ searchPlaceholder }
           noSearchResult={ noSearchResult }
           actionsLabel={ actionsLabel }
           create={ create }
@@ -198,11 +233,19 @@ export default class RenderTableReactive extends React.Component<Props, State> {
           onDrop={ (element: any) => this.onDropEnd(element, finalData[pageSelected]) }
           dropAlertTitle={ dropAlertTitle }
           dropAlertText={ dropAlertText }
+          searchHTML={
+            <InputSearchTable 
+              placeholder={ searchPlaceholder ? searchPlaceholder : '' }
+              onSearch={ (value: string) => this.onSearch(value) }
+              disabled={ disabledPage }
+            />
+          }
+          isSearch={ isSearch }
         />
         
         {
           (tableData && pager) &&
-            tableData.length !== 0 &&
+            tableData.length !== 0 && !(isSearch ? searchData.length === 0 : false) &&
               <PaginatorTableReactive 
                 ref={ this.pagerRef }
                 value={ pageSelected }
@@ -213,7 +256,7 @@ export default class RenderTableReactive extends React.Component<Props, State> {
                 disabled={ disabledPage }
               />
         }
-      </div>  
+      </>  
     );
   }
 }

@@ -4,31 +4,25 @@ import HeaderTable from './model/header-table.reactive.model';
 import keyReactive from '../../components/key/key.reactive';
 import FormTable from './model/form-table.reactive.model';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { foreachJSONReactive, oderJSONByReactive, removeInJSONArrayReactive, getIndexInJSONArrayReactive } from '../util/json.reactive';
+import { foreachJSONReactive, oderJSONByReactive, getIndexInJSONArrayReactive, removeInJSONArrayReactive } from '../util/json.reactive';
 import { alertQuestionReactive } from '../swal/swal.reactive';
-import InputSearchTable from './input-search-table.reactive';
 import ActionTableReactive from './action-table.reactive';
 import FormTableReactive from './form-table.reactive';
 
 interface Props {
-  //className?: string;
+  className?: string;
   variant?: string;
   animate?: boolean;
   header: Array<HeaderTable>;
   tableData: Array<any>;
   isLoad?: boolean;
   noTableData?: string;
-  
   search?: boolean;
-  searchPlaceholder?: string;
   noSearchResult?: string;
-
   actionsLabel?: string;
-  
   create?: boolean;
   edit?: boolean;
   drop?: boolean;
-  
   showElements: number;
   initCreate: Function;
   initEdit: Function;
@@ -39,13 +33,13 @@ interface Props {
   onDrop?: Function;
   dropAlertTitle?: string;
   dropAlertText?: string;
+  searchHTML: React.ReactElement;
+  isSearch: boolean;
 }
 
 interface State {
   form: Array<FormTable>;
   tableData: Array<any>;
-  searchElements: Array<any>;
-  isSearch: boolean;
   isCreate: boolean;
   isEdit: boolean;
   elementCreate: any;
@@ -65,14 +59,12 @@ export default class TableReactive extends React.Component<Props, State> {
     this.state = {
       form: [],
       tableData: [],
-      isSearch: false,
       isCreate: false,
       isEdit: false,
       elementCreate: {},
       elementEdit: {},
       renderEdit: false,
-      elementDrop: {},
-      searchElements: []
+      elementDrop: {}
     }
   }
   
@@ -302,10 +294,10 @@ export default class TableReactive extends React.Component<Props, State> {
   private onEditEmit(element?: any): void {
     const { onEdit } = this.props;
     const { elementEdit } = this.state;
-    this.setState({ elementEdit: {}, isEdit: false, renderEdit: false });
     if (onEdit) {
       onEdit(element ? element : elementEdit);
     }
+    this.setState({ elementEdit: {}, isEdit: false, renderEdit: false });
   }
 
   private initEdit(element: any): void {
@@ -348,70 +340,25 @@ export default class TableReactive extends React.Component<Props, State> {
   }
 
   private onDropEmit(): void {
-    const { onDrop } = this.props;
-    const { elementDrop, searchElements, isSearch } = this.state;
+    const { onDrop, tableData } = this.props;
+    const { elementDrop } = this.state;
+    
+    removeInJSONArrayReactive(tableData, 'uid', elementDrop.uid);
 
     if (onDrop) {
       onDrop(elementDrop);
     }
-
-    if (isSearch) {
-      this.setState(
-        { 
-          elementDrop: {}, 
-          searchElements: 
-            removeInJSONArrayReactive(
-              searchElements, 
-              'uid', 
-              elementDrop.uid
-            ) 
-        }
-      );
-    } else { 
-      this.setState({ elementDrop: {} });
-    }
-  }
-
-  private onSearch(value: string): void {
-    const { tableData, searchElements } = this.state;
-
-    const filterData = tableData.filter(element => {
-      let tableText = '';
-
-      foreachJSONReactive(element, (value: string, key: string) => {
-        if (key !== 'uid') {
-          tableText += value;
-        }
-      });
-
-      if (tableText.toLowerCase().includes(value.toLowerCase())) {
-        return element;
-      }
-    });
-
-    if (value) {
-      this.setState({ isSearch: true, searchElements: filterData });
-    } else {
-      this.setState({ isSearch: false, searchElements });
-    }
+    this.setState({ elementDrop: {} });
   }
 
   render() {
-    const { search, searchPlaceholder, isLoad, noSearchResult, noTableData, animate, create, variant } = this.props;
-    const { tableData, searchElements, isSearch, isCreate, isEdit } = this.state;
+    const { search, isLoad, noSearchResult, noTableData, animate, create, variant, searchHTML, isSearch, className } = this.props;
+    const { tableData, isCreate, isEdit } = this.state;
     
     return (
       <>
         <Row className="mb-2">
-          {
-            search &&
-              <Col md={ 6 }>
-                <InputSearchTable 
-                  placeholder={ searchPlaceholder ? searchPlaceholder : '' }
-                  onChange={ (value: string) => this.onSearch(value) }
-                />
-              </Col>
-          }
+          { search && searchHTML }
 
           {
             create && 
@@ -420,7 +367,7 @@ export default class TableReactive extends React.Component<Props, State> {
                   className="btn-circle"
                   variant="outline-success"
                   onClick={ () => this.initCreate() }
-                  disabled={ isCreate || isEdit }
+                  disabled={ isCreate || isEdit || isSearch }
                 >
                   <FontAwesomeIcon icon="plus" />
                 </Button>
@@ -428,13 +375,13 @@ export default class TableReactive extends React.Component<Props, State> {
           }
         </Row>
 
-        <Table responsive variant={ variant }>
+        <Table responsive variant={ variant } className={ className }>
           <thead>
             { this.renderHeader() }
           </thead>
 
           <tbody>
-            { this.renderBody(!isSearch ? tableData : searchElements) }
+            { this.renderBody(tableData) }
             
             {
               isCreate &&
@@ -453,12 +400,13 @@ export default class TableReactive extends React.Component<Props, State> {
               <FontAwesomeIcon className="load-table-indicator" size="2x" icon="spinner" spin/>
             </div>
           :
+          tableData &&
             tableData.length === 0 ?
               <div className={ `text-center ${ animate ? 'no-result' : ''}` }>
                 { noTableData ? noTableData : 'No data to display.' }
               </div>
             :  
-              isSearch && (searchElements.length === 0) &&
+              isSearch && !tableData &&
                 <div className={ `text-center ${ animate ? 'no-result' : ''}` }>
                   { noSearchResult ? noSearchResult : 'No results found.' }
                 </div>
