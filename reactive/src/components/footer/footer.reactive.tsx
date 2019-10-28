@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Row, Col } from 'react-bootstrap';
 
 interface Props {
-  className?: string; 
+	className?: string;
   left?: React.ReactElement;
   right?: React.ReactElement;
   center?: React.ReactElement;
@@ -10,37 +10,12 @@ interface Props {
 
 interface State {}
 
-class HeaderReactive extends React.Component<Props, State> {
-
-  headerRef: any = null;
-
-  constructor(props: Props) {
-    super(props);
-    this.headerRef = React.createRef();
-  }
-
-  componentDidMount() {
-    window.onscroll = () => {
-      this.strictPosition();
-    };
-  }
-
-  private strictPosition(): void {
-    let header = this.headerRef.current;
-    let sticky = header.offsetTop;
-
-    if (window.pageYOffset > sticky) {
-      header.classList.add("sticky-reactive");
-    } else {
-      header.classList.remove("sticky-reactive");
-    }
-  }
-
+class FooterReactive extends React.Component<Props, State> {
   render() {
     const { left, right, center, children, className } = this.props;
 
     return (
-      <header ref={ this.headerRef } className={ `header-reactive ${className ? className : ''}` }>
+      <footer className={ `footer-reactive ${className ? className : ''}` }>
         {
           left || right || center ?
             <Row>
@@ -68,9 +43,9 @@ class HeaderReactive extends React.Component<Props, State> {
           :
             children
         }
-      </header>
+      </footer>
     );
   }
 }
 
-export default HeaderReactive;
+export default FooterReactive;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, HeaderTable, Firebase, convertJSONToArray, key, connect, Header } from 'reactive';
+import { Table, HeaderTable, Firebase, convertJSONToArray, key, connect, Header, Footer } from 'reactive';
 
 class App extends Component<any, any> {
   
@@ -47,7 +47,8 @@ class App extends Component<any, any> {
         >
           <h1>Esta es mi aplicacion</h1>
         </Header>
-
+        
+        {/*
         <div className="container">
           <Table 
             animate
@@ -134,6 +135,11 @@ class App extends Component<any, any> {
             pageMessage="Mostrando desde $(init) hasta $(end) de $(length) registros"
           />
         </div>
+        */}
+
+        <Footer>
+          Hola pie
+        </Footer>
       </>
     );
   }
