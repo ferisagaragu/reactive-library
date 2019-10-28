@@ -129,13 +129,11 @@ class App extends Component<any, any> {
           <Tree 
             treeData={
               {
-                "root": {
-                  "data1": {
-                    "finalData": "Hola amigo"
-                  },
-                  "data2": {
-                    "finalData2 ": "Hola amigo"
-                  }
+                "data1": {
+                  "finalData": "Hola amigo"
+                },
+                "data2": {
+                  "finalData2 ": "Hola amigo"
                 }
               }
             }

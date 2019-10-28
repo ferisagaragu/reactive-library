@@ -1,4 +1,5 @@
 import * as React from 'react';
+import TreeFatherReactive from './tree-father.reactive';
 
 interface Props {
   treeData: any;
@@ -10,27 +11,25 @@ class TreeReactive extends React.Component<Props, State> {
   
   private renderTree(treeData?: any): any {
     let k: any = '';
+    let out: React.ReactElement = <></>;
     
-    if (treeData instanceof Object) {
-      for (k in treeData){
-        if (treeData.hasOwnProperty(k)){
-
-
-
-          /*return (
-            <TreeFatherReactive 
-              label={ k }
-              child={ this.renderTree(treeData[k]) }
-            />
-          );*/
+    for (k in treeData){
+      if (treeData.hasOwnProperty(k)){
+        if (treeData[k] instanceof Object) {
           console.log(k);
-          //this.renderTree(treeData[k]);
-        }           
-      }
+          this.renderTree(treeData[k]);
+        } else {
+          console.log(treeData[k]);
+          return (
+          <TreeFatherReactive 
+          label={ k }
+          children={  }
+          />);
+        }
+      }           
     }
-
-    console.log(treeData[k]);
-    return treeData[k];
+  
+    return null;
   }
   
   render() {
