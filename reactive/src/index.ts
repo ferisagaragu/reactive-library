@@ -7,6 +7,8 @@ import { foreachJSONReactive, oderJSONByReactive, convertJSONToArrayReactive, re
 import { splitArrayReactive } from './components/util/array.reactive';
 import HeaderReactive from './components/header/header.reactive';
 import FooterReactive from './components/footer/footer.reactive';
+import TreeReactive from './components/tree/tree.reactive';
+import { findByTypeReactive } from './components/util/react-util.reactive';
 import './config/app.config';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -23,6 +25,7 @@ export const Table = RenderTableReactive;
 export const Modal = ModalReactive;
 export const Header = HeaderReactive;
 export const Footer = FooterReactive;
+export const Tree = TreeReactive;
 
 //util
 export const foreachJSON = foreachJSONReactive;
@@ -31,6 +34,7 @@ export const convertJSONToArray = convertJSONToArrayReactive;
 export const removeInJSONArray = removeInJSONArrayReactive;
 export const splitArray = splitArrayReactive;
 export const replaceInJSONArray = replaceInJSONArrayReactive;
+export const findByType = findByTypeReactive;
 
 //firebase
 export const Firebase = FirebaseReactive;

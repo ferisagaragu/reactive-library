@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export function findByType(children: any, component: any): React.ReactElement {
+export function findByTypeReactive(children: any, component: any): React.ReactElement {
   const result: Array<any> = [];
   const type = [component.displayName] || [component.name];
   

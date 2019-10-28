@@ -28,21 +28,9 @@ class App extends Component<any, any> {
       <>
         <Header
           left={
-            <div>
-              Hola amigo
-            </div>
-          }
-          center={
-            <div>
-              Hola amigo
-            </div>
-          }
-          right={
-            <div>
-              <button>
-                Cerrar cesión
-              </button>
-            </div>
+            <h3>
+              Reactive
+            </h3>
           }
         >
           <h1>Esta es mi aplicacion</h1>
