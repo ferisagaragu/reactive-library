@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Table, HeaderTable, Firebase, convertJSONToArray, key, connect, Header } from 'reactive';
-import './table.css';
 
 class App extends Component<any, any> {
   
@@ -27,7 +26,9 @@ class App extends Component<any, any> {
 
     return (
       <>
-        <Header></Header>
+        <Header>
+          <h1>Esta es mi aplicacion</h1>
+        </Header>
 
         <div className="container">
           <Table 

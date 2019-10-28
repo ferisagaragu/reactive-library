@@ -33,7 +33,7 @@ export class HeaderReactive extends React.Component<Props, State> {
   render() {
     return (
       <header ref={ this.headerRef } className="header-reactive">
-        <h2>Soy la cabeza</h2>
+        { this.props.children }
       </header>
     );
   }
