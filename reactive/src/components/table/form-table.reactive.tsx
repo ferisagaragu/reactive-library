@@ -32,13 +32,13 @@ export default class FormTableReactive extends React.Component<Props, State> {
       if (input.value) {
         dataOut[input.id] = input.value;
         if (input.required) {
-          input.classList.remove('error');
+          input.classList.remove('shake-error-reactive');
         }
       } else if (!input.required) {
         dataOut[input.id] = input.value;
       }else {
         if (input.required) {
-          input.classList.add('error');
+          input.classList.add('shake-error-reactive');
         }
         isSuccess = false;
       }
@@ -70,7 +70,7 @@ export default class FormTableReactive extends React.Component<Props, State> {
 
         <td>
           <Button
-            className="btn-circle mr-3"
+            className="btn-circle-reactive mr-3"
             variant="outline-success"
             onClick={ () => this.submitForm() }
           >
@@ -78,7 +78,7 @@ export default class FormTableReactive extends React.Component<Props, State> {
           </Button>
 
           <Button
-            className="btn-circle"
+            className="btn-circle-reactive"
             variant="outline-danger"
             onClick={ () => onCancel() }
           >

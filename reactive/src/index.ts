@@ -5,10 +5,9 @@ import { FirebaseReactive, initializeFirebaseAppReactive } from './components/fi
 import { ModalReactive } from './components/modal/modal.reactive';
 import { foreachJSONReactive, oderJSONByReactive, convertJSONToArrayReactive, removeInJSONArrayReactive, replaceInJSONArrayReactive } from './components/util/json.reactive'; 
 import { splitArrayReactive } from './components/util/array.reactive';
-import { HeaderReactive } from './components/header/header.reactive';
+import HeaderReactive from './components/header/header.reactive';
 import './config/app.config';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'animate.css';
 
 //uniqid
 export const key = keyReactive;
@@ -21,7 +20,7 @@ export const alertQuestion = alertQuestionReactive;
 //reactive
 export const Table = RenderTableReactive;
 export const Modal = ModalReactive;
-export const Header = HeaderReactive;
+export const Header = HeaderReactive; 
 
 //util
 export const foreachJSON = foreachJSONReactive;

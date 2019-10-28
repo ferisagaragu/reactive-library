@@ -146,7 +146,7 @@ export default class TableReactive extends React.Component<Props, State> {
         } else {
           return (
             <tr 
-              className="edit" 
+              className="edit-reactive" 
               key={ keyReactive() } 
               onAnimationEnd={ () => this.onEditEmit() }
             >
@@ -159,7 +159,7 @@ export default class TableReactive extends React.Component<Props, State> {
       if (element.uid === elementDrop.uid) {
         return (
           <tr 
-            className="drop" 
+            className="drop-reactive" 
             key={ keyReactive() } 
             onAnimationEnd={ () => this.onDropEmit() }
           >
@@ -178,7 +178,7 @@ export default class TableReactive extends React.Component<Props, State> {
     if (elementCreate.uid) {
       out.push(
         <tr 
-          className="add" 
+          className="add-reactive" 
           key={ keyReactive() } 
           onAnimationEnd={ () => this.onCreateEmit() }
         >
@@ -218,7 +218,7 @@ export default class TableReactive extends React.Component<Props, State> {
     const { isCreate, isEdit } = this.state;
 
     return (
-      <td className="text-center action-row" key={ keyReactive() }>
+      <td className="text-center action-row-reactive" key={ keyReactive() }>
         <ActionTableReactive 
           drop={ drop ? true : false } 
           edit={ edit ? true : false }
@@ -364,7 +364,7 @@ export default class TableReactive extends React.Component<Props, State> {
             create && 
               <Col className="text-right pt-1 pr-5" md={ 6 }>
                 <Button
-                  className="btn-circle"
+                  className="btn-circle-reactive"
                   variant="outline-success"
                   onClick={ () => this.initCreate() }
                   disabled={ isCreate || isEdit || isSearch || isLoad }
@@ -397,17 +397,17 @@ export default class TableReactive extends React.Component<Props, State> {
         { 
           isLoad && !isSearch ?
             <div className="text-center">
-              <FontAwesomeIcon className="load-table-indicator" size="2x" icon="spinner" spin/>
+              <FontAwesomeIcon className="load-table-indicator-reactive" size="2x" icon="spinner" spin/>
             </div>
           :
           tableData &&
             tableData.length === 0 ?
-              <div className={ `text-center ${ animate ? 'no-result' : ''}` }>
+              <div className={ `text-center ${animate ? 'no-result-reactive' : ''}` }>
                 { noTableData ? noTableData : 'No data to display.' }
               </div>
             :  
               isSearch && !tableData &&
-                <div className={ `text-center ${ animate ? 'no-result' : ''}` }>
+                <div className={ `text-center ${animate ? 'no-result-reactive' : ''}` }>
                   { noSearchResult ? noSearchResult : 'No results found.' }
                 </div>
         }

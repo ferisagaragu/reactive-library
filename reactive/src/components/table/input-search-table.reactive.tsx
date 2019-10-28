@@ -55,7 +55,7 @@ export default class InputSearchTable extends React.Component<Props, State> {
 
         <Col md={ 1 }>
           <Button
-            className="btn-circle mt-1"
+            className="btn-circle-reactive mt-1"
             variant="outline-dark"
             onClick={ () => this.onEnter() }
             disabled={ disabled }

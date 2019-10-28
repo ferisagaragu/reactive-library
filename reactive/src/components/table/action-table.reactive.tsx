@@ -21,7 +21,7 @@ export default class ActionTableReactive extends React.Component<Props, State> {
         {
           edit &&
             <Button 
-              className="btn-circle mr-3"
+              className="btn-circle-reactive mr-3"
               variant="outline-info"
               onClick={ () => onEdit() }
               disabled={ disabled }
@@ -33,7 +33,7 @@ export default class ActionTableReactive extends React.Component<Props, State> {
         {
           drop &&
             <Button 
-              className="btn-circle"
+              className="btn-circle-reactive"
               variant="outline-danger"
               onClick={ () => onDrop() }
               disabled={ disabled }

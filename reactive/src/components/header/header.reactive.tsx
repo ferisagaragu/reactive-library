@@ -1,10 +1,15 @@
 import * as React from 'react';
+import { Row, Col } from 'react-bootstrap';
 
-interface Props {}
+interface Props {
+  left?: React.ReactElement;
+  right?: React.ReactElement;
+  center?: React.ReactElement;
+}
 
 interface State {}
 
-export class HeaderReactive extends React.Component<Props, State> {
+class HeaderReactive extends React.Component<Props, State> {
 
   headerRef: any = null;
 
@@ -31,10 +36,40 @@ export class HeaderReactive extends React.Component<Props, State> {
   }
 
   render() {
+    const { left, right, center, children } = this.props;
+
     return (
       <header ref={ this.headerRef } className="header-reactive">
-        { this.props.children }
+        {
+          left || right || center ?
+            <Row>
+              {
+                left && 
+                  <Col className="text-left" md={ center ? 4 : 6 }>
+                    { left }
+                  </Col>
+              }
+
+              {
+                center && 
+                  <Col className="text-center" md={ 4 }>
+                    { center }
+                  </Col>
+              }
+
+              {
+                right && 
+                  <Col className="text-right" md={ center ? 4 : 6 }>
+                    { right }
+                  </Col>
+              }
+            </Row>
+          :
+            children
+        }
       </header>
     );
   }
 }
+
+export default HeaderReactive;
