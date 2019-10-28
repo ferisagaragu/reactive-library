@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Pagination } from 'react-bootstrap';
+import { Pagination, Col, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { splitArrayReactive } from '../util/array.reactive';
 import keyReactive from '../key/key.reactive';
@@ -54,41 +54,45 @@ export default class PaginatorTableReactive extends React.Component<Props, State
     const renderPages: Array<React.ReactElement> = pages[showPages];
     
     return (
-      <>
-        { pageMessage }
+      <Row>
+        <Col md={ 6 }>
+          { pageMessage }
+        </Col>
 
-        <Pagination className="float-right">
-          <Pagination.Item
-            onClick={ () => this.setState({ showPages: 0 }) }
-            disabled={ showPages === 0 || disabled }
-          >
-            <FontAwesomeIcon icon="angle-double-left" />
-          </Pagination.Item>
+        <Col md={ 6 }>
+          <Pagination className="float-right">
+            <Pagination.Item
+              onClick={ () => this.setState({ showPages: 0 }) }
+              disabled={ showPages === 0 || disabled }
+            >
+              <FontAwesomeIcon icon="angle-double-left" />
+            </Pagination.Item>
 
-          <Pagination.Item
-            onClick={ () => this.setState({ showPages: showPages - 1 }) }
-            disabled={ showPages === 0 || disabled }
-          >
-            <FontAwesomeIcon icon="angle-left" />
-          </Pagination.Item>
+            <Pagination.Item
+              onClick={ () => this.setState({ showPages: showPages - 1 }) }
+              disabled={ showPages === 0 || disabled }
+            >
+              <FontAwesomeIcon icon="angle-left" />
+            </Pagination.Item>
 
-          { renderPages }
+            { renderPages }
 
-          <Pagination.Item
-            onClick={ () => this.setState({ showPages: showPages + 1 }) }
-            disabled={ (pages.length - 1) === showPages || disabled }
-          >
-            <FontAwesomeIcon icon="angle-right" />
-          </Pagination.Item>
+            <Pagination.Item
+              onClick={ () => this.setState({ showPages: showPages + 1 }) }
+              disabled={ (pages.length - 1) === showPages || disabled }
+            >
+              <FontAwesomeIcon icon="angle-right" />
+            </Pagination.Item>
 
-          <Pagination.Item
-            onClick={ () => this.setState({ showPages: (pages.length - 1) }) }
-            disabled={ (pages.length - 1) === showPages || disabled }
-          >
-            <FontAwesomeIcon icon="angle-double-right" />
-          </Pagination.Item>
-        </Pagination>
-      </>
+            <Pagination.Item
+              onClick={ () => this.setState({ showPages: (pages.length - 1) }) }
+              disabled={ (pages.length - 1) === showPages || disabled }
+            >
+              <FontAwesomeIcon icon="angle-double-right" />
+            </Pagination.Item>
+          </Pagination>
+        </Col>
+      </Row>
     );
   }
 }
