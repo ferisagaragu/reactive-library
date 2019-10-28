@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, HeaderTable, Firebase, convertJSONToArray, key, connect } from 'reactive';
+import { Table, HeaderTable, Firebase, convertJSONToArray, key, connect, Header } from 'reactive';
 import './table.css';
 
 class App extends Component<any, any> {
@@ -27,90 +27,94 @@ class App extends Component<any, any> {
 
     return (
       <>
-        <Table 
-          animate
-          header={ 
-            [
-              new HeaderTable({
-                key: 'name',
-                label: 'Nombre',
-                type: 'text',
-                required: false,
-                placeholder: 'Escribe aquí un nombre' 
-              }),
-              new HeaderTable({
-                key: 'lastName',
-                label: 'Apellido',
-                type: 'text',
-                required: true,
-                placeholder: 'Escribe aquí tu apellido' 
-              }),
-              new HeaderTable({
-                key: 'phoneNumber',
-                label: 'Numero telefonico',
-                type: 'number',
-                required: true,
-                placeholder: 'Escribe aquí tu apellido' 
-              }),
-              new HeaderTable({
-                key: 'email',
-                label: 'Correo electronico',
-                type: 'text',
-                required: true,
-                placeholder: 'Escribe aquí tu apellido' 
-              }),
-              new HeaderTable({
-                key: 'company',
-                label: 'Compañia',
-                type: 'text',
-                required: true,
-                placeholder: 'Escribe aquí tu apellido' 
-              }),
-              new HeaderTable({
-                key: 'address',
-                label: 'Dirección',
-                type: 'text',
-                required: true,
-                placeholder: 'Escribe aquí tu apellido' 
-              })
-            ]
-          }
+        <Header></Header>
 
-          tableData={ dataTable }
-          isLoad={ dataTable.length === 0 }
-          
-          noTableData="No hay datos para mostrar."
+        <div className="container">
+          <Table 
+            animate
+            header={ 
+              [
+                new HeaderTable({
+                  key: 'name',
+                  label: 'Nombre',
+                  type: 'text',
+                  required: false,
+                  placeholder: 'Escribe aquí un nombre' 
+                }),
+                new HeaderTable({
+                  key: 'lastName',
+                  label: 'Apellido',
+                  type: 'text',
+                  required: true,
+                  placeholder: 'Escribe aquí tu apellido' 
+                }),
+                new HeaderTable({
+                  key: 'phoneNumber',
+                  label: 'Numero telefonico',
+                  type: 'number',
+                  required: true,
+                  placeholder: 'Escribe aquí tu apellido' 
+                }),
+                new HeaderTable({
+                  key: 'email',
+                  label: 'Correo electronico',
+                  type: 'text',
+                  required: true,
+                  placeholder: 'Escribe aquí tu apellido' 
+                }),
+                new HeaderTable({
+                  key: 'company',
+                  label: 'Compañia',
+                  type: 'text',
+                  required: true,
+                  placeholder: 'Escribe aquí tu apellido' 
+                }),
+                new HeaderTable({
+                  key: 'address',
+                  label: 'Dirección',
+                  type: 'text',
+                  required: true,
+                  placeholder: 'Escribe aquí tu apellido' 
+                })
+              ]
+            }
 
-          search
-          searchPlaceholder="Buscar..."
-          noSearchResult="No se encontraron resultados."
+            tableData={ dataTable }
+            isLoad={ dataTable.length === 0 }
+            
+            noTableData="No hay datos para mostrar."
 
-          actionsLabel="Acciones"
-          create
-          edit
-          drop
+            search
+            searchPlaceholder="Buscar..."
+            noSearchResult="No se encontraron resultados."
 
-          onCreate={ (data: any) => {
-            data.uid = key();
-            this.firebase.update(`tableReactive/${data.uid}`, data);
-          } }
+            actionsLabel="Acciones"
+            create
+            edit
+            drop
 
-          onEdit={ (data: any) => {
-            console.log(data);
-            this.firebase.update(`tableReactive/${data.uid}`, data);
-          } }
+            onCreate={ (data: any) => {
+              data.uid = key();
+              this.firebase.update(`tableReactive/${data.uid}`, data);
+            } }
 
-          onDrop={ (elemet: any) => {  
-            console.log(elemet);
-            this.firebase.remove(`tableReactive/${elemet.uid}`);
-            this.setState({ isLoading: true })
-          }}
+            onEdit={ (data: any) => {
+              console.log(data);
+              this.firebase.update(`tableReactive/${data.uid}`, data);
+            } }
 
-          pager
-          showElements={ 10 }
-          pageShow={ 11 }
-          pageMessage="Mostrando desde $(init) hasta $(end) de $(length) registros"
-        />
+            onDrop={ (elemet: any) => {  
+              console.log(elemet);
+              this.firebase.remove(`tableReactive/${elemet.uid}`);
+              this.setState({ isLoading: true })
+            }}
+
+            pager
+            showElements={ 10 }
+            pageShow={ 11 }
+            pageMessage="Mostrando desde $(init) hasta $(end) de $(length) registros"
+          />
+        </div>
       </>
     );
   }

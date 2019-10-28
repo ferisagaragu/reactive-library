@@ -208,7 +208,7 @@ export default class RenderTableReactive extends React.Component<Props, State> {
     const showMessage = this.renderElmentShowMessage();
 
     return (
-      <>
+      <div>
         <Table 
           className={ className }
           variant={ variant }
@@ -256,7 +256,7 @@ export default class RenderTableReactive extends React.Component<Props, State> {
                 disabled={ disabledPage }
               />
         }
-      </>  
+      </div>  
     );
   }
 }

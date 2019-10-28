@@ -54,7 +54,7 @@ export default class PaginatorTableReactive extends React.Component<Props, State
     const renderPages: Array<React.ReactElement> = pages[showPages];
     
     return (
-      <div>
+      <>
         { pageMessage }
 
         <Pagination className="float-right">
@@ -88,7 +88,7 @@ export default class PaginatorTableReactive extends React.Component<Props, State
             <FontAwesomeIcon icon="angle-double-right" />
           </Pagination.Item>
         </Pagination>
-      </div>
+      </>
     );
   }
 }

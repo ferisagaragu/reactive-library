@@ -2,10 +2,10 @@ import keyReactive from './components/key/key.reactive';
 import { toastReactive, alertReactive, alertQuestionReactive } from './components/swal/swal.reactive';
 import RenderTableReactive from './components/table/render-table.reactive';
 import { FirebaseReactive, initializeFirebaseAppReactive } from './components/firebase/firebase.reactive';
-import { ModalReactive } from './components/modal/modal.component';
+import { ModalReactive } from './components/modal/modal.reactive';
 import { foreachJSONReactive, oderJSONByReactive, convertJSONToArrayReactive, removeInJSONArrayReactive, replaceInJSONArrayReactive } from './components/util/json.reactive'; 
 import { splitArrayReactive } from './components/util/array.reactive';
-//import thunk from 'redux-thunk';
+import { HeaderReactive } from './components/header/header.reactive';
 import './config/app.config';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css';
@@ -21,6 +21,7 @@ export const alertQuestion = alertQuestionReactive;
 //reactive
 export const Table = RenderTableReactive;
 export const Modal = ModalReactive;
+export const Header = HeaderReactive;
 
 //util
 export const foreachJSON = foreachJSONReactive;

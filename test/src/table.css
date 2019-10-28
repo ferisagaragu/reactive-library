@@ -175,3 +175,18 @@
 		-webkit-transform: translateY(0%);
 	}	
 }
+
+.header-reactive {
+  padding: 10px 16px;
+  background: #555;
+	color: #f1f1f1;
+	margin-bottom: 50px;
+}
+
+.sticky-reactive {
+  position: fixed;
+  top: 0;
+	width: 100%;
+	z-index: 100;
+	box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
