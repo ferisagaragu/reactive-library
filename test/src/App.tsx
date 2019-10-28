@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, HeaderTable, Firebase, convertJSONToArray, key, connect, Header, Footer } from 'reactive';
+import { Table, HeaderTable, Firebase, convertJSONToArray, key, connect, Header, Footer, Tree } from 'reactive';
 
 class App extends Component<any, any> {
   
@@ -124,6 +124,23 @@ class App extends Component<any, any> {
           />
         </div>
         */}
+
+        <div className="container">
+          <Tree 
+            treeData={
+              {
+                "root": {
+                  "data1": {
+                    "finalData": "Hola amigo"
+                  },
+                  "data2": {
+                    "finalData2 ": "Hola amigo"
+                  }
+                }
+              }
+            }
+          />
+        </div>
 
         <Footer>
           Hola pie

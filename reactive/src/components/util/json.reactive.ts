@@ -77,3 +77,12 @@ export function getIndexInJSONArrayReactive(
 
   return replaceIndex;
 }
+
+export function isJSONReactive(value: any) {
+  try {
+    JSON.stringify(value);
+    return true;
+  } catch (ex) {
+    return false;
+  }
+}
