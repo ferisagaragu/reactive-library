@@ -9,6 +9,7 @@ import HeaderReactive from './components/header/header.reactive';
 import FooterReactive from './components/footer/footer.reactive';
 import TreeReactive from './components/tree/tree.reactive';
 import { findByTypeReactive } from './components/util/react-util.reactive';
+import { BrowserRouter as RouterReactive } from 'react-router-dom';
 import './config/app.config';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -26,6 +27,7 @@ export const Modal = ModalReactive;
 export const Header = HeaderReactive;
 export const Footer = FooterReactive;
 export const Tree = TreeReactive;
+//export const CircleMenu = CircleMenuReactive;
 
 //util
 export const foreachJSON = foreachJSONReactive;
@@ -55,6 +57,9 @@ export const Provider = reactRedux.Provider;
 export const connect = reactRedux.connect;
 export const thunk = reduxThunk.default;
 export const reducer = reduxForm.reducer;
+
+//router
+export const Router = RouterReactive;
 
 //reactive - types
 export class HeaderTable {

@@ -36,7 +36,7 @@ class App extends Component<any, any> {
           <h1>Esta es mi aplicacion</h1>
         </Header>
         
-        <div className="container">
+        {/*<div className="container">
           <Table 
             animate
             header={ 
@@ -87,7 +87,7 @@ class App extends Component<any, any> {
             }
 
             tableData={ dataTable }
-            //isLoad={ dataTable.length === 0 }
+            isLoad={ dataTable.length === 0 }
             
             noTableData="No hay datos para mostrar."
 
@@ -121,7 +121,7 @@ class App extends Component<any, any> {
           />
         </div>
 
-        {/*<div className="container tree">
+        <div className="container tree">
           <Tree 
             rootLabel={ <input type="text"/> }
             rootExpanded
