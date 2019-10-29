@@ -1,44 +1,68 @@
 import * as React from 'react';
-import TreeFatherReactive from './tree-father.reactive';
+import keyReactive from '../key/key.reactive';
+import TreeItemReactive from './tree-item.reactive';
+import { TreeElement } from '../..';
 
 interface Props {
-  treeData: any;
+  rootLabel: any;
+  treeData: Array<TreeElement>;
+  onClick?: Function;
 }
 
 interface State {}
 
 class TreeReactive extends React.Component<Props, State> {
-  
-  private renderTree(treeData?: any): any {
-    let k: any = '';
-    let out: React.ReactElement = <></>;
     
-    for (k in treeData){
-      if (treeData.hasOwnProperty(k)){
-        if (treeData[k] instanceof Object) {
-          console.log(k);
-          this.renderTree(treeData[k]);
-        } else {
-          console.log(treeData[k]);
-          return (
-          <TreeFatherReactive 
-          label={ k }
-          children={  }
-          />);
-        }
-      }           
+  private renderTree(data: any) {
+    const { onClick } = this.props;
+
+  	const children = (items: Array<TreeElement>, name: any, uid: any): any => {
+    	if (items.length !== 0) {
+      	return (
+          <TreeItemReactive
+            label={ name }
+            child={
+              <div>
+                { this.renderTree(items) }
+              </div>
+            }
+            onClick={ () => onClick && onClick(uid) }
+          />
+        );
+      }
     }
-  
-    return null;
+    
+    return data.map((node: TreeElement) => {
+      return (
+        <div key={ keyReactive() }>
+          { children(node.items ? node.items : [], node.name, node.uid) }
+          
+          { 
+            node.items &&
+              node.items.length === 0 && 
+                <div 
+                  onClick={ () => onClick && onClick(node.uid) }
+                >
+                  { node.name }
+                </div> 
+          }
+        </div>
+      );
+    })
   }
   
   render() {
-    const { treeData } = this.props;
-    this.renderTree(treeData);
-    return (
-      <>
-        hola    
-      </>
+    const { rootLabel, treeData } = this.props;
+
+  	return (
+      <TreeItemReactive
+        label={ rootLabel }
+        child={
+          <div>
+            { this.renderTree(treeData) }
+          </div>
+        }
+      />
     );
   }
 }

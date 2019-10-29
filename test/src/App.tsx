@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, HeaderTable, Firebase, convertJSONToArray, key, connect, Header, Footer, Tree } from 'reactive';
+import { Table, HeaderTable, Firebase, convertJSONToArray, key, connect, Header, Footer, Tree, TreeElement } from 'reactive';
 
 class App extends Component<any, any> {
   
@@ -36,7 +36,6 @@ class App extends Component<any, any> {
           <h1>Esta es mi aplicacion</h1>
         </Header>
         
-        {/*
         <div className="container">
           <Table 
             animate
@@ -51,38 +50,38 @@ class App extends Component<any, any> {
                 }),
                 new HeaderTable({
                   key: 'lastName',
-                  label: 'Apellido',
+                  label: 'Apelluido',
                   type: 'text',
                   required: true,
-                  placeholder: 'Escribe aquí tu apellido' 
+                  placeholder: 'Escribe aquí tu apelluido' 
                 }),
                 new HeaderTable({
                   key: 'phoneNumber',
                   label: 'Numero telefonico',
                   type: 'number',
                   required: true,
-                  placeholder: 'Escribe aquí tu apellido' 
+                  placeholder: 'Escribe aquí tu apelluido' 
                 }),
                 new HeaderTable({
                   key: 'email',
                   label: 'Correo electronico',
                   type: 'text',
                   required: true,
-                  placeholder: 'Escribe aquí tu apellido' 
+                  placeholder: 'Escribe aquí tu apelluido' 
                 }),
                 new HeaderTable({
                   key: 'company',
                   label: 'Compañia',
                   type: 'text',
                   required: true,
-                  placeholder: 'Escribe aquí tu apellido' 
+                  placeholder: 'Escribe aquí tu apelluido' 
                 }),
                 new HeaderTable({
                   key: 'address',
                   label: 'Dirección',
                   type: 'text',
                   required: true,
-                  placeholder: 'Escribe aquí tu apellido' 
+                  placeholder: 'Escribe aquí tu apelluido' 
                 })
               ]
             }
@@ -102,18 +101,18 @@ class App extends Component<any, any> {
             drop
 
             onCreate={ (data: any) => {
-              data.uid = key();
-              this.firebase.update(`tableReactive/${data.uid}`, data);
+              data.uuid = key();
+              this.firebase.update(`tableReactive/${data.uuid}`, data);
             } }
 
             onEdit={ (data: any) => {
               console.log(data);
-              this.firebase.update(`tableReactive/${data.uid}`, data);
+              this.firebase.update(`tableReactive/${data.uuid}`, data);
             } }
 
             onDrop={ (elemet: any) => {  
               console.log(elemet);
-              this.firebase.remove(`tableReactive/${elemet.uid}`);
+              this.firebase.remove(`tableReactive/${elemet.uuid}`);
               this.setState({ isLoading: true })
             }}
 
@@ -123,25 +122,44 @@ class App extends Component<any, any> {
             pageMessage="Mostrando desde $(init) hasta $(end) de $(length) registros"
           />
         </div>
-        */}
 
-        <div className="container">
+        <div className="container tree">
           <Tree 
-            treeData={
-              {
-                "data1": {
-                  "finalData": "Hola amigo"
-                },
-                "data2": {
-                  "finalData2 ": "Hola amigo"
-                }
-              }
-            }
+            rootLabel={ <button>Inicio</button> }
+            onClick={ (uid: string) => console.log(uid) }
+            treeData={[
+              new TreeElement({
+                uid: key(),
+                name: <h4>Pedro moreno</h4>,
+                items: [
+                  new TreeElement({
+                    uid: key(),
+                    name: <h5>Soy el bebe de pedro</h5>,
+                    items: [
+                      new TreeElement({
+                        uid: key(),
+                        name: <h6>Y yo el bebe del bebe de pedro</h6>
+                      })
+                    ]
+                  })
+                ]
+              }),
+              new TreeElement({
+                uid: key(),
+                name: <h4>Soy el hermano de Pedro</h4>,
+                items: [
+                  new TreeElement({
+                    uid: key(),
+                    name: <h5>Soy el hijo del hermano de Pedro</h5>
+                  })
+                ]
+              })
+            ]}
           />
         </div>
 
         <Footer>
-          Hola pie
+          <h3>NeuroBrain</h3>
         </Footer>
       </>
     );
