@@ -97,10 +97,12 @@ export default class RenderTableReactive extends React.Component<Props, State> {
     const { pageSelected } = this.state;
 
     if (onCreate) {
-      if (finalData[pageSelected].length === 0) {
-        this.setState({ pageSelected: finalData.length , disabledPage: false });
-      } else {
-        this.setState({ disabledPage: false });
+      if(finalData[pageSelected]) {
+        if (finalData[pageSelected].length === 0) {
+          this.setState({ pageSelected: finalData.length , disabledPage: false });
+        } else {
+          this.setState({ disabledPage: false });
+        }
       }
       onCreate(fromData);
     }
@@ -109,7 +111,7 @@ export default class RenderTableReactive extends React.Component<Props, State> {
   private onCreateEnd(finalData: Array<any>): void {
     const { pageShow, pager } = this.props;
     
-    if (pager) {
+    if (pager && this.pagerRef.current) {
       this.pagerRef.current.state.showPages =
         this.convertToInteger(
           finalData.length / (pageShow ? pageShow : 5)

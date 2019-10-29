@@ -234,11 +234,13 @@ export default class TableReactive extends React.Component<Props, State> {
     const { animate, tableData, showElements } = this.props;
 
     formData.uid = keyReactive();
-    if (tableData.length === showElements ) {
-      while(tableData.length > 0) {
-        tableData.pop();
+    if (tableData) {
+      if (tableData.length === showElements ) {
+        while(tableData.length > 0) {
+          tableData.pop();
+        }
       }
-    }
+    } 
     
     if (animate) {
       this.setState({ elementCreate: formData });

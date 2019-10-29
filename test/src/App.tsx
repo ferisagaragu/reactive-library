@@ -36,7 +36,7 @@ class App extends Component<any, any> {
           <h1>Esta es mi aplicacion</h1>
         </Header>
         
-        {/*<div className="container">
+        <div className="container">
           <Table 
             animate
             header={ 
@@ -87,7 +87,7 @@ class App extends Component<any, any> {
             }
 
             tableData={ dataTable }
-            isLoad={ dataTable.length === 0 }
+            //isLoad={ dataTable.length === 0 }
             
             noTableData="No hay datos para mostrar."
 
@@ -101,18 +101,16 @@ class App extends Component<any, any> {
             drop
 
             onCreate={ (data: any) => {
-              data.uuid = key();
-              this.firebase.update(`tableReactive/${data.uuid}`, data);
+              data.uid = key();
+              this.firebase.update(`tableReactive/${data.uid}`, data);
             } }
 
             onEdit={ (data: any) => {
-              console.log(data);
-              this.firebase.update(`tableReactive/${data.uuid}`, data);
+              this.firebase.update(`tableReactive/${data.uid}`, data);
             } }
 
             onDrop={ (elemet: any) => {  
-              console.log(elemet);
-              this.firebase.remove(`tableReactive/${elemet.uuid}`);
+              this.firebase.remove(`tableReactive/${elemet.uid}`);
               this.setState({ isLoading: true })
             }}
 
@@ -121,9 +119,9 @@ class App extends Component<any, any> {
             pageShow={ 11 }
             pageMessage="Mostrando desde $(init) hasta $(end) de $(length) registros"
           />
-          </div>*/}
+        </div>
 
-        <div className="container tree">
+        {/*<div className="container tree">
           <Tree 
             rootLabel={ <input type="text"/> }
             rootExpanded
@@ -157,7 +155,7 @@ class App extends Component<any, any> {
               })
             ]}
           />
-        </div>
+          </div>*/}
 
         <Footer>
           <h3>NeuroBrain</h3>
