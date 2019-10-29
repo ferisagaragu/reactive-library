@@ -400,7 +400,7 @@ export default class TableReactive extends React.Component<Props, State> {
               <FontAwesomeIcon className="load-table-indicator-reactive" size="2x" icon="spinner" spin/>
             </div>
           :
-          tableData &&
+          tableData ?
             tableData.length === 0 ?
               <div className={ `text-center ${animate ? 'no-result-reactive' : ''}` }>
                 { noTableData ? noTableData : 'No data to display.' }
@@ -410,6 +410,10 @@ export default class TableReactive extends React.Component<Props, State> {
                 <div className={ `text-center ${animate ? 'no-result-reactive' : ''}` }>
                   { noSearchResult ? noSearchResult : 'No results found.' }
                 </div>
+          :
+            <div className={ `text-center ${animate ? 'no-result-reactive' : ''}` }>
+              { noTableData ? noTableData : 'No data to display.' }
+            </div>
         }
       </>  
     );
