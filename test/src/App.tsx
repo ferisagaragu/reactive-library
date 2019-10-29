@@ -36,7 +36,7 @@ class App extends Component<any, any> {
           <h1>Esta es mi aplicacion</h1>
         </Header>
         
-        <div className="container">
+        {/*<div className="container">
           <Table 
             animate
             header={ 
@@ -121,20 +121,23 @@ class App extends Component<any, any> {
             pageShow={ 11 }
             pageMessage="Mostrando desde $(init) hasta $(end) de $(length) registros"
           />
-        </div>
+          </div>*/}
 
         <div className="container tree">
           <Tree 
             rootLabel={ <button>Inicio</button> }
+            rootExpanded={ true }
             onClick={ (uid: string) => console.log(uid) }
             treeData={[
               new TreeElement({
                 uid: key(),
                 name: <h4>Pedro moreno</h4>,
+                expanded: true,
                 items: [
                   new TreeElement({
                     uid: key(),
                     name: <h5>Soy el bebe de pedro</h5>,
+                    expanded: true,
                     items: [
                       new TreeElement({
                         uid: key(),

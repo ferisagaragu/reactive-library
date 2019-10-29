@@ -6,6 +6,7 @@ interface Props {
   label: string;
   child: React.ReactElement;
   onClick?: Function;
+  expanded?: boolean;
 }
 
 interface State {
@@ -18,7 +19,7 @@ class TreeItemReactive extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      isOpen: false
+      isOpen: this.props.expanded ? this.props.expanded : false
     }
   }
 
@@ -29,18 +30,20 @@ class TreeItemReactive extends React.Component<Props, State> {
     return (
       <Accordion
         defaultActiveKey={ isOpen ? '0' : '-1' }
-      >
-        <Accordion.Toggle 
-          className="tree-reactive"
-          as={Card.Header} 
-          eventKey="0"
-          onClick={ () => this.setState({ isOpen: !isOpen }) }
-        >
-          <FontAwesomeIcon rotation={ isOpen ? 90 : undefined } icon="chevron-right" />
-          <label className="ml-2 mb-0" onClick={ () => onClick && onClick() }>
-            { label }
-          </label>
-        </Accordion.Toggle>
+      > 
+        <button className="tree-button-reactive">
+          <Accordion.Toggle 
+            className="tree-reactive"
+            as={Card.Header} 
+            eventKey="0"
+            onClick={ () => this.setState({ isOpen: !isOpen }) }
+          >
+            <FontAwesomeIcon rotation={ isOpen ? 90 : undefined } icon="chevron-right" />
+            <label className="ml-2 mb-0" onClick={ () => onClick && onClick() }>
+              { label }
+            </label>
+          </Accordion.Toggle>
+        </button>
 
         <Accordion.Collapse
           className="ml-4"
