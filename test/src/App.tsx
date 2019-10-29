@@ -125,19 +125,17 @@ class App extends Component<any, any> {
 
         <div className="container tree">
           <Tree 
-            rootLabel={ <button>Inicio</button> }
-            rootExpanded={ true }
+            rootLabel={ <input type="text"/> }
+            rootExpanded
             onClick={ (uid: string) => console.log(uid) }
             treeData={[
               new TreeElement({
                 uid: key(),
                 name: <h4>Pedro moreno</h4>,
-                expanded: true,
                 items: [
                   new TreeElement({
                     uid: key(),
                     name: <h5>Soy el bebe de pedro</h5>,
-                    expanded: true,
                     items: [
                       new TreeElement({
                         uid: key(),

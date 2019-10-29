@@ -7,6 +7,7 @@ interface Props {
   child: React.ReactElement;
   onClick?: Function;
   expanded?: boolean;
+  disabled?: boolean;
 }
 
 interface State {
@@ -25,18 +26,18 @@ class TreeItemReactive extends React.Component<Props, State> {
 
   render() {
     const { isOpen } = this.state;
-    const { label, child, onClick } = this.props;
+    const { label, child, onClick, disabled } = this.props;
 
     return (
       <Accordion
         defaultActiveKey={ isOpen ? '0' : '-1' }
       > 
-        <button className="tree-button-reactive">
+        <button className="tree-button-reactive" disabled={ disabled }>
           <Accordion.Toggle 
             className="tree-reactive"
             as={Card.Header} 
-            eventKey="0"
-            onClick={ () => this.setState({ isOpen: !isOpen }) }
+            eventKey={ !(disabled ? disabled : false) ? '0' : '-2' }
+            onClick={ () => !disabled && this.setState({ isOpen: !isOpen }) }
           >
             <FontAwesomeIcon rotation={ isOpen ? 90 : undefined } icon="chevron-right" />
             <label className="ml-2 mb-0" onClick={ () => onClick && onClick() }>
@@ -47,7 +48,7 @@ class TreeItemReactive extends React.Component<Props, State> {
 
         <Accordion.Collapse
           className="ml-4"
-          eventKey="0"
+          eventKey={ !(disabled ? disabled : false) ? '0' : '-3' }
         >
           { child }
         </Accordion.Collapse>

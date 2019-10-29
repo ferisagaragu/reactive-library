@@ -8,6 +8,7 @@ interface Props {
   treeData: Array<TreeElement>;
   onClick?: Function;
   rootExpanded?: boolean;
+  disabled?: boolean;
 }
 
 interface State {}
@@ -17,7 +18,7 @@ class TreeReactive extends React.Component<Props, State> {
   private renderTree(data: any) {
     const { onClick } = this.props;
 
-  	const children = (items: Array<TreeElement>, name: any, uid: any, expanded: boolean): any => {
+  	const children = (items: Array<TreeElement>, name: any, uid: any, expanded: boolean, disabled: boolean): any => {
     	if (items.length !== 0) {
       	return (
           <TreeItemReactive
@@ -29,6 +30,7 @@ class TreeReactive extends React.Component<Props, State> {
             }
             onClick={ () => onClick && onClick(uid) }
             expanded={ expanded }
+            disabled={ disabled }
           />
         );
       }
@@ -41,13 +43,18 @@ class TreeReactive extends React.Component<Props, State> {
             children(
               node.items ? 
                 node.items 
-              : [], 
+              : 
+                [], 
               node.name, 
               node.uid, 
               node.expanded ? 
                 node.expanded 
               : 
-              false
+                false,
+              node.disabled ?
+                node.disabled
+              : 
+                false
             ) 
           }
           
@@ -66,7 +73,7 @@ class TreeReactive extends React.Component<Props, State> {
   }
   
   render() {
-    const { rootLabel, treeData, rootExpanded } = this.props;
+    const { rootLabel, treeData, rootExpanded, disabled } = this.props;
 
   	return (
       <TreeItemReactive
@@ -77,6 +84,7 @@ class TreeReactive extends React.Component<Props, State> {
           </div>
         }
         expanded={ rootExpanded }
+        disabled={ disabled }
       />
     );
   }
