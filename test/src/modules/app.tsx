@@ -11,9 +11,11 @@ import {
   Table,
   HeaderTable,
   BurgerElement,
-  alert
+  alert,
+  Container,
+  FontAwesomeIcon
 } from 'reactive';
-import Routing from '../core/routes/routing.routes';
+//import Routing from '../core/routes/routing.routes';
 
 class App extends Component<any, any> {
   
@@ -44,7 +46,7 @@ class App extends Component<any, any> {
         <Header
           left={
             <h3>
-              Reactive
+              <FontAwesomeIcon icon="plus" /> Reactive
             </h3>
           }
           menuData={[
@@ -72,8 +74,8 @@ class App extends Component<any, any> {
         />*/}
 
 
-        <Routing></Routing>
-        <div className="container">
+        {/*<Routing></Routing>*/}
+        <Container>
           <Table 
             animate
             header={ 
@@ -156,9 +158,9 @@ class App extends Component<any, any> {
             pageShow={ 11 }
             pageMessage="Mostrando desde $(init) hasta $(end) de $(length) registros"
           />
-        </div>
+        </Container>
 
-        <div className="container tree">
+        <Container className="tree">
           <Tree 
             rootLabel={ <input type="text"/> }
             rootExpanded
@@ -192,7 +194,7 @@ class App extends Component<any, any> {
               })
             ]}
           />
-          </div>
+          </Container>
 
           
 
