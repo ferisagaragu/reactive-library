@@ -10,8 +10,10 @@ import {
   key,
   Table,
   HeaderTable,
-  BurgerElement
+  BurgerElement,
+  Route
 } from 'reactive';
+import Routing from '../core/routes/routing.routes';
 
 class App extends Component<any, any> {
   
@@ -35,7 +37,7 @@ class App extends Component<any, any> {
   
   render() {
     const { dataTable } = this.state;
-
+    console.log(this.props)
     return (
       <>
         <Header
@@ -58,9 +60,18 @@ class App extends Component<any, any> {
             })
           ]}
         >
-         
+          
         </Header>
-        
+
+        {/*<Route 
+        render={ ({ location, history }: any) => {
+          history.push('/test');
+          return <></>;
+         } }
+        />*/}
+
+
+        <Routing></Routing>
         <div className="container">
           <Table 
             animate

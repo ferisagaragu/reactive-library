@@ -1,5 +1,6 @@
 {
   "lockfileVersion": 1,
+  "license": "MIT",
   "scripts": {
     "library": "cd reactive && npm start",
     "test": "cd test && npm start",
