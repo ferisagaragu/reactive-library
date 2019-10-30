@@ -5,7 +5,8 @@ header {
 }
 
 footer {
-  background:#292d3e;
+  background: rgb(54,0,51);
+  background: linear-gradient(245deg, rgba(54,0,51,1) 0%, rgba(11,135,147,1) 100%);
   color: aliceblue;
 }
 
@@ -14,6 +15,6 @@ footer {
   height: 32px;
 }
 
-.tree {
+.app-container {
   padding-bottom: 100px;
 }

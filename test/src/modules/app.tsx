@@ -15,6 +15,7 @@ import {
   Row,
   Col
 } from 'reactive';
+import TableView from './table-reactive/table.view';
 //import Routing from '../core/routes/routing.routes';
 
 class App extends Component<any, any> {
@@ -45,7 +46,7 @@ class App extends Component<any, any> {
                   className="reactive-log" 
                 /> 
               </Col>
-              
+
               <Col md={ 10 }>
                 <h3 className="ml-3">
                   Reactive
@@ -66,9 +67,7 @@ class App extends Component<any, any> {
               items: []
             })
           ]}
-        >
-          
-        </Header>
+        />
 
         {/*<Route 
         render={ ({ location, history }: any) => {
@@ -79,11 +78,11 @@ class App extends Component<any, any> {
 
 
         {/*<Routing></Routing>*/}
-        <Container>
-          
+        <Container className="app-container">
+          <TableView />
         </Container>
 
-        <Container className="tree">
+        <Container className="app-container">
           <Tree 
             rootLabel={ <input type="text"/> }
             rootExpanded
@@ -121,9 +120,13 @@ class App extends Component<any, any> {
 
           
 
-        <Footer>
-          <h3>NeuroBrain</h3>
-        </Footer>
+        <Footer 
+          left={
+            <h3 className="m-4">
+              NeuroBrain
+            </h3>
+          }
+        />
       </>
     );
   }

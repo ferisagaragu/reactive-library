@@ -18,7 +18,7 @@ export class FooterReactive extends React.Component<Props, State> {
       <footer className={ `footer-reactive ${className ? className : ''}` }>
         {
           left || right || center ?
-            <Row>
+            <Row className="footer-reactive-row">
               {
                 left && 
                   <Col className="text-left" md={ center ? 4 : 6 }>
