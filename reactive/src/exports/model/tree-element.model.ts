@@ -1,5 +1,4 @@
-export default class TreeElement {
-
+export class TreeElement {
   uid: any;
   name: any;
   items?: Array<TreeElement>;

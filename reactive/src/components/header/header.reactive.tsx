@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Row, Col, Accordion, Card } from 'react-bootstrap';
-import { BurgerElement } from '../..';
+import { BurgerElement } from '../../exports/model/burger-element.model';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const reactBurguer = require('react-burger-menu');
-const Menu = reactBurguer.slide;
+/*const reactBurguer = require('react-burger-menu');
+const Menu = reactBurguer.slide;*/
 
 interface Props {
   className?: string; 
@@ -16,7 +16,7 @@ interface Props {
 
 interface State {}
 
-class HeaderReactive extends React.Component<Props, State> {
+export class HeaderReactive extends React.Component<Props, State> {
 
   headerRef: any = null;
 
@@ -83,9 +83,9 @@ class HeaderReactive extends React.Component<Props, State> {
               {
                 menuData &&
                   <Col  className="burger-reactive" md={ 1 }>
-                    <Menu>
+                    {/*<Menu>
                       { this.renderMenu() }
-                    </Menu>   
+                    </Menu>*/}   
                   </Col>
               }
 
@@ -117,5 +117,3 @@ class HeaderReactive extends React.Component<Props, State> {
     );
   }
 }
-
-export default HeaderReactive;

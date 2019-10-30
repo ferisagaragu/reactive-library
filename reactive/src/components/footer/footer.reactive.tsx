@@ -10,7 +10,7 @@ interface Props {
 
 interface State {}
 
-class FooterReactive extends React.Component<Props, State> {
+export class FooterReactive extends React.Component<Props, State> {
   render() {
     const { left, right, center, children, className } = this.props;
 
@@ -47,5 +47,3 @@ class FooterReactive extends React.Component<Props, State> {
     );
   }
 }
-
-export default FooterReactive;

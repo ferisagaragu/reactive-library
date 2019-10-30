@@ -1,5 +1,5 @@
 import * as React from 'react';
-import HeaderTable from './model/header-table.reactive.model';
+import { HeaderTable } from '../../exports/model/header-table.model';
 import Table from './table.reactive';
 import PaginatorTableReactive from './paginator-table.reactive';
 import { splitArrayReactive } from '../util/array.reactive';
@@ -39,7 +39,7 @@ interface State {
   isSearch: boolean;
 }
 
-export default class RenderTableReactive extends React.Component<Props, State> {
+export class RenderTableReactive extends React.Component<Props, State> {
 
   pagerRef: any = null;
 

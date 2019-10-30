@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Table, Row, Col, Button } from 'react-bootstrap';
-import HeaderTable from './model/header-table.reactive.model';
-import keyReactive from '../../components/key/key.reactive';
+import { HeaderTable } from '../../exports/model/header-table.model';
+import { keyReactive } from '../../components/key/key.reactive';
 import FormTable from './model/form-table.reactive.model';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { foreachJSONReactive, oderJSONByReactive, getIndexInJSONArrayReactive, removeInJSONArrayReactive } from '../util/json.reactive';

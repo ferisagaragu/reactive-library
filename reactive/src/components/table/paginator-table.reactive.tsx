@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Pagination, Col, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { splitArrayReactive } from '../util/array.reactive';
-import keyReactive from '../key/key.reactive';
+import { keyReactive } from '../key/key.reactive';
 
 interface Props {
   numberPages: number;

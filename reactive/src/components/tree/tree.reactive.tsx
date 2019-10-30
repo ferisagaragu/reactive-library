@@ -1,7 +1,7 @@
 import * as React from 'react';
-import keyReactive from '../key/key.reactive';
+import { keyReactive } from '../key/key.reactive';
 import TreeItemReactive from './tree-item.reactive';
-import TreeElement from './model/tree-element.reactive.model';
+import { TreeElement } from '../../exports/model/tree-element.model';
 
 interface Props {
   rootLabel: any;
@@ -13,7 +13,7 @@ interface Props {
 
 interface State {}
 
-class TreeReactive extends React.Component<Props, State> {
+export class TreeReactive extends React.Component<Props, State> {
     
   private renderTree(data: any) {
     const { onClick } = this.props;
@@ -89,5 +89,3 @@ class TreeReactive extends React.Component<Props, State> {
     );
   }
 }
-
-export default TreeReactive;

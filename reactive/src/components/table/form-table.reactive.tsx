@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import FormTable from './model/form-table.reactive.model';
 import { InputTableReactive } from './input-table.reactive';
-import keyReactive from '../key/key.reactive';
+import { keyReactive } from '../key/key.reactive';
 
 interface Props {
   form: Array<FormTable>;

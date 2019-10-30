@@ -1,5 +1,4 @@
-export default class HeaderTable {
-
+export class HeaderTable {
   key: string;
   label: string;
   type: string;
@@ -12,7 +11,6 @@ export default class HeaderTable {
     this.type = 'text';
     this.required = false;
     this.placeholder = '';
-
     Object.assign(this, data);
   }
 }

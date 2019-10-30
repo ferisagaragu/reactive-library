@@ -1,9 +1,8 @@
-export default class BurgerElement {
-
+export class BurgerElement {
   uid: string;
   label: any;
   icon: any;
-  items: Array<BurgerElement>;
+  items?: Array<BurgerElement>;
 
   constructor(data: any | BurgerElement) {
     this.uid = '';
