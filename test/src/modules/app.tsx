@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { 
+import { ReactComponent as ReactiveLogo } from '../styles/svg/reactive.svg';
+import {
   Firebase, 
   convertJSONToArray,
   connect, 
@@ -8,12 +9,11 @@ import {
   Tree,
   TreeElement,
   key,
-  Table,
-  HeaderTable,
   BurgerElement,
   alert,
   Container,
-  FontAwesomeIcon
+  Row,
+  Col
 } from 'reactive';
 //import Routing from '../core/routes/routing.routes';
 
@@ -24,11 +24,7 @@ class App extends Component<any, any> {
   constructor(props: any) {
     super(props);
 
-    this.state = {
-      dataTable: [],
-      show: false,
-      isLoading: true
-    }
+    this.state = {}
   }
 
   componentDidMount() {
@@ -39,15 +35,23 @@ class App extends Component<any, any> {
   }
   
   render() {
-    const { dataTable } = this.state;
-    console.log(this.props)
     return (
       <>
         <Header
           left={
-            <h3>
-              <FontAwesomeIcon icon="plus" /> Reactive
-            </h3>
+            <Row>
+              <Col className="mt-1" md={ 1 }>
+                <ReactiveLogo 
+                  className="reactive-log" 
+                /> 
+              </Col>
+              
+              <Col md={ 10 }>
+                <h3 className="ml-3">
+                  Reactive
+                </h3>
+              </Col>
+            </Row>
           }
           menuData={[
             new BurgerElement({
@@ -76,88 +80,7 @@ class App extends Component<any, any> {
 
         {/*<Routing></Routing>*/}
         <Container>
-          <Table 
-            animate
-            header={ 
-              [
-                new HeaderTable({
-                  key: 'name',
-                  label: 'Nombre',
-                  type: 'text',
-                  required: false,
-                  placeholder: 'Escribe aquí un nombre' 
-                }),
-                new HeaderTable({
-                  key: 'lastName',
-                  label: 'Apelluido',
-                  type: 'text',
-                  required: true,
-                  placeholder: 'Escribe aquí tu apelluido' 
-                }),
-                new HeaderTable({
-                  key: 'phoneNumber',
-                  label: 'Numero telefonico',
-                  type: 'number',
-                  required: true,
-                  placeholder: 'Escribe aquí tu apelluido' 
-                }),
-                new HeaderTable({
-                  key: 'email',
-                  label: 'Correo electronico',
-                  type: 'text',
-                  required: true,
-                  placeholder: 'Escribe aquí tu apelluido' 
-                }),
-                new HeaderTable({
-                  key: 'company',
-                  label: 'Compañia',
-                  type: 'text',
-                  required: true,
-                  placeholder: 'Escribe aquí tu apelluido' 
-                }),
-                new HeaderTable({
-                  key: 'address',
-                  label: 'Dirección',
-                  type: 'text',
-                  required: true,
-                  placeholder: 'Escribe aquí tu apelluido' 
-                })
-              ]
-            }
-
-            tableData={ dataTable }
-            isLoad={ dataTable.length === 0 }
-            
-            noTableData="No hay datos para mostrar."
-
-            search
-            searchPlaceholder="Buscar..."
-            noSearchResult="No se encontraron resultados."
-
-            actionsLabel="Acciones"
-            create
-            edit
-            drop
-
-            onCreate={ (data: any) => {
-              data.uid = key();
-              this.firebase.update(`tableReactive/${data.uid}`, data);
-            } }
-
-            onEdit={ (data: any) => {
-              this.firebase.update(`tableReactive/${data.uid}`, data);
-            } }
-
-            onDrop={ (elemet: any) => {  
-              this.firebase.remove(`tableReactive/${elemet.uid}`);
-              this.setState({ isLoading: true })
-            }}
-
-            pager
-            showElements={ 10 }
-            pageShow={ 11 }
-            pageMessage="Mostrando desde $(init) hasta $(end) de $(length) registros"
-          />
+          
         </Container>
 
         <Container className="tree">
