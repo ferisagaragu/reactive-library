@@ -9,7 +9,7 @@ import HeaderReactive from './components/header/header.reactive';
 import FooterReactive from './components/footer/footer.reactive';
 import TreeReactive from './components/tree/tree.reactive';
 import { findByTypeReactive } from './components/util/react-util.reactive';
-import { BrowserRouter as RouterReactive } from 'react-router-dom';
+import { BrowserRouter as RouterReactive, Route as RouteReactive, Switch as SwitchReactive, Link as LinkReactive } from 'react-router-dom';
 import './config/app.config';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -60,6 +60,14 @@ export const reducer = reduxForm.reducer;
 
 //router
 export const Router = RouterReactive;
+export const Route = RouteReactive;
+export const Switch = SwitchReactive;
+export const Link = LinkReactive;
+ 
+//menu
+const reactBurguer = require('react-burger-menu');
+
+export const Menu = reactBurguer.slide;
 
 //reactive - types
 export class HeaderTable {
@@ -93,6 +101,23 @@ export class TreeElement {
     this.items = [];
     this.expanded = false;
     this.disabled = false;
+
+    Object.assign(this, data);
+  }
+}
+
+export class BurgerElement {
+
+  uid: string;
+  label: any;
+  icon: any;
+  items?: Array<BurgerElement>;
+
+  constructor(data: any | BurgerElement) {
+    this.uid = '';
+    this.label = null;
+    this.icon = null;
+    this.items = [];
 
     Object.assign(this, data);
   }

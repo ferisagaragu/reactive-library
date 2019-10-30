@@ -1,5 +1,17 @@
 import React, { Component } from 'react';
-import { Table, HeaderTable, Firebase, convertJSONToArray, key, connect, Header, Footer, Tree, TreeElement } from 'reactive';
+import { 
+  Firebase, 
+  convertJSONToArray,
+  connect, 
+  Header, 
+  Footer,
+  Tree,
+  TreeElement,
+  key,
+  Table,
+  HeaderTable,
+  BurgerElement
+} from 'reactive';
 
 class App extends Component<any, any> {
   
@@ -32,11 +44,24 @@ class App extends Component<any, any> {
               Reactive
             </h3>
           }
+          menuData={[
+            new BurgerElement({
+              uid: key(),
+              label: <label>Hola</label>,
+              items: []
+            }),
+            new BurgerElement({
+              uid: key(),
+              label: <label>Hola</label>,
+              icon: <button>*</button>,
+              items: []
+            })
+          ]}
         >
-          <h1>Esta es mi aplicacion</h1>
+         
         </Header>
         
-        {/*<div className="container">
+        <div className="container">
           <Table 
             animate
             header={ 
@@ -155,7 +180,9 @@ class App extends Component<any, any> {
               })
             ]}
           />
-          </div>*/}
+          </div>
+
+          
 
         <Footer>
           <h3>NeuroBrain</h3>
