@@ -9,8 +9,8 @@ const Routing = () => {
       {/*<Route path="/bow/" exact component={ BowView } />
       <Route path="/about/" exact component={ AboutView } />
       <Route path="/material/" exact component={ MaterialView } />
-      <Route path="/experimental/" exact component={ Experimental } />
-      <Route component={ HomeView } />*/}
+      <Route path="/experimental/" exact component={ Experimental } />*/}
+      <Route component={ TestView } />
     </Switch>
   );
 }

@@ -11,7 +11,7 @@ import {
   Table,
   HeaderTable,
   BurgerElement,
-  Route
+  alert
 } from 'reactive';
 import Routing from '../core/routes/routing.routes';
 
@@ -33,6 +33,7 @@ class App extends Component<any, any> {
     this.firebase.on('tableReactive',(data: any) => {
       this.setState({ dataTable: convertJSONToArray(data.val()), isLoading: false });
     });  
+    alert('success', 'Hola', 'mundo');
   }
   
   render() {
