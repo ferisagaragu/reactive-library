@@ -3,8 +3,8 @@ import { Row, Col, Accordion, Card } from 'react-bootstrap';
 import { BurgerElement } from '../../exports/model/burger-element.model';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-/*const reactBurguer = require('react-burger-menu');
-const Menu = reactBurguer.slide;*/
+const reactBurguer = require('react-burger-menu');
+const Menu = reactBurguer.slide;
 
 interface Props {
   className?: string; 
@@ -83,9 +83,9 @@ export class HeaderReactive extends React.Component<Props, State> {
               {
                 menuData &&
                   <Col  className="burger-reactive" md={ 1 }>
-                    {/*<Menu>
+                    <Menu>
                       { this.renderMenu() }
-                    </Menu>*/}   
+                    </Menu>  
                   </Col>
               }
 
