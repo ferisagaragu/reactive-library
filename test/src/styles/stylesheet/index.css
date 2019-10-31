@@ -34,6 +34,12 @@ code {
   border-top: 1px solid #c6cbd1;
 }
 
+.bm-menu {
+  background: rgb(54,0,51);
+  background: linear-gradient(245deg, rgba(54,0,51,1) 0%, rgba(11,135,147,1) 100%);
+  color: aliceblue;
+}
+
 .reactive-log {
   width: 32px;
   height: 32px;

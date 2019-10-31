@@ -118,7 +118,7 @@ class App extends Component<any, any> {
 
         <Footer 
           left={
-            <h3 className="m-4">
+            <h3 className="m-3">
               NeuroBrain
             </h3>
           }
