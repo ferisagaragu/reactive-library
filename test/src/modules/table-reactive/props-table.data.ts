@@ -135,7 +135,7 @@ export const propsTable: Array<PropsModel> = [
   }),
   new PropsModel({
     propName: 'pageMessage',
-    type: `Mostrando desde $(init) hasta $(end) de $(length) registros`,
+    type: `'Mostrando desde $(init) hasta $(end) de $(length) registros'`,
     required: false,
     description: 'Mensaje que se mostrara para saber cuantos registros de cuantos se estan mostrando'
   })

@@ -52,6 +52,12 @@ class TableView extends Component<Props,State> {
           />
         </Col>
 
+        <Col md={ 12 }>
+          <h4>
+            Codígo - npm i react-code-prettify
+          </h4>
+        </Col>
+
         <Col className="mb-5" md={ 6 }>
           <h4>
             Demo
