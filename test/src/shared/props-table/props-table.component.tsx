@@ -16,7 +16,7 @@ class PropsTableComponent extends Component<Props,State> {
       <table className="table-props">
         <thead>
           <tr className="tr-props">
-            <th className="th-props text-center">
+            <th className="th-props text-center" style={ { width: '200px' } }>
               Atributo
             </th>
             <th className="th-props text-center">
