@@ -6,11 +6,8 @@ import {
   connect, 
   Header, 
   Footer,
-  Tree,
-  TreeElement,
   key,
   BurgerElement,
-  alert,
   Container,
   Row,
   Col
@@ -32,7 +29,6 @@ class App extends Component<any, any> {
     this.firebase.on('tableReactive',(data: any) => {
       this.setState({ dataTable: convertJSONToArray(data.val()), isLoading: false });
     });  
-    alert('success', 'Hola', 'mundo');
   }
   
   render() {
@@ -82,7 +78,7 @@ class App extends Component<any, any> {
           <TableView />
         </Container>
 
-        <Container className="app-container">
+        {/*<Container className="app-container">
           <Tree 
             rootLabel={ <input type="text"/> }
             rootExpanded
@@ -116,7 +112,7 @@ class App extends Component<any, any> {
               })
             ]}
           />
-          </Container>
+          </Container>*/}
 
           
 

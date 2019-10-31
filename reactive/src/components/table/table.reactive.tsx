@@ -358,7 +358,7 @@ export default class TableReactive extends React.Component<Props, State> {
     const { tableData, isCreate, isEdit } = this.state;
     
     return (
-      <>
+      <div className={ className }>
         <Row className="mb-2">
           { search && searchHTML }
 
@@ -377,7 +377,7 @@ export default class TableReactive extends React.Component<Props, State> {
           }
         </Row>
 
-        <Table responsive variant={ variant } className={ className }>
+        <Table responsive variant={ variant }>
           <thead>
             { this.renderHeader() }
           </thead>
@@ -417,7 +417,7 @@ export default class TableReactive extends React.Component<Props, State> {
               { noTableData ? noTableData : 'No data to display.' }
             </div>
         }
-      </>  
+      </div>  
     );
   }
 }

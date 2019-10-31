@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Row, Table, HeaderTable, Firebase, convertJSONToArray, key } from 'reactive';
+import { Row, Table, HeaderTable, Firebase, convertJSONToArray, key, Col } from 'reactive';
+import PropsTableComponent from '../../shared/props-table/props-table.component';
+import { propsTable } from './props-table.data';
 
 interface Props {}
 
@@ -32,6 +34,30 @@ class TableView extends Component<Props,State> {
 
     return (
       <Row>
+        <Col md={ 12 }>
+          <h2 className="mb-5">
+            Table
+          </h2>
+        </Col>
+
+        <Col md={ 12 }>
+          <h4 className="mb-5">
+            Atributos
+          </h4>
+        </Col>
+        
+        <Col className="mb-5" md={ 12 }>
+          <PropsTableComponent
+            propsData={ propsTable }
+          />
+        </Col>
+
+        <Col className="mb-5" md={ 6 }>
+          <h4>
+            Demo
+          </h4>
+        </Col>
+
         <Table 
           animate
           header={ 
