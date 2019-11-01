@@ -10,7 +10,8 @@ import {
   BurgerElement,
   Container,
   Row,
-  Col
+  Col,
+  LoginForm
 } from 'reactive';
 import TableView from './table-reactive/table.view';
 //import Routing from '../core/routes/routing.routes';
@@ -72,6 +73,11 @@ class App extends Component<any, any> {
          } }
         />*/}
 
+        <LoginForm
+          submitActions={ (formData: any) => console.log(formData) }
+          cancel={ () => {} }
+          showButtons={ false }
+        />
 
         {/*<Routing></Routing>*/}
         <Container className="app-container">

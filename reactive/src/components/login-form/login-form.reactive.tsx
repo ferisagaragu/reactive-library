@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { Field, reduxForm } from '../../exports/redux.export';
 import { RenderTextField } from '../../components/redux-field/redux-render-text-field.reactive';
-import { Button, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface Props { 
   initialValues: any;
@@ -10,7 +11,9 @@ interface Props {
   submitting: any;
   submitActions: Function;
   showButtons: boolean;
+
   logo: React.ReactElement;
+
 }
 
 interface State { }
@@ -44,22 +47,26 @@ class LoginFormReactive extends React.Component<Props, State> {
         />
 
         {
-          showButtons &&
+          showButtons ?
             <div className="text-center mt-4">
-              <Button 
+              <button 
                 className="mr-3 btn-hover color-9"
                 onClick={ cancel }
               >
                 Registrar
-              </Button>
+              </button>
 
-              <Button 
+              <button 
                 className="btn-hover color-5"
                 type="submit" 
                 disabled={ submitting }
               >
                 Entrar
-              </Button>
+              </button>
+            </div>
+          : 
+            <div className="text-center">
+              <FontAwesomeIcon icon="spinner" size="2x" spin />
             </div>
         }
       </form>

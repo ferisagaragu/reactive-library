@@ -1,5 +1,6 @@
 import './config/app.config';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import LoginFormReactive from './components/login-form/login-form.reactive';
 
 //============================REACTIVE============================
 //+components
@@ -8,7 +9,7 @@ export { ModalReactive as Modal } from './components/modal/modal.reactive';
 export { HeaderReactive as Header } from './components/header/header.reactive';
 export { FooterReactive as Footer } from './components/footer/footer.reactive';
 export { TreeReactive as Tree } from './components/tree/tree.reactive';
-//export const CircleMenu = CircleMenuReactive;
+export const LoginForm = LoginFormReactive;
 
 //+util
 export { 
@@ -165,9 +166,8 @@ export const MenuReveal = reactBurguer.reveal;*/
     npm i @types/react-syntax-highlighter
     https://www.npmjs.com/package/react-syntax-highlighter
 */
-export { SyntaxHighlighter } from './exports/syntaxhighlighter.export';
-export { prism, tomorrow, atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
-
+//export { SyntaxHighlighter } from './exports/syntaxhighlighter.export';
+//export { prism, tomorrow, atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 //========================================================
 
 //==========================TYPES=========================
