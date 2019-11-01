@@ -140,3 +140,72 @@ export const propsTable: Array<PropsModel> = [
     description: 'Mensaje que se mostrara para saber cuantos registros de cuantos se estan mostrando'
   })
 ];
+
+export const exampleCode = (
+"<Table\n" +
+"  animate\n" +
+"  header={\n" + 
+"    [\n" +
+"      new HeaderTable({\n" +
+"        key: 'name',\n" +
+"        label: 'Nombre',\n" +
+"        type: 'text',\n" +
+"        required: false,\n" +
+"        placeholder: 'Escribe aquí un nombre'\n" + 
+"      }),\n" +
+"      new HeaderTable({\n" +
+"        key: 'lastName',\n" +
+"        label: 'Apelluido',\n" +
+"        type: 'text',\n" +
+"        required: true,\n" +
+"        placeholder: 'Escribe aquí tu apelluido'\n" +
+"      }),\n" +
+"      new HeaderTable({\n" +
+"        key: 'phoneNumber',\n" +
+"        label: 'Numero telefonico',\n" +
+"        type: 'number',\n" +
+"        required: true,\n" +
+"        placeholder: 'Escribe aquí tu apelluido'\n" +
+"      }),\n" +
+"      new HeaderTable({\n" +
+"        key: 'email',\n" +
+"        label: 'Correo electronico',\n" +
+"        type: 'text',\n" +
+"        required: true,\n" +
+"        placeholder: 'Escribe aquí tu apelluido'\n" +
+"      }),\n" +
+"      new HeaderTable({\n" +
+"        key: 'company',\n" +
+"        label: 'Compañia',\n" +
+"        type: 'text',\n" +
+"        required: true,\n" +
+"        placeholder: 'Escribe aquí tu apelluido'\n" + 
+"      }),\n" +
+"      new HeaderTable({\n" +
+"        key: 'address',\n" +
+"        label: 'Dirección',\n" +
+"        type: 'text',\n" +
+"        required: true,\n" +
+"        placeholder: 'Escribe aquí tu apelluido'\n" + 
+"      })\n" +
+"    ]\n" +
+"  }\n" +
+"  tableData={ dataTable }\n" +
+"  isLoad={ isLoading }\n" +     
+'  noTableData="No hay datos para mostrar."\n' +
+"  search\n" +
+'  searchPlaceholder="Buscar..."\n' +
+'  noSearchResult="No se encontraron resultados."\n' +
+'  actionsLabel="Acciones"\n' +
+"  create\n" +
+"  edit\n" +
+"  drop\n" +
+"  onCreate={ (elemet: any) => callback }\n" +  
+"  onEdit={ (elemet: any) => callback }\n" + 
+"  onDrop={ (elemet: any) => callback }\n" + 
+"  pager\n" + 
+"  showElements={ 10 }\n" + 
+"  pageShow={ 11 }\n" + 
+'  pageMessage="Mostrando desde $(init) hasta $(end) de $(length) registros"\n' +
+"/>"
+);

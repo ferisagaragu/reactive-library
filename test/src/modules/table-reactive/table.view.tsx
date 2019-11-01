@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Row, Table, HeaderTable, Firebase, convertJSONToArray, key, Col } from 'reactive';
+import { Row, Table, HeaderTable, Firebase, convertJSONToArray, key, Col, SyntaxHighlighter, tomorrow } from 'reactive';
 import PropsTableComponent from '../../shared/props-table/props-table.component';
-import { propsTable } from './props-table.data';
+import { propsTable, exampleCode } from './props-table.data';
 
 interface Props {}
 
@@ -41,7 +41,7 @@ class TableView extends Component<Props,State> {
         </Col>
 
         <Col md={ 12 }>
-          <h4 className="mb-5">
+          <h4>
             Atributos
           </h4>
         </Col>
@@ -54,11 +54,20 @@ class TableView extends Component<Props,State> {
 
         <Col md={ 12 }>
           <h4>
-            Codígo - npm i react-code-prettify
+            Codígo
           </h4>
         </Col>
 
-        <Col className="mb-5" md={ 6 }>
+        <Col className="mb-5" md={ 8 }>
+          <SyntaxHighlighter 
+            language="tsx"
+            style={ tomorrow } 
+          > 
+            { exampleCode }
+          </SyntaxHighlighter>
+        </Col>
+
+        <Col md={ 12 }>
           <h4>
             Demo
           </h4>

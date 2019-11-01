@@ -141,7 +141,6 @@ export {
 */
 export { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-//menu
 /*
   +burger-menu ->
     npm i react-router-dom 
@@ -159,6 +158,16 @@ export const MenuScaleDown = reactBurguer.scaleDown;
 export const MenuScaleRotate = reactBurguer.scaleRotate;
 export const MenuFallDown = reactBurguer.fallDown;
 export const MenuReveal = reactBurguer.reveal;*/
+
+/*
+  +react-syntax-highlighter ->
+    npm i react-syntax-highlighter
+    npm i @types/react-syntax-highlighter
+    https://www.npmjs.com/package/react-syntax-highlighter
+*/
+export { SyntaxHighlighter } from './exports/syntaxhighlighter.export';
+export { prism, tomorrow, atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+
 //========================================================
 
 //==========================TYPES=========================
