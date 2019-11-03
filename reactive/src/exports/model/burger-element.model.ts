@@ -1,12 +1,15 @@
+import { BurgerSubElement } from "./burger-sub-element.model";
+
 export class BurgerElement {
-  uid: string;
-  label: any;
+  uid: any;
+  name: any;
   icon: any;
-  items?: Array<BurgerElement>;
+  items: Array<BurgerSubElement>;
+  link?: string;
 
   constructor(data: any | BurgerElement) {
     this.uid = '';
-    this.label = null;
+    this.name = '';
     this.icon = null;
     this.items = [];
 

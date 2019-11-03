@@ -13,4 +13,3 @@ export const thunk = reduxThunk.default;
 export const reducer = _reduxForm.reducer;
 export const Field = _reduxForm.Field;
 export const reduxForm = _reduxForm.reduxForm;
-console.log(reduxForm);

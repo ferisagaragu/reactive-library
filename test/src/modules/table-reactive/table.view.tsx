@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Row, Table, HeaderTable, Firebase, convertJSONToArray, key, Col, SyntaxHighlighter, tomorrow } from 'reactive';
+import { Row, Table, HeaderTable, Firebase, convertJSONToArray, key, Col, SyntaxHighlighter, tomorrow, Iframe } from 'reactive';
 import PropsTableComponent from '../../shared/props-table/props-table.component';
-import { propsTable, exampleCode } from './props-table.data';
+import { propsTable, exampleCode, propsTableHeader } from './props-table.data';
 
 interface Props {}
 
@@ -38,6 +38,12 @@ class TableView extends Component<Props,State> {
           <h2 className="mb-5">
             Table
           </h2>
+
+          <Iframe url="https://react-bootstrap.github.io/components/alerts/"
+            width="100%"
+            height="800px"
+            display="initial"
+          />
         </Col>
 
         <Col md={ 12 }>
@@ -49,6 +55,19 @@ class TableView extends Component<Props,State> {
         <Col className="mb-5" md={ 12 }>
           <PropsTableComponent
             propsData={ propsTable }
+          />
+        </Col>
+
+        <Col md={ 12 }>
+          <h4>
+            Modelos
+          </h4>
+        </Col>
+
+        <Col className="mb-5" md={ 12 }>
+          <code>HeaderTable</code>
+          <PropsTableComponent
+            propsData={ propsTableHeader }
           />
         </Col>
 

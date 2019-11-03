@@ -56,6 +56,7 @@
     "gh-pages": "^1.2.0",
     "react-bootstrap": "^1.0.0-beta.14",
     "react-burger-menu": "^2.6.11",
+    "react-iframe": "^1.8.0",
     "react-redux": "^7.1.1",
     "react-router-dom": "^5.1.2",
     "react-scripts-ts": "^2.16.0",

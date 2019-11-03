@@ -141,71 +141,105 @@ export const propsTable: Array<PropsModel> = [
   })
 ];
 
+export const propsTableHeader: Array<PropsModel> = [
+  new PropsModel({
+    propName: 'key',
+    type: 'string',
+    required: true,
+    description: 'Id unico e irrepetible'
+  }),
+  new PropsModel({
+    propName: 'label',
+    type: 'string',
+    required: true,
+    description: 'Este es el nombre de la columna'
+  }),
+  new PropsModel({
+    propName: 'type',
+    type: "'text | number'",
+    required: true,
+    description: 'Es el tipo de dato del campo de texto que saldra cuando se edite o se cree un elemento'
+  }),
+  new PropsModel({
+    propName: 'required',
+    type: 'boolean',
+    required: true,
+    description: 'Indica si el campo sera requerido o no cuando se edite o se cree un elemento'
+  }),
+  new PropsModel({
+    propName: 'placeholder',
+    type: 'string',
+    required: false,
+    description: 'Este es el placeholder que se mostrara en el campo cuando se edite o se cree un elemento'
+  })
+];
+
 export const exampleCode = (
-"<Table\n" +
-"  animate\n" +
-"  header={\n" + 
-"    [\n" +
-"      new HeaderTable({\n" +
-"        key: 'name',\n" +
-"        label: 'Nombre',\n" +
-"        type: 'text',\n" +
-"        required: false,\n" +
-"        placeholder: 'Escribe aquí un nombre'\n" + 
-"      }),\n" +
-"      new HeaderTable({\n" +
-"        key: 'lastName',\n" +
-"        label: 'Apelluido',\n" +
-"        type: 'text',\n" +
-"        required: true,\n" +
-"        placeholder: 'Escribe aquí tu apelluido'\n" +
-"      }),\n" +
-"      new HeaderTable({\n" +
-"        key: 'phoneNumber',\n" +
-"        label: 'Numero telefonico',\n" +
-"        type: 'number',\n" +
-"        required: true,\n" +
-"        placeholder: 'Escribe aquí tu apelluido'\n" +
-"      }),\n" +
-"      new HeaderTable({\n" +
-"        key: 'email',\n" +
-"        label: 'Correo electronico',\n" +
-"        type: 'text',\n" +
-"        required: true,\n" +
-"        placeholder: 'Escribe aquí tu apelluido'\n" +
-"      }),\n" +
-"      new HeaderTable({\n" +
-"        key: 'company',\n" +
-"        label: 'Compañia',\n" +
-"        type: 'text',\n" +
-"        required: true,\n" +
-"        placeholder: 'Escribe aquí tu apelluido'\n" + 
-"      }),\n" +
-"      new HeaderTable({\n" +
-"        key: 'address',\n" +
-"        label: 'Dirección',\n" +
-"        type: 'text',\n" +
-"        required: true,\n" +
-"        placeholder: 'Escribe aquí tu apelluido'\n" + 
-"      })\n" +
-"    ]\n" +
-"  }\n" +
-"  tableData={ dataTable }\n" +
-"  isLoad={ isLoading }\n" +     
-'  noTableData="No hay datos para mostrar."\n' +
-"  search\n" +
-'  searchPlaceholder="Buscar..."\n' +
-'  noSearchResult="No se encontraron resultados."\n' +
-'  actionsLabel="Acciones"\n' +
-"  create\n" +
-"  edit\n" +
-"  drop\n" +
-"  onCreate={ (elemet: any) => callback }\n" +  
-"  onEdit={ (elemet: any) => callback }\n" + 
-"  onDrop={ (elemet: any) => callback }\n" + 
-"  pager\n" + 
-"  showElements={ 10 }\n" + 
-"  pageShow={ 11 }\n" + 
-'  pageMessage="Mostrando desde $(init) hasta $(end) de $(length) registros"\n' +
-"/>"
+`<Table 
+  animate
+  header={ 
+    [
+      new HeaderTable({
+        key: 'name',
+        label: 'Nombre',
+        type: 'text',
+        required: false,
+        placeholder: 'Escribe aquí un nombre' 
+      }),
+      new HeaderTable({
+        key: 'lastName',
+        label: 'Apelluido',
+        type: 'text',
+        required: true,
+        placeholder: 'Escribe aquí tu apelluido' 
+      }),
+      new HeaderTable({
+        key: 'phoneNumber',
+        label: 'Numero telefonico',
+        type: 'number',
+        required: true,
+        placeholder: 'Escribe aquí tu apelluido' 
+      }),
+      new HeaderTable({
+        key: 'email',
+        label: 'Correo electronico',
+        type: 'text',
+        required: true,
+        placeholder: 'Escribe aquí tu apelluido' 
+      }),
+      new HeaderTable({
+        key: 'company',
+        label: 'Compañia',
+        type: 'text',
+        required: true,
+        placeholder: 'Escribe aquí tu apelluido' 
+      }),
+      new HeaderTable({
+        key: 'address',
+        label: 'Dirección',
+        type: 'text',
+        required: true,
+        placeholder: 'Escribe aquí tu apelluido' 
+      })
+    ]
+  }
+  tableData={ dataTable }
+  isLoad={ isLoading }
+  noTableData="No hay datos para mostrar."
+  search
+  searchPlaceholder="Buscar..."
+  noSearchResult="No se encontraron resultados."
+  actionsLabel="Acciones"
+  create
+  edit
+  drop
+  onCreate={ (data: any) => { TU ACCION AL CREAR } }
+  onEdit={ (data: any) => { TU ACCION AL EDITAR } }
+  onDrop={ (elemet: any) => { TU ACCION AL ELEMINAR } }
+  pager
+  showElements={ 10 }
+  pageShow={ 11 }
+  pageMessage="Mostrando desde $(init) hasta $(end) de $(length) registros"
+/>`
 );
+

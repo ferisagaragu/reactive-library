@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Row, Col, Accordion, Card } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import { BurgerElement } from '../../exports/model/burger-element.model';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { NavMenuReactive } from './nav-menu.reactive';
 
 const reactBurguer = require('react-burger-menu');
 const Menu = reactBurguer.slide;
@@ -14,7 +14,9 @@ interface Props {
   menuData?: Array<BurgerElement>;
 }
 
-interface State {}
+interface State {
+  isOpenMenu: boolean;
+}
 
 export class HeaderReactive extends React.Component<Props, State> {
 
@@ -23,6 +25,10 @@ export class HeaderReactive extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.headerRef = React.createRef();
+
+    this.state = {
+      isOpenMenu: false
+    }
   }
 
   componentDidMount() {
@@ -46,27 +52,13 @@ export class HeaderReactive extends React.Component<Props, State> {
     const { menuData } = this.props;
     
     if (menuData) {
-      return menuData.map((element: BurgerElement) => (
-        <Accordion>
-          <Card className="bureger-item-layout-reactive">
-            <Accordion.Toggle 
-              className="bureger-item-reactive" 
-              as={Card.Header} 
-              eventKey="0"
-            > 
-              { element.icon ? element.icon : <FontAwesomeIcon icon="boxes" /> }
-              &nbsp;&nbsp;
-              { element.label }
-            </Accordion.Toggle>
-
-            <Accordion.Collapse eventKey="0">
-              <Card.Body className="bureger-item-content-reactive">
-                { element.uid }
-              </Card.Body>
-            </Accordion.Collapse>
-          </Card>
-        </Accordion>
-      ));
+      return (
+        <NavMenuReactive 
+          onClick={ () => this.setState({ isOpenMenu: false }) }
+          treeData={ menuData }
+        />
+      );
+      
     }
 
     return <></>
@@ -74,7 +66,8 @@ export class HeaderReactive extends React.Component<Props, State> {
 
   render() {
     const { left, right, center, children, className, menuData } = this.props;
-    this.renderMenu();
+    const { isOpenMenu } = this.state;
+
     return (
       <header ref={ this.headerRef } className={ `header-reactive ${className ? className : ''}` }>
         {
@@ -83,7 +76,10 @@ export class HeaderReactive extends React.Component<Props, State> {
               {
                 menuData &&
                   <Col  className="burger-reactive" md={ 1 }>
-                    <Menu>
+                    <Menu
+                      isOpen={ isOpenMenu }
+                      onStateChange={ (isOpenStatus: any) => this.setState({ isOpenMenu: isOpenStatus.isOpen }) }
+                    >
                       { this.renderMenu() }
                     </Menu>   
                   </Col>

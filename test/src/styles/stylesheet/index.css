@@ -40,9 +40,19 @@ code {
   color: aliceblue;
 }
 
+.bm-menu-wrap {
+  width: 400px !important;
+}
+
 .reactive-log {
   width: 32px;
   height: 32px;
+}
+
+.menu-icon {
+  width: 0.875em;
+  height: 0.875em;
+  fill: #fff;
 }
 
 .app-container {

@@ -11,7 +11,12 @@ import {
   faAngleDoubleLeft,
   faAngleDoubleRight,
   faChevronRight,
-  faBoxes
+  faBoxes,
+  faWindowMaximize,
+  faAtom,
+  faFlask,
+  faFileExport,
+  faCube
 } from '@fortawesome/free-solid-svg-icons';
 
 const icons: any = [ 
@@ -27,7 +32,12 @@ const icons: any = [
   faAngleDoubleLeft,
   faAngleDoubleRight,
   faChevronRight,
-  faBoxes
+  faBoxes,
+  faWindowMaximize,
+  faAtom,
+  faFlask,
+  faFileExport,
+  faCube
 ];
 
 export default icons;

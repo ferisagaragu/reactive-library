@@ -1,4 +1,4 @@
-export function splitArrayReactive(element: Array<any>, parts: number) {
+export function splitArrayReactive(element: Array<any>, parts: number): Array<any> {
   let countElementPart: number = 1;
   let elementPart: Array<any> = [];
   const out: Array<any> = [];
@@ -22,4 +22,17 @@ export function splitArrayReactive(element: Array<any>, parts: number) {
   }
 
   return out;
+}
+
+export function removeArrayByMatchReactive(element: Array<any>, match: any): Array<any> {
+  let removeIndex = -1;
+  
+  element.forEach((elementFor: any, index: number) => {
+    if (elementFor === match) {
+      removeIndex = index;
+    }
+  });
+
+  element.splice(removeIndex, 1);
+  return element;
 }

@@ -1,0 +1,1 @@
+export const iFrameReactive = require('react-iframe').default;

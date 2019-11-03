@@ -21,7 +21,8 @@ export {
   isJSONReactive as isJSON
 } from './components/util/json.reactive'; 
 export { 
-  splitArrayReactive as splitArray 
+  splitArrayReactive as splitArray,
+  removeArrayByMatchReactive as removeArrayByMatch 
 } from './components/util/array.reactive';
 export { 
   findByTypeReactive as findByType
@@ -87,12 +88,12 @@ export {
     yarn @types/react-router-dom 
     https://reacttraining.com/react-router/web/guides/quick-start
 */
-/*export { 
+export { 
   BrowserRouter as Router, 
-  Route as Route, 
-  Switch as Switch, 
-  Link as Link 
-} from 'react-router-dom';*/
+  Route, 
+  Switch, 
+  Link 
+} from 'react-router-dom';
 
 /*
   +bootstrap ->
@@ -148,7 +149,7 @@ export { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
     npm i @types/react-router-dom 
     https://github.com/negomi/react-burger-menu
 */
-/*const reactBurguer = require('react-burger-menu');
+const reactBurguer = require('react-burger-menu');
 export const MenuSlide = reactBurguer.slide;
 export const MenuStack = reactBurguer.stack;
 export const MenuElastic = reactBurguer.elastic;	
@@ -158,7 +159,7 @@ export const MenuPushRotate = reactBurguer.pushRotate;
 export const MenuScaleDown = reactBurguer.scaleDown;
 export const MenuScaleRotate = reactBurguer.scaleRotate;
 export const MenuFallDown = reactBurguer.fallDown;
-export const MenuReveal = reactBurguer.reveal;*/
+export const MenuReveal = reactBurguer.reveal;
 
 /*
   +react-syntax-highlighter ->
@@ -166,12 +167,21 @@ export const MenuReveal = reactBurguer.reveal;*/
     npm i @types/react-syntax-highlighter
     https://www.npmjs.com/package/react-syntax-highlighter
 */
-//export { SyntaxHighlighter } from './exports/syntaxhighlighter.export';
-//export { prism, tomorrow, atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+export { SyntaxHighlighter } from './exports/syntaxhighlighter.export';
+export { prism, tomorrow, atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+
+/*
+  +react-syntax-highlighter ->
+    npm i react-syntax-highlighter
+    npm i @types/react-syntax-highlighter
+    https://www.npmjs.com/package/react-syntax-highlighter
+*/
+export { iFrameReactive as Iframe } from './exports/iframe.export';
 //========================================================
 
 //==========================TYPES=========================
 export { HeaderTable } from './exports/model/header-table.model';
 export { TreeElement } from './exports/model/tree-element.model';
 export { BurgerElement } from './exports/model/burger-element.model';
+export { BurgerSubElement } from './exports/model/burger-sub-element.model';
 //========================================================
