@@ -1,23 +1,27 @@
 import React, { Component } from 'react';
-import { LoginForm, GradientButton } from 'reactive';
+import { LoginForm, Col } from 'reactive';
 
 class TestView extends Component {
   render() {
-    console.log(this.props);
     return (
       <div>
-        <GradientButton
-          onClick={ () => console.log('Hola amigo') }
-          variant="green-yellow"
-        >
-          Hola primo
-        </GradientButton>
+        <Col md={ 8 }>
+          <LoginForm
+            submitActions={ (formData: any) => console.log(formData) }
+            cancel={ () => console.log('Cancelo') }
+            showButtons={ true }
+            
+            icon={ <img alt="principal icon" src="https://img.icons8.com/pastel-glyph/2x/login-rounded-right.png" width="64" /> }
 
-        <LoginForm
-          submitActions={ (formData: any) => console.log(formData) }
-          cancel={ () => {} }
-          showButtons={ false }
-        />
+            textCancel="Registrar"
+            classCancel="btn-hover purple-darkPurple"
+
+            textSubmit="Entrar"
+            classSubmit="btn-hover pink-orange"
+
+            passwordLost={ <a href="/hola">¿Olvidaste tu contraseña?</a> }
+          />
+        </Col>
       </div>
     );
   }

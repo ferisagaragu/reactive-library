@@ -1,6 +1,5 @@
 import './config/app.config';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import LoginFormReactive from './components/login-form/login-form.reactive';
 
 //============================REACTIVE============================
 //+components
@@ -10,7 +9,7 @@ export { HeaderReactive as Header } from './components/header/header.reactive';
 export { FooterReactive as Footer } from './components/footer/footer.reactive';
 export { TreeReactive as Tree } from './components/tree/tree.reactive';
 export { GradientButtonReactive as GradientButton } from './components/gradient-button/gradient-button.reactive';
-export const LoginForm = LoginFormReactive;
+export { LoginFormReactive as LoginForm } from './components/login-form/login-form.reactive';
 
 //+util
 export { 

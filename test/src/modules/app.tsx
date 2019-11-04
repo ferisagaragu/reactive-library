@@ -50,11 +50,9 @@ class App extends Component<any, any> {
   }
 }
 
-const mapStateToProps = (state: any) => {
-  return {
-    userData: state.userData
-  }
-};
+const mapStateToProps = (state: any) => ({
+  userData: state.userData
+});
 
 const mapDispatchToProps = (dispatch: Function) => ({});
 
