@@ -1,0 +1,496 @@
+/*TABLE*/
+.load-table-indicator-reactive {
+  color: aqua;
+}
+
+.action-row-reactive {
+	width: 100px;
+}
+ 
+/*Form input*/
+.shake-error-reactive {
+  animation: shake-error-reactive 0.2s ease-in-out 0s 2;
+  box-shadow: 0 0 0.5em #F44336;
+}
+
+@keyframes shake-error-reactive {
+  0% { margin-left: 0rem; }
+  25% { margin-left: 0.5rem; }
+  75% { margin-left: -0.5rem; }
+  100% { margin-left: 0rem; }
+}
+
+/*Circle Button*/
+.btn-circle-reactive {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+
+/*Field animation*/ 
+.error-field-reactive {
+	animation: error-field 0.2s ease-in-out 0s 2;
+	box-shadow: 0 0 0.5em #F44336;
+}
+
+@keyframes error-field-reactive {
+	0% { margin-left: 0rem; }
+	25% { margin-left: 0.5rem; }
+	75% { margin-left: -0.5rem; }
+	100% { margin-left: 0rem; }
+}
+
+/*Add animation*/
+.add-reactive {
+  animation: add-reactive .5s ease-in-out;
+}
+
+@keyframes add-reactive {
+  from {
+    transform: scale(0);
+    opacity: 0;
+    background: #5470B0;
+  }
+}
+
+/*Edit animation*/
+.edit-reactive {
+	animation: edit-reactive 0.4s ease;
+}
+
+@keyframes edit-reactive {
+	0% {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/*Drop animation*/
+.drop-reactive  {
+  animation: drop-reactive 1.2s forwards;
+}
+
+@keyframes drop-reactive  {
+  0% {
+    transform-origin: center;
+    opacity: 1;
+  }
+  20% {
+    transform: 
+      translate3d(0, 20px, 0)
+      rotate3d(0, 0, 1, -10deg);
+    opacity: 1;
+  }
+  40%, 45% {
+    transform: 
+      translate3d(0, -120px, 0)
+      rotate3d(0, 0, 1, 10deg);
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: 
+      translate3d(0, 2000px, 0)
+      rotate3d(0, 0, 1, 10deg);
+  }
+}
+
+/*No result animation*/
+.no-result-reactive {
+	animation-name: no-result-reactive;
+	-webkit-animation-name: no-result-reactive;	
+
+	animation-duration: 1s;	
+	-webkit-animation-duration: 1s;
+
+	animation-timing-function: ease;	
+	-webkit-animation-timing-function: ease;	
+
+	visibility: visible !important;						
+}
+
+@keyframes no-result-reactive {
+	0% {
+		transform: translateY(-100%);
+	}
+	50% {
+		transform: translateY(8%);
+	}
+	65% {
+		transform: translateY(-4%);
+	}
+	80% {
+		transform: translateY(4%);
+	}
+	95% {
+		transform: translateY(-2%);
+	}			
+	100% {
+		transform: translateY(0%);
+	}		
+}
+
+@-webkit-keyframes no-result-reactive {
+	0% {
+		-webkit-transform: translateY(-100%);
+	}
+	50% {
+		-webkit-transform: translateY(8%);
+	}
+	65% {
+		-webkit-transform: translateY(-4%);
+	}
+	80% {
+		-webkit-transform: translateY(4%);
+	}
+	95% {
+		-webkit-transform: translateY(-2%);
+	}			
+	100% {
+		-webkit-transform: translateY(0%);
+	}	
+}
+/*=====================================================*/
+
+/*Header*/
+.header-reactive {
+  padding: 10px 16px;
+  margin-bottom: 50px;
+  box-shadow: 2px 2px 8px 1px rgba(0, 0, 0, 0.2);
+}
+
+.sticky-reactive {
+  position: fixed;
+  top: 0;
+	width: 100%;
+	z-index: 100;
+  box-shadow: 2px 2px 8px 1px rgba(0, 0, 0, 0.2);
+}
+/*=================================================*/
+
+/*Footer*/
+html { 
+  height: 100%; 
+}
+
+body {
+  min-height: 100%; 
+  position: relative; 
+  padding-bottom: [footer-reactive-height];
+}
+
+.footer-reactive { 
+  position: absolute; 
+  left: 0; 
+  right: 0; 
+  bottom: 0; 
+  height: [footer-reactive-height];
+  box-shadow: 2px -2px 8px 1px rgba(0, 0, 0, 0.2);
+  z-index: 99;
+}
+
+.footer-reactive-row {
+  margin-right: 0px;
+}
+/*=================================================*/
+
+/*Tree*/
+.tree-reactive {
+  padding: 0;
+  background: transparent;
+  border-bottom: 0;
+  width: auto;
+}
+
+.tree-button-reactive {
+  background: transparent;
+  border: 0;
+}
+/*=================================================*/
+
+/*Burger Menu*/
+/* Position and sizing of burger button */
+.burger-reactive {
+  width: 36px;
+  height: 30px;
+  flex: 0 0 5%;
+}
+
+.bureger-item-reactive {
+  padding: 0;
+  margin-bottom: 0;
+  background-color: transparent;
+  border-bottom: 0px;
+}
+
+.bureger-item-content-reactive {
+  padding: 0px;
+  padding-left: 35px;
+}
+
+.bureger-item-layout-reactive {
+  background: transparent;
+  border: 0px;
+}
+
+.bm-burger-button {
+  position: fixed;
+  width: 36px;
+  height: 30px;
+  margin-top: 5px;
+}
+
+/* Color/shape of burger icon bars */
+.bm-burger-bars {
+  background: ghostwhite;
+}
+
+/* Color/shape of burger icon bars on hover*/
+.bm-burger-bars-hover {
+  background: gray;
+}
+
+/* Position and sizing of clickable cross button */
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+
+/* Color/shape of close button cross */
+.bm-cross {
+  background: #bdc3c7;
+}
+
+/*
+Sidebar wrapper styles
+Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
+*/
+.bm-menu-wrap {
+  position: fixed;
+  height: 100%;
+  top: -1px;
+  left: -1px;
+}
+
+/* General sidebar styles */
+.bm-menu {
+  background: #373a47;
+  padding: 2.5em 1.5em 0;
+  font-size: 1.15em;
+}
+
+/* Morph shape necessary with bubble or elastic */
+.bm-morph-shape {
+  fill: #373a47;
+}
+
+/* Wrapper for item list */
+.bm-item-list {
+  color: #b8b7ad;
+  padding: 0.8em;
+}
+
+/* Individual item */
+.bm-item {
+  display: inline-block;
+}
+
+/* Styling of overlay */
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.3);
+  top: -1px;
+}
+
+.bm-element {
+  color: #fff !important;
+  text-decoration: none;
+  background: transparent;
+  border-radius: 5px;
+  display: inline-block;
+  border: none;
+  transition: all 0.4s ease 0s;
+  padding-right: 6px;
+  padding-top: 5px;
+  font-size: 21px;
+}
+
+.bm-element:hover {
+  background: #b8b7ad;
+  letter-spacing: 1px;
+  -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+  -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+  box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+  transition: all 0.4s ease 0s;
+  text-decoration: none;
+}
+
+.bm-single-element {
+  color: #fff !important;
+  text-decoration: none;
+  background: transparent;
+  border-radius: 5px;
+  display: inline-block;
+  border: none;
+  transition: all 0.4s ease 0s;
+  padding-right: 6px;
+  padding-top: 5px;
+  font-size: 21px;
+  padding-left: 8px;
+}
+
+.bm-single-element:hover {
+  background: #b8b7ad;
+  letter-spacing: 1px;
+  -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+  -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+  box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+  transition: all 0.4s ease 0s;
+  text-decoration: none;
+}
+
+.bm-sub-element {
+  color: #fff !important;
+  text-decoration: none;
+  background: transparent;
+  border-radius: 5px;
+  display: inline-block;
+  border: none;
+  transition: all 0.4s ease 0s;
+  padding-right: 6px;
+  padding-top: 5px;
+  font-size: 21px;
+}
+
+.bm-sub-element:hover {
+  background: #b8b7ad;
+  letter-spacing: 1px;
+  -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+  -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+  box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+  transition: all 0.4s ease 0s;
+  text-decoration: none;
+  padding-left: 8px;
+}
+
+.bm-reactive {
+  padding: 0;
+  background: transparent;
+  border-bottom: 0;
+  width: auto;
+}
+
+.bm-single-size {
+  width: 100%;
+}
+/*=================================================*/
+
+
+/* https://codepen.io/JavaScriptJunkie/pen/pPRooV */
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.buttons {
+  margin: 10%;
+  text-align: center;
+}
+
+.btn-hover {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  height: 100%;
+  text-align:center;
+  border: none;
+  background-size: 300% 100%;
+
+  border-radius: 50px;
+  moz-transition: all .4s ease-in-out;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+}
+
+.btn-hover:hover {
+  background-position: 100% 0;
+  moz-transition: all .4s ease-in-out;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+}
+
+.btn-hover:focus {
+  outline: none;
+}
+
+.btn-hover.color-1 {
+  background-image: linear-gradient(to right, #25aae1, #40e495, #30dd8a, #2bb673);
+  box-shadow: 0 4px 15px 0 rgba(49, 196, 190, 0.75);
+}
+
+.btn-hover.color-2 {
+  background-image: linear-gradient(to right, #f5ce62, #e43603, #fa7199, #e85a19);
+  box-shadow: 0 4px 15px 0 rgba(229, 66, 10, 0.75);
+}
+
+.btn-hover.color-3 {
+  background-image: linear-gradient(to right, #667eea, #764ba2, #6B8DD6, #8E37D7);
+  box-shadow: 0 4px 15px 0 rgba(116, 79, 168, 0.75);
+}
+
+.btn-hover.color-4 {
+  background-image: linear-gradient(to right, #fc6076, #ff9a44, #ef9d43, #e75516);
+  box-shadow: 0 4px 15px 0 rgba(252, 104, 110, 0.75);
+}
+
+.btn-hover.color-5 {
+  background-image: linear-gradient(to right, #0ba360, #3cba92, #30dd8a, #2bb673);
+  box-shadow: 0 4px 15px 0 rgba(23, 168, 108, 0.75);
+}
+
+.btn-hover.color-6 {
+  background-image: linear-gradient(to right, #009245, #FCEE21, #00A8C5, #D9E021);
+  box-shadow: 0 4px 15px 0 rgba(83, 176, 57, 0.75);
+}
+
+.btn-hover.color-7 {
+  background-image: linear-gradient(to right, #6253e1, #852D91, #A3A1FF, #F24645);
+  box-shadow: 0 4px 15px 0 rgba(126, 52, 161, 0.75);
+}
+
+.btn-hover.color-8 {
+  background-image: linear-gradient(to right, #29323c, #485563, #2b5876, #4e4376);
+  box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
+}
+
+.btn-hover.color-9 {
+  background-image: linear-gradient(to right, #25aae1, #4481eb, #04befe, #3f86ed);
+  box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+}
+
+.btn-hover.color-10 {
+  background-image: linear-gradient(to right, #ed6ea0, #ec8c69, #f7186a , #FBB03B);
+  box-shadow: 0 4px 15px 0 rgba(236, 116, 149, 0.75);
+}
+
+.btn-hover.color-11 {
+  background-image: linear-gradient(to right, #eb3941, #f15e64, #e14e53, #e2373f);  
+  box-shadow: 0 5px 15px rgba(242, 97, 103, .4);
+}
+
+.btn-hover.color-12 {
+  background-image: linear-gradient(to right, #757575, #90A4AE, #78909C, #607D8B);  
+  box-shadow: 0 5px 15px #B0BEC5;
+}

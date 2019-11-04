@@ -4,7 +4,7 @@ import App from './modules/app';
 import * as serviceWorker from './serviceWorker';
 import { Provider, Router } from 'reactive';
 import { store } from './config/app.config';
-import './reactive.css';
+import 'reactive/dist/style/reactive.css';
 import './styles/stylesheet/index.css';
 
 ReactDOM.render(
