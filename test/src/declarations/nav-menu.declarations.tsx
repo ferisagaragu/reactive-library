@@ -12,6 +12,24 @@ export const navMenu: Array<BurgerElement> = [
       new BurgerSubElement({
         uid: key(),
         icon: <ComponentIncon className="menu-icon"/>,
+        name: <label>Footer</label>,
+        link: '/footer'
+      }),
+      new BurgerSubElement({
+        uid: key(),
+        icon: <ComponentIncon className="menu-icon"/>,
+        name: <label>Header</label>,
+        link: '/header'
+      }),
+      new BurgerSubElement({
+        uid: key(),
+        icon: <ComponentIncon className="menu-icon"/>,
+        name: <label>Modal</label>,
+        link: '/modal'
+      }),
+      new BurgerSubElement({
+        uid: key(),
+        icon: <ComponentIncon className="menu-icon"/>,
         name: <label>Table</label>,
         link: '/table'
       }),
@@ -33,6 +51,42 @@ export const navMenu: Array<BurgerElement> = [
         icon: <FontAwesomeIcon icon="cube" />,
         name: <label>Bootstrap</label>,
         link: '/bootstrap'
+      }),
+      new BurgerSubElement({
+        uid: key(),
+        icon: <FontAwesomeIcon icon="cube" />,
+        name: <label>Burger Menu</label>,
+        link: '/burger-menu'
+      }),
+      new BurgerSubElement({
+        uid: key(),
+        icon: <FontAwesomeIcon icon="cube" />,
+        name: <label>Font Awesome</label>,
+        link: '/font-awesome'
+      }),
+      new BurgerSubElement({
+        uid: key(),
+        icon: <FontAwesomeIcon icon="cube" />,
+        name: <label>Iframe</label>,
+        link: '/iframe'
+      }),
+      new BurgerSubElement({
+        uid: key(),
+        icon: <FontAwesomeIcon icon="cube" />,
+        name: <label>React Router</label>,
+        link: '/react-router'
+      }),
+      new BurgerSubElement({
+        uid: key(),
+        icon: <FontAwesomeIcon icon="cube" />,
+        name: <label>Redux</label>,
+        link: '/redux'
+      }),
+      new BurgerSubElement({
+        uid: key(),
+        icon: <FontAwesomeIcon icon="cube" />,
+        name: <label>Syntax Highlighter</label>,
+        link: '/syntax-highlighter'
       })
     ]
   }),
@@ -40,6 +94,44 @@ export const navMenu: Array<BurgerElement> = [
     uid: key(),
     icon: <FunctionIncon  className="menu-icon"/>,
     name: <label>Reactive Fuctions</label>,
+    items:[
+      new BurgerSubElement({
+        uid: key(),
+        icon: <FontAwesomeIcon icon="cogs" />,
+        name: <label>Array</label>,
+        link: '/array'
+      }),
+      new BurgerSubElement({
+        uid: key(),
+        icon: <FontAwesomeIcon icon="cogs" />,
+        name: <label>Firebase</label>,
+        link: '/firebase'
+      }),
+      new BurgerSubElement({
+        uid: key(),
+        icon: <FontAwesomeIcon icon="cogs" />,
+        name: <label>JSON</label>,
+        link: '/json'
+      }),
+      new BurgerSubElement({
+        uid: key(),
+        icon: <FontAwesomeIcon icon="cogs" />,
+        name: <label>Key</label>,
+        link: '/key'
+      }),
+      new BurgerSubElement({
+        uid: key(),
+        icon: <FontAwesomeIcon icon="cogs" />,
+        name: <label>React Util</label>,
+        link: '/react-util'
+      }),
+      new BurgerSubElement({
+        uid: key(),
+        icon: <FontAwesomeIcon icon="cogs" />,
+        name: <label>Sweetalert2</label>,
+        link: '/sweetalert2'
+      })
+    ]
   }),
   new BurgerElement({
     uid: key(),

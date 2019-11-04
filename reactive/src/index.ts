@@ -145,8 +145,7 @@ export { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 /*
   +burger-menu ->
-    npm i react-router-dom 
-    npm i @types/react-router-dom 
+    npm i react-burger-menu
     https://github.com/negomi/react-burger-menu
 */
 const reactBurguer = require('react-burger-menu');
@@ -171,10 +170,9 @@ export { SyntaxHighlighter } from './exports/syntaxhighlighter.export';
 export { prism, tomorrow, atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 /*
-  +react-syntax-highlighter ->
-    npm i react-syntax-highlighter
-    npm i @types/react-syntax-highlighter
-    https://www.npmjs.com/package/react-syntax-highlighter
+  +react-iframe ->
+    npm i react-iframe
+    https://www.npmjs.com/package/react-iframe
 */
 export { iFrameReactive as Iframe } from './exports/iframe.export';
 //========================================================

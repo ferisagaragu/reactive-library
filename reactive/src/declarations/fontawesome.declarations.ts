@@ -16,7 +16,8 @@ import {
   faAtom,
   faFlask,
   faFileExport,
-  faCube
+  faCube,
+  faCogs
 } from '@fortawesome/free-solid-svg-icons';
 
 const icons: any = [ 
@@ -37,7 +38,8 @@ const icons: any = [
   faAtom,
   faFlask,
   faFileExport,
-  faCube
+  faCube,
+  faCogs
 ];
 
 export default icons;
