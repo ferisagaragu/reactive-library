@@ -5,10 +5,7 @@ import { propsTree, propsTreeElement, exampleCode } from './props-tree.data';
 
 interface Props {}
 
-interface State {
-  dataTable: Array<any>;
-  isLoading: boolean;
-}
+interface State {}
 
 class TreeView extends Component<Props,State> {
   render() {
