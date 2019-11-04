@@ -143,23 +143,26 @@ export {
   https://fontawesome.com/v5.4.1/how-to-use/on-the-web/using-with/react
 */
 export { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+export { library as awesomeLibrary } from '@fortawesome/fontawesome-svg-core';
+export { awesomeIconsReactive as awesomeIcons } from './declarations/fontawesome.declarations';
 
 /*
   +burger-menu ->
     npm i react-burger-menu
     https://github.com/negomi/react-burger-menu
 */
-const reactBurguer = require('react-burger-menu');
-export const MenuSlide = reactBurguer.slide;
-export const MenuStack = reactBurguer.stack;
-export const MenuElastic = reactBurguer.elastic;	
-export const MenuBubble = reactBurguer.bubble;
-export const MenuPush = reactBurguer.push;
-export const MenuPushRotate = reactBurguer.pushRotate;
-export const MenuScaleDown = reactBurguer.scaleDown;
-export const MenuScaleRotate = reactBurguer.scaleRotate;
-export const MenuFallDown = reactBurguer.fallDown;
-export const MenuReveal = reactBurguer.reveal;
+export {
+  MenuSlide,
+  MenuStack,
+  MenuElastic,	
+  MenuBubble,
+  MenuPush,
+  MenuPushRotate,
+  MenuScaleDown,
+  MenuScaleRotate,
+  MenuFallDown,
+  MenuReveal
+} from './exports/burger-menu.export';
 
 /*
   +react-syntax-highlighter ->

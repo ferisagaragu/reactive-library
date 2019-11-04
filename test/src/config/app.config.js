@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware, compose, thunk } from 'reactive';
 import { reducers, initState } from '../declarations/redux.declarations';
-import { initializeFirebaseApp } from 'reactive';
+import { initializeFirebaseApp, awesomeLibrary } from 'reactive';
+import icons from '../declarations/fontawesome.declarations';
 
 //REDUX
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -19,6 +20,4 @@ const firebaseConfig = {
 initializeFirebaseApp(firebaseConfig);
 
 //FONT AWESOME
-//import { library } from '@fortawesome/fontawesome-svg-core';
-//import icons from '../declarations/fontawesome.declarations';
-//library.add(icons);
+awesomeLibrary.add(icons);

@@ -1,0 +1,11 @@
+const reactBurguer = require('react-burger-menu');
+export const MenuSlide = reactBurguer.slide;
+export const MenuStack = reactBurguer.stack;
+export const MenuElastic = reactBurguer.elastic;	
+export const MenuBubble = reactBurguer.bubble;
+export const MenuPush = reactBurguer.push;
+export const MenuPushRotate = reactBurguer.pushRotate;
+export const MenuScaleDown = reactBurguer.scaleDown;
+export const MenuScaleRotate = reactBurguer.scaleRotate;
+export const MenuFallDown = reactBurguer.fallDown;
+export const MenuReveal = reactBurguer.reveal;
