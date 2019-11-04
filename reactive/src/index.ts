@@ -9,6 +9,7 @@ export { ModalReactive as Modal } from './components/modal/modal.reactive';
 export { HeaderReactive as Header } from './components/header/header.reactive';
 export { FooterReactive as Footer } from './components/footer/footer.reactive';
 export { TreeReactive as Tree } from './components/tree/tree.reactive';
+export { GradientButtonReactive as GradientButton } from './components/gradient-button/gradient-button.reactive';
 export const LoginForm = LoginFormReactive;
 
 //+util
