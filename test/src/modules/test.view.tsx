@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { LoginForm, Col, GradientButton } from 'reactive';
+import { LoginForm, Col, GradientButton, BugReport } from 'reactive';
 
 class TestView extends Component {
   render() {
@@ -25,6 +25,8 @@ class TestView extends Component {
               Iniciar sesión con Google
             </GradientButton>
           </LoginForm>
+
+          <BugReport></BugReport>
         </Col>
       </div>
     );

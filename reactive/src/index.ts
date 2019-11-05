@@ -11,6 +11,7 @@ export { TreeReactive as Tree } from './components/tree/tree.reactive';
 export { GradientButtonReactive as GradientButton } from './components/gradient-button/gradient-button.reactive';
 export { LoginFormReactive as LoginForm } from './components/login-form/login-form.reactive';
 export { SpaceReactive as Space } from './components/space/space.reactive';
+export { BugReportReactive as BugReport } from './components/bug-report/bug-report.reactive';
 
 //+util
 export { 
