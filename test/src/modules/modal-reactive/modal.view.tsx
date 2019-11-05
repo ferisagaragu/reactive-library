@@ -74,14 +74,13 @@ class ModalView extends Component<Props,State> {
           modalShow={ isClose }
           onHide={ () => this.setState({ isClose: false }) }
           size="lg"
-          children={
-            <div>
-              Soy el contenido del Modal
-            </div>
-          }
           centered={ true }
           closeButton={ true }
-        />
+        >
+          <div>
+            Soy el contenido del Modal
+          </div>
+        </Modal>
       </Row>
     );
   }

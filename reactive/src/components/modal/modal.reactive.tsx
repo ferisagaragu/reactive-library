@@ -6,7 +6,6 @@ interface Props {
   modalShow: boolean;
   onHide: Function;
   size: 'sm' | 'lg' | 'xl';
-  children?: any;
   centered?: boolean;
   closeButton?: boolean;
 }

@@ -13,7 +13,8 @@ const icons: any = [
   awesomeIcons.faAngleDoubleLeft,
   awesomeIcons.faAngleDoubleRight,
   awesomeIcons.faChevronRight,
-  awesomeIcons.faBoxes
+  awesomeIcons.faBoxes,
+  awesomeIcons.faBug
 ];
 
 export const awesomeIconsReactive = awesomeIcons;

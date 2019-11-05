@@ -513,3 +513,26 @@ Note: Beware of modifying this element as it can break the animations - you shou
   text-decoration: inherit; 
 }
 /*=================================================*/
+
+/*Report Bug*/
+.btn-outline-bug {
+  color: #F05E23;
+  border-color: #F05E23;
+}
+
+.btn-outline-bug:hover {
+  background-color: #F05E23;
+  color: white;
+  border-color: #F05E23;
+}
+
+.btn-outline-bug:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 123, 0, 0.384);
+}
+
+.btn-outline-bug:not(:disabled):not(.disabled):active {
+  color: #fff;
+  background-color: #F05E23;
+  border-color: #F05E23;
+}
+/*=================================================*/

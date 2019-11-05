@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { LoginForm, Col, GradientButton, BugReport } from 'reactive';
+import { LoginForm, Col, GradientButton, BugReport, Button } from 'reactive';
 
 class TestView extends Component {
   render() {
@@ -11,7 +11,7 @@ class TestView extends Component {
             cancel={ () => console.log('Cancelo') }
             showButtons={ true }
             
-            icon={ <img alt="principal icon" src="https://img.icons8.com/pastel-glyph/2x/login-rounded-right.png" width="64" /> }
+            icon={ <img alt="principal icon" src="https://icon-library.net/images/animated-icon-gif/animated-icon-gif-13.jpg" width="64" /> }
 
             textCancel="Registrar"
             classCancel="btn-hover purple-darkPurple"
@@ -26,7 +26,8 @@ class TestView extends Component {
             </GradientButton>
           </LoginForm>
 
-          <BugReport></BugReport>
+          <BugReport>Tengo un problema</BugReport>
+          <Button>Hola</Button>
         </Col>
       </div>
     );
