@@ -18,7 +18,8 @@
     "build": "rollup -c",
     "start": "rollup -c -w",
     "prepare": "npm run build",
-    "predeploy": "cd example && npm install && npm run build"
+    "predeploy": "cd example && npm install && npm run build",
+    "css": "robocopy .\\src\\style .\\dist\\style reactive.css /s"
   },
   "dependencies": {
     "@types/react-syntax-highlighter": "^11.0.1"

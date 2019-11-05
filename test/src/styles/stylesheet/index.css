@@ -58,3 +58,12 @@ code {
 .app-container {
   padding-bottom: 100px;
 }
+
+.atom-icon {
+  width: 64px;
+  height: 64px;
+}
+
+._404 {
+  margin-top: 20%;
+}

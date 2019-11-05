@@ -6,7 +6,8 @@ import {
   Footer,
   Container,
   Row,
-  Col
+  Col,
+  Link
 } from 'reactive';
 import Routing from '../core/routes/routing.routes';
 import { navMenu } from '../declarations/nav-menu.declarations';
@@ -17,19 +18,21 @@ class App extends Component<any, any> {
       <>
         <Header
           left={
-            <Row>
-              <Col className="mt-1" md={ 1 }>
-                <ReactiveLogo 
-                  className="reactive-log" 
-                /> 
-              </Col>
+            <Link title="Inicio" className="no-link" to="/home">
+              <Row>
+                <Col className="mt-1" md={ 1 }>
+                  <ReactiveLogo 
+                    className="reactive-log" 
+                  /> 
+                </Col>
 
-              <Col md={ 10 }>
-                <h3 className="ml-3">
-                  Reactive
-                </h3>
-              </Col>
-            </Row>
+                <Col md={ 10 }>
+                  <h3 className="ml-3">
+                    Reactive
+                  </h3>
+                </Col>
+              </Row>
+            </Link>
           }
           menuData={ navMenu }
         />

@@ -34,7 +34,8 @@ class LoginForm extends React.Component<Props, State> {
       textCancel, 
       classSubmit, 
       textSubmit,
-      passwordLost
+      passwordLost,
+      children
     } = this.props;
     
     return (
@@ -96,6 +97,7 @@ class LoginForm extends React.Component<Props, State> {
               </div>
           }
         </form>
+        { children }
       </Card>
     );
   }
