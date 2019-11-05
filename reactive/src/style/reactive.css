@@ -494,11 +494,22 @@ Note: Beware of modifying this element as it can break the animations - you shou
   background-image: linear-gradient(to right, #757575, #90A4AE, #78909C, #607D8B);  
   box-shadow: 0 5px 15px #B0BEC5;
 }
-/*=================================================*/
 
-/*Login*/
+/*Login form*/
 .login-container {
   padding: 50px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+/*=================================================*/
+
+/*Util*/
+.no-link {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.no-link:hover { 
+  color: inherit;
+  text-decoration: inherit; 
 }
 /*=================================================*/

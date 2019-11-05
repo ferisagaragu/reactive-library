@@ -24,6 +24,12 @@ export const navMenu: Array<BurgerElement> = [
       new BurgerSubElement({
         uid: key(),
         icon: <ComponentIncon className="menu-icon"/>,
+        name: <label>Login Form</label>,
+        link: '/login-form'
+      }),
+      new BurgerSubElement({
+        uid: key(),
+        icon: <ComponentIncon className="menu-icon"/>,
         name: <label>Modal</label>,
         link: '/modal'
       }),

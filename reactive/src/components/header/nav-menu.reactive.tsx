@@ -32,6 +32,11 @@ export class NavMenuReactive extends React.Component<Props, State> {
     this.expandedItems = [];
   }
 
+  componentDidMount() {
+    console.log(window.location.pathname);
+    //Encontrar donde esta el nodo seleccionados
+  }
+
   private onExpanded(node: BurgerElement): void {
     const { expandedItem } = this.state;
 

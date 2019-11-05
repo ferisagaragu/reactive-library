@@ -9,6 +9,7 @@ import HeaderView from '../../modules/header-reactive/header.view';
 import ModalView from '../../modules/modal-reactive/modal.view';
 import BurgerMenuView from '../../modules/burger-menu/burger-menu.view';
 import HomeView from '../../modules/home/home.view';
+import NotFoundView from '../../modules/not-found/not-found.view';
 
 const Routing = () => {
   return (
@@ -21,7 +22,9 @@ const Routing = () => {
       <Route path="/header/" exact component={ HeaderView } />
       <Route path="/modal/" exact component={ ModalView } />
       <Route path="/burger-menu/" exact component={ BurgerMenuView } />
-      <Route component={ HomeView } />
+      <Route path="/home/" exact component={ HomeView } />
+      <Route path="/" exact component={ HomeView } />
+      <Route component={ NotFoundView } />
     </Switch>
   );
 }

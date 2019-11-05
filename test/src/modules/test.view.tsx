@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { LoginForm, Col } from 'reactive';
+import { LoginForm, Col, GradientButton, BugReport } from 'reactive';
 
 class TestView extends Component {
   render() {
@@ -20,7 +20,13 @@ class TestView extends Component {
             classSubmit="btn-hover pink-orange"
 
             passwordLost={ <a href="/hola">¿Olvidaste tu contraseña?</a> }
-          />
+          >
+            <GradientButton variant="ligthBlue-purple">
+              Iniciar sesión con Google
+            </GradientButton>
+          </LoginForm>
+
+          <BugReport></BugReport>
         </Col>
       </div>
     );
