@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { Field, reduxForm } from '../../exports/redux.export';
-import { RenderTextField } from '../redux-form/redux-render-text-field.reactive';
+import { RenderTextFieldReactive } from '../redux-form/redux-render-text-field.reactive';
+import renderSingleSelectReactive from '../redux-form/redux-render-single-select.reactive';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { SpaceReactive } from '../space/space.reactive';
 
 interface Props { 
   initialValues: any;
@@ -10,7 +13,35 @@ interface Props {
   submitActions: Function;
 }
 
-interface State { }
+interface State {}
+
+const problems: any = [
+  { 
+    value: 'bug', 
+    label: 
+      <label className="text-danger mt-2" >
+        <FontAwesomeIcon icon="bug" /> 
+        <SpaceReactive />
+        Error 
+      </label> 
+  },{ 
+    value: 'improvement', 
+    label: 
+      <label className="text-info mt-2" >
+        <FontAwesomeIcon icon="clipboard-list" /> 
+        <SpaceReactive />
+        Mejora
+      </label> 
+  },{ 
+    value: 'petition', 
+    label: 
+      <label className="text-success mt-2" >
+        <FontAwesomeIcon icon="magic" /> 
+        <SpaceReactive />
+        Petición
+      </label> 
+  }
+];
 
 class FormBug extends React.Component<Props, State> {
   render() {
@@ -24,19 +55,20 @@ class FormBug extends React.Component<Props, State> {
     return (
         <form onSubmit={ handleSubmit(submitActions) }>
  
-          <Field 
-            className="form-control"
-            name="email"
-            type="email"
-            component={ RenderTextField }
-            label="Nombre de usuario"
-          />
+            <Field 
+              name="problemType"
+              component={ renderSingleSelectReactive }
+              label="Tipo de problema"
+              options={ problems }
+              noOptionsMessage="No se encontraron coincidencias"
+              defaultValue={ [] }
+            />
 
           <Field 
             className="form-control"
             name="password"
             type="password"
-            component={ RenderTextField }
+            component={ RenderTextFieldReactive }
             label="Contraseña"
           />
 
@@ -63,12 +95,12 @@ class FormBug extends React.Component<Props, State> {
 
 const validate = (values: any) => {
   const errors = {
-    email: '',
+    problemType: '',
     password: ''
   }
   
-  if (!values.email) {
-    errors.email = 'El nombre de usuario es requerido';
+  if (!values.problemType) {
+    errors.problemType = 'El tipo de problema es requerido';
   }
 
   if (!values.password) {

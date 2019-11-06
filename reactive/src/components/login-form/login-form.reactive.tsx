@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Field, reduxForm } from '../../exports/redux.export';
-import { RenderTextField } from '../redux-form/redux-render-text-field.reactive';
+import { RenderTextFieldReactive } from '../redux-form/redux-render-text-field.reactive';
 import { Row, Col, Card } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -51,7 +51,7 @@ class LoginForm extends React.Component<Props, State> {
             className="form-control"
             name="email"
             type="email"
-            component={ RenderTextField }
+            component={ RenderTextFieldReactive }
             label="Nombre de usuario"
           />
 
@@ -59,7 +59,7 @@ class LoginForm extends React.Component<Props, State> {
             className="form-control"
             name="password"
             type="password"
-            component={ RenderTextField }
+            component={ RenderTextFieldReactive }
             label="Contraseña"
           />
 

@@ -12,7 +12,7 @@ interface Props {
 
 interface State {}
 
-export class RenderTextField extends React.Component<Props, State> {
+export class RenderTextFieldReactive extends React.Component<Props, State> {
   render () {
     const {
       input,
