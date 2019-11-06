@@ -535,4 +535,10 @@ Note: Beware of modifying this element as it can break the animations - you shou
   background-color: #F05E23;
   border-color: #F05E23;
 }
+
+.btn-outline-bug:not(:disabled):not(.disabled):hover {
+  background-color: #F05E23;
+  color: white;
+  border-color: #F05E23;
+}
 /*=================================================*/
