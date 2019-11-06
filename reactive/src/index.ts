@@ -1,5 +1,6 @@
 import './config/app.config';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "react-datepicker/dist/react-datepicker.css";
 
 //============================REACTIVE============================
 //+components
@@ -180,6 +181,16 @@ export { prism, tomorrow, atomDark } from 'react-syntax-highlighter/dist/esm/sty
     https://www.npmjs.com/package/react-iframe
 */
 export { iFrameReactive as Iframe } from './exports/iframe.export';
+
+/*
+
+*/
+export { SelectReactive as Select } from './exports/select.export';
+
+/*
+
+*/
+export { DatePickerReactive as DatePicker } from './exports/datepicker.export';
 //========================================================
 
 //==========================TYPES=========================

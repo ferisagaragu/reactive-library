@@ -4,7 +4,9 @@ import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { SpaceReactive } from '../space/space.reactive';
 
-interface Props {}
+interface Props {
+  onCreateBug: Function;
+}
 
 interface State {
   isShow: boolean;
@@ -18,20 +20,6 @@ export class BugReportReactive extends React.Component<Props, State> {
     this.state = {
       isShow: false
     }
-  }
-
-  componentDidMount() {
-    /*
-    Username: sii1GOTyMd
-
-Database name: sii1GOTyMd
-
-Password: Fn6SfdPTOH
-
-Server: remotemysql.com
-
-Port: 3306
-    */
   }
   
   render() {
@@ -64,6 +52,16 @@ Port: 3306
                 { children }
               </>
           }
+        </Button>
+
+        <Button
+          className="ml-3"
+          onClick={ () => this.setState({ isShow: true }) }
+          variant="outline-info"
+        >
+          <FontAwesomeIcon icon="file-medical-alt" />
+          <SpaceReactive />
+          Ver reporte
         </Button>
       </>
     );

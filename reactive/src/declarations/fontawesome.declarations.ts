@@ -14,7 +14,8 @@ const icons: any = [
   awesomeIcons.faAngleDoubleRight,
   awesomeIcons.faChevronRight,
   awesomeIcons.faBoxes,
-  awesomeIcons.faBug
+  awesomeIcons.faBug,
+  awesomeIcons.faFileMedicalAlt
 ];
 
 export const awesomeIconsReactive = awesomeIcons;

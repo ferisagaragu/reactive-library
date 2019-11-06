@@ -1,10 +1,33 @@
 import React, { Component } from 'react';
-import { LoginForm, Col, GradientButton, BugReport, Button } from 'reactive';
+import { LoginForm, Col, GradientButton, BugReport, Button, Select, DatePicker } from 'reactive';
 
 class TestView extends Component {
+  
+  state = {
+    startDate: new Date()
+  };
+
+  handleChange = (date: any) => {
+    this.setState({
+      startDate: date
+    });
+  };
+
+  
   render() {
     return (
       <div>
+        <Select options={ [
+            { value: 'chocolate', label: 'Chocolate' },
+            { value: 'strawberry', label: 'Strawberry' },
+            { value: 'vanilla', label: 'Vanilla' },
+          ] } 
+        />      
+        <DatePicker
+          className="form-control"
+          selected={this.state.startDate}
+          onChange={this.handleChange}
+        />  
         <Col md={ 8 }>
           <LoginForm
             submitActions={ (formData: any) => console.log(formData) }
@@ -26,7 +49,11 @@ class TestView extends Component {
             </GradientButton>
           </LoginForm>
 
-          <BugReport>Tengo un problema</BugReport>
+          <BugReport
+            onCreateBug={ () => {} }
+          >
+            Tengo un problema
+          </BugReport>
           <Button>Hola</Button>
         </Col>
       </div>
