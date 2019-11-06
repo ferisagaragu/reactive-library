@@ -62,6 +62,16 @@ export {
   FirebaseReactive as Firebase, 
   initializeFirebaseAppReactive as initializeFirebaseApp 
 } from './components/firebase/firebase.reactive';
+
+/*
+  +react-select ->
+    npm i react-select
+    https://react-select.com/
+*/
+export { 
+  SingleSelectReactive as SingleSelect,
+  MultiSelectReactive as MultiSelect 
+} from './components/select/select.reactive';
 //========================================================
 
 //==========================EXPORTS=======================
@@ -181,16 +191,6 @@ export { prism, tomorrow, atomDark } from 'react-syntax-highlighter/dist/esm/sty
     https://www.npmjs.com/package/react-iframe
 */
 export { iFrameReactive as Iframe } from './exports/iframe.export';
-
-/*
-  +react-select ->
-    npm i react-select
-    https://react-select.com/
-*/
-export { 
-  SelectReactive as Select,
-  makeAnimatedReactive as makeAnimated 
-} from './exports/select.export';
 
 /*
   + react-datepicker -> 

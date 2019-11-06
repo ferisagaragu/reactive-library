@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { ModalReactive } from '../modal/modal.reactive';
-import { Button } from 'react-bootstrap';
+import { Button, Badge } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { SpaceReactive } from '../space/space.reactive';
+import { FormBugReactive } from './form-bug.reactive';
 
 interface Props {
   onCreateBug: Function;
@@ -36,7 +37,10 @@ export class BugReportReactive extends React.Component<Props, State> {
           centered={ true }
           closeButton={ true }
         >
-          Hola amigos
+          <FormBugReactive 
+            submitActions={ (formData: any) => console.log(formData) }
+            cancel={ () => console.log('Cancelo') }
+          />
         </ModalReactive>
 
         <Button
@@ -62,6 +66,8 @@ export class BugReportReactive extends React.Component<Props, State> {
           <FontAwesomeIcon icon="file-medical-alt" />
           <SpaceReactive />
           Ver reporte
+          <SpaceReactive />
+          <Badge pill variant="danger">12</Badge>
         </Button>
       </>
     );

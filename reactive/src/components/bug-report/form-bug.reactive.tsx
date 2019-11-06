@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Field, reduxForm } from '../../exports/redux.export';
-import { RenderTextField } from '../redux-field/redux-render-text-field.reactive';
+import { RenderTextField } from '../redux-form/redux-render-text-field.reactive';
 
 interface Props { 
   initialValues: any;
@@ -12,7 +12,7 @@ interface Props {
 
 interface State { }
 
-class FormBugReactive extends React.Component<Props, State> {
+class FormBug extends React.Component<Props, State> {
   render() {
     const { 
       handleSubmit, 
@@ -78,7 +78,7 @@ const validate = (values: any) => {
   return errors
 }
 
-export const LoginFormReactive = reduxForm({
+export const FormBugReactive = reduxForm({
   form: 'BugForm',
   validate
-})(FormBugReactive);
+})(FormBug);

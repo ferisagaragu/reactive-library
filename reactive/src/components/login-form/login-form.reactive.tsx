@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Field, reduxForm } from '../../exports/redux.export';
-import { RenderTextField } from '../../components/redux-field/redux-render-text-field.reactive';
+import { RenderTextField } from '../redux-form/redux-render-text-field.reactive';
 import { Row, Col, Card } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 

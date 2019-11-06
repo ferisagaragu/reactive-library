@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { LoginForm, Col, GradientButton, BugReport, Button, Select, DatePicker, makeAnimated, registerLocale, es } from 'reactive';
-
-const animatedComponents = makeAnimated();
+import { LoginForm, Col, GradientButton, BugReport, Button, MultiSelect, DatePicker, registerLocale, es } from 'reactive';
 
 class TestView extends Component {
   
@@ -25,10 +23,8 @@ class TestView extends Component {
   render() {
     return (
       <div>
-        <Select
-          closeMenuOnSelect={false}
-          components={animatedComponents}
-          isMulti
+        <MultiSelect
+          onChange={ () => { console.log('cambio') } }
           options={[
             { value: 'chocolate', label: 'Chocolate' },
             { value: 'strawberry', label: 'Strawberry' },
