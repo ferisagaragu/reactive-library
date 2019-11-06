@@ -542,3 +542,17 @@ Note: Beware of modifying this element as it can break the animations - you shou
   border-color: #F05E23;
 }
 /*=================================================*/
+
+/*form*/
+.error {
+  animation: shake-form 0.2s ease-in-out 0s 2;
+  box-shadow: 0 0 0.5em #F44336;
+}
+
+@keyframes shake-form {
+  0% { margin-left: 0rem; }
+  25% { margin-left: 0.5rem; }
+  75% { margin-left: -0.5rem; }
+  100% { margin-left: 0rem; }
+}
+/*=================================================*/

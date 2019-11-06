@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
-import { LoginForm, Col, GradientButton, BugReport, Button, Select, DatePicker } from 'reactive';
+import { LoginForm, Col, GradientButton, BugReport, Button, Select, DatePicker, makeAnimated, registerLocale, es } from 'reactive';
+
+const animatedComponents = makeAnimated();
 
 class TestView extends Component {
   
+  constructor(props: any) {
+    super(props);
+
+    registerLocale('es', es);
+  }
+
   state = {
     startDate: new Date()
   };
@@ -17,13 +25,18 @@ class TestView extends Component {
   render() {
     return (
       <div>
-        <Select options={ [
+        <Select
+          closeMenuOnSelect={false}
+          components={animatedComponents}
+          isMulti
+          options={[
             { value: 'chocolate', label: 'Chocolate' },
             { value: 'strawberry', label: 'Strawberry' },
-            { value: 'vanilla', label: 'Vanilla' },
-          ] } 
-        />      
+            { value: 'vanilla', label: 'Vanilla' }
+          ]}
+        />    
         <DatePicker
+          locale={ es }
           className="form-control"
           selected={this.state.startDate}
           onChange={this.handleChange}

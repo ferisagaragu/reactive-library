@@ -18,7 +18,7 @@ export { BugReportReactive as BugReport } from './components/bug-report/bug-repo
 export { 
   foreachJSONReactive as foreachJSON, 
   oderJSONByReactive as oderJSONBy, 
-  convertJSONToArrayReactive as convertJSONToArray, 
+  convertJSONToArrayReactive as convertJSONToArray,
   removeInJSONArrayReactive as removeInJSONArray, 
   replaceInJSONArrayReactive as replaceInJSONArray, 
   isJSONReactive as isJSON
@@ -183,14 +183,25 @@ export { prism, tomorrow, atomDark } from 'react-syntax-highlighter/dist/esm/sty
 export { iFrameReactive as Iframe } from './exports/iframe.export';
 
 /*
-
+  +react-select ->
+    npm i react-select
+    https://react-select.com/
 */
-export { SelectReactive as Select } from './exports/select.export';
+export { 
+  SelectReactive as Select,
+  makeAnimatedReactive as makeAnimated 
+} from './exports/select.export';
 
 /*
-
+  + react-datepicker -> 
+    npm i react-datepicker
+    https://www.npmjs.com/package/react-datepicker
 */
-export { DatePickerReactive as DatePicker } from './exports/datepicker.export';
+export { 
+  DatePickerReactive as DatePicker,
+  registerLocaleReactive as registerLocale,
+  esReactive as es
+} from './exports/datepicker.export';
 //========================================================
 
 //==========================TYPES=========================
