@@ -10,6 +10,7 @@ interface Props {
   noOptionsMessage: string;
   defaultValue: any;
   options: Array<any>;
+  isSearchable?: boolean;
   meta: any;
 }
 
@@ -17,7 +18,7 @@ interface State {
   defaultValue: any;
 }
 
-export class renderSingleSelectReactive extends React.Component<Props, State> {
+export class RenderSingleSelectReactive extends React.Component<Props, State> {
   render () {
     const {
       input,
@@ -27,6 +28,7 @@ export class renderSingleSelectReactive extends React.Component<Props, State> {
       noOptionsMessage,
       defaultValue,
       options,
+      isSearchable,
       meta: {
         error,
         warning,
@@ -54,6 +56,7 @@ export class renderSingleSelectReactive extends React.Component<Props, State> {
           placeholder={ label }
           noOptionsMessage={ noOptionsMessage }
           defaultValue={ defaultValue }
+          isSearchable={ isSearchable }
         />
         {
           touched &&
@@ -66,4 +69,4 @@ export class renderSingleSelectReactive extends React.Component<Props, State> {
   }
 }
 
-export default renderSingleSelectReactive;
+export default RenderSingleSelectReactive;

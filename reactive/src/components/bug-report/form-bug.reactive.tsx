@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { Field, reduxForm } from '../../exports/redux.export';
-import { RenderTextFieldReactive } from '../redux-form/redux-render-text-field.reactive';
-import renderSingleSelectReactive from '../redux-form/redux-render-single-select.reactive';
+import RenderSingleSelectReactive from '../redux-form/redux-render-single-select.reactive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { SpaceReactive } from '../space/space.reactive';
+import RenderTextAreaReactive from '../redux-form/redux-render-text-area.reactive';
+import { Button } from 'react-bootstrap';
 
 interface Props { 
   initialValues: any;
@@ -55,38 +56,44 @@ class FormBug extends React.Component<Props, State> {
     return (
         <form onSubmit={ handleSubmit(submitActions) }>
  
-            <Field 
-              name="problemType"
-              component={ renderSingleSelectReactive }
-              label="Tipo de problema"
-              options={ problems }
-              noOptionsMessage="No se encontraron coincidencias"
-              defaultValue={ [] }
-            />
+          <Field 
+            name="problemType"
+            component={ RenderSingleSelectReactive }
+            label="Tipo de problema"
+            options={ problems }
+            noOptionsMessage="No se encontraron coincidencias"
+            defaultValue={ [] }
+            isSearchable={ false }
+          />
 
           <Field 
             className="form-control"
-            name="password"
-            type="password"
-            component={ RenderTextFieldReactive }
-            label="Contraseña"
+            name="description"
+            component={ RenderTextAreaReactive }
+            label="Descripción del problema"
           />
 
           <div className="text-right mt-4">
-            <button 
+            <Button 
               className={ `mr-3` } 
               type="button" 
               onClick={ () => cancel() }
+              variant="outline-danger"
             >
+              <FontAwesomeIcon icon="times" />
+              <SpaceReactive />
               Cancelar
-            </button>
+            </Button>
 
-            <button 
+            <Button 
               type="submit" 
               disabled={ submitting }
+              variant="outline-success"
             >
+              <FontAwesomeIcon icon="check" />
+              <SpaceReactive />
               Reportar
-            </button>
+            </Button>
           </div>
         </form>
     );
@@ -96,15 +103,15 @@ class FormBug extends React.Component<Props, State> {
 const validate = (values: any) => {
   const errors = {
     problemType: '',
-    password: ''
+    description: ''
   }
   
   if (!values.problemType) {
     errors.problemType = 'El tipo de problema es requerido';
   }
 
-  if (!values.password) {
-    errors.password = 'La contraseña es requerida';
+  if (!values.description) {
+    errors.description = 'La descripción es requerida';
   }
 
   return errors

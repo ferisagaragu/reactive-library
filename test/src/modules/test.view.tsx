@@ -23,6 +23,13 @@ class TestView extends Component {
   render() {
     return (
       <div>
+        <BugReport
+          onCreateBug={ () => {} }
+          adminRole={ true }
+        >
+          Tengo un problema
+        </BugReport>
+
         <MultiSelect
           onChange={ () => { console.log('cambio') } }
           options={[
@@ -58,11 +65,6 @@ class TestView extends Component {
             </GradientButton>
           </LoginForm>
 
-          <BugReport
-            onCreateBug={ () => {} }
-          >
-            Tengo un problema
-          </BugReport>
           <Button>Hola</Button>
         </Col>
       </div>

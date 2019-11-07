@@ -6,6 +6,7 @@ import { SpaceReactive } from '../space/space.reactive';
 import { FormBugReactive } from './form-bug.reactive';
 
 interface Props {
+  adminRole: boolean;
   onCreateBug: Function;
 }
 
@@ -25,7 +26,7 @@ export class BugReportReactive extends React.Component<Props, State> {
   
   render() {
     const { isShow } = this.state;
-    const { children } = this.props;
+    const { children, adminRole } = this.props;
 
   	return (
       <>
@@ -39,7 +40,7 @@ export class BugReportReactive extends React.Component<Props, State> {
         >
           <FormBugReactive 
             submitActions={ (formData: any) => console.log(formData) }
-            cancel={ () => console.log('Cancelo') }
+            cancel={ () => this.setState({ isShow: false }) }
           />
         </ModalReactive>
 
@@ -57,18 +58,21 @@ export class BugReportReactive extends React.Component<Props, State> {
               </>
           }
         </Button>
-
-        <Button
-          className="ml-3"
-          onClick={ () => this.setState({ isShow: true }) }
-          variant="outline-info"
-        >
-          <FontAwesomeIcon icon="file-medical-alt" />
-          <SpaceReactive />
-          Ver reporte
-          <SpaceReactive />
-          <Badge pill variant="danger">12</Badge>
-        </Button>
+        
+        {
+          adminRole &&
+            <Button
+              className="ml-3"
+              onClick={ () => {} }
+              variant="outline-info"
+            >
+              <FontAwesomeIcon icon="file-medical-alt" />
+              <SpaceReactive />
+              Ver reporte
+              <SpaceReactive />
+              <Badge pill variant="danger">12</Badge>
+            </Button>
+        }
       </>
     );
   }

@@ -14,6 +14,10 @@ export { LoginFormReactive as LoginForm } from './components/login-form/login-fo
 export { SpaceReactive as Space } from './components/space/space.reactive';
 export { BugReportReactive as BugReport } from './components/bug-report/bug-report.reactive';
 
+//+redux-form
+export { RenderTextFieldReactive as RenderTextField } from './components/redux-form/redux-render-text-field.reactive';
+export { RenderSingleSelectReactive as RenderSingleSelect } from './components/redux-form/redux-render-single-select.reactive';
+
 //+util
 export { 
   foreachJSONReactive as foreachJSON, 
