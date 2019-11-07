@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { Field, reduxForm } from '../../exports/redux.export';
+import { Field, reduxForm, change } from '../../exports/redux.export';
 import RenderSingleSelectReactive from '../redux-form/redux-render-single-select.reactive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { SpaceReactive } from '../space/space.reactive';
 import RenderTextAreaReactive from '../redux-form/redux-render-text-area.reactive';
 import { Button } from 'react-bootstrap';
+import { SelectElement } from '../../exports/model/select-element.model';
 
 interface Props { 
   initialValues: any;
@@ -12,12 +13,15 @@ interface Props {
   cancel: any;
   submitting: any;
   submitActions: Function;
+  dispatch: Function;
 }
 
-interface State {}
+interface State {
+  isBug: boolean;
+}
 
-const problems: any = [
-  { 
+const problems: Array<SelectElement> = [
+  new SelectElement({ 
     value: 'bug', 
     label: 
       <label className="text-danger mt-2" >
@@ -25,7 +29,8 @@ const problems: any = [
         <SpaceReactive />
         Error 
       </label> 
-  },{ 
+  }),
+  new SelectElement({ 
     value: 'improvement', 
     label: 
       <label className="text-info mt-2" >
@@ -33,7 +38,8 @@ const problems: any = [
         <SpaceReactive />
         Mejora
       </label> 
-  },{ 
+  }),
+  new SelectElement({ 
     value: 'petition', 
     label: 
       <label className="text-success mt-2" >
@@ -41,20 +47,81 @@ const problems: any = [
         <SpaceReactive />
         Petición
       </label> 
-  }
+  })
+];
+
+const problemsLevel: Array<SelectElement> = [
+  new SelectElement({ 
+    value: 'low', 
+    label: 
+      <label className="text-success mt-2" >
+        <FontAwesomeIcon icon="arrow-down" /> 
+        <SpaceReactive />
+        Leve 
+      </label> 
+  }),
+  new SelectElement({ 
+    value: 'medium', 
+    label: 
+      <label className="text-info mt-2" >
+        <FontAwesomeIcon icon="minus" /> 
+        <SpaceReactive />
+        Medio
+      </label> 
+  }),
+  new SelectElement({ 
+    value: 'hider', 
+    label: 
+      <label className="text-danger mt-2" >
+        <FontAwesomeIcon icon="arrow-up" /> 
+        <SpaceReactive />
+        Grave
+      </label> 
+  })
 ];
 
 class FormBug extends React.Component<Props, State> {
+  
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {
+      isBug: false
+    }
+  }
+  
+  private onChangeBug(value: any): void {
+    const { dispatch } = this.props;
+    if (value.value === 'bug') {
+      this.setState({ isBug: true });
+    } else {
+      this.setState({ isBug: false });
+    }
+
+    dispatch(change('BugForm', 'levelProblem', problemsLevel[0]));
+  }
+
+  private onSubmit(values: any) {
+    const { submitActions } = this.props;
+    
+    if (values.problemType.value === 'bug') {
+      submitActions(values);
+    } else {
+      delete values['levelProblem'];
+      submitActions(values);
+    } 
+  }
+
   render() {
     const { 
       handleSubmit, 
       cancel, 
-      submitting, 
-      submitActions
-    } = this.props;
+      submitting
+    } = this.props; 
+    const { isBug } = this.state;
     
     return (
-        <form onSubmit={ handleSubmit(submitActions) }>
+        <form onSubmit={ handleSubmit((values: any) => this.onSubmit(values) ) }>
  
           <Field 
             name="problemType"
@@ -62,9 +129,21 @@ class FormBug extends React.Component<Props, State> {
             label="Tipo de problema"
             options={ problems }
             noOptionsMessage="No se encontraron coincidencias"
-            defaultValue={ [] }
             isSearchable={ false }
+            onChange={ (value: any) => this.onChangeBug(value) }
           />
+
+          {
+            isBug &&
+              <Field 
+                name="levelProblem"
+                component={ RenderSingleSelectReactive }
+                label="Nivel del problema"
+                options={ problemsLevel }
+                noOptionsMessage="No se encontraron coincidencias"
+                isSearchable={ false }
+              />
+          }
 
           <Field 
             className="form-control"
@@ -103,11 +182,18 @@ class FormBug extends React.Component<Props, State> {
 const validate = (values: any) => {
   const errors = {
     problemType: '',
-    description: ''
+    description: '',
+    levelProblem: ''
   }
   
   if (!values.problemType) {
     errors.problemType = 'El tipo de problema es requerido';
+  }
+
+  if (values.problemType) {
+    if (values.problemType.value === 'bug' && !values.levelProblem) {
+      errors.levelProblem = 'El tipo nivel del problema es requerido';
+    }
   }
 
   if (!values.description) {

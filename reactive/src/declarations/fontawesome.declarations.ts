@@ -17,7 +17,10 @@ const icons: any = [
   awesomeIcons.faBug,
   awesomeIcons.faFileMedicalAlt,
   awesomeIcons.faClipboardList,
-  awesomeIcons.faMagic
+  awesomeIcons.faMagic,
+  awesomeIcons.faArrowDown,
+  awesomeIcons.faArrowUp,
+  awesomeIcons.faMinus
 ];
 
 export const awesomeIconsReactive = awesomeIcons;

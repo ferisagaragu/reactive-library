@@ -96,7 +96,9 @@ export {
   Provider,
   connect,
   thunk,
-  reducer
+  reducer,
+  change,
+  untouch
 } from './exports/redux.export'
 
 /*
@@ -213,4 +215,5 @@ export { HeaderTable } from './exports/model/header-table.model';
 export { TreeElement } from './exports/model/tree-element.model';
 export { BurgerElement } from './exports/model/burger-element.model';
 export { BurgerSubElement } from './exports/model/burger-sub-element.model';
+export { SelectElement } from './exports/model/select-element.model';
 //========================================================

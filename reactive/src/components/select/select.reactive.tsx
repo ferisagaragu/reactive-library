@@ -10,6 +10,7 @@ interface MultiProps {
   noOptionsMessage?: string;
   defaultValue?: Array<any>;
   isSearchable?: boolean;
+  value?: any;
 }
 
 interface SingleProps {
@@ -20,9 +21,10 @@ interface SingleProps {
   noOptionsMessage?: string;
   defaultValue?: any;
   isSearchable?: boolean;
+  value?: any;
 }
 
-export const MultiSelectReactive = ({ className, options, onChange, placeholder, noOptionsMessage, defaultValue, isSearchable }: MultiProps) => {
+export const MultiSelectReactive = ({ className, options, onChange, placeholder, noOptionsMessage, defaultValue, isSearchable, value }: MultiProps) => {
   return (
     <Select 
       className={ className }
@@ -33,12 +35,13 @@ export const MultiSelectReactive = ({ className, options, onChange, placeholder,
       noOptionsMessage={ () => noOptionsMessage ? noOptionsMessage : '' }
       placeholder={ placeholder }
       isSearchable={ isSearchable }
+      value={ value }
       isMulti
     />
   );
 } 
 
-export const SingleSelectReactive = ({ className, options, onChange, placeholder, noOptionsMessage, defaultValue, isSearchable }: SingleProps) => {
+export const SingleSelectReactive = ({ className, options, onChange, placeholder, noOptionsMessage, defaultValue, isSearchable, value }: SingleProps) => {
   return (
     <Select
       className={ className }
@@ -48,6 +51,7 @@ export const SingleSelectReactive = ({ className, options, onChange, placeholder
       noOptionsMessage={ () => noOptionsMessage ? noOptionsMessage : '' }
       placeholder={ placeholder }
       isSearchable={ isSearchable }
+      value={ value }
     />
   );
 } 
