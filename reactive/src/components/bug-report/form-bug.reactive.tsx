@@ -6,6 +6,8 @@ import { SpaceReactive } from '../space/space.reactive';
 import { RenderTextAreaReactive } from '../redux-form/redux-render-text-area.reactive';
 import { Button } from 'react-bootstrap';
 import { problemsLevel, problems, suggest } from './data/select-data.reactive';
+import { moment } from '../../exports/moment.export';
+import { keyReactive } from '../key/key.reactive';
 
 interface Props { 
   initialValues: any;
@@ -48,14 +50,22 @@ class FormBug extends React.Component<Props, State> {
     
     if (values.problemType.value === 'bug') {
       submitActions({
+        uid: keyReactive(),
         description: values.description,
         problemType: values.problemType.value,
-        levelProblem: values.levelProblem.value
+        levelProblem: values.levelProblem.value,
+        location: window.location.pathname,
+        createDate: moment().format("DD/MM/YYYY"),
+        resolved: false
       });
     } else {
       submitActions({
+        uid: keyReactive(),
         description: values.description,
-        problemType: values.problemType.value
+        problemType: values.problemType.value,
+        location: window.location.pathname,
+        createDate: moment().format("DD/MM/YYYY"),
+        resolved: false
       });
     } 
   }

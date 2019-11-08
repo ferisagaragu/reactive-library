@@ -5,14 +5,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { SpaceReactive } from '../space/space.reactive';
 import { FormBugReactive } from './form-bug.reactive';
 import { problems, problemsLevel } from './data/select-data.reactive';
+import { TabBug } from './tab-bug.reactive';
+import { BugElement } from '../../exports/model/bug-element.model';
 
 interface Props {
+  bugData: Array<BugElement>;
   adminRole: boolean;
   onCreateBug: Function;
 }
 
 interface State {
   isShow: boolean;
+  isShowAdmin: boolean;
 }
 
 export class BugReportReactive extends React.Component<Props, State> {
@@ -21,13 +25,20 @@ export class BugReportReactive extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      isShow: false
+      isShow: false,
+      isShowAdmin: false
     }
   }
   
+  private onCreateBug(formData: any): void {
+    const { onCreateBug } = this.props;
+    onCreateBug(formData);
+    this.setState({ isShow: false });
+  }
+
   render() {
-    const { isShow } = this.state;
-    const { children, adminRole } = this.props;
+    const { isShow, isShowAdmin } = this.state;
+    const { children, adminRole, bugData } = this.props;
 
   	return (
       <>
@@ -40,12 +51,25 @@ export class BugReportReactive extends React.Component<Props, State> {
           closeButton={ true }
         >
           <FormBugReactive 
-            submitActions={ (formData: any) => console.log(formData) }
+            submitActions={ (formData: any) => this.onCreateBug(formData) }
             cancel={ () => this.setState({ isShow: false }) }
             initialValues={{
               problemType: problems[0],
               levelProblem: problemsLevel[0]
             }}
+          />
+        </ModalReactive>
+
+        <ModalReactive
+          title="Problemas encontrados en el sistema"
+          modalShow={ isShowAdmin }
+          onHide={ () => this.setState({ isShowAdmin: false }) }
+          size="lg"
+          centered={ true }
+          closeButton={ true }
+        >
+          <TabBug 
+            bugData={ bugData }
           />
         </ModalReactive>
 
@@ -68,14 +92,16 @@ export class BugReportReactive extends React.Component<Props, State> {
           adminRole &&
             <Button
               className="ml-3"
-              onClick={ () => {} }
+              onClick={ () => this.setState({ isShowAdmin: true }) }
               variant="outline-info"
             >
               <FontAwesomeIcon icon="file-medical-alt" />
               <SpaceReactive />
               Ver reporte
               <SpaceReactive />
-              <Badge pill variant="danger">12</Badge>
+              <Badge pill variant="danger">
+                { bugData.length }
+              </Badge>
             </Button>
         }
       </>

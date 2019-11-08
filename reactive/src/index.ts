@@ -7,6 +7,7 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 //+components
 export { RenderTableReactive as Table } from './components/table/render-table.reactive';
 export { ModalReactive as Modal } from './components/modal/modal.reactive';
+export { SingleModalReactive as SingleModal } from './components/modal/single-modal.reactive';
 export { HeaderReactive as Header } from './components/header/header.reactive';
 export { FooterReactive as Footer } from './components/footer/footer.reactive';
 export { TreeReactive as Tree } from './components/tree/tree.reactive';

@@ -61,7 +61,7 @@ export class HeaderReactive extends React.Component<Props, State> {
       
     }
 
-    return <></>
+    return <></>;
   }
 
   render() {

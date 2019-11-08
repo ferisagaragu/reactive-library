@@ -1,16 +1,25 @@
 import React, { Component } from 'react';
-import { LoginForm, Col, GradientButton, BugReport, Button, MultiSelect, DatePicker, registerLocale, es, moment } from 'reactive';
+import { LoginForm, Col, GradientButton, BugReport, Button, MultiSelect, DatePicker, registerLocale, es, moment, Firebase, convertJSONToArray } from 'reactive';
 
 class TestView extends Component<any, any> {
   
+  firebase: Firebase = new Firebase();
+
   constructor(props: any) {
     super(props);
 
     registerLocale('es', es);
 
     this.state = {
-      startDate: new Date()
+      startDate: new Date(),
+      bugData: []
     };
+  }
+
+  componentDidMount() {
+    this.firebase.on('bugReport', (snap: any) => {
+      this.setState({ bugData: convertJSONToArray(snap.val())});
+    });
   }
 
   handleChange = (date: any) => {
@@ -26,13 +35,18 @@ class TestView extends Component<any, any> {
   };
 
   render() {
+    const { bugData } = this.state;
+
     return (
       <div>
         <div>
           { moment().format("DD/MM/YYYY") }
         </div>
         <BugReport
-          onCreateBug={ () => {} }
+          bugData={ bugData }
+          onCreateBug={ (bugData: any) => {
+            this.firebase.update(`bugReport/${bugData.uid}`, bugData);
+          }}
           adminRole={ true }
         >
           Tengo un problema
