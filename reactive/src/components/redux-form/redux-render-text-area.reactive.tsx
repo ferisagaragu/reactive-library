@@ -9,7 +9,7 @@ interface Props {
 
 interface State {}
 
-class RenderTextAreaReactive extends React.Component<Props, State> {
+export class RenderTextAreaReactive extends React.Component<Props, State> {
   render () {
     const {
       input,
@@ -47,5 +47,3 @@ class RenderTextAreaReactive extends React.Component<Props, State> {
     );
   }
 }
-
-export default RenderTextAreaReactive;

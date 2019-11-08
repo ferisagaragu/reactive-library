@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import { LoginForm, Col, GradientButton, BugReport, Button, MultiSelect, DatePicker, registerLocale, es } from 'reactive';
+import { LoginForm, Col, GradientButton, BugReport, Button, MultiSelect, DatePicker, registerLocale, es, moment } from 'reactive';
 
-class TestView extends Component {
+class TestView extends Component<any, any> {
   
   constructor(props: any) {
     super(props);
 
     registerLocale('es', es);
-  }
 
-  state = {
-    startDate: new Date()
-  };
+    this.state = {
+      startDate: new Date()
+    };
+  }
 
   handleChange = (date: any) => {
     this.setState({
@@ -19,10 +19,18 @@ class TestView extends Component {
     });
   };
 
-  
+  onEditorStateChange: Function = (editorState: any) => {
+    this.setState({
+      editorState,
+    });
+  };
+
   render() {
     return (
       <div>
+        <div>
+          { moment().format("DD/MM/YYYY") }
+        </div>
         <BugReport
           onCreateBug={ () => {} }
           adminRole={ true }

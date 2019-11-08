@@ -1,6 +1,7 @@
 import './config/app.config';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "react-datepicker/dist/react-datepicker.css";
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 //============================REACTIVE============================
 //+components
@@ -17,6 +18,7 @@ export { BugReportReactive as BugReport } from './components/bug-report/bug-repo
 //+redux-form
 export { RenderTextFieldReactive as RenderTextField } from './components/redux-form/redux-render-text-field.reactive';
 export { RenderSingleSelectReactive as RenderSingleSelect } from './components/redux-form/redux-render-single-select.reactive';
+export { RenderTextAreaReactive as RenderTextArea } from './components/redux-form/redux-render-text-area.reactive';
 
 //+util
 export { 
@@ -208,6 +210,15 @@ export {
   registerLocaleReactive as registerLocale,
   esReactive as es
 } from './exports/datepicker.export';
+
+/*
+  +moment-js ->
+*/
+export { moment } from './exports/moment.export';
+
+/*
+*/
+export { EditorState, Editor } from './exports/draft-wysiwyg.export';
 //========================================================
 
 //==========================TYPES=========================

@@ -3,9 +3,9 @@ import { Field, reduxForm, change } from '../../exports/redux.export';
 import RenderSingleSelectReactive from '../redux-form/redux-render-single-select.reactive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { SpaceReactive } from '../space/space.reactive';
-import RenderTextAreaReactive from '../redux-form/redux-render-text-area.reactive';
+import { RenderTextAreaReactive } from '../redux-form/redux-render-text-area.reactive';
 import { Button } from 'react-bootstrap';
-import { SelectElement } from '../../exports/model/select-element.model';
+import { problemsLevel, problems } from './data/select-data.reactive';
 
 interface Props { 
   initialValues: any;
@@ -20,73 +20,13 @@ interface State {
   isBug: boolean;
 }
 
-const problems: Array<SelectElement> = [
-  new SelectElement({ 
-    value: 'bug', 
-    label: 
-      <label className="text-danger mt-2" >
-        <FontAwesomeIcon icon="bug" /> 
-        <SpaceReactive />
-        Error 
-      </label> 
-  }),
-  new SelectElement({ 
-    value: 'improvement', 
-    label: 
-      <label className="text-info mt-2" >
-        <FontAwesomeIcon icon="clipboard-list" /> 
-        <SpaceReactive />
-        Mejora
-      </label> 
-  }),
-  new SelectElement({ 
-    value: 'petition', 
-    label: 
-      <label className="text-success mt-2" >
-        <FontAwesomeIcon icon="magic" /> 
-        <SpaceReactive />
-        Petición
-      </label> 
-  })
-];
-
-const problemsLevel: Array<SelectElement> = [
-  new SelectElement({ 
-    value: 'low', 
-    label: 
-      <label className="text-success mt-2" >
-        <FontAwesomeIcon icon="arrow-down" /> 
-        <SpaceReactive />
-        Leve 
-      </label> 
-  }),
-  new SelectElement({ 
-    value: 'medium', 
-    label: 
-      <label className="text-info mt-2" >
-        <FontAwesomeIcon icon="minus" /> 
-        <SpaceReactive />
-        Medio
-      </label> 
-  }),
-  new SelectElement({ 
-    value: 'hider', 
-    label: 
-      <label className="text-danger mt-2" >
-        <FontAwesomeIcon icon="arrow-up" /> 
-        <SpaceReactive />
-        Grave
-      </label> 
-  })
-];
-
 class FormBug extends React.Component<Props, State> {
   
   constructor(props: Props) {
     super(props);
 
     this.state = {
-      isBug: false
+      isBug: true
     }
   }
   

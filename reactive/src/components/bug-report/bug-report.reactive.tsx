@@ -4,7 +4,7 @@ import { Button, Badge } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { SpaceReactive } from '../space/space.reactive';
 import { FormBugReactive } from './form-bug.reactive';
-import { SelectElement } from '../../exports/model/select-element.model';
+import { problems, problemsLevel } from './data/select-data.reactive';
 
 interface Props {
   adminRole: boolean;
@@ -43,24 +43,8 @@ export class BugReportReactive extends React.Component<Props, State> {
             submitActions={ (formData: any) => console.log(formData) }
             cancel={ () => this.setState({ isShow: false }) }
             initialValues={{
-              problemType: new SelectElement({ 
-                value: 'bug', 
-                label: 
-                  <label className="text-danger mt-2" >
-                    <FontAwesomeIcon icon="bug" /> 
-                    <SpaceReactive />
-                    Error 
-                  </label> 
-              }),
-              levelProblem: new SelectElement({ 
-                value: 'low', 
-                label: 
-                  <label className="text-danger mt-2" >
-                    <FontAwesomeIcon icon="bug" /> 
-                    <SpaceReactive />
-                    Ligero 
-                  </label> 
-              })
+              problemType: problems[0],
+              levelProblem: problemsLevel[0]
             }}
           />
         </ModalReactive>
