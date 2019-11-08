@@ -47,10 +47,16 @@ class FormBug extends React.Component<Props, State> {
     const { submitActions } = this.props;
     
     if (values.problemType.value === 'bug') {
-      submitActions(values);
+      submitActions({
+        description: values.description,
+        problemType: values.problemType.value,
+        levelProblem: values.levelProblem.value
+      });
     } else {
-      delete values['levelProblem'];
-      submitActions(values);
+      submitActions({
+        description: values.description,
+        problemType: values.problemType.value
+      });
     } 
   }
 
