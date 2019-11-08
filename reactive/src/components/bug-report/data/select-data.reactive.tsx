@@ -35,7 +35,7 @@ export const problems: Array<SelectElement> = [
 
 export const problemsLevel: Array<SelectElement> = [
   new SelectElement({ 
-    value: 'low', 
+    value: 'mild', 
     label: 
       <label className="text-success mt-2" >
         <FontAwesomeIcon icon="arrow-down" /> 
@@ -53,7 +53,7 @@ export const problemsLevel: Array<SelectElement> = [
       </label> 
   }),
   new SelectElement({ 
-    value: 'hider', 
+    value: 'serious', 
     label: 
       <label className="text-danger mt-2" >
         <FontAwesomeIcon icon="arrow-up" /> 
@@ -61,4 +61,21 @@ export const problemsLevel: Array<SelectElement> = [
         Grave
       </label> 
   })
+];
+
+export const suggest = [
+  <ul>
+    <li>El problema solo se presenta solo en ocaciones</li>
+    <li>Error de ortografia</li>
+  </ul>,
+  <ul>
+    <li>El problema se precenta despues de una secuencia de acciones</li>
+    <li>La interface no me permite continuar con el proceso normal en ciertas pantallas</li>
+    <li>Tengo errores en ciertos registros que cree hace tiempo o son nuevos</li>
+  </ul>,
+  <ul>
+    <li>El problema no me deja continuar en el proceso normal del sistema</li>
+    <li>Me aparece una pantalla de error mientras trabajo con normalidad</li>
+    <li>Cosas que con anterioridad funcionaban han dejado de funcionar</li>
+  </ul>
 ];

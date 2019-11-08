@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { SpaceReactive } from '../space/space.reactive';
 import { RenderTextAreaReactive } from '../redux-form/redux-render-text-area.reactive';
 import { Button } from 'react-bootstrap';
-import { problemsLevel, problems } from './data/select-data.reactive';
+import { problemsLevel, problems, suggest } from './data/select-data.reactive';
 
 interface Props { 
   initialValues: any;
@@ -18,6 +18,7 @@ interface Props {
 
 interface State {
   isBug: boolean;
+  description: number;
 }
 
 class FormBug extends React.Component<Props, State> {
@@ -26,7 +27,8 @@ class FormBug extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      isBug: true
+      isBug: true,
+      description: 0
     }
   }
   
@@ -35,13 +37,13 @@ class FormBug extends React.Component<Props, State> {
     if (value.value === 'bug') {
       this.setState({ isBug: true });
     } else {
-      this.setState({ isBug: false });
+      this.setState({ isBug: false, description: 0 });
     }
 
     dispatch(change('BugForm', 'levelProblem', problemsLevel[0]));
   }
 
-  private onSubmit(values: any) {
+  private onSubmit(values: any): void {
     const { submitActions } = this.props;
     
     if (values.problemType.value === 'bug') {
@@ -52,13 +54,29 @@ class FormBug extends React.Component<Props, State> {
     } 
   }
 
+  private onSuggest(selected: any): any {
+    switch (selected.value) {
+      case 'mild': 
+        this.setState({ description: 0 });
+      break;
+
+      case 'medium': 
+        this.setState({ description: 1 });
+      break;
+
+      case 'serious': 
+        this.setState({ description: 2 });
+      break;
+    } 
+  }
+
   render() {
     const { 
       handleSubmit, 
       cancel, 
       submitting
     } = this.props; 
-    const { isBug } = this.state;
+    const { isBug, description } = this.state;
     
     return (
         <form onSubmit={ handleSubmit((values: any) => this.onSubmit(values) ) }>
@@ -75,14 +93,21 @@ class FormBug extends React.Component<Props, State> {
 
           {
             isBug &&
-              <Field 
-                name="levelProblem"
-                component={ RenderSingleSelectReactive }
-                label="Nivel del problema"
-                options={ problemsLevel }
-                noOptionsMessage="No se encontraron coincidencias"
-                isSearchable={ false }
-              />
+              <>
+                <Field 
+                  name="levelProblem"
+                  component={ RenderSingleSelectReactive }
+                  label="Nivel del problema"
+                  options={ problemsLevel }
+                  noOptionsMessage="No se encontraron coincidencias"
+                  isSearchable={ false }
+                  onChange={ (selected: any) => this.onSuggest(selected) }
+                />
+
+                <label>
+                  { suggest[description] }
+                </label>
+              </>  
           }
 
           <Field 
@@ -140,7 +165,7 @@ const validate = (values: any) => {
     errors.description = 'La descripción es requerida';
   }
 
-  return errors
+  return errors;
 }
 
 export const FormBugReactive = reduxForm({
