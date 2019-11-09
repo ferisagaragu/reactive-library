@@ -46,7 +46,7 @@ export const problemsLevel: Array<SelectElement> = [
   new SelectElement({ 
     value: 'medium', 
     label: 
-      <label className="text-info mt-2" >
+      <label className="text-bug mt-2" >
         <FontAwesomeIcon icon="minus" /> 
         <SpaceReactive />
         Medio

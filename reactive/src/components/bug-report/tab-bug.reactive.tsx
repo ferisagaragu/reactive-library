@@ -5,6 +5,7 @@ import { SpaceReactive } from '../space/space.reactive';
 import { keyReactive } from '../key/key.reactive';
 import { BugElement } from '../../exports/model/bug-element.model';
 import { Link } from 'react-router-dom';
+import { problemsLevel } from './data/select-data.reactive';
 
 interface Props {
   bugData: Array<BugElement>;
@@ -24,6 +25,16 @@ export class TabBug extends React.Component<Props, State> {
     }
   }
   
+  private levelProblem(levelProblem: string): number {
+    switch (levelProblem) {
+      case 'mild': return 0;
+      case 'medium': return 1;
+      case 'serious': return 2;
+    }
+
+    return -1;
+  }
+
   private loadBug(): React.ReactElement {
     const { bugData } = this.props;
     console.log(bugData);
@@ -36,22 +47,34 @@ export class TabBug extends React.Component<Props, State> {
               <ListGroup.Item key={ keyReactive() }>
                 <Row>
                   <Col md={ 11 }>
-                    { element.uid } 
+                    <code>
+                      { element.uid }
+                    </code> 
                     <SpaceReactive />
                     -
                     <SpaceReactive />
                     { element.description }
                     <SpaceReactive />
-                    <Link to={ element.location }>
-                      { element.location }
-                    </Link>
                   </Col>
 
                   <Col md={ 1 }>
                     <input type="checkbox" checked={ element.resolved } />
                   </Col>
+                </Row>
 
-                  <Col className="text-right" md={ 12 }>
+                <Row>
+                  <Col md={ 4 }>
+                    <SpaceReactive spaces={ 4 } />
+                    <Link to={ element.location }>
+                      { element.location }
+                    </Link>
+                  </Col>
+
+                  <Col className="text-center" md={ 4 }>
+                    { problemsLevel[this.levelProblem(element.levelProblem)].label }
+                  </Col>
+
+                  <Col className="text-right" md={ 4 }>
                     { element.createDate }
                   </Col>
                 </Row>

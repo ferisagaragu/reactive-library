@@ -55,7 +55,7 @@ class FormBug extends React.Component<Props, State> {
         problemType: values.problemType.value,
         levelProblem: values.levelProblem.value,
         location: window.location.pathname,
-        createDate: moment().format("DD/MM/YYYY"),
+        createDate: moment().format("DD/MM/YYYY HH:mm:ss"),
         resolved: false
       });
     } else {
@@ -64,7 +64,7 @@ class FormBug extends React.Component<Props, State> {
         description: values.description,
         problemType: values.problemType.value,
         location: window.location.pathname,
-        createDate: moment().format("DD/MM/YYYY"),
+        createDate: moment().format("DD/MM/YYYY HH:mm:ss"),
         resolved: false
       });
     } 
