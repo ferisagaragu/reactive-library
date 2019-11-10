@@ -37,6 +37,12 @@ export {
 export { 
   findByTypeReactive as findByType
 } from './components/util/react-util.reactive';
+export {
+  FileFieldReactive as FileField
+} from './components/react-field/file-field.reactive';
+export {
+  CheckBoxReactive as CheckBox
+} from './components/react-field/checkbox.reactive';
 //========================================================
 
 //============================MODIFY======================

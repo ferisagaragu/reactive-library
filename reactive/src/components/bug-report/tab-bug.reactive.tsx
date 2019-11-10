@@ -6,9 +6,11 @@ import { keyReactive } from '../key/key.reactive';
 import { BugElement } from '../../exports/model/bug-element.model';
 import { Link } from 'react-router-dom';
 import { problemsLevel } from './data/select-data.reactive';
+import { CheckBoxReactive } from '../react-field/checkbox.reactive';
 
 interface Props {
   bugData: Array<BugElement>;
+  onCheck: Function;
 }
 
 interface State {
@@ -35,14 +37,14 @@ export class TabBug extends React.Component<Props, State> {
     return -1;
   }
 
-  private loadBug(): React.ReactElement {
-    const { bugData } = this.props;
-    console.log(bugData);
+  private loadBug(filterBug: string): React.ReactElement {
+    const { bugData, onCheck } = this.props;
+    
     if (bugData) {
       return (
         <ListGroup variant="flush">
           {
-            bugData.filter((element: BugElement) => element.problemType === 'bug')
+            bugData.filter((element: BugElement) => element.problemType === filterBug && !element.resolved)
             .map((element: BugElement) => (
               <ListGroup.Item key={ keyReactive() }>
                 <Row>
@@ -58,23 +60,29 @@ export class TabBug extends React.Component<Props, State> {
                   </Col>
 
                   <Col md={ 1 }>
-                    <input type="checkbox" checked={ element.resolved } />
+                    <CheckBoxReactive 
+                      onChange={ (value: boolean) => onCheck(value, element) }
+                      checked={ element.resolved } 
+                    />
                   </Col>
                 </Row>
 
                 <Row>
-                  <Col md={ 4 }>
+                  <Col md={ filterBug === 'bug' ? 4 : 6 }>
                     <SpaceReactive spaces={ 4 } />
                     <Link to={ element.location }>
                       { element.location }
                     </Link>
                   </Col>
-
-                  <Col className="text-center" md={ 4 }>
-                    { problemsLevel[this.levelProblem(element.levelProblem)].label }
-                  </Col>
-
-                  <Col className="text-right" md={ 4 }>
+                  
+                  {
+                    filterBug === 'bug' &&
+                      <Col className="text-center" md={ 4 }>
+                        { problemsLevel[this.levelProblem(element.levelProblem)].label }
+                      </Col>
+                  }
+                  
+                  <Col className="text-right" md={ filterBug === 'bug' ? 4 : 6 }>
                     { element.createDate }
                   </Col>
                 </Row>
@@ -91,6 +99,9 @@ export class TabBug extends React.Component<Props, State> {
   render() {
     const { tabSelect } = this.state;
     const { bugData } = this.props;
+    const bugNumber = bugData.filter((element: BugElement) => element.problemType === 'bug' && !element.resolved).length;
+    const improvementNumber = bugData.filter((element: BugElement) => element.problemType === 'improvement' && !element.resolved).length;
+    const petition = bugData.filter((element: BugElement) => element.problemType === 'petition' && !element.resolved).length;
 
     return (
       <Tabs 
@@ -106,13 +117,23 @@ export class TabBug extends React.Component<Props, State> {
               <SpaceReactive />
               Errores
               <SpaceReactive />
-              <Badge pill variant="danger">
-                { bugData.filter((element: BugElement) => element.problemType === 'bug').length }
-              </Badge>
+              { 
+                bugNumber !== 0 &&
+                  <Badge pill variant="danger">
+                    { bugNumber }
+                  </Badge>
+              }
             </div> 
           }
         > 
-          { this.loadBug() }
+          { 
+            bugNumber !== 0 ?
+              this.loadBug('bug') 
+            :
+              <div className="text-center mt-5">
+                No hay errores reportados
+              </div>
+          }
         </Tab>
 
         <Tab 
@@ -123,13 +144,23 @@ export class TabBug extends React.Component<Props, State> {
               <SpaceReactive />
               Mejoras
               <SpaceReactive />
-              <Badge pill variant="danger">
-                { bugData.filter((element: BugElement) => element.problemType === 'improvement').length }
-              </Badge>
+              { 
+                improvementNumber !== 0 &&
+                  <Badge pill variant="danger">
+                    { improvementNumber }
+                  </Badge>
+              }
             </div> 
           }
         >
-          Hola amigo
+          { 
+            improvementNumber !== 0 ?
+              this.loadBug('improvement')
+            :
+              <div className="text-center mt-5">
+                No hay mejoras reportadas
+              </div>
+          }
         </Tab>
 
         <Tab 
@@ -140,13 +171,23 @@ export class TabBug extends React.Component<Props, State> {
               <SpaceReactive />
               Petición
               <SpaceReactive />
-              <Badge pill variant="danger">
-                { bugData.filter((element: BugElement) => element.problemType === 'petition').length }
-              </Badge>
+              { 
+                petition !== 0 &&
+                  <Badge pill variant="danger">
+                    { petition }
+                  </Badge>
+              }
             </div> 
           }
         >
-          Yes
+          { 
+            petition !== 0 ?
+              this.loadBug('petition')
+            :
+              <div className="text-center mt-5">
+                No hay peticiones reportadas
+              </div>
+          }
         </Tab>
       </Tabs>
     );

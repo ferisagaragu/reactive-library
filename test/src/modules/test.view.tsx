@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { LoginForm, Col, GradientButton, BugReport, Button, MultiSelect, DatePicker, registerLocale, es, moment, Firebase, convertJSONToArray } from 'reactive';
+import { LoginForm, Col, GradientButton, Button, MultiSelect, DatePicker, registerLocale, es, moment, Firebase, FileField } from 'reactive';
 
 class TestView extends Component<any, any> {
   
@@ -12,14 +12,8 @@ class TestView extends Component<any, any> {
 
     this.state = {
       startDate: new Date(),
-      bugData: []
+      isLoad: false
     };
-  }
-
-  componentDidMount() {
-    this.firebase.on('bugReport', (snap: any) => {
-      this.setState({ bugData: convertJSONToArray(snap.val())});
-    });
   }
 
   handleChange = (date: any) => {
@@ -35,22 +29,30 @@ class TestView extends Component<any, any> {
   };
 
   render() {
-    const { bugData } = this.state;
+    const { isLoad } = this.state;
 
     return (
       <div>
+        <FileField 
+          className="btn-outline-bug btn"
+          onSelectFile={ (file: any) => {
+            this.setState({ isLoad: true });
+            this.firebase.putStorage('/test/readme.md', file, (url: string) => {
+              console.log(url);
+              this.setState({ isLoad: false });
+            });
+          }}
+          accept=""
+          loadMessage="Subiendo el archivo"
+          isLoad={ isLoad }
+          preview={ true }
+        >
+          Sube un archivo
+        </FileField>
         <div>
           { moment().format("DD/MM/YYYY") }
         </div>
-        <BugReport
-          bugData={ bugData }
-          onCreateBug={ (bugData: any) => {
-            this.firebase.update(`bugReport/${bugData.uid}`, bugData);
-          }}
-          adminRole={ true }
-        >
-          Tengo un problema
-        </BugReport>
+        
 
         <MultiSelect
           onChange={ () => { console.log('cambio') } }

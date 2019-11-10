@@ -20,7 +20,8 @@ const icons: any = [
   awesomeIcons.faMagic,
   awesomeIcons.faArrowDown,
   awesomeIcons.faArrowUp,
-  awesomeIcons.faMinus
+  awesomeIcons.faMinus,
+  awesomeIcons.faFileUpload
 ];
 
 export const awesomeIconsReactive = awesomeIcons;

@@ -7,41 +7,68 @@ import { FormBugReactive } from './form-bug.reactive';
 import { problems, problemsLevel } from './data/select-data.reactive';
 import { TabBug } from './tab-bug.reactive';
 import { BugElement } from '../../exports/model/bug-element.model';
+import { FirebaseReactive } from '../firebase/firebase.reactive';
+import { convertJSONToArrayReactive } from '../util/json.reactive';
+import { alertQuestionReactive } from '../swal/swal.reactive';
 
 interface Props {
-  bugData: Array<BugElement>;
+  className?: string;
   adminRole: boolean;
-  onCreateBug: Function;
+  titleAlter: string;
+  textAlter: string;
 }
 
 interface State {
   isShow: boolean;
   isShowAdmin: boolean;
+  bugData: Array<BugElement>;
 }
 
 export class BugReportReactive extends React.Component<Props, State> {
   
+  firebase: FirebaseReactive = new FirebaseReactive();
+
   constructor(props: Props) {
     super(props);
 
     this.state = {
       isShow: false,
-      isShowAdmin: false
+      isShowAdmin: false,
+      bugData: []
     }
   }
   
+  componentDidMount() {
+    this.firebase.on('bugReport', (bugValue: any) => {
+      this.setState({ bugData: convertJSONToArrayReactive(bugValue.val()) })
+    }); 
+  }
+
   private onCreateBug(formData: any): void {
-    const { onCreateBug } = this.props;
-    onCreateBug(formData);
+    this.firebase.update(`bugReport/${formData.uid}`, formData);
     this.setState({ isShow: false });
   }
 
+  private onCheck(value: boolean, element: any): void {
+    const { titleAlter, textAlter } = this.props;
+
+    alertQuestionReactive(
+      'question', 
+      titleAlter, 
+      textAlter,
+      () => {
+        element.resolved = value;
+        this.firebase.update(`bugReport/${element.uid}`, element);
+      }
+    );
+  }
+
   render() {
-    const { isShow, isShowAdmin } = this.state;
-    const { children, adminRole, bugData } = this.props;
+    const { isShow, isShowAdmin, bugData } = this.state;
+    const { children, adminRole, className } = this.props;
 
   	return (
-      <>
+      <div className={ className }>
         <ModalReactive
           title="Reportar un problema"
           modalShow={ isShow }
@@ -69,6 +96,7 @@ export class BugReportReactive extends React.Component<Props, State> {
           closeButton={ true }
         >
           <TabBug 
+            onCheck={ (value: boolean, element: any) => this.onCheck(value, element) }
             bugData={ bugData }
           />
         </ModalReactive>
@@ -97,14 +125,24 @@ export class BugReportReactive extends React.Component<Props, State> {
             >
               <FontAwesomeIcon icon="file-medical-alt" />
               <SpaceReactive />
-              Ver reporte
-              <SpaceReactive />
-              <Badge pill variant="danger">
-                { bugData.length }
-              </Badge>
+              { 
+                children &&
+                  <>
+                    Ver reporte
+                  </>
+              }
+              { 
+                bugData.filter((element: any) => !element.resolved).length !== 0 &&
+                  <>
+                    <SpaceReactive />
+                    <Badge pill variant="danger">
+                      { bugData.filter((element: any) => !element.resolved).length }
+                    </Badge>
+                  </>
+              } 
             </Button>
         }
-      </>
+      </div>
     );
   }
 }

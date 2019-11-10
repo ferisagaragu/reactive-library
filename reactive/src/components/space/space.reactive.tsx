@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { keyReactive } from '../key/key.reactive';
 
 interface Props {
   spaces?: number;
@@ -14,7 +15,7 @@ export class SpaceReactive extends React.Component<Props, State> {
 
     if (spaces) {
       for (let index = 0; index < spaces; index++) {
-        out.push(<>&nbsp;</>);
+        out.push(<i key={ keyReactive() }>&nbsp;</i>);
       }
       return out;
     }

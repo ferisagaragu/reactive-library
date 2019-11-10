@@ -7,7 +7,8 @@ import {
   Container,
   Row,
   Col,
-  Link
+  Link,
+  BugReport
 } from 'reactive';
 import Routing from '../core/routes/routing.routes';
 import { navMenu } from '../declarations/nav-menu.declarations';
@@ -46,6 +47,14 @@ class App extends Component<any, any> {
             <h3 className="m-3">
               NeuroBrain
             </h3>
+          }
+          right={
+            <BugReport
+              className="mt-3"
+              adminRole={ true }
+              titleAlter="Resolver el problema"
+              textAlter="¿Estas seguro de que quieres marcar el problema como resuelto?"
+            />
           }
         />
       </>

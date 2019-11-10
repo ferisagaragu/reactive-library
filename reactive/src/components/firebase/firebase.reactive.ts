@@ -1,6 +1,7 @@
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
+import 'firebase/storage';
 
 export function initializeFirebaseAppReactive(
   firebaseConfig: {
@@ -154,6 +155,16 @@ export class FirebaseReactive {
       if (errorFunction && error) {
         errorFunction(error);
       }
+    });
+  }
+
+  public putStorage(ref: string, file: any, onSuccess: Function): void {
+    const storageRef = firebase.storage().ref();
+
+    storageRef.child(ref).put(file).then((snapshot: any) => {
+      storageRef.child(ref).getDownloadURL().then((url: any) => {
+        onSuccess(url, snapshot);
+      });
     });
   }
 }
