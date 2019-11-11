@@ -208,6 +208,8 @@ export {
 
 /*
   +moment-js ->
+  npm i moment-js
+  https://momentjs.com/
 */
 export { moment } from './exports/moment.export';
 
@@ -215,7 +217,12 @@ export { moment } from './exports/moment.export';
 */
 export { EditorState, Editor } from './exports/draft-wysiwyg.export';
 
-export Cookies from 'js-cookie';
+/*
+  +js-cookie ->
+  npm i js-cookie
+  https://www.npmjs.com/package/js-cookie
+*/
+export { Cookies } from './exports/cookies.export';
 //========================================================
 
 //==========================TYPES=========================
