@@ -14,6 +14,9 @@ import DatePicherView from '../../modules/date-picher/date-picher.view';
 import FontAwesomeView from '../../modules/font-awesome/font-awesome.view';
 import MomentView from '../../modules/moment/moment.view';
 import IFrameView from '../../modules/i-frame/i-frame.view';
+import ReactRouterView from '../../modules/react-router/react-router.view';
+import ReduxView from '../../modules/redux/redux.view';
+import SyntaxHighlighterView from '../../modules/syntax-highlighter/syntax-highlighter.view';
 
 const Routing = () => {
   return (
@@ -31,7 +34,9 @@ const Routing = () => {
       <Route path="/font-awesome/" exact component={ FontAwesomeView } />
       <Route path="/moment/" exact component={ MomentView } />
       <Route path="/iframe/" exact component={ IFrameView } />
-      
+      <Route path="/react-router/" exact component={ ReactRouterView } />
+      <Route path="/redux/" exact component={ ReduxView } />
+      <Route path="/syntax-highlighter/" exact component={ SyntaxHighlighterView } />
       <Route path="/" exact component={ HomeView } />
       <Route component={ NotFoundView } />
     </Switch>
