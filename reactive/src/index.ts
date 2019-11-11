@@ -214,6 +214,8 @@ export { moment } from './exports/moment.export';
 /*
 */
 export { EditorState, Editor } from './exports/draft-wysiwyg.export';
+
+export Cookies from 'js-cookie';
 //========================================================
 
 //==========================TYPES=========================
