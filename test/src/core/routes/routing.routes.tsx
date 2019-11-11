@@ -12,6 +12,8 @@ import HomeView from '../../modules/home/home.view';
 import NotFoundView from '../../modules/not-found/not-found.view';
 import DatePicherView from '../../modules/date-picher/date-picher.view';
 import FontAwesomeView from '../../modules/font-awesome/font-awesome.view';
+import MomentView from '../../modules/moment/moment.view';
+import IFrameView from '../../modules/i-frame/i-frame.view';
 
 const Routing = () => {
   return (
@@ -27,6 +29,9 @@ const Routing = () => {
       <Route path="/home/" exact component={ HomeView } />
       <Route path="/date-picker/" exact component={ DatePicherView } />
       <Route path="/font-awesome/" exact component={ FontAwesomeView } />
+      <Route path="/moment/" exact component={ MomentView } />
+      <Route path="/iframe/" exact component={ IFrameView } />
+      
       <Route path="/" exact component={ HomeView } />
       <Route component={ NotFoundView } />
     </Switch>
