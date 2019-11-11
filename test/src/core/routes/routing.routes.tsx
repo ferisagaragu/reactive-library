@@ -18,6 +18,7 @@ import ReactRouterView from '../../modules/react-router/react-router.view';
 import ReduxView from '../../modules/redux/redux.view';
 import SyntaxHighlighterView from '../../modules/syntax-highlighter/syntax-highlighter.view';
 import CookiesJsView from '../../modules/cookies/cookies-js.view';
+import ArrayView from '../../modules/array-reactive/array.view';
 
 const Routing = () => {
   return (
@@ -39,6 +40,7 @@ const Routing = () => {
       <Route path="/redux/" exact component={ ReduxView } />
       <Route path="/syntax-highlighter/" exact component={ SyntaxHighlighterView } />
       <Route path="/cookies-js/" exact component={ CookiesJsView } />
+      <Route path="/array/" exact component={ ArrayView } />
       <Route path="/" exact component={ HomeView } />
       <Route component={ NotFoundView } />
     </Switch>

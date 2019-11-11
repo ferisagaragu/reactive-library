@@ -55,6 +55,12 @@ code {
   fill: #fff;
 }
 
+.git-icon {
+  width: 24px;
+  height: 24px;
+  fill: royalblue;
+}
+
 .app-container {
   padding-bottom: 100px;
 }
