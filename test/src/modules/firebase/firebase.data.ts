@@ -22,7 +22,17 @@ export const propsFunction: Array<FunctionModel> = [
 ];
 
 export const exampleCode = (
-` let array = [1,2,3,4,5,6,7,8,9,10];
+` createUserWithEmailAndPassword('example@gmail.com', 'examplePassword', 
+    (user: any) => {
+      /*user -> informacion del usuario*/
+    },
+    (errorCode: any, errorMessage: any) => {
+      /*
+        errorCode -> codigo de error
+        errorMessage -> mensaje de error
+      */
+    }
+  );
   
   splitArray(array, 2);
   /* 

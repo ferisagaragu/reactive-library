@@ -33,7 +33,7 @@ class FirebaseView extends Component<Props,State> {
           </h4>
         </Col>
 
-        <Col className="mb-5" md={ 8 }>
+        <Col className="mb-5" md={ 12 }>
           <SyntaxHighlighter 
             language="tsx"
             style={ tomorrow } 
