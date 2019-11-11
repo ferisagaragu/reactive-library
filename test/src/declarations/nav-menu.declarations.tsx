@@ -147,6 +147,12 @@ export const navMenu: Array<BurgerElement> = [
       new BurgerSubElement({
         uid: key(),
         icon: <FontAwesomeIcon icon="cube" />,
+        name: <label>Cookies JS</label>,
+        link: '/cookies-js'
+      }),
+      new BurgerSubElement({
+        uid: key(),
+        icon: <FontAwesomeIcon icon="cube" />,
         name: <label>Date Picker</label>,
         link: '/date-picker'
       }),

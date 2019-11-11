@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { LoginForm, Col, GradientButton, Button, MultiSelect, DatePicker, registerLocale, es, moment, Firebase, FileField } from 'reactive';
+import { LoginForm, Col, GradientButton, Button, MultiSelect, DatePicker, registerLocale, es, moment, Firebase, FileField, Cookies } from 'reactive';
 
 class TestView extends Component<any, any> {
   
@@ -14,6 +14,11 @@ class TestView extends Component<any, any> {
       startDate: new Date(),
       isLoad: false
     };
+  }
+
+  componentDidMount() {
+    //Cookies.set('name', 'value');
+    console.log(Cookies.get('name'))
   }
 
   handleChange = (date: any) => {

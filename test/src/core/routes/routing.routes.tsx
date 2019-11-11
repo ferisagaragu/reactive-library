@@ -17,6 +17,7 @@ import IFrameView from '../../modules/i-frame/i-frame.view';
 import ReactRouterView from '../../modules/react-router/react-router.view';
 import ReduxView from '../../modules/redux/redux.view';
 import SyntaxHighlighterView from '../../modules/syntax-highlighter/syntax-highlighter.view';
+import CookiesJsView from '../../modules/cookies/cookies-js.view';
 
 const Routing = () => {
   return (
@@ -37,6 +38,7 @@ const Routing = () => {
       <Route path="/react-router/" exact component={ ReactRouterView } />
       <Route path="/redux/" exact component={ ReduxView } />
       <Route path="/syntax-highlighter/" exact component={ SyntaxHighlighterView } />
+      <Route path="/cookies-js/" exact component={ CookiesJsView } />
       <Route path="/" exact component={ HomeView } />
       <Route component={ NotFoundView } />
     </Switch>
