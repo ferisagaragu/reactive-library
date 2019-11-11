@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 interface Props { 
+  id: string;
   input: any;
   label: string;
   type: string;
@@ -15,6 +16,7 @@ interface State {}
 export class RenderTextFieldReactive extends React.Component<Props, State> {
   render () {
     const {
+      id,
       input,
       label,
       type,
@@ -39,6 +41,7 @@ export class RenderTextFieldReactive extends React.Component<Props, State> {
         </label>
         <div>
           <input
+            id={ id }
             className={ `${className} ${errorClass}` }
             { ...input }
             placeholder={ label }

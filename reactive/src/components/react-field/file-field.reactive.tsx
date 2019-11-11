@@ -4,11 +4,13 @@ import { SpaceReactive } from '../space/space.reactive';
 
 interface Props {
   className?: string;
+  classImage?: string;
   accept: string;
   isLoad?: boolean;
   loadMessage?: string;
   preview?: boolean;
   onSelectFile: Function;
+  onInit?: Function;
 }
 
 interface State {
@@ -17,12 +19,21 @@ interface State {
 
 export class FileFieldReactive extends React.Component<Props, State> {
   
+  inputRef: any = null; 
+
   constructor(props: Props) {
     super(props);
 
     this.state = {
       fileRender: null
     }
+
+    this.inputRef = React.createRef();
+  }
+
+  componentDidMount() {
+    const { onInit } = this.props;
+    onInit && onInit(this.inputRef);
   }
 
   private onSelectFile(file: any): void {
@@ -32,7 +43,7 @@ export class FileFieldReactive extends React.Component<Props, State> {
   }
   
   render() {
-    const { className, accept, children, isLoad, preview, loadMessage } = this.props;
+    const { className, accept, children, isLoad, preview, loadMessage, classImage } = this.props;
     const { fileRender } = this.state;
 
     return (
@@ -40,7 +51,7 @@ export class FileFieldReactive extends React.Component<Props, State> {
         {
           preview &&
             <>
-              <img className="mb-2" src={ fileRender } width="128" height="128"/>
+              <img className={ `mb-2 ${classImage}` } src={ fileRender } width="128" height="128"/>
               <br />
             </>
         }
@@ -68,6 +79,7 @@ export class FileFieldReactive extends React.Component<Props, State> {
               </>
           }
           <input 
+            ref={ this.inputRef }
             type="file" 
             accept={ accept } 
             onChange={ (evt: any) => this.onSelectFile(evt.target.files[0]) }

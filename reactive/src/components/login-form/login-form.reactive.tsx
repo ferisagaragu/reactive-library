@@ -5,18 +5,19 @@ import { Row, Col, Card } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface Props { 
+  className: string;
+  classCancel: string;
+  classSubmit: string;
   initialValues: any;
   handleSubmit: any;
   cancel: any;
   submitting: any;
-  submitActions: Function;
   showButtons: boolean;
   icon: React.ReactElement;
-  classCancel: string;
   textCancel: string;
-  classSubmit: string;
   textSubmit: string;
   passwordLost: React.ReactElement;
+  submitActions: Function;
 }
 
 interface State { }
@@ -24,6 +25,7 @@ interface State { }
 class LoginForm extends React.Component<Props, State> {
   render() {
     const { 
+      className,
       handleSubmit, 
       cancel, 
       submitting, 
@@ -39,7 +41,7 @@ class LoginForm extends React.Component<Props, State> {
     } = this.props;
     
     return (
-      <Card className="login-container">
+      <Card className={ `login-container ${className}` }>
         <form onSubmit={ handleSubmit(submitActions) }>
           <Row>
             <Col md={ 12 } className="text-center mb-3">
@@ -47,8 +49,8 @@ class LoginForm extends React.Component<Props, State> {
             </Col>
           </Row>
 
-          <Field 
-            className="form-control"
+          <Field
+            className="form-control r-login-user-name"
             name="email"
             type="email"
             component={ RenderTextFieldReactive }
@@ -56,7 +58,7 @@ class LoginForm extends React.Component<Props, State> {
           />
 
           <Field 
-            className="form-control"
+            className="form-control r-login-password"
             name="password"
             type="password"
             component={ RenderTextFieldReactive }
@@ -74,8 +76,8 @@ class LoginForm extends React.Component<Props, State> {
                 }
                 
                 <div className="text-center mt-4">
-                  <button 
-                    className={ `mr-3 ${classCancel}` } 
+                  <button
+                    className={ `mr-3 ${classCancel} r-login-cancel` } 
                     type="button" 
                     onClick={ () => cancel() }
                   >
@@ -83,7 +85,7 @@ class LoginForm extends React.Component<Props, State> {
                   </button>
 
                   <button 
-                    className={ `${classSubmit}` }
+                    className={ `${classSubmit} r-login-submit` }
                     type="submit" 
                     disabled={ submitting }
                   >
@@ -92,7 +94,7 @@ class LoginForm extends React.Component<Props, State> {
                 </div>
               </>
             : 
-              <div className="text-center">
+              <div className="text-center r-login-spinner">
                 <FontAwesomeIcon icon="spinner" size="2x" spin />
               </div>
           }

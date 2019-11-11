@@ -20,6 +20,7 @@ interface State {
 export class NavMenuReactive extends React.Component<Props, State> {
   
   expandedItems: Array<string>;
+  onLoadExpanded: string;
 
   constructor(props: Props) {
     super(props);
@@ -33,8 +34,15 @@ export class NavMenuReactive extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    console.log(window.location.pathname);
-    //Encontrar donde esta el nodo seleccionados
+    const { expandedItem } = this.state;
+
+    if (expandedItem.includes(this.onLoadExpanded)) {
+      removeArrayByMatchReactive(this.expandedItems, this.onLoadExpanded);
+    } else {
+      this.expandedItems.push(this.onLoadExpanded);
+    }
+    
+    this.setState({ expandedItem: this.expandedItems });
   }
 
   private onExpanded(node: BurgerElement): void {
@@ -54,7 +62,21 @@ export class NavMenuReactive extends React.Component<Props, State> {
     );
   }
 
-  private renderChildren(node: BurgerElement): React.ReactElement {
+  private selectNode(selectedItem: string, element: BurgerSubElement, uidFather: string) {
+    if (selectedItem === '' && element.link === window.location.pathname) {
+      this.onLoadExpanded = uidFather;
+      return <b>{ element.name }</b>;
+    } else {
+      return (
+        element.uid === selectedItem ? 
+          <b>{ element.name }</b> 
+        : 
+          element.name
+      );
+    }
+  }
+
+  private renderChildren(node: BurgerElement, uidFather: string): React.ReactElement {
     const { selectedItem } = this.state;
     const { onClick } = this.props;
 
@@ -74,7 +96,7 @@ export class NavMenuReactive extends React.Component<Props, State> {
                 >
                   { element.icon ? element.icon : <FontAwesomeIcon icon="boxes" /> }
                   &nbsp;&nbsp;
-                  { element.uid === selectedItem ? <b>{ element.name }</b> : element.name }
+                  { this.selectNode(selectedItem, element, uidFather) }
                 </div>
               </Link>
             ))
@@ -93,8 +115,8 @@ export class NavMenuReactive extends React.Component<Props, State> {
           node.items.length !== 0 ?
             <NavMenuItemReactive
               icon={ node.icon }
-              label={ node.uid === selectedItem ? <b>{ node.name }</b> : node.name }
-              child={ this.renderChildren(node) }
+              label={ node.name }
+              child={ this.renderChildren(node, node.uid) }
               onClick={ () => this.onExpanded(node) }
               expanded={ expandedItem.includes(node.uid) }
               link={ node.link }
@@ -111,7 +133,15 @@ export class NavMenuReactive extends React.Component<Props, State> {
               >
                 { node.icon ? node.icon : <FontAwesomeIcon icon="boxes" /> }
                 &nbsp;&nbsp;
-                { node.uid === selectedItem ? <b>{ node.name }</b> : node.name }
+                { 
+                  node.link === window.location.pathname ? 
+                    <b>{ node.name }</b> 
+                  : 
+                    node.uid === selectedItem ? 
+                      <b>{ node.name }</b> 
+                    : 
+                      node.name 
+                }
               </div> 
             </Link>
         }

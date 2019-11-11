@@ -15,6 +15,12 @@ export { GradientButtonReactive as GradientButton } from './components/gradient-
 export { LoginFormReactive as LoginForm } from './components/login-form/login-form.reactive';
 export { SpaceReactive as Space } from './components/space/space.reactive';
 export { BugReportReactive as BugReport } from './components/bug-report/bug-report.reactive';
+export { FileFieldReactive as FileField } from './components/react-field/file-field.reactive';
+export { CheckBoxReactive as CheckBox } from './components/react-field/checkbox.reactive';
+export { 
+  SingleSelectReactive as SingleSelect,
+  MultiSelectReactive as MultiSelect 
+} from './components/select/select.reactive';
 
 //+redux-form
 export { RenderTextFieldReactive as RenderTextField } from './components/redux-form/redux-render-text-field.reactive';
@@ -34,15 +40,7 @@ export {
   splitArrayReactive as splitArray,
   removeArrayByMatchReactive as removeArrayByMatch 
 } from './components/util/array.reactive';
-export { 
-  findByTypeReactive as findByType
-} from './components/util/react-util.reactive';
-export {
-  FileFieldReactive as FileField
-} from './components/react-field/file-field.reactive';
-export {
-  CheckBoxReactive as CheckBox
-} from './components/react-field/checkbox.reactive';
+export { findByTypeReactive as findByType } from './components/util/react-util.reactive';
 //========================================================
 
 //============================MODIFY======================
@@ -75,16 +73,6 @@ export {
   FirebaseReactive as Firebase, 
   initializeFirebaseAppReactive as initializeFirebaseApp 
 } from './components/firebase/firebase.reactive';
-
-/*
-  +react-select ->
-    npm i react-select
-    https://react-select.com/
-*/
-export { 
-  SingleSelectReactive as SingleSelect,
-  MultiSelectReactive as MultiSelect 
-} from './components/select/select.reactive';
 //========================================================
 
 //==========================EXPORTS=======================

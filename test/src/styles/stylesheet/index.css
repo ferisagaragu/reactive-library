@@ -67,3 +67,26 @@ code {
 ._404 {
   margin-top: 20%;
 }
+
+
+/*login example css*/
+.r-login-cancel {
+  background: salmon !important;
+}
+
+.r-login-submit {
+  background: green !important;
+}
+
+.r-login-spinner {
+  color: red;
+}
+
+.r-login-user-name {
+  background: rgb(54,0,51);
+}
+
+.r-login-password{
+  background: saddlebrown;
+}
+/*=====================*/

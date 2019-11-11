@@ -36,19 +36,21 @@ class TestView extends Component<any, any> {
         <FileField 
           className="btn-outline-bug btn"
           onSelectFile={ (file: any) => {
-            this.setState({ isLoad: true });
+            /*this.setState({ isLoad: true });
             this.firebase.putStorage('/test/readme.md', file, (url: string) => {
               console.log(url);
               this.setState({ isLoad: false });
-            });
+            });*/
           }}
           accept=""
           loadMessage="Subiendo el archivo"
           isLoad={ isLoad }
           preview={ true }
+          classImage="rounded-circle"
         >
           Sube un archivo
         </FileField>
+
         <div>
           { moment().format("DD/MM/YYYY") }
         </div>
@@ -62,19 +64,22 @@ class TestView extends Component<any, any> {
             { value: 'vanilla', label: 'Vanilla' }
           ]}
         />    
+
         <DatePicker
           locale={ es }
           className="form-control"
-          selected={this.state.startDate}
-          onChange={this.handleChange}
+          selected={ this.state.startDate }
+          onChange={ this.handleChange }
         />  
+
         <Col md={ 8 }>
           <LoginForm
+            className="login"
             submitActions={ (formData: any) => console.log(formData) }
             cancel={ () => console.log('Cancelo') }
             showButtons={ true }
             
-            icon={ <img alt="principal icon" src="https://icon-library.net/images/animated-icon-gif/animated-icon-gif-13.jpg" width="64" /> }
+            icon={ <img alt="principal icon" src="https://icon-library.net/images/animated-icon-gif/animated-icon-gif-13.jpg" width="256" /> }
 
             textCancel="Registrar"
             classCancel="btn-hover purple-darkPurple"
