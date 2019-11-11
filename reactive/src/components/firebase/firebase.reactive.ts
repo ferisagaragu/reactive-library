@@ -70,7 +70,7 @@ export class FirebaseReactive {
     });
   }
 
-  public sendPasswordResetEmail(email: string, onSendMail: Function, onError?: Function) {
+  public sendPasswordResetEmail(email: string, onSendMail: Function, onError?: Function): void {
     firebase.auth().sendPasswordResetEmail(email).then(() => {
       onSendMail();
     }).catch((error: any) => {
