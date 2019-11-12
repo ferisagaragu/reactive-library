@@ -17,7 +17,7 @@ class FirebaseView extends Component<Props,State> {
           </h2>
         </Col>
 
-        <Col md={ 12 }>
+        <Col className="mb-5" md={ 12 }>
           <h4>
             Funciones
           </h4>
@@ -31,9 +31,7 @@ class FirebaseView extends Component<Props,State> {
           <h4>
             Codígo
           </h4>
-        </Col>
 
-        <Col className="mb-5" md={ 12 }>
           <SyntaxHighlighter 
             language="tsx"
             style={ tomorrow } 

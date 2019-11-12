@@ -18,12 +18,13 @@ class App extends Component<any, any> {
     return (
       <>
         <Header
+          className="r-gradient"
           left={
             <Link title="Inicio" className="no-link" to="/home">
               <Row>
                 <Col className="mt-1" md={ 1 }>
                   <ReactiveLogo 
-                    className="reactive-log" 
+                    className="reactive-log r-spin" 
                   /> 
                 </Col>
 
@@ -43,6 +44,7 @@ class App extends Component<any, any> {
         </Container>
 
         <Footer 
+          className="r-gradient"
           left={
             <h3 className="m-3">
               NeuroBrain
