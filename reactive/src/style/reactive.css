@@ -164,10 +164,6 @@
 .header-reactive {
   padding: 10px 16px;
   margin-bottom: 50px;
-  box-shadow: 2px 2px 8px 1px rgba(0, 0, 0, 0.2);
-}
-
-.sticky-reactive {
   position: fixed;
   top: 0;
 	width: 100%;
@@ -599,6 +595,13 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 .btn-file-load {
   cursor: not-allowed;
+}
+/*=================================================*/
+
+/*r-css*/
+.r-app-container {
+  padding-top: 100px;
+  padding-bottom: 100px;
 }
 /*=================================================*/
 

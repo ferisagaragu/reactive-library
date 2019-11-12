@@ -20,31 +20,11 @@ interface State {
 
 export class HeaderReactive extends React.Component<Props, State> {
 
-  headerRef: any = null;
-
   constructor(props: Props) {
     super(props);
-    this.headerRef = React.createRef();
 
     this.state = {
       isOpenMenu: false
-    }
-  }
-
-  componentDidMount() {
-    window.onscroll = () => {
-      this.strictPosition();
-    };
-  }
-
-  private strictPosition(): void {
-    let header = this.headerRef.current;
-    let sticky = header.offsetTop;
-
-    if (window.pageYOffset > sticky) {
-      header.classList.add("sticky-reactive");
-    } else {
-      header.classList.remove("sticky-reactive");
     }
   }
 
@@ -69,7 +49,7 @@ export class HeaderReactive extends React.Component<Props, State> {
     const { isOpenMenu } = this.state;
 
     return (
-      <header ref={ this.headerRef } className={ `header-reactive ${className ? className : ''}` }>
+      <header className={ `header-reactive ${className ? className : ''}` }>
         {
           left || right || center || menuData ?
             <Row>

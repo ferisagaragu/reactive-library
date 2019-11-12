@@ -49,7 +49,7 @@ export class BugReportReactive extends React.Component<Props, State> {
     this.setState({ isShow: false });
   }
 
-  private onCheck(value: boolean, element: any): void {
+  private onCheck(value: boolean, element: any, checkRef: any): void {
     const { titleAlter, textAlter } = this.props;
 
     alertQuestionReactive(
@@ -59,6 +59,9 @@ export class BugReportReactive extends React.Component<Props, State> {
       () => {
         element.resolved = value;
         this.firebase.update(`bugReport/${element.uid}`, element);
+      },
+      () => {
+        checkRef.checked = false;
       }
     );
   }
@@ -96,7 +99,7 @@ export class BugReportReactive extends React.Component<Props, State> {
           closeButton={ true }
         >
           <TabBug 
-            onCheck={ (value: boolean, element: any) => this.onCheck(value, element) }
+            onCheck={ (value: boolean, element: any, checkRef: any) => this.onCheck(value, element, checkRef) }
             bugData={ bugData }
           />
         </ModalReactive>

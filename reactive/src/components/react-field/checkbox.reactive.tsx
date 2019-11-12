@@ -33,7 +33,7 @@ export class CheckBoxReactive extends React.Component<Props,State> {
   private onChange(checkbox: any): void {
     const { onChange } = this.props;
     this.setState({ renderChecked: checkbox.checked });
-    onChange && onChange(checkbox.checked);
+    onChange && onChange(checkbox.checked, checkbox);
   }
   
   render() {

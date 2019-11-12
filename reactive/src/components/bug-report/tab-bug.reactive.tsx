@@ -60,8 +60,8 @@ export class TabBug extends React.Component<Props, State> {
                   </Col>
 
                   <Col md={ 1 }>
-                    <CheckBoxReactive 
-                      onChange={ (value: boolean) => onCheck(value, element) }
+                    <CheckBoxReactive
+                      onChange={ (value: boolean, checkbox: any) => onCheck(value, element, checkbox) }
                       checked={ element.resolved } 
                     />
                   </Col>
