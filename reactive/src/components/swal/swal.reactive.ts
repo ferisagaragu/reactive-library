@@ -5,12 +5,15 @@ const swal = withReactContent(Swal);
 
 export const toastReactive = (
   iconType: "success" | "error" | "warning" | "info" | "question" , 
-  title: string
-) => {
+  title: string,
+  position?: 'top' | 'top-start' | 'top-end' | 'top-left' | 'top-right' |
+  'center' | 'center-start' | 'center-end' | 'center-left' | 'center-right' |
+  'bottom' | 'bottom-start' | 'bottom-end' | 'bottom-left' | 'bottom-right'
+): void => {
   
   const Toast = swal.mixin({
     toast: true,
-    position: 'bottom-end',
+    position: !position ? 'bottom-end' : position,
     showConfirmButton: false,
     timer: 3000
   });
@@ -25,7 +28,7 @@ export const alertReactive = (
   iconType: "success" | "error" | "warning" | "info" | "question", 
   title: string, 
   text: string
-) => {
+): void => {
 
   Swal.fire({
     type: iconType,
@@ -38,8 +41,9 @@ export const alertQuestionReactive = (
   iconType: "success" | "error" | "warning" | "info" | "question", 
   title: string, 
   text: string, 
-  onSuccess: Function
-) => {
+  onSuccess: Function,
+  onCancel?: Function
+): void => {
 
   Swal.fire({
     title,
@@ -53,6 +57,8 @@ export const alertQuestionReactive = (
   }).then((result: any) => {
     if (result.value) {
       onSuccess();
+    } else {
+      onCancel && onCancel();
     }
   })
 }

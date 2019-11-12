@@ -21,6 +21,8 @@ import CookiesJsView from '../../modules/cookies/cookies-js.view';
 import ArrayView from '../../modules/array-reactive/array.view';
 import FirebaseView from '../../modules/firebase/firebase.view';
 import JSONView from '../../modules/json/json.view';
+import KeyView from '../../modules/key/key.view';
+import Sweetalert2View from '../../modules/sweetalert2/sweetalert2.view';
 
 const Routing = () => {
   return (
@@ -45,6 +47,8 @@ const Routing = () => {
       <Route path="/array/" exact component={ ArrayView } />
       <Route path="/firebase/" exact component={ FirebaseView } />
       <Route path="/json/" exact component={ JSONView } />
+      <Route path="/key/" exact component={ KeyView } />
+      <Route path="/sweetalert2/" exact component={ Sweetalert2View } />
       <Route path="/" exact component={ HomeView } />
       <Route component={ NotFoundView } />
     </Switch>

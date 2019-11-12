@@ -3,6 +3,7 @@ import { BurgerElement, BurgerSubElement, FontAwesomeIcon, key } from "reactive"
 import { ReactComponent as ComponentIncon } from '../styles/svg/html.svg';
 import { ReactComponent as FunctionIncon } from '../styles/svg/function.svg';
 import { ReactComponent as ReduxIcon } from '../styles/svg/redux.svg';
+import { ReactComponent as CssIcon } from '../styles/svg/css3.svg';
 
 export const navMenu: Array<BurgerElement> = [
   new BurgerElement({
@@ -101,6 +102,12 @@ export const navMenu: Array<BurgerElement> = [
         link: '/tree'
       })
     ]
+  }),
+  new BurgerElement({
+    uid: key(),
+    icon: <CssIcon className="menu-icon"/>,
+    name: <label>Reactive CSS</label>,
+    link: '/r-css'
   }),
   new BurgerElement({
     uid: key(),
@@ -222,12 +229,6 @@ export const navMenu: Array<BurgerElement> = [
         icon: <FontAwesomeIcon icon="cogs" />,
         name: <label>Key</label>,
         link: '/key'
-      }),
-      new BurgerSubElement({
-        uid: key(),
-        icon: <FontAwesomeIcon icon="cogs" />,
-        name: <label>React Util</label>,
-        link: '/react-util'
       }),
       new BurgerSubElement({
         uid: key(),

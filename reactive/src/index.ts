@@ -40,7 +40,6 @@ export {
   splitArrayReactive as splitArray,
   removeArrayByMatchReactive as removeArrayByMatch 
 } from './components/util/array.reactive';
-export { findByTypeReactive as findByType } from './components/util/react-util.reactive';
 //========================================================
 
 //============================MODIFY======================
