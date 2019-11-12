@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { LoginForm, Col, GradientButton, Button, MultiSelect, DatePicker, registerLocale, es, moment, Firebase, FileField, Cookies } from 'reactive';
+import { LoginForm, Col, MultiSelect, DatePicker, registerLocale, es, moment, Firebase, FileField, Cookies } from 'reactive';
 
 class TestView extends Component<any, any> {
   
@@ -38,6 +38,31 @@ class TestView extends Component<any, any> {
 
     return (
       <div>
+        <Col md={ 8 }>
+          <LoginForm
+            className="login"
+            classIcon=""
+            classLogin=""
+            classRegist=""
+            classGoogle=""
+            iconUrl="https://icon-library.net/images/animated-icon-gif/animated-icon-gif-13.jpg"
+
+            textUser="User =/"
+            textpassword="Password =)"
+            textRegist="Registrar =)"
+            textLogin="Iniciar sesión =)"
+            textGoogle="Iniciar sesión con Google =)"
+            textPasswordLost="¿No recuerdas tu contraseña? =)"
+          
+            //isLoading
+            googleSingin
+          
+          
+            onLogin={ () => {} }
+            onRegist={ () => {} }
+          />
+        </Col>
+
         <FileField 
           className="btn-outline-bug btn"
           onSelectFile={ (file: any) => {
@@ -75,32 +100,7 @@ class TestView extends Component<any, any> {
           className="form-control"
           selected={ this.state.startDate }
           onChange={ this.handleChange }
-        />  
-
-        <Col md={ 8 }>
-          <LoginForm
-            className="login"
-            submitActions={ (formData: any) => console.log(formData) }
-            cancel={ () => console.log('Cancelo') }
-            showButtons={ true }
-            
-            icon={ <img alt="principal icon" src="https://icon-library.net/images/animated-icon-gif/animated-icon-gif-13.jpg" width="256" /> }
-
-            textCancel="Registrar"
-            classCancel="btn-hover purple-darkPurple"
-
-            textSubmit="Entrar"
-            classSubmit="btn-hover pink-orange"
-
-            passwordLost={ <a href="/hola">¿Olvidaste tu contraseña?</a> }
-          >
-            <GradientButton variant="ligthBlue-purple">
-              Iniciar sesión con Google
-            </GradientButton>
-          </LoginForm>
-
-          <Button>Hola</Button>
-        </Col>
+        />
       </div>
     );
   }

@@ -87,11 +87,11 @@ code {
 }
 
 /*login example css*/
-.r-login-cancel {
+.r-login-regist {
   background: salmon !important;
 }
 
-.r-login-submit {
+.r-login-login {
   background: green !important;
 }
 
@@ -105,5 +105,9 @@ code {
 
 .r-login-password{
   background: saddlebrown;
+}
+
+.r-login-google {
+  background: red;
 }
 /*=====================*/

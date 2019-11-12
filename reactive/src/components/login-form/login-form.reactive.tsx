@@ -3,20 +3,27 @@ import { Field, reduxForm } from '../../exports/redux.export';
 import { RenderTextFieldReactive } from '../redux-form/redux-render-text-field.reactive';
 import { Row, Col, Card } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { GoogleIcon } from './res/google.icon';
+import { SpaceReactive } from '../space/space.reactive';
 
 interface Props { 
   className: string;
-  classCancel: string;
-  classSubmit: string;
-  initialValues: any;
+  classLogin: string;
+  classRegist: string;
+  classGoogle: string;
+  classIcon: string;
   handleSubmit: any;
   cancel: any;
   submitting: any;
-  showButtons: boolean;
-  icon: React.ReactElement;
-  textCancel: string;
-  textSubmit: string;
-  passwordLost: React.ReactElement;
+  isLoading: boolean;
+  iconUrl: string;
+  textUser: string;
+  textPassword: string;
+  textRegist: string;
+  textLogin: string;
+  textGoogle: string;
+  textPasswordLost: React.ReactElement;
+  googleSingin?: boolean;
   submitActions: Function;
 }
 
@@ -26,18 +33,27 @@ class LoginForm extends React.Component<Props, State> {
   render() {
     const { 
       className,
+      classIcon,
+      classLogin,
+      classRegist, 
+      classGoogle,
+
+
       handleSubmit, 
       cancel, 
       submitting, 
       submitActions, 
-      showButtons, 
-      icon, 
-      classCancel, 
-      textCancel, 
-      classSubmit, 
-      textSubmit,
-      passwordLost,
-      children
+      isLoading, 
+      iconUrl, 
+      
+      textUser,
+      textPassword,
+      textRegist, 
+      textLogin,
+      textGoogle,
+      textPasswordLost,
+
+      googleSingin
     } = this.props;
     
     return (
@@ -45,7 +61,7 @@ class LoginForm extends React.Component<Props, State> {
         <form onSubmit={ handleSubmit(submitActions) }>
           <Row>
             <Col md={ 12 } className="text-center mb-3">
-              { icon }
+              <img className={ `${classIcon} r-login-icon` } alt="login logo" src={ iconUrl } />
             </Col>
           </Row>
 
@@ -54,7 +70,7 @@ class LoginForm extends React.Component<Props, State> {
             name="email"
             type="email"
             component={ RenderTextFieldReactive }
-            label="Nombre de usuario"
+            label={ textUser }
           />
 
           <Field 
@@ -62,35 +78,50 @@ class LoginForm extends React.Component<Props, State> {
             name="password"
             type="password"
             component={ RenderTextFieldReactive }
-            label="Contraseña"
+            label={ textPassword }
           />
 
           {
-            showButtons ?
+            isLoading ?
               <>
-                {
-                  passwordLost &&
-                    <div className="text-center mt-2">
-                      { passwordLost }
-                    </div>
-                }
-                
                 <div className="text-center mt-4">
                   <button
-                    className={ `mr-3 ${classCancel} r-login-cancel` } 
+                    className={ `mr-3 ${classRegist} r-login-regist` } 
                     type="button" 
                     onClick={ () => cancel() }
                   >
-                    { textCancel }
+                    <FontAwesomeIcon icon="user-plus"/>
+                    <SpaceReactive spaces={ 2 } />
+                    { textRegist }
                   </button>
 
                   <button 
-                    className={ `${classSubmit} r-login-submit` }
+                    className={ `${classLogin} r-login-login` }
                     type="submit" 
                     disabled={ submitting }
                   >
-                    { textSubmit }
+                    <FontAwesomeIcon icon="sign-in-alt"/>
+                    <SpaceReactive spaces={ 2 } />
+                    { textLogin }
                   </button>
+                </div>
+
+                {
+                  googleSingin &&
+                  <div className="text-center mt-3 mb-3">
+                    <button 
+                      className={ `${classGoogle} r-login-google` }
+                      type="button"
+                    > 
+                      <GoogleIcon />
+                      <SpaceReactive spaces={ 2 } />
+                      { textGoogle }
+                    </button>
+                  </div>
+                } 
+
+                <div className="text-center mt-2">
+                  { textPasswordLost }
                 </div>
               </>
             : 
@@ -99,7 +130,6 @@ class LoginForm extends React.Component<Props, State> {
               </div>
           }
         </form>
-        { children }
       </Card>
     );
   }
