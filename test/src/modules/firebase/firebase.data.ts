@@ -85,8 +85,7 @@ export const exampleCode = (
 ` createUserWithEmailAndPassword('example@gmail.com', 'examplePassword', 
     (user: any) => {
       /*user -> informacion del usuario*/
-    },
-    (errorCode: any, errorMessage: any) => {
+    }, (errorCode: any, errorMessage: any) => {
       /*
         errorCode -> codigo de error
         errorMessage -> mensaje de error
@@ -94,20 +93,104 @@ export const exampleCode = (
     }
   );
   
-  splitArray(array, 2);
-  /* 
-    [
-      [1,2],
-      [3,4],
-      [5,6],
-      [7,8],
-      [9,10]
-    ]
-  */
+  signInWithEmailAndPassword('example@gmail.com', 'examplePassword',
+    (user: any) => {
+      /*user -> informacion del usuario*/
+    }, (errorCode: any, errorMessage: any) => {
+      /*
+        errorCode -> codigo de error
+        errorMessage -> mensaje de error
+      */
+    }
+  );
 
-  removeArrayByMatch(array, 2);
-  /* 
-    [1,3,4,5,6,7,8,9,10]
- */
+  sendPasswordResetEmail('example@gmail.com', 
+    () => {
+      /*Se ejecuta cuando se manda el corre de recuperación*/
+    }, (error: any) => {
+      /*
+        error -> codigo de error
+      */
+    }
+  );
+
+  signInWithGooglePopup(
+    (token: any, user: any) => {
+      /*
+        token -> token del usuario ingresado
+        user -> informacion del usuario
+      */
+    }, (errorCode: any, errorMessage: any) {
+      /*
+        errorCode -> codigo de error
+        errorMessage -> mensaje de error
+      */
+    }
+  );
+
+  signOut(
+    () => {
+      /*Esta parte se ejecuta cuando el usuario cerro sesión*/
+    }, (error: any) => {
+      /*
+        error -> codigo de error
+      */
+    } 
+  );
+
+  on('example', (snapshot: any) => {
+    /*
+      snapshot -> datos de firebase
+    */
+  });
+
+  once('example', (snapshot: any) => {
+    /*
+      snapshot -> datos de firebase
+    */
+  });
+
+  remove('example', (error: any) => {
+    /*
+      error -> codigo de error
+    */
+  });
+
+  update('example', { example: 'data' }, 
+    () => {
+      /*
+        se ejecuta al actualizar
+      */
+    }, (error: any) => {
+      /*
+        error -> codigo de error
+      */
+    }
+  );
+
+  set('example', { example: 'data' },
+    (error: any) => {
+      /*
+        error -> codigo de error
+      */
+    }
+  );
+
+  push('example', { example: 'data' },
+    (error: any) => {
+      /*
+        error -> codigo de error
+      */
+    }
+  );
+
+  putStorage('example', /*AQUÍ VA UN ARCHIVO*/
+    (url: string, snapshot: any) => {
+      /*
+        url -> url del archivo subido
+        snapshot -> datos de firebase
+      */
+    }
+  );
 `
 );

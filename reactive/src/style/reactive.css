@@ -408,7 +408,6 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 
 /* https://codepen.io/JavaScriptJunkie/pen/pPRooV */
-
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -508,6 +507,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
   background-image: linear-gradient(to right, #757575, #90A4AE, #78909C, #607D8B);  
   box-shadow: 0 5px 15px #B0BEC5;
 }
+/*=================================================*/
 
 /*Login form*/
 .login-container {
