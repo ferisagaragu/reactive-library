@@ -19,7 +19,7 @@ export function oderJSONByReactive(jsonElement: any, orderElements: Array<string
   return out;
 }
 
-export function convertJSONToArrayReactive(jsonElement: any): any {
+export function convertJSONToArrayReactive(jsonElement: any): Array<any> {
   const out: Array<any> = [];
   
   for (let jsonKey in jsonElement) {
@@ -78,7 +78,7 @@ export function getIndexInJSONArrayReactive(
   return replaceIndex;
 }
 
-export function isJSONReactive(value: any) {
+export function isJSONReactive(value: any): boolean {
   try {
     JSON.stringify(value);
     return true;
