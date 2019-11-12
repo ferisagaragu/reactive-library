@@ -20,6 +20,7 @@ import SyntaxHighlighterView from '../../modules/syntax-highlighter/syntax-highl
 import CookiesJsView from '../../modules/cookies/cookies-js.view';
 import ArrayView from '../../modules/array-reactive/array.view';
 import FirebaseView from '../../modules/firebase/firebase.view';
+import JSONView from '../../modules/json/json.view';
 
 const Routing = () => {
   return (
@@ -43,6 +44,7 @@ const Routing = () => {
       <Route path="/cookies-js/" exact component={ CookiesJsView } />
       <Route path="/array/" exact component={ ArrayView } />
       <Route path="/firebase/" exact component={ FirebaseView } />
+      <Route path="/json/" exact component={ JSONView } />
       <Route path="/" exact component={ HomeView } />
       <Route component={ NotFoundView } />
     </Switch>
