@@ -34,7 +34,7 @@ class FormRegisterUser extends React.Component<Props, State> {
       <form onSubmit={ handleSubmit(submitActions) }>
         
         <FileFieldReactive 
-          className="btn-outline-bug btn"
+          className="btn-outline-bug btn mb-3"
           onSelectFile={ (file: any) => {
             /*this.setState({ isLoad: true });
             this.firebase.putStorage('/test/readme.md', file, (url: string) => {
@@ -44,20 +44,60 @@ class FormRegisterUser extends React.Component<Props, State> {
 
             console.log(file);
           }}
-          accept=""
+          accept="image/x-png,image/gif,image/jpeg"
           loadMessage="Subiendo el archivo"
           preview={ true }
           classImage="rounded-circle"
         >
-          Sube un archivo
+          Imagen de perfil
         </FileFieldReactive>
         
         <Field 
           className="form-control"
+          name="nickName"
+          component={ RenderTextFieldReactive }
+          label="Nombre de usuario"
+          type="text"
+        />
+
+        <Field 
+          className="form-control"
+          name="name"
+          component={ RenderTextFieldReactive }
+          label="Nombres"
+          type="text"
+        />
+
+        <Field 
+          className="form-control"
+          name="lastName"
+          component={ RenderTextFieldReactive }
+          label="Apellidos"
+          type="text"
+        />
+
+        <Field 
+          className="form-control"
           name="email"
           component={ RenderTextFieldReactive }
-          label="Correo electronico"
-          type="file"
+          label="Correo electrónico"
+          type="email"
+        />
+
+        <Field 
+          className="form-control"
+          name="password"
+          component={ RenderTextFieldReactive }
+          label="Contraseña"
+          type="password"
+        />
+
+        <Field 
+          className="form-control"
+          name="phoneNumber"
+          component={ RenderTextFieldReactive }
+          label="Número teléfonico"
+          type="text"
         />
 
         <div className="text-center">
@@ -83,14 +123,39 @@ class FormRegisterUser extends React.Component<Props, State> {
 
 const validate = (values: any) => {
   const errors = {
-    email: ''
+    nickName: '',
+    name: '',
+    lastName: '',
+    email: '',
+    password: '',
+    phoneNumber: ''
   }
   
+  if (!values.nickName) {
+    errors.nickName = 'El nombre de usuario es requerido';
+  }
+
+  if (!values.name) {
+    errors.name = 'Los nombres son requeridos';
+  }
+
+  if (!values.lastName) {
+    errors.lastName = 'Los apellidos son requeridos';
+  }
+
   if (!values.email) {
     errors.email = 'El correo electrónico es requerido';
   }
 
-  return errors
+  if (!values.password) {
+    errors.password = 'La contraseña es requerida';
+  }
+
+  if (!values.phoneNumber) {
+    errors.phoneNumber = 'El número teléfonico es requerido';
+  }
+
+  return errors;
 }
 
 export const FormRegisterUserReactive = reduxForm({
