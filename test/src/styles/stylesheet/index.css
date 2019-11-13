@@ -110,4 +110,9 @@ code {
 .r-login-google {
   background: red;
 }
+
+.r-login-icon {
+  width: 256px;
+  height: 256px;
+}
 /*=====================*/

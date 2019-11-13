@@ -510,6 +510,18 @@ Note: Beware of modifying this element as it can break the animations - you shou
   padding: 50px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
+.login-recover-password {
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  color: #069;
+  cursor: pointer;
+}
+
+.login-recover-password:hover {
+  text-decoration: underline;
+}
 /*=================================================*/
 
 /*Util*/

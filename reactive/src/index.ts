@@ -230,4 +230,5 @@ export { TreeElement } from './exports/model/tree-element.model';
 export { BurgerElement } from './exports/model/burger-element.model';
 export { BurgerSubElement } from './exports/model/burger-sub-element.model';
 export { SelectElement } from './exports/model/select-element.model';
+export { UserData } from './exports/model/user-data.model';
 //========================================================

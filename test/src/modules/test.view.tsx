@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { LoginForm, Col, MultiSelect, DatePicker, registerLocale, es, moment, Firebase, FileField, Cookies } from 'reactive';
+import { LoginForm, Col, MultiSelect, DatePicker, registerLocale, es, moment, Firebase, FileField, Cookies, UserData } from 'reactive';
 
 class TestView extends Component<any, any> {
   
@@ -53,13 +53,20 @@ class TestView extends Component<any, any> {
             textLogin="Iniciar sesión =)"
             textGoogle="Iniciar sesión con Google =)"
             textPasswordLost="¿No recuerdas tu contraseña? =)"
-          
+            textLoginMessage="Bienvenido $(name)"
+
             //isLoading
             googleSingin
           
           
-            onLogin={ () => {} }
+            onLogin={ (userData: UserData) => {
+              console.log(userData);
+            }}
             onRegist={ () => {} }
+
+
+  
+
           />
         </Col>
 

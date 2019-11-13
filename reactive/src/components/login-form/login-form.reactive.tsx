@@ -24,7 +24,9 @@ interface Props {
   textGoogle: string;
   textPasswordLost: React.ReactElement;
   googleSingin?: boolean;
+  onGoogle: Function;
   submitActions: Function;
+  recoverPassword: Function;
 }
 
 interface State { }
@@ -53,7 +55,10 @@ class LoginForm extends React.Component<Props, State> {
       textGoogle,
       textPasswordLost,
 
-      googleSingin
+      googleSingin,
+      onGoogle,
+
+      recoverPassword
     } = this.props;
     
     return (
@@ -71,6 +76,7 @@ class LoginForm extends React.Component<Props, State> {
             type="email"
             component={ RenderTextFieldReactive }
             label={ textUser }
+            disabled={ isLoading }
           />
 
           <Field 
@@ -79,10 +85,11 @@ class LoginForm extends React.Component<Props, State> {
             type="password"
             component={ RenderTextFieldReactive }
             label={ textPassword }
+            disabled={ isLoading }
           />
 
           {
-            isLoading ?
+            !isLoading ?
               <>
                 <div className="text-center mt-4">
                   <button
@@ -112,6 +119,7 @@ class LoginForm extends React.Component<Props, State> {
                     <button 
                       className={ `${classGoogle} r-login-google` }
                       type="button"
+                      onClick={ () => onGoogle() }
                     > 
                       <GoogleIcon />
                       <SpaceReactive spaces={ 2 } />
@@ -121,7 +129,9 @@ class LoginForm extends React.Component<Props, State> {
                 } 
 
                 <div className="text-center mt-2">
-                  { textPasswordLost }
+                  <button className="login-recover-password" type="button" onClick={ () => recoverPassword() }>
+                    { textPasswordLost }
+                  </button>
                 </div>
               </>
             : 
@@ -142,7 +152,7 @@ const validate = (values: any) => {
   }
   
   if (!values.email) {
-    errors.email = 'El nombre de usuario es requerido';
+    errors.email = 'El correo electrónico es requerido';
   }
 
   if (!values.password) {
