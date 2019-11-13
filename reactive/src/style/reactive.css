@@ -522,6 +522,12 @@ Note: Beware of modifying this element as it can break the animations - you shou
 .login-recover-password:hover {
   text-decoration: underline;
 }
+
+.login-in {
+  animation-duration: 1s;
+  animation-iteration-count: initial;
+  animation-name: 'fadeInLeft';
+}
 /*=================================================*/
 
 /*Util*/

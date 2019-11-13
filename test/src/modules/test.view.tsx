@@ -45,15 +45,25 @@ class TestView extends Component<any, any> {
             classLogin=""
             classRegist=""
             classGoogle=""
+            classRecover=""
+            classCancelRecover=""
+            classRegistForm=""
+            classCancelRegist=""
             iconUrl="https://icon-library.net/images/animated-icon-gif/animated-icon-gif-13.jpg"
 
-            textUser="User =/"
+            textEmail="User =/"
             textpassword="Password =)"
             textRegist="Registrar =)"
             textLogin="Iniciar sesión =)"
             textGoogle="Iniciar sesión con Google =)"
             textPasswordLost="¿No recuerdas tu contraseña? =)"
             textLoginMessage="Bienvenido $(name)"
+
+            textCancelRecover="Cancelar recuperacion :$"
+            textRecover="Recuperar :/"
+
+            textRegistForm="registrar c:"
+            textCancelRegist="cancelar :C"
 
             //isLoading
             googleSingin

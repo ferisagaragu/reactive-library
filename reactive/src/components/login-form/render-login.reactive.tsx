@@ -3,8 +3,9 @@ import { LoginFormReactive } from './login-form.reactive';
 import { FirebaseReactive } from '../firebase/firebase.reactive';
 import { toastReactive } from '../swal/swal.reactive';
 import { UserData } from '../../exports/model/user-data.model';
-import { ModalReactive } from '../modal/modal.reactive';
-import { FormRecoverPasswordReactive } from './form-recover-password.component';
+import { FormRecoverPasswordReactive } from './form-recover-password.reactive';
+import { Card } from 'react-bootstrap';
+import { FormRegisterUserReactive } from './form-register-user.reactive';
 
 interface Props { 
   className?: string;
@@ -12,19 +13,29 @@ interface Props {
   classLogin?: string;
   classRegist?: string;
   classGoogle?: string;
+  classRecover?: string;
+  classCancelRecover?: string;
+  classRegistForm?: string;
+  classCancelRegist?: string;
   
-  
+
   iconUrl: string;
 
-  textUser: string;
+  textEmail: string;
   textpassword: string;
-  textRegist: string;
-  textLogin: string;
-  textGoogle: string;
-  textPasswordLost: string;
+
+  textRegist: React.ReactElement;
+  textLogin: React.ReactElement;
+  textGoogle: React.ReactElement;
+  textPasswordLost: React.ReactElement;
 
   textLoginMessage: string;
 
+  textCancelRecover: React.ReactElement;
+  textRecover: React.ReactElement;
+
+  textRegistForm: React.ReactElement;
+  textCancelRegist: React.ReactElement;
 
   googleSingin?: boolean;
 
@@ -35,7 +46,8 @@ interface Props {
 
 interface State { 
   isLoadig: boolean;
-  showModal: boolean;
+  caseShow: number;
+  cssAnimation: string;
 }
 
 export class RenderLoginReactive extends React.Component<Props,State> {
@@ -47,7 +59,8 @@ export class RenderLoginReactive extends React.Component<Props,State> {
 
     this.state = {
       isLoadig: false,
-      showModal: false
+      caseShow: 0,
+      cssAnimation: ''
     }
   }
 
@@ -168,7 +181,6 @@ export class RenderLoginReactive extends React.Component<Props,State> {
   }
 
   private recoverPassword(formData: any): void {
-    console.log(formData);
     this.firebase.sendPasswordResetEmail(formData.email, 
       () => {
         toastReactive(
@@ -201,58 +213,88 @@ export class RenderLoginReactive extends React.Component<Props,State> {
       classRegist,
       classLogin,
       classIcon,
+      classRecover,
+      classCancelRecover,
+      classRegistForm,
+      classCancelRegist,
+
       iconUrl,
 
-      textUser,
+      textEmail,
       textpassword,
+
       textRegist,
       textLogin,
       textGoogle,
       textPasswordLost,
 
-      googleSingin
+      textCancelRecover,
+      textRecover,
 
+      textRegistForm,
+      textCancelRegist,
+
+      googleSingin
     } = this.props;
-    const { isLoadig, showModal } = this.state;
+    const { isLoadig, caseShow, cssAnimation } = this.state;
 
     return (
       <>
-        <ModalReactive 
-          title="Recuperar contraseña"
-          modalShow={ showModal }
-          onHide={ () => this.setState({ showModal: false }) }
-          size="lg"
-          centered={ true }
-        >
-          <FormRecoverPasswordReactive 
-            submitActions={ (formData: any) => this.recoverPassword(formData) }
-            cancel={ () => this.setState({ showModal: false }) }
-          />
-        </ModalReactive>
+        {
+          caseShow === -1 && 
+            <Card className={ `login-container ${className} login-in` }>
+              <FormRegisterUserReactive
+                classRegistForm={ classRegistForm }
+                classCancelRegist={ classCancelRegist }
+                submitActions={ (formData: any) => console.log(formData) }
+                cancel={ () => this.setState({ caseShow: 0, cssAnimation: 'login-in' }) }
+                textRegistForm={ textRegistForm }
+                textCancelRegist={ textCancelRegist }
+              />
+            </Card>
+        }
 
-        <LoginFormReactive
-          className={ className }
-          classRegist={ classRegist }
-          classSubmit={ classLogin }
-          classIcon={ classIcon }
-          iconUrl={ iconUrl }
+        {
+          caseShow === 0 && 
+            <Card className={ `login-container ${className} ${cssAnimation}` }>
+              <LoginFormReactive
+                classRegist={ classRegist }
+                classSubmit={ classLogin }
+                classIcon={ classIcon }
+                iconUrl={ iconUrl }
 
-          submitActions={ (formData: any) => this.logIn(formData) }
-          onGoogle={ () => this.logInGoogle() }
-          cancel={ () => console.log('Cancelo') }
-          isLoading={ isLoadig }
+                submitActions={ (formData: any) => this.logIn(formData) }
+                onGoogle={ () => this.logInGoogle() }
+                cancel={ () => this.setState({ caseShow: -1 }) }
+                isLoading={ isLoadig }
 
-          textUser={ textUser }
-          textPassword={ textpassword }
-          textRegist={ textRegist }
-          textLogin={ textLogin }
-          textGoogle={ textGoogle }
-          
-          textPasswordLost={ textPasswordLost }
+                textEmail={ textEmail }
+                textPassword={ textpassword }
 
-          googleSingin={ googleSingin }
-          recoverPassword={ () => this.setState({ showModal: true }) }
-        />
+                textRegist={ textRegist }
+                textLogin={ textLogin }
+                textGoogle={ textGoogle }
+                textPasswordLost={ textPasswordLost }
+
+                googleSingin={ googleSingin }
+                recoverPassword={ () => this.setState({ caseShow: 1 }) }
+              />
+            </Card>
+        }
+        
+        {
+          caseShow === 1 &&
+            <Card className={ `login-container ${className} login-in` }>
+              <FormRecoverPasswordReactive 
+                submitActions={ (formData: any) => this.recoverPassword(formData) }
+                cancel={ () => this.setState({ caseShow: 0, cssAnimation: 'login-in' }) }
+                classRecover={ classRecover }
+                classCancelRecover={ classCancelRecover }
+                textCancelRecover={ textCancelRecover }
+                textRecover={ textRecover }
+              />
+            </Card>
+        }
       </>
     );
   }

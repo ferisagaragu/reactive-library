@@ -21,10 +21,7 @@ const icons: any = [
   awesomeIcons.faArrowDown,
   awesomeIcons.faArrowUp,
   awesomeIcons.faMinus,
-  awesomeIcons.faFileUpload,
-  awesomeIcons.faSignInAlt,
-  awesomeIcons.faUserPlus,
-  awesomeIcons.faUndo
+  awesomeIcons.faFileUpload
 ];
 
 export const awesomeIconsReactive = awesomeIcons;

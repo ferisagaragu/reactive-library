@@ -1,10 +1,12 @@
 import * as React from 'react';
-import { Button } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Field, reduxForm } from '../../exports/redux.export';
 import { RenderTextFieldReactive } from '../redux-form/redux-render-text-field.reactive';
 
-interface Props { 
+interface Props {
+  classRecover: string;
+  classCancelRecover: string;
+  textCancelRecover: React.ReactElement;
+  textRecover: React.ReactElement;
   initialValues: any;
   handleSubmit: any;
   cancel: any;
@@ -16,7 +18,16 @@ interface State { }
 
 class FormRecoverPassword extends React.Component<Props, State> {
   render() {
-    const { handleSubmit, cancel, submitting, submitActions } = this.props;
+    const { 
+      classRecover,
+      classCancelRecover,
+      textCancelRecover,
+      textRecover,
+      handleSubmit, 
+      cancel, 
+      submitting, 
+      submitActions 
+    } = this.props;
     
     return (
       <form onSubmit={ handleSubmit(submitActions) }>
@@ -28,26 +39,22 @@ class FormRecoverPassword extends React.Component<Props, State> {
           type="email"
         />
 
-        <div className="text-right">
-          <Button 
+        <div className="text-center">
+          <button 
+            className={ `mr-3 ${classCancelRecover} r-login-cancel-recover` }
+            type="button"
+            onClick={ cancel }
+          >
+            { textCancelRecover }
+          </button>
+          
+          <button
+            className={ `r-login-recover ${classRecover}` }
             type="submit" 
             disabled={ submitting }
-            variant="info"
           >
-            <FontAwesomeIcon icon="undo" />
-            &nbsp;
-            Recuperar contraseña
-          </Button>
-
-          <Button 
-            className="ml-3"
-            onClick={ cancel }
-            variant="danger"
-          >
-            <FontAwesomeIcon icon="times" />
-            &nbsp;
-            Cancelar
-          </Button>
+            { textRecover }
+          </button>
         </div>
       </form>
     );
