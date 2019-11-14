@@ -3,6 +3,7 @@ import { Field, reduxForm } from '../../exports/redux.export';
 import { RenderTextFieldReactive } from '../redux-form/redux-render-text-field.reactive';
 import { FileFieldReactive } from '../react-field/file-field.reactive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { RenderMaskFieldReactive } from '../redux-form/redux-render-mask-field.reactive';
 
 interface Props {
   classRegistForm: string;
@@ -60,7 +61,7 @@ class FormRegisterUser extends React.Component<Props, State> {
       <form onSubmit={ handleSubmit((formValues: any) => this.submitActions(formValues)) }>
         
         <FileFieldReactive 
-          className="btn-outline-dark btn mb-3"
+          className={ `btn-outline-dark btn mb-3 ${(!fileLoad && submit) && 'error'}` }
           onSelectFile={ (file: any) => this.setState({ fileLoad: file }) }
           accept="image/x-png,image/gif,image/jpeg"
           loadMessage="Subiendo el archivo"
@@ -125,10 +126,11 @@ class FormRegisterUser extends React.Component<Props, State> {
         <Field 
           className="form-control"
           name="phoneNumber"
-          component={ RenderTextFieldReactive }
+          component={ RenderMaskFieldReactive }
           label="Número teléfonico"
           type="text"
           disabled={ isLoading }
+          mask="+52 (99) 99-99-99-99"
         />
 
         {
@@ -191,8 +193,21 @@ const validate = (values: any) => {
     errors.password = 'La contraseña es requerida';
   }
 
+  if (values.password) {
+    const result = values.password.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/);
+    if (!result) {
+      errors.password = 'La contraseña no es valida, esta debe contener 2 números y 8 dígitos';
+    }
+  }
+
   if (!values.phoneNumber) {
-    errors.phoneNumber = 'El número teléfonico es requerido';
+    errors.phoneNumber = 'El número telefónico es requerido';
+  }
+
+  if (values.phoneNumber) {
+    if (values.phoneNumber.includes('_')) {
+      errors.phoneNumber = 'El número telefónico no está completo, este debe contener 10 dígitos';
+    }
   }
 
   return errors;
