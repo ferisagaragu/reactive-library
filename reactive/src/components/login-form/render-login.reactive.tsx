@@ -221,6 +221,11 @@ export class RenderLoginReactive extends React.Component<Props,State> {
       },
       (error: any) => {
         console.log(error);
+        toastReactive(
+          'error', 
+          this.getErrorMessage(error, true), 
+          'bottom'
+        );
         this.setState({ isLoadingRegist: false });
       }
     );
@@ -244,13 +249,14 @@ export class RenderLoginReactive extends React.Component<Props,State> {
     );
   }
 
-  private getErrorMessage(error: string): string {
+  private getErrorMessage(error: string, isRegist?: boolean): string {
     switch (error) {
-      case 'auth/user-not-found': return 'El usuario ingresado no esta registrado';
+      case 'auth/user-not-found': return 'El correo electrónico ingresado no esta registrado';
       case 'auth/wrong-password': return 'La contraseña ingresada no es valida'
+      case 'auth/email-already-in-use': return 'El correo electrónico ingresado ya esta registrado';
     }
 
-    return 'Hubo un problema al iniciar sesión';
+    return isRegist ? 'Hubo un problema al registrar el usuario' : 'Hubo un problema al iniciar sesión';
   }
 
   render() {

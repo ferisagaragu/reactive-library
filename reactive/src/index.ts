@@ -223,6 +223,13 @@ export { EditorState, Editor } from './exports/draft-wysiwyg.export';
   https://www.npmjs.com/package/js-cookie
 */
 export { Cookies } from './exports/cookies.export';
+
+/*
+  +inputmask ->
+  npm i inputmask
+  https://www.npmjs.com/package/inputmask
+*/
+export { Inputmask } from './exports/inputmask.export';
 //========================================================
 
 //==========================TYPES=========================

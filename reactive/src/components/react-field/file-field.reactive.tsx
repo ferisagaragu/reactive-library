@@ -7,6 +7,7 @@ interface Props {
   classImage?: string;
   accept: string;
   isLoad?: boolean;
+  disabled?: boolean;
   loadMessage?: string;
   preview?: boolean;
   onSelectFile: Function;
@@ -43,7 +44,7 @@ export class FileFieldReactive extends React.Component<Props, State> {
   }
   
   render() {
-    const { className, accept, children, isLoad, preview, loadMessage, classImage } = this.props;
+    const { className, accept, children, isLoad, preview, loadMessage, classImage, disabled } = this.props;
     const { fileRender } = this.state;
 
     return (
@@ -83,7 +84,7 @@ export class FileFieldReactive extends React.Component<Props, State> {
             type="file" 
             accept={ accept } 
             onChange={ (evt: any) => this.onSelectFile(evt.target.files[0]) }
-            disabled={ isLoad }
+            disabled={ isLoad || disabled }
           />
         </span>
       </div>

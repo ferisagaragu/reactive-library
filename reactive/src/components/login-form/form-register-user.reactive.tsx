@@ -66,6 +66,7 @@ class FormRegisterUser extends React.Component<Props, State> {
           loadMessage="Subiendo el archivo"
           preview={ true }
           classImage="rounded-circle"
+          disabled={ isLoading }
         >
           Imagen de perfil
         </FileFieldReactive>
@@ -82,6 +83,7 @@ class FormRegisterUser extends React.Component<Props, State> {
           component={ RenderTextFieldReactive }
           label="Nombre de usuario"
           type="text"
+          disabled={ isLoading }
         />
 
         <Field 
@@ -90,6 +92,7 @@ class FormRegisterUser extends React.Component<Props, State> {
           component={ RenderTextFieldReactive }
           label="Nombres"
           type="text"
+          disabled={ isLoading }
         />
 
         <Field 
@@ -98,6 +101,7 @@ class FormRegisterUser extends React.Component<Props, State> {
           component={ RenderTextFieldReactive }
           label="Apellidos"
           type="text"
+          disabled={ isLoading }
         />
 
         <Field 
@@ -106,6 +110,7 @@ class FormRegisterUser extends React.Component<Props, State> {
           component={ RenderTextFieldReactive }
           label="Correo electrónico"
           type="email"
+          disabled={ isLoading }
         />
 
         <Field 
@@ -114,6 +119,7 @@ class FormRegisterUser extends React.Component<Props, State> {
           component={ RenderTextFieldReactive }
           label="Contraseña"
           type="password"
+          disabled={ isLoading }
         />
 
         <Field 
@@ -122,6 +128,7 @@ class FormRegisterUser extends React.Component<Props, State> {
           component={ RenderTextFieldReactive }
           label="Número teléfonico"
           type="text"
+          disabled={ isLoading }
         />
 
         {
@@ -129,6 +136,7 @@ class FormRegisterUser extends React.Component<Props, State> {
             <div className="text-center">
               <button 
                 className={ `mr-3 r-login-cancel-regist ${classCancelRegist}` }
+                type="button"
                 onClick={ cancel }
               >
                 { textCancelRegist }

@@ -6,5 +6,8 @@
     "test": "cd test && npm start",
     "deploy": "cd test && npm run deploy",
     "css": "cd reactive && npm run css"
+  },
+  "devDependencies": {
+    "inputmask": "^4.0.9"
   }
 }
