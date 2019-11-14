@@ -226,8 +226,8 @@ export { Cookies } from './exports/cookies.export';
 
 /*
   +inputmask ->
-  npm i inputmask
-  https://www.npmjs.com/package/inputmask
+    npm i inputmask
+    https://www.npmjs.com/package/inputmask
 */
 export { Inputmask } from './exports/inputmask.export';
 //========================================================

@@ -20,23 +20,23 @@ interface Props {
   classCancelRegist?: string;
   
 
-  iconUrl: string;
+  iconUrl?: string;
 
-  textEmail: string;
-  textpassword: string;
+  textEmail?: string;
+  textpassword?: string;
 
-  textRegist: React.ReactElement;
-  textLogin: React.ReactElement;
-  textGoogle: React.ReactElement;
-  textPasswordLost: React.ReactElement;
+  textRegist?: React.ReactElement;
+  textLogin?: React.ReactElement;
+  textGoogle?: React.ReactElement;
+  textPasswordLost?: React.ReactElement;
 
   textLoginMessage: string;
 
-  textCancelRecover: React.ReactElement;
-  textRecover: React.ReactElement;
+  textCancelRecover?: React.ReactElement;
+  textRecover?: React.ReactElement;
 
-  textRegistForm: React.ReactElement;
-  textCancelRegist: React.ReactElement;
+  textRegistForm?: React.ReactElement;
+  textCancelRegist?: React.ReactElement;
 
   googleSingin?: boolean;
 
@@ -264,6 +264,7 @@ export class RenderLoginReactive extends React.Component<Props,State> {
       className,
       classRegist,
       classLogin,
+      classGoogle,
       classIcon,
       classRecover,
       classCancelRecover,
@@ -311,8 +312,9 @@ export class RenderLoginReactive extends React.Component<Props,State> {
           caseShow === 0 && 
             <Card className={ `login-container ${className} ${cssAnimation}` }>
               <LoginFormReactive
-                classRegist={ classRegist }
-                classSubmit={ classLogin }
+                classRegist={ classRegist ? classRegist : 'btn btn-outline-info' }
+                classLogin={ classLogin ? classLogin : 'btn btn-outline-success' }
+                classGoogle={ classGoogle ? classGoogle : 'btn btn-outline-dark' }
                 classIcon={ classIcon }
                 iconUrl={ iconUrl }
 
@@ -321,13 +323,13 @@ export class RenderLoginReactive extends React.Component<Props,State> {
                 cancel={ () => this.setState({ caseShow: -1 }) }
                 isLoading={ isLoadig }
 
-                textEmail={ textEmail }
-                textPassword={ textpassword }
+                textEmail={ textEmail ? textEmail : 'Correo electrónico' }
+                textPassword={ textpassword ? textpassword: 'Contraseña' }
 
-                textRegist={ textRegist }
-                textLogin={ textLogin }
-                textGoogle={ textGoogle }
-                textPasswordLost={ textPasswordLost }
+                textRegist={ textRegist ? textRegist : 'Registrar un nuevo usuario' }
+                textLogin={ textLogin ? textLogin : 'Iniciar sesión'}
+                textGoogle={ textGoogle ? textGoogle : 'Iniciar sesión con Google' }
+                textPasswordLost={ textPasswordLost ? textPasswordLost : '¿No recuerdas tu contraseña?' }
 
                 googleSingin={ googleSingin }
                 recoverPassword={ () => this.setState({ caseShow: 1 }) }
@@ -341,10 +343,10 @@ export class RenderLoginReactive extends React.Component<Props,State> {
               <FormRecoverPasswordReactive 
                 submitActions={ (formData: any) => this.recoverPassword(formData) }
                 cancel={ () => this.setState({ caseShow: 0, cssAnimation: 'login-in' }) }
-                classRecover={ classRecover }
+                classRecover={ classRecover ? classRecover : 'btn btn-outline-info' }
                 classCancelRecover={ classCancelRecover }
                 textCancelRecover={ textCancelRecover }
-                textRecover={ textRecover }
+                textRecover={ textRecover ? textRecover : 'Enviar correo de recuperación' }
               />
             </Card>
         }

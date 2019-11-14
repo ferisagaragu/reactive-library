@@ -87,17 +87,17 @@ code {
 }
 
 /*login example css*/
-.r-login-regist {
+/*.r-login-regist {
   background: salmon !important;
-}
+}*/
 
-.r-login-login {
+/*.r-login-login {
   background: green !important;
-}
+}*/
 
-.r-login-spinner {
+/*.r-login-spinner {
   color: red;
-}
+}*/
 
 .r-login-user-name {
   background: rgb(54,0,51);
@@ -107,18 +107,18 @@ code {
   background: saddlebrown;
 }
 
-.r-login-google {
+/*.r-login-google {
   background: red;
-}
+}*/
 
 .r-login-icon {
   width: 256px;
   height: 256px;
 }
 
-.r-login-recover {
+/*.r-login-recover {
   background: #1de840;
-}
+}*/
 
 .r-login-cancel-recover {
   background: orange;

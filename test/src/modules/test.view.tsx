@@ -40,7 +40,7 @@ class TestView extends Component<any, any> {
       <div>
         <Col md={ 8 }>
           <LoginForm
-            className="login"
+            className=""
             classIcon=""
             classLogin=""
             classRegist=""
@@ -51,16 +51,16 @@ class TestView extends Component<any, any> {
             classCancelRegist=""
             iconUrl="https://icon-library.net/images/animated-icon-gif/animated-icon-gif-13.jpg"
 
-            textEmail="User =/"
-            textpassword="Password =)"
-            textRegist="Registrar =)"
-            textLogin="Iniciar sesión =)"
-            textGoogle="Iniciar sesión con Google =)"
-            textPasswordLost="¿No recuerdas tu contraseña? =)"
+            textEmail=""
+            textpassword=""
+            textRegist=""
+            textLogin=""
+            textGoogle=""
+            textPasswordLost=""
             textLoginMessage="Bienvenido $(name)"
 
             textCancelRecover="Cancelar recuperacion :$"
-            textRecover="Recuperar :/"
+            textRecover=""
 
             textRegistForm="registrar c:"
             textCancelRegist="cancelar :C"
