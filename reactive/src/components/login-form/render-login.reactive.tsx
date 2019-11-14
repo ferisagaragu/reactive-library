@@ -6,6 +6,7 @@ import { UserData } from '../../exports/model/user-data.model';
 import { FormRecoverPasswordReactive } from './form-recover-password.reactive';
 import { Card } from 'react-bootstrap';
 import { FormRegisterUserReactive } from './form-register-user.reactive';
+import { keyReactive } from '../key/key.reactive';
 
 interface Props { 
   className?: string;
@@ -48,6 +49,7 @@ interface State {
   isLoadig: boolean;
   caseShow: number;
   cssAnimation: string;
+  isLoadingRegist: boolean;
 }
 
 export class RenderLoginReactive extends React.Component<Props,State> {
@@ -60,7 +62,8 @@ export class RenderLoginReactive extends React.Component<Props,State> {
     this.state = {
       isLoadig: false,
       caseShow: 0,
-      cssAnimation: ''
+      cssAnimation: '',
+      isLoadingRegist: false
     }
   }
 
@@ -180,6 +183,49 @@ export class RenderLoginReactive extends React.Component<Props,State> {
     );
   }
 
+  private onRegist(formData: any): void {
+    const { onRegist, textLoginMessage } = this.props;
+    this.setState({ isLoadingRegist: true });
+
+    this.firebase.createUserWithEmailAndPassword(
+      formData.email,
+      formData.password,
+      (fireData: any) => {
+        const result: any = textLoginMessage.match(/\$\((.*?)\)/g);
+        const finalKey: string = result ? result[0].replace('$(','').replace(')','') : '';
+
+        this.firebase.putStorage(`/user-img/${keyReactive()}`, formData.photoURL, (url: string) => {
+          const finalUserData: UserData = new UserData({
+            uid: fireData.uid ? fireData.uid : '',
+            displayName: formData.nickName,
+            name: formData.name,
+            lastName: formData.lastName,
+            email: formData.email,
+            phoneNumber: formData.phoneNumber,
+            photoURL: url
+          });
+  
+          this.firebase.update(`userData/${fireData.uid}`, finalUserData);
+          
+          onRegist(finalUserData);
+          this.setState({ isLoadingRegist: false, caseShow: 0 });
+          toastReactive(
+            'success', 
+            finalKey ? 
+              finalUserData[finalKey] 
+            : 
+              finalUserData.displayName, 
+            'bottom'
+          );
+        });
+      },
+      (error: any) => {
+        console.log(error);
+        this.setState({ isLoadingRegist: false });
+      }
+    );
+  }
+
   private recoverPassword(formData: any): void {
     this.firebase.sendPasswordResetEmail(formData.email, 
       () => {
@@ -236,7 +282,7 @@ export class RenderLoginReactive extends React.Component<Props,State> {
 
       googleSingin
     } = this.props;
-    const { isLoadig, caseShow, cssAnimation } = this.state;
+    const { isLoadig, caseShow, cssAnimation, isLoadingRegist } = this.state;
 
     return (
       <>
@@ -246,10 +292,11 @@ export class RenderLoginReactive extends React.Component<Props,State> {
               <FormRegisterUserReactive
                 classRegistForm={ classRegistForm }
                 classCancelRegist={ classCancelRegist }
-                submitActions={ (formData: any) => console.log(formData) }
+                submitActions={ (formData: any) => this.onRegist(formData) }
                 cancel={ () => this.setState({ caseShow: 0, cssAnimation: 'login-in' }) }
                 textRegistForm={ textRegistForm }
                 textCancelRegist={ textCancelRegist }
+                isLoading={ isLoadingRegist }
               />
             </Card>
         }

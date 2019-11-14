@@ -36,9 +36,7 @@ export class FirebaseReactive {
         firebase.auth().onAuthStateChanged((user: any) => {
           if (user) {
             onRegist(user);
-          } else {
-            onRegist(null);
-          }
+          } 
 
           firebase.auth().signOut().then(
             () => {}

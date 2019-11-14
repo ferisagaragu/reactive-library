@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Field, reduxForm } from '../../exports/redux.export';
 import { RenderTextFieldReactive } from '../redux-form/redux-render-text-field.reactive';
 import { FileFieldReactive } from '../react-field/file-field.reactive';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface Props {
   classRegistForm: string;
@@ -12,12 +13,36 @@ interface Props {
   handleSubmit: any;
   cancel: any;
   submitting: any;
+  isLoading: boolean;
   submitActions: Function;
 }
 
-interface State { }
+interface State { 
+  fileLoad: any;
+  submit: boolean;
+}
 
 class FormRegisterUser extends React.Component<Props, State> {
+
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {
+      fileLoad: null,
+      submit: false
+    }
+  }
+
+  private submitActions(formValues: any): void {
+    const { submitActions } = this.props;
+    const { fileLoad } = this.state;
+
+    if (fileLoad) {
+      formValues.photoURL = fileLoad; 
+      submitActions(formValues);
+    }
+  }
+  
   render() {
     const {
       classRegistForm,
@@ -26,24 +51,17 @@ class FormRegisterUser extends React.Component<Props, State> {
       textCancelRegist,
       handleSubmit, 
       cancel, 
-      submitting, 
-      submitActions 
+      submitting,
+      isLoading
     } = this.props;
+    const { fileLoad, submit } = this.state;
     
     return (
-      <form onSubmit={ handleSubmit(submitActions) }>
+      <form onSubmit={ handleSubmit((formValues: any) => this.submitActions(formValues)) }>
         
         <FileFieldReactive 
-          className="btn-outline-bug btn mb-3"
-          onSelectFile={ (file: any) => {
-            /*this.setState({ isLoad: true });
-            this.firebase.putStorage('/test/readme.md', file, (url: string) => {
-              console.log(url);
-              this.setState({ isLoad: false });
-            });*/
-
-            console.log(file);
-          }}
+          className="btn-outline-dark btn mb-3"
+          onSelectFile={ (file: any) => this.setState({ fileLoad: file }) }
           accept="image/x-png,image/gif,image/jpeg"
           loadMessage="Subiendo el archivo"
           preview={ true }
@@ -51,7 +69,13 @@ class FormRegisterUser extends React.Component<Props, State> {
         >
           Imagen de perfil
         </FileFieldReactive>
-        
+        {
+          (!fileLoad && submit) && 
+            <div className="text-danger text-center mb-3">
+              La imagen de perfil es requerida
+            </div>
+        }
+      
         <Field 
           className="form-control"
           name="nickName"
@@ -100,22 +124,30 @@ class FormRegisterUser extends React.Component<Props, State> {
           type="text"
         />
 
-        <div className="text-center">
-          <button 
-            className={ `mr-3 r-login-cancel-regist ${classCancelRegist}` }
-            onClick={ cancel }
-          >
-            { textCancelRegist }
-          </button>
+        {
+          !isLoading ?
+            <div className="text-center">
+              <button 
+                className={ `mr-3 r-login-cancel-regist ${classCancelRegist}` }
+                onClick={ cancel }
+              >
+                { textCancelRegist }
+              </button>
 
-          <button
-            className={ `r-login-regist-form ${classRegistForm}` }
-            type="submit" 
-            disabled={ submitting }
-          >
-            { textRegistForm }
-          </button>
-        </div>
+              <button
+                className={ `r-login-regist-form ${classRegistForm}` }
+                type="submit" 
+                disabled={ submitting }
+                onClick={ () => this.setState({ submit: true }) }
+              >
+                { textRegistForm }
+              </button>
+            </div>
+          :
+            <div className="text-center r-login-spinner">
+              <FontAwesomeIcon icon="spinner" size="2x" spin />
+            </div>
+        } 
       </form>
     );
   }
