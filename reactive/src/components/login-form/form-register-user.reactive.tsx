@@ -135,7 +135,7 @@ class FormRegisterUser extends React.Component<Props, State> {
 
         {
           !isLoading ?
-            <div className="text-center">
+            <div className="text-center mt-3">
               <button 
                 className={ `mr-3 r-login-cancel-regist ${classCancelRegist}` }
                 type="button"

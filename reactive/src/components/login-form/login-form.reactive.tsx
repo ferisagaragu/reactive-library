@@ -38,7 +38,6 @@ class LoginForm extends React.Component<Props, State> {
       classRegist, 
       classGoogle,
 
-
       handleSubmit, 
       cancel, 
       submitting, 
@@ -63,7 +62,12 @@ class LoginForm extends React.Component<Props, State> {
       <form onSubmit={ handleSubmit(submitActions) }>
         <Row>
           <Col md={ 12 } className="text-center mb-3">
-            <img className={ `${classIcon} r-login-icon` } alt="login logo" src={ iconUrl } />
+            {
+              iconUrl ?
+                <img className={ `${classIcon} r-login-icon` } alt="login logo" src={ iconUrl } />
+              :
+                <FontAwesomeIcon className="mb-5 text-default" icon="user" size="8x" /> 
+            }
           </Col>
         </Row>
 

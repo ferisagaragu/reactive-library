@@ -38,7 +38,7 @@ class TestView extends Component<any, any> {
 
     return (
       <div>
-        <Col md={ 8 }>
+        <Col md={ 6 }>
           <LoginForm
             className=""
             classIcon=""
@@ -49,7 +49,7 @@ class TestView extends Component<any, any> {
             classCancelRecover=""
             classRegistForm=""
             classCancelRegist=""
-            iconUrl="https://icon-library.net/images/animated-icon-gif/animated-icon-gif-13.jpg"
+            iconUrl=""
 
             textEmail=""
             textpassword=""
@@ -59,11 +59,11 @@ class TestView extends Component<any, any> {
             textPasswordLost=""
             textLoginMessage="Bienvenido $(name)"
 
-            textCancelRecover="Cancelar recuperacion :$"
+            textCancelRecover=""
             textRecover=""
 
-            textRegistForm="registrar c:"
-            textCancelRegist="cancelar :C"
+            textRegistForm=""
+            textCancelRegist=""
 
             //isLoading
             googleSingin

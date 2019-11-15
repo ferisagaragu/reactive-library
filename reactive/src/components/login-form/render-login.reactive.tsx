@@ -7,6 +7,8 @@ import { FormRecoverPasswordReactive } from './form-recover-password.reactive';
 import { Card } from 'react-bootstrap';
 import { FormRegisterUserReactive } from './form-register-user.reactive';
 import { keyReactive } from '../key/key.reactive';
+import { SpaceReactive } from '../space/space.reactive';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface Props { 
   className?: string;
@@ -25,18 +27,19 @@ interface Props {
   textEmail?: string;
   textpassword?: string;
 
-  textRegist?: React.ReactElement;
-  textLogin?: React.ReactElement;
-  textGoogle?: React.ReactElement;
-  textPasswordLost?: React.ReactElement;
+  textRegist?: React.ReactElement | string; 
+  textLogin?: React.ReactElement | string;
+  textGoogle?: React.ReactElement | string;
+  textPasswordLost?: React.ReactElement | string;
 
   textLoginMessage: string;
 
-  textCancelRecover?: React.ReactElement;
-  textRecover?: React.ReactElement;
+  textEmailRecover?: string;
+  textCancelRecover?: React.ReactElement | string;
+  textRecover?: React.ReactElement | string;
 
-  textRegistForm?: React.ReactElement;
-  textCancelRegist?: React.ReactElement;
+  textRegistForm?: React.ReactElement | string;
+  textCancelRegist?: React.ReactElement | string;
 
   googleSingin?: boolean;
 
@@ -281,6 +284,7 @@ export class RenderLoginReactive extends React.Component<Props,State> {
       textGoogle,
       textPasswordLost,
 
+      textEmailRecover,
       textCancelRecover,
       textRecover,
 
@@ -297,12 +301,12 @@ export class RenderLoginReactive extends React.Component<Props,State> {
           caseShow === -1 && 
             <Card className={ `login-container ${className} login-in` }>
               <FormRegisterUserReactive
-                classRegistForm={ classRegistForm }
-                classCancelRegist={ classCancelRegist }
+                classRegistForm={ classRegistForm ? classRegistForm : 'btn btn-outline-info' }
+                classCancelRegist={ classCancelRegist ? classCancelRegist : 'btn btn-outline-danger' }
                 submitActions={ (formData: any) => this.onRegist(formData) }
                 cancel={ () => this.setState({ caseShow: 0, cssAnimation: 'login-in' }) }
-                textRegistForm={ textRegistForm }
-                textCancelRegist={ textCancelRegist }
+                textRegistForm={ textRegistForm ? textRegistForm : <><FontAwesomeIcon icon="user-plus"/><SpaceReactive/>Registrar usuario</> }
+                textCancelRegist={ textCancelRegist ? textCancelRegist : <><FontAwesomeIcon icon="times"/><SpaceReactive/>Cancelar</> }
                 isLoading={ isLoadingRegist }
               />
             </Card>
@@ -326,8 +330,8 @@ export class RenderLoginReactive extends React.Component<Props,State> {
                 textEmail={ textEmail ? textEmail : 'Correo electrónico' }
                 textPassword={ textpassword ? textpassword: 'Contraseña' }
 
-                textRegist={ textRegist ? textRegist : 'Registrar un nuevo usuario' }
-                textLogin={ textLogin ? textLogin : 'Iniciar sesión'}
+                textRegist={ textRegist ? textRegist : <><FontAwesomeIcon icon="user-plus"/><SpaceReactive/>Registrar un nuevo usuario</> }
+                textLogin={ textLogin ? textLogin : <><FontAwesomeIcon icon="user-check"/><SpaceReactive/>Iniciar sesión</> }
                 textGoogle={ textGoogle ? textGoogle : 'Iniciar sesión con Google' }
                 textPasswordLost={ textPasswordLost ? textPasswordLost : '¿No recuerdas tu contraseña?' }
 
@@ -344,9 +348,10 @@ export class RenderLoginReactive extends React.Component<Props,State> {
                 submitActions={ (formData: any) => this.recoverPassword(formData) }
                 cancel={ () => this.setState({ caseShow: 0, cssAnimation: 'login-in' }) }
                 classRecover={ classRecover ? classRecover : 'btn btn-outline-info' }
-                classCancelRecover={ classCancelRecover }
-                textCancelRecover={ textCancelRecover }
-                textRecover={ textRecover ? textRecover : 'Enviar correo de recuperación' }
+                classCancelRecover={ classCancelRecover ? classCancelRecover : 'btn btn-outline-danger'}
+                textCancelRecover={ textCancelRecover ? textCancelRecover : <><FontAwesomeIcon icon="times"/><SpaceReactive/>Cancelar</> }
+                textRecover={ textRecover ? textRecover : <><FontAwesomeIcon icon="redo"/><SpaceReactive/>Enviar correo de recuperación</> }
+                textEmailRecover={ textEmailRecover ? textEmailRecover : 'Correo electrónico' }
               />
             </Card>
         }

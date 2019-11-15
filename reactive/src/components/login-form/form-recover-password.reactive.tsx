@@ -7,6 +7,7 @@ interface Props {
   classCancelRecover: string;
   textCancelRecover: React.ReactElement;
   textRecover: React.ReactElement;
+  textEmailRecover: React.ReactElement;
   initialValues: any;
   handleSubmit: any;
   cancel: any;
@@ -26,7 +27,8 @@ class FormRecoverPassword extends React.Component<Props, State> {
       handleSubmit, 
       cancel, 
       submitting, 
-      submitActions 
+      submitActions,
+      textEmailRecover
     } = this.props;
     
     return (
@@ -35,7 +37,7 @@ class FormRecoverPassword extends React.Component<Props, State> {
           className="form-control"
           name="email"
           component={ RenderTextFieldReactive }
-          label="Correo electronico"
+          label={ textEmailRecover }
           type="email"
         />
 
