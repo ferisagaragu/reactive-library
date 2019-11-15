@@ -12,6 +12,7 @@ import {
 } from 'reactive';
 import Routing from '../core/routes/routing.routes';
 import { navMenu } from '../declarations/nav-menu.declarations';
+import { ReactComponent as GitHubIcon } from '../styles/svg/github-logo.svg';
 
 class App extends Component<any, any> {
   render() {
@@ -49,6 +50,12 @@ class App extends Component<any, any> {
             <h3 className="m-3">
               NeuroBrain
             </h3>
+          }
+          center={
+            <>
+              <GitHubIcon style={{ fill: '#fff', width: '64px', height: '64px', padding: '10px' }} />
+              <h4>GitHub Repo</h4>
+            </>
           }
           right={
             <BugReport

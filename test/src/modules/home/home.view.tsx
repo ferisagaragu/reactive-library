@@ -18,7 +18,7 @@ class HomeView extends Component<Props,State> {
         <code>v 0.1 - beta</code>
 
         <Col md={ 12 }>
-          <a href="google.com">
+          <a href="https://github.com/ferisagaragu/reactive-library">
             <GitHubIcon className="git-icon"/>
             <Space />
             Repo en GitHub
