@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { Field, reduxForm } from '../../exports/redux.export';
 import { RenderTextFieldReactive } from '../redux-form/redux-render-text-field.reactive';
+import { FirebaseReactive } from '../firebase/firebase.reactive';
+import { foreachJSONReactive } from '../util/json.reactive';
+
+let emailData: Array<string> = [];
 
 interface Props {
   classRecover: string;
@@ -18,6 +22,15 @@ interface Props {
 interface State { }
 
 class FormRecoverPassword extends React.Component<Props, State> {
+  
+  componentDidMount() {
+    new FirebaseReactive().once('userData', (snapshot: any) => {
+      foreachJSONReactive(snapshot.val(), (data: any) => {
+        emailData.push(data.email);
+      });
+    });
+  }
+
   render() {
     const { 
       classRecover,
@@ -70,6 +83,12 @@ const validate = (values: any) => {
   
   if (!values.email) {
     errors.email = 'El correo electrónico es requerido';
+  }
+
+  if (values.email) {
+    if (!emailData.includes(values.email)) {
+      errors.email = 'El correo electrónico a recuperar no esta registrado';
+    }
   }
 
   return errors

@@ -21,6 +21,11 @@ interface Props {
   cancel: any;
   submitting: any;
   isLoading: boolean;
+
+  showImage?: boolean;
+  showNickName?: boolean;
+  showPhoneNumber?: boolean;
+
   submitActions: Function;
 }
 
@@ -69,40 +74,53 @@ class FormRegisterUser extends React.Component<Props, State> {
       handleSubmit, 
       cancel, 
       submitting,
-      isLoading
+      isLoading,
+      showImage,
+      showNickName,
+      showPhoneNumber
     } = this.props;
     const { fileLoad, submit } = this.state;
     
     return (
       <form onSubmit={ handleSubmit((formValues: any) => this.submitActions(formValues)) }>
         
-        <FileFieldReactive 
-          className={ `btn-outline-dark btn mb-3 ${(!fileLoad && submit) && 'error'}` }
-          onSelectFile={ (file: any) => this.setState({ fileLoad: file }) }
-          accept="image/x-png,image/gif,image/jpeg"
-          loadMessage="Subiendo el archivo"
-          preview={ true }
-          classImage="rounded-circle"
-          defaultImg="https://icon-library.net/images/default-user-icon/default-user-icon-4.jpg"
-          disabled={ isLoading }
-        >
-          Imagen de perfil
-        </FileFieldReactive>
         {
-          (!fileLoad && submit) && 
-            <div className="text-danger text-center mb-3">
-              La imagen de perfil es requerida
-            </div>
+          showImage &&
+            <>
+              <FileFieldReactive 
+                className={ `btn-outline-dark btn mb-3 ${(!fileLoad && submit) && 'error'}` }
+                onSelectFile={ (file: any) => this.setState({ fileLoad: file }) }
+                accept="image/x-png,image/gif,image/jpeg"
+                loadMessage="Subiendo el archivo"
+                preview={ true }
+                classImage="rounded-circle"
+                defaultImg="https://icon-library.net/images/default-user-icon/default-user-icon-4.jpg"
+                disabled={ isLoading }
+              >
+                Imagen de perfil
+              </FileFieldReactive>
+              <>
+                {
+                  (!fileLoad && submit) && 
+                    <div className="text-danger text-center mb-3">
+                      La imagen de perfil es requerida
+                    </div>
+                }
+              </>
+            </>
         }
-      
-        <Field 
-          className="form-control"
-          name="nickName"
-          component={ RenderTextFieldReactive }
-          label="Nombre de usuario"
-          type="text"
-          disabled={ isLoading }
-        />
+
+        {
+          showNickName &&
+            <Field 
+              className="form-control"
+              name="nickName"
+              component={ RenderTextFieldReactive }
+              label="Nombre de usuario"
+              type="text"
+              disabled={ isLoading }
+            />
+        }
 
         <Field 
           className="form-control"
@@ -140,15 +158,18 @@ class FormRegisterUser extends React.Component<Props, State> {
           disabled={ isLoading }
         />
 
-        <Field 
-          className="form-control"
-          name="phoneNumber"
-          component={ RenderMaskFieldReactive }
-          label="Número teléfonico"
-          type="text"
-          disabled={ isLoading }
-          mask="+52 (99) 99-99-99-99"
-        />
+        {
+          showPhoneNumber &&
+            <Field
+              className="form-control"
+              name="phoneNumber"
+              component={ RenderMaskFieldReactive }
+              label="Número teléfonico"
+              type="text"
+              disabled={ isLoading }
+              mask="+52 (99) 99-99-99-99"
+            />
+        }
 
         {
           !isLoading ?

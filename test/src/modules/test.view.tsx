@@ -65,7 +65,10 @@ class TestView extends Component<any, any> {
             textRegistForm=""
             textCancelRegist=""
 
-            //isLoading
+            showImage={ false }
+            showNickName={ false }
+            showPhoneNumber={ false }
+
             googleSingin
           
           

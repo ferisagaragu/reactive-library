@@ -43,6 +43,10 @@ interface Props {
 
   googleSingin?: boolean;
 
+  showImage?: boolean;
+  showNickName?: boolean;
+  showPhoneNumber?: boolean;
+  
 
   onLogin: Function;
   onRegist: Function;
@@ -189,7 +193,7 @@ export class RenderLoginReactive extends React.Component<Props,State> {
   }
 
   private onRegist(formData: any): void {
-    const { onRegist, textLoginMessage } = this.props;
+    const { showImage, textLoginMessage } = this.props;
     this.setState({ isLoadingRegist: true });
 
     this.firebase.createUserWithEmailAndPassword(
@@ -199,30 +203,14 @@ export class RenderLoginReactive extends React.Component<Props,State> {
         const result: any = textLoginMessage.match(/\$\((.*?)\)/g);
         const finalKey: string = result ? result[0].replace('$(','').replace(')','') : '';
 
-        this.firebase.putStorage(`/user-img/${keyReactive()}`, formData.photoURL, (url: string) => {
-          const finalUserData: UserData = new UserData({
-            uid: fireData.uid ? fireData.uid : '',
-            displayName: formData.nickName,
-            name: formData.name,
-            lastName: formData.lastName,
-            email: formData.email,
-            phoneNumber: formData.phoneNumber,
-            photoURL: url
+        if (showImage === undefined) {
+          this.registUser(formData, fireData, finalKey);
+        } else {
+          this.firebase.putStorage(`/user-img/${keyReactive()}`, formData.photoURL, (url: string) => {
+            this.registUser(formData, fireData, finalKey, url);
           });
-  
-          this.firebase.update(`userData/${fireData.uid}`, finalUserData);
-          
-          onRegist(finalUserData);
-          this.setState({ isLoadingRegist: false, caseShow: 0 });
-          toastReactive(
-            'success', 
-            finalKey ? 
-              finalUserData[finalKey] 
-            : 
-              finalUserData.displayName, 
-            'bottom'
-          );
-        });
+        }
+        
       },
       (error: any) => {
         console.log(error);
@@ -233,6 +221,33 @@ export class RenderLoginReactive extends React.Component<Props,State> {
         );
         this.setState({ isLoadingRegist: false });
       }
+    );
+  }
+
+  private registUser(formData: any, fireData: any, finalKey: string, url?: string): void {
+    const { onRegist } = this.props;
+    
+    const finalUserData: UserData = new UserData({
+      uid: fireData.uid ? fireData.uid : '',
+      displayName: formData.nickName,
+      name: formData.name,
+      lastName: formData.lastName,
+      email: formData.email,
+      phoneNumber: formData.phoneNumber,
+      photoURL: url ? url : ''
+    });
+
+    this.firebase.update(`userData/${fireData.uid}`, finalUserData);
+    
+    onRegist(finalUserData);
+    this.setState({ isLoadingRegist: false, caseShow: 0 });
+    toastReactive(
+      'success', 
+      finalKey ? 
+        finalUserData[finalKey] 
+      : 
+        finalUserData.displayName, 
+      'bottom'
     );
   }
 
@@ -294,6 +309,10 @@ export class RenderLoginReactive extends React.Component<Props,State> {
       textRegistForm,
       textCancelRegist,
 
+      showImage,
+      showNickName,
+      showPhoneNumber,
+
       googleSingin
     } = this.props;
     const { isLoadig, caseShow, cssAnimation, isLoadingRegist } = this.state;
@@ -312,10 +331,14 @@ export class RenderLoginReactive extends React.Component<Props,State> {
                   textRegistForm={ textRegistForm ? textRegistForm : <><FontAwesomeIcon icon="user-plus"/><SpaceReactive/>Registrar usuario</> }
                   textCancelRegist={ textCancelRegist ? textCancelRegist : <><FontAwesomeIcon icon="times"/><SpaceReactive/>Cancelar</> }
                   isLoading={ isLoadingRegist }
+
+                  showImage={ showImage === undefined ? true : showImage }
+                  showNickName={ showNickName === undefined ? true : showNickName }
+                  showPhoneNumber={ showPhoneNumber === undefined ? true : showPhoneNumber }
                 />
               </Card>
           }
-
+          { console.log(showNickName) }
           {
             caseShow === 0 && 
               <Card className={ `login-container ${className} ${cssAnimation}` }>
