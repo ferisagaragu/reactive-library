@@ -4,6 +4,12 @@ import { RenderTextFieldReactive } from '../redux-form/redux-render-text-field.r
 import { FileFieldReactive } from '../react-field/file-field.reactive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { RenderMaskFieldReactive } from '../redux-form/redux-render-mask-field.reactive';
+import { FirebaseReactive } from '../firebase/firebase.reactive';
+import { foreachJSONReactive } from '../util/json.reactive';
+
+let nickNameData: Array<string> = [];
+let phoneNumberData: Array<string> = [];
+let emailData: Array<string> = [];
 
 interface Props {
   classRegistForm: string;
@@ -32,6 +38,16 @@ class FormRegisterUser extends React.Component<Props, State> {
       fileLoad: null,
       submit: false
     }
+  }
+
+  componentDidMount() {
+    new FirebaseReactive().once('userData', (snapshot: any) => {
+      foreachJSONReactive(snapshot.val(), (data: any) => {
+        nickNameData.push(data.displayName);
+        phoneNumberData.push(data.phoneNumber);
+        emailData.push(data.email);
+      });
+    });
   }
 
   private submitActions(formValues: any): void {
@@ -67,6 +83,7 @@ class FormRegisterUser extends React.Component<Props, State> {
           loadMessage="Subiendo el archivo"
           preview={ true }
           classImage="rounded-circle"
+          defaultImg="https://icon-library.net/images/default-user-icon/default-user-icon-4.jpg"
           disabled={ isLoading }
         >
           Imagen de perfil
@@ -177,6 +194,16 @@ const validate = (values: any) => {
     errors.nickName = 'El nombre de usuario es requerido';
   }
 
+  if (values.nickName) {
+    if (nickNameData.includes(values.nickName)) {
+      errors.nickName = 'El nombre de usuario ya ha sido registrado';
+    }
+
+    if (values.nickName.includes(' ')) {
+      errors.nickName = 'El nombre de usuario no puede contener espacios';
+    }
+  }
+
   if (!values.name) {
     errors.name = 'Los nombres son requeridos';
   }
@@ -187,6 +214,12 @@ const validate = (values: any) => {
 
   if (!values.email) {
     errors.email = 'El correo electrónico es requerido';
+  }
+
+  if (values.email) {
+    if (emailData.includes(values.email)) {
+      errors.email = 'El correo electrónico ya ha sido registrado';
+    }
   }
 
   if (!values.password) {
@@ -205,6 +238,10 @@ const validate = (values: any) => {
   }
 
   if (values.phoneNumber) {
+    if (phoneNumberData.includes(values.phoneNumber)) {
+      errors.phoneNumber = 'El número telefónico ya ha sido registrado';
+    }
+
     if (values.phoneNumber.includes('_')) {
       errors.phoneNumber = 'El número telefónico no está completo, este debe contener 10 dígitos';
     }

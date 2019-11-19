@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { ReactComponent as ReactiveLogo } from '../styles/svg/reactive.svg';
 import {
   connect, 
   Header, 
@@ -13,6 +12,9 @@ import {
 import Routing from '../core/routes/routing.routes';
 import { navMenu } from '../declarations/nav-menu.declarations';
 import { ReactComponent as GitHubIcon } from '../styles/svg/github-logo.svg';
+import { ReactComponent as FirebaseIcon } from '../styles/svg/firebase-logo.svg';
+import { ReactComponent as ReactiveLogo } from '../styles/svg/reactive.svg';
+import { ReactComponent as NeuroBrainIcon } from '../styles/svg/neuron.svg';
 
 class App extends Component<any, any> {
   render() {
@@ -47,23 +49,46 @@ class App extends Component<any, any> {
         <Footer 
           className="r-gradient"
           left={
-            <h3 className="m-3">
-              NeuroBrain
-            </h3>
+            <Row className="mt-4 ml-1">
+              <Col md={ 1 }>
+                <NeuroBrainIcon style={{ width: '64px', height: '64px', padding: '10px' }}/>
+              </Col>
+
+              <Col className="ml-3" md={ 2 }>
+                <h3 className="m-3">
+                  NeuroBrain
+                </h3>
+              </Col>
+            </Row>
           }
           center={
-            <>
-              <GitHubIcon style={{ fill: '#fff', width: '64px', height: '64px', padding: '10px' }} />
-              <h4>GitHub Repo</h4>
-            </>
+            <Row>
+              <Col md={ 6 }>
+                <a style={{ color: '#fff' }} href="https://console.firebase.google.com/">
+                  <FirebaseIcon style={{ width: '64px', height: '64px', padding: '10px' }} />
+                  <h4>Firebase</h4>
+                </a>
+              </Col>
+
+              <Col md={ 6 }>
+                <a style={{ color: '#fff' }} href="https://github.com/ferisagaragu/reactive-library">
+                  <GitHubIcon style={{ fill: '#fff', width: '64px', height: '64px', padding: '10px' }} />
+                  <h4>GitHub Repo</h4>
+                </a>
+              </Col>
+            </Row>
           }
           right={
-            <BugReport
-              className="mt-3"
-              adminRole={ true }
-              titleAlter="Resolver el problema"
-              textAlter="¿Estas seguro de que quieres marcar el problema como resuelto?"
-            />
+            <Row>
+              <Col className="text-right mt-3">
+                <BugReport
+                  className="mt-4 ml-4"
+                  adminRole={ true }
+                  titleAlter="Resolver el problema"
+                  textAlter="¿Estas seguro de que quieres marcar el problema como resuelto?"
+                />
+              </Col>
+            </Row>
           }
         />
       </>

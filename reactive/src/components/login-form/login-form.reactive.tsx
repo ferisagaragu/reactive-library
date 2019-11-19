@@ -66,7 +66,7 @@ class LoginForm extends React.Component<Props, State> {
               iconUrl ?
                 <img className={ `${classIcon} r-login-icon` } alt="login logo" src={ iconUrl } />
               :
-                <FontAwesomeIcon className="mb-5 text-default" icon="user" size="8x" /> 
+                <FontAwesomeIcon style={{ fill: '' }} className="mb-5" icon="user" size="8x" /> 
             }
           </Col>
         </Row>

@@ -4,7 +4,7 @@ import { FirebaseReactive } from '../firebase/firebase.reactive';
 import { toastReactive } from '../swal/swal.reactive';
 import { UserData } from '../../exports/model/user-data.model';
 import { FormRecoverPasswordReactive } from './form-recover-password.reactive';
-import { Card } from 'react-bootstrap';
+import { Card, Col, Row } from 'react-bootstrap';
 import { FormRegisterUserReactive } from './form-register-user.reactive';
 import { keyReactive } from '../key/key.reactive';
 import { SpaceReactive } from '../space/space.reactive';
@@ -137,7 +137,8 @@ export class RenderLoginReactive extends React.Component<Props,State> {
                 email: userData.email,
                 phoneNumber: userData.phoneNumber,
                 photoURL: userData.photoURL,
-                role: userData.role
+                role: userData.role,
+                from: 'google'
               });
 
               onLogin(finalUserData, token);
@@ -158,7 +159,8 @@ export class RenderLoginReactive extends React.Component<Props,State> {
                 lastName: '',
                 email: fireData.email,
                 phoneNumber: fireData.phoneNumber,
-                photoURL: fireData.photoURL
+                photoURL: fireData.photoURL,
+                from: 'google'
               });
 
               this.firebase.update(`userData/${fireData.uid}`, finalUserData);
@@ -257,6 +259,7 @@ export class RenderLoginReactive extends React.Component<Props,State> {
       case 'auth/user-not-found': return 'El correo electrónico ingresado no esta registrado';
       case 'auth/wrong-password': return 'La contraseña ingresada no es valida'
       case 'auth/email-already-in-use': return 'El correo electrónico ingresado ya esta registrado';
+      case 'auth/network-request-failed': return 'Hubo un problema de red al iniciar sesión';
     }
 
     return isRegist ? 'Hubo un problema al registrar el usuario' : 'Hubo un problema al iniciar sesión';
@@ -296,66 +299,68 @@ export class RenderLoginReactive extends React.Component<Props,State> {
     const { isLoadig, caseShow, cssAnimation, isLoadingRegist } = this.state;
 
     return (
-      <>
-        {
-          caseShow === -1 && 
-            <Card className={ `login-container ${className} login-in` }>
-              <FormRegisterUserReactive
-                classRegistForm={ classRegistForm ? classRegistForm : 'btn btn-outline-info' }
-                classCancelRegist={ classCancelRegist ? classCancelRegist : 'btn btn-outline-danger' }
-                submitActions={ (formData: any) => this.onRegist(formData) }
-                cancel={ () => this.setState({ caseShow: 0, cssAnimation: 'login-in' }) }
-                textRegistForm={ textRegistForm ? textRegistForm : <><FontAwesomeIcon icon="user-plus"/><SpaceReactive/>Registrar usuario</> }
-                textCancelRegist={ textCancelRegist ? textCancelRegist : <><FontAwesomeIcon icon="times"/><SpaceReactive/>Cancelar</> }
-                isLoading={ isLoadingRegist }
-              />
-            </Card>
-        }
+      <Row className="justify-content-center">
+        <Col md={ 6 }>
+          {
+            caseShow === -1 && 
+              <Card className={ `login-container ${className} login-in` }>
+                <FormRegisterUserReactive
+                  classRegistForm={ classRegistForm ? classRegistForm : 'btn btn-outline-info' }
+                  classCancelRegist={ classCancelRegist ? classCancelRegist : 'btn btn-outline-danger' }
+                  submitActions={ (formData: any) => this.onRegist(formData) }
+                  cancel={ () => this.setState({ caseShow: 0, cssAnimation: 'login-in' }) }
+                  textRegistForm={ textRegistForm ? textRegistForm : <><FontAwesomeIcon icon="user-plus"/><SpaceReactive/>Registrar usuario</> }
+                  textCancelRegist={ textCancelRegist ? textCancelRegist : <><FontAwesomeIcon icon="times"/><SpaceReactive/>Cancelar</> }
+                  isLoading={ isLoadingRegist }
+                />
+              </Card>
+          }
 
-        {
-          caseShow === 0 && 
-            <Card className={ `login-container ${className} ${cssAnimation}` }>
-              <LoginFormReactive
-                classRegist={ classRegist ? classRegist : 'btn btn-outline-info' }
-                classLogin={ classLogin ? classLogin : 'btn btn-outline-success' }
-                classGoogle={ classGoogle ? classGoogle : 'btn btn-outline-dark' }
-                classIcon={ classIcon }
-                iconUrl={ iconUrl }
+          {
+            caseShow === 0 && 
+              <Card className={ `login-container ${className} ${cssAnimation}` }>
+                <LoginFormReactive
+                  classRegist={ classRegist ? classRegist : 'btn btn-outline-info' }
+                  classLogin={ classLogin ? classLogin : 'btn btn-outline-success' }
+                  classGoogle={ classGoogle ? classGoogle : 'btn btn-outline-dark' }
+                  classIcon={ classIcon }
+                  iconUrl={ iconUrl }
 
-                submitActions={ (formData: any) => this.logIn(formData) }
-                onGoogle={ () => this.logInGoogle() }
-                cancel={ () => this.setState({ caseShow: -1 }) }
-                isLoading={ isLoadig }
+                  submitActions={ (formData: any) => this.logIn(formData) }
+                  onGoogle={ () => this.logInGoogle() }
+                  cancel={ () => this.setState({ caseShow: -1 }) }
+                  isLoading={ isLoadig }
 
-                textEmail={ textEmail ? textEmail : 'Correo electrónico' }
-                textPassword={ textpassword ? textpassword: 'Contraseña' }
+                  textEmail={ textEmail ? textEmail : 'Correo electrónico' }
+                  textPassword={ textpassword ? textpassword: 'Contraseña' }
 
-                textRegist={ textRegist ? textRegist : <><FontAwesomeIcon icon="user-plus"/><SpaceReactive/>Registrar un nuevo usuario</> }
-                textLogin={ textLogin ? textLogin : <><FontAwesomeIcon icon="user-check"/><SpaceReactive/>Iniciar sesión</> }
-                textGoogle={ textGoogle ? textGoogle : 'Iniciar sesión con Google' }
-                textPasswordLost={ textPasswordLost ? textPasswordLost : '¿No recuerdas tu contraseña?' }
+                  textRegist={ textRegist ? textRegist : <><FontAwesomeIcon icon="user-plus"/><SpaceReactive/>Registrar un nuevo usuario</> }
+                  textLogin={ textLogin ? textLogin : <><FontAwesomeIcon icon="user-check"/><SpaceReactive/>Iniciar sesión</> }
+                  textGoogle={ textGoogle ? textGoogle : 'Iniciar sesión con Google' }
+                  textPasswordLost={ textPasswordLost ? textPasswordLost : '¿No recuerdas tu contraseña?' }
 
-                googleSingin={ googleSingin }
-                recoverPassword={ () => this.setState({ caseShow: 1 }) }
-              />
-            </Card>
-        }
-        
-        {
-          caseShow === 1 &&
-            <Card className={ `login-container ${className} login-in` }>
-              <FormRecoverPasswordReactive 
-                submitActions={ (formData: any) => this.recoverPassword(formData) }
-                cancel={ () => this.setState({ caseShow: 0, cssAnimation: 'login-in' }) }
-                classRecover={ classRecover ? classRecover : 'btn btn-outline-info' }
-                classCancelRecover={ classCancelRecover ? classCancelRecover : 'btn btn-outline-danger'}
-                textCancelRecover={ textCancelRecover ? textCancelRecover : <><FontAwesomeIcon icon="times"/><SpaceReactive/>Cancelar</> }
-                textRecover={ textRecover ? textRecover : <><FontAwesomeIcon icon="redo"/><SpaceReactive/>Enviar correo de recuperación</> }
-                textEmailRecover={ textEmailRecover ? textEmailRecover : 'Correo electrónico' }
-              />
-            </Card>
-        }
-      </>
+                  googleSingin={ googleSingin }
+                  recoverPassword={ () => this.setState({ caseShow: 1 }) }
+                />
+              </Card>
+          }
+          
+          {
+            caseShow === 1 &&
+              <Card className={ `login-container ${className} login-in` }>
+                <FormRecoverPasswordReactive 
+                  submitActions={ (formData: any) => this.recoverPassword(formData) }
+                  cancel={ () => this.setState({ caseShow: 0, cssAnimation: 'login-in' }) }
+                  classRecover={ classRecover ? classRecover : 'btn btn-outline-info' }
+                  classCancelRecover={ classCancelRecover ? classCancelRecover : 'btn btn-outline-danger'}
+                  textCancelRecover={ textCancelRecover ? textCancelRecover : <><FontAwesomeIcon icon="times"/><SpaceReactive/>Cancelar</> }
+                  textRecover={ textRecover ? textRecover : <><FontAwesomeIcon icon="redo"/><SpaceReactive/>Enviar correo de recuperación</> }
+                  textEmailRecover={ textEmailRecover ? textEmailRecover : 'Correo electrónico' }
+                />
+              </Card>
+          }
+        </Col>
+      </Row>
     );
   }
 }

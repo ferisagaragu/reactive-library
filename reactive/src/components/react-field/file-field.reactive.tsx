@@ -5,6 +5,7 @@ import { SpaceReactive } from '../space/space.reactive';
 interface Props {
   className?: string;
   classImage?: string;
+  defaultImg?: string;
   accept: string;
   isLoad?: boolean;
   disabled?: boolean;
@@ -44,7 +45,7 @@ export class FileFieldReactive extends React.Component<Props, State> {
   }
   
   render() {
-    const { className, accept, children, isLoad, preview, loadMessage, classImage, disabled } = this.props;
+    const { className, accept, children, isLoad, preview, loadMessage, classImage, disabled, defaultImg } = this.props;
     const { fileRender } = this.state;
 
     return (
@@ -52,7 +53,7 @@ export class FileFieldReactive extends React.Component<Props, State> {
         {
           preview &&
             <>
-              <img className={ `mb-2 ${classImage}` } src={ fileRender } width="128" height="128"/>
+              <img className={ `mb-2 ${classImage}` } src={ fileRender ? fileRender : defaultImg } width="128" height="128"/>
               <br />
             </>
         }

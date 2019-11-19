@@ -7,6 +7,7 @@ export class UserData {
   phoneNumber: string;
   photoURL: string;
   role: number;
+  from: 'google' | 'email-password';
   
   constructor(data: any | UserData) {
     this.uid = '';
@@ -15,6 +16,7 @@ export class UserData {
     this.phoneNumber = '';
     this.photoURL = '';
     this.role = -1;
+    this.from = 'email-password';
 
     Object.assign(this, data);
   }

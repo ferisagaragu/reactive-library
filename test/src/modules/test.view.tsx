@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { LoginForm, Col, MultiSelect, DatePicker, registerLocale, es, moment, Firebase, FileField, Cookies, UserData } from 'reactive';
+import { LoginForm, MultiSelect, DatePicker, registerLocale, es, moment, Firebase, FileField, Cookies, UserData } from 'reactive';
 
 class TestView extends Component<any, any> {
   
@@ -38,7 +38,7 @@ class TestView extends Component<any, any> {
 
     return (
       <div>
-        <Col md={ 6 }>
+        
           <LoginForm
             className=""
             classIcon=""
@@ -78,7 +78,7 @@ class TestView extends Component<any, any> {
   
 
           />
-        </Col>
+
 
         <FileField 
           className="btn-outline-bug btn"
