@@ -5,7 +5,7 @@ import { SpaceReactive } from '../space/space.reactive';
 interface Props {
   className?: string;
   classImage?: string;
-  defaultImg?: string;
+  defaultImg?: string | React.ReactElement;
   accept: string;
   isLoad?: boolean;
   disabled?: boolean;
@@ -53,7 +53,12 @@ export class FileFieldReactive extends React.Component<Props, State> {
         {
           preview &&
             <>
-              <img className={ `mb-2 ${classImage}` } src={ fileRender ? fileRender : defaultImg } width="128" height="128"/>
+              {
+                typeof defaultImg === 'object' && !fileRender ?
+                  defaultImg
+                :
+                  <img className={ `mb-2 ${classImage}` } src={ fileRender ? fileRender : defaultImg } width="128" height="128"/>
+              }
               <br />
             </>
         }

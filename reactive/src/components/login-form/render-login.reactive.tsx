@@ -9,6 +9,7 @@ import { FormRegisterUserReactive } from './form-register-user.reactive';
 import { keyReactive } from '../key/key.reactive';
 import { SpaceReactive } from '../space/space.reactive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Cookies } from '../../exports/cookies.export';
 
 interface Props { 
   className?: string;
@@ -47,7 +48,7 @@ interface Props {
   showNickName?: boolean;
   showPhoneNumber?: boolean;
   
-
+  useCookies?: boolean;
   onLogin: Function;
   onRegist: Function;
 }
@@ -105,6 +106,7 @@ export class RenderLoginReactive extends React.Component<Props,State> {
             'bottom'
           );
           onLogin(finalUserData);
+          this.setCookieUser(formData.email, formData.password);
           this.setState({ isLoadig: false });
         });
       },
@@ -203,17 +205,15 @@ export class RenderLoginReactive extends React.Component<Props,State> {
         const result: any = textLoginMessage.match(/\$\((.*?)\)/g);
         const finalKey: string = result ? result[0].replace('$(','').replace(')','') : '';
 
-        if (showImage === undefined) {
+        if (showImage === false) {
           this.registUser(formData, fireData, finalKey);
         } else {
           this.firebase.putStorage(`/user-img/${keyReactive()}`, formData.photoURL, (url: string) => {
             this.registUser(formData, fireData, finalKey, url);
           });
         }
-        
       },
       (error: any) => {
-        console.log(error);
         toastReactive(
           'error', 
           this.getErrorMessage(error, true), 
@@ -229,17 +229,18 @@ export class RenderLoginReactive extends React.Component<Props,State> {
     
     const finalUserData: UserData = new UserData({
       uid: fireData.uid ? fireData.uid : '',
-      displayName: formData.nickName,
+      displayName: formData.nickName ? formData.nickName : '',
       name: formData.name,
       lastName: formData.lastName,
       email: formData.email,
-      phoneNumber: formData.phoneNumber,
+      phoneNumber: formData.phoneNumber ? formData.phoneNumber : '',
       photoURL: url ? url : ''
     });
 
     this.firebase.update(`userData/${fireData.uid}`, finalUserData);
     
     onRegist(finalUserData);
+    this.setCookieUser(formData.email, formData.password);
     this.setState({ isLoadingRegist: false, caseShow: 0 });
     toastReactive(
       'success', 
@@ -279,6 +280,17 @@ export class RenderLoginReactive extends React.Component<Props,State> {
 
     return isRegist ? 'Hubo un problema al registrar el usuario' : 'Hubo un problema al iniciar sesión';
   }
+
+  private setCookieUser(email: string, password: string): void {
+    const { useCookies } = this.props;
+    if (useCookies) {
+      Cookies.set('userData', JSON.stringify({ email, password }));
+    }
+  }
+
+  /*private getCookieUser(): any {
+    return JSON.parse(Cookies.get('userData'));
+  }*/
 
   render() {
     const {
@@ -338,7 +350,7 @@ export class RenderLoginReactive extends React.Component<Props,State> {
                 />
               </Card>
           }
-          { console.log(showNickName) }
+
           {
             caseShow === 0 && 
               <Card className={ `login-container ${className} ${cssAnimation}` }>

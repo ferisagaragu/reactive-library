@@ -18,7 +18,7 @@ class TestView extends Component<any, any> {
 
   componentDidMount() {
     //Cookies.set('name', 'value');
-    console.log(Cookies.get('name'))
+    //console.log(Cookies.get('name'))
   }
 
   handleChange = (date: any) => {
@@ -65,21 +65,19 @@ class TestView extends Component<any, any> {
             textRegistForm=""
             textCancelRegist=""
 
-            showImage={ false }
-            showNickName={ false }
-            showPhoneNumber={ false }
+            //showImage={ false }
+            //showNickName={ false }
+            //showPhoneNumber={ false }
 
             googleSingin
-          
+            useCookies
           
             onLogin={ (userData: UserData) => {
               console.log(userData);
             }}
-            onRegist={ () => {} }
-
-
-  
-
+            onRegist={ (userData: UserData) => {
+              console.log(userData);
+            }}
           />
 
 

@@ -31,17 +31,9 @@ export class FirebaseReactive {
       if (onError) {
         onError(errorCode, errorMessage);
       }
-    }).then(() => {
+    }).then((data: any) => {
       if (!errorCode) {
-        firebase.auth().onAuthStateChanged((user: any) => {
-          if (user) {
-            onRegist(user);
-          } 
-
-          firebase.auth().signOut().then(
-            () => {}
-          ).catch();
-        });
+        onRegist(data.user);
       }
     });
   }
@@ -57,13 +49,9 @@ export class FirebaseReactive {
       if (onError) {
         onError(errorCode, errorMessage);
       }
-    }).then(() => {
+    }).then((data: any) => {
       if (!errorCode) {
-        firebase.auth().onAuthStateChanged((user: any) => {
-          if (!errorCode) {
-            onLogIn(user);
-          } 
-        });
+        onLogIn(data.user);
       }
     });
   }

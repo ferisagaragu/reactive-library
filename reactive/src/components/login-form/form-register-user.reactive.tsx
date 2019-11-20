@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { RenderMaskFieldReactive } from '../redux-form/redux-render-mask-field.reactive';
 import { FirebaseReactive } from '../firebase/firebase.reactive';
 import { foreachJSONReactive } from '../util/json.reactive';
+import { UserIcon } from './res/user.icon';
 
 let nickNameData: Array<string> = [];
 let phoneNumberData: Array<string> = [];
@@ -56,11 +57,15 @@ class FormRegisterUser extends React.Component<Props, State> {
   }
 
   private submitActions(formValues: any): void {
-    const { submitActions } = this.props;
+    const { submitActions, showImage } = this.props;
     const { fileLoad } = this.state;
 
-    if (fileLoad) {
+    if (fileLoad && showImage) {
       formValues.photoURL = fileLoad; 
+      submitActions(formValues);
+    }
+
+    if (!showImage) {
       submitActions(formValues);
     }
   }
@@ -94,7 +99,7 @@ class FormRegisterUser extends React.Component<Props, State> {
                 loadMessage="Subiendo el archivo"
                 preview={ true }
                 classImage="rounded-circle"
-                defaultImg="https://icon-library.net/images/default-user-icon/default-user-icon-4.jpg"
+                defaultImg={ <UserIcon /> }
                 disabled={ isLoading }
               >
                 Imagen de perfil
