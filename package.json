@@ -5,10 +5,10 @@
     "library": "cd reactive && npm start",
     "test": "cd test && npm start",
     "deploy": "cd test && npm run deploy",
-    "css": "cd reactive && npm run css"
+    "css": "cd reactive && npm run css",
+    "sonar-scanner": "cd reactive && npm run sonarqube"
   },
   "devDependencies": {
-    "cryptr": "^6.0.1",
-    "inputmask": "^4.0.9"
+    "sonar-scanner": "^3.1.0"
   }
 }
