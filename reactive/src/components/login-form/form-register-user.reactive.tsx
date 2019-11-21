@@ -7,26 +7,25 @@ import { RenderMaskFieldReactive } from '../redux-form/redux-render-mask-field.r
 import { FirebaseReactive } from '../firebase/firebase.reactive';
 import { foreachJSONReactive } from '../util/json.reactive';
 import { UserIcon } from './res/user.icon';
+import { SpaceReactive } from '../space/space.reactive';
 
 let nickNameData: Array<string> = [];
 let phoneNumberData: Array<string> = [];
 let emailData: Array<string> = [];
 
 interface Props {
+  classSpinner: string;
   classRegistForm: string;
   classCancelRegist: string;
-  textRegistForm: React.ReactElement;
-  textCancelRegist: React.ReactElement;
+  classImageRegist: string;
   initialValues: any;
   handleSubmit: any;
   cancel: any;
   submitting: any;
   isLoading: boolean;
-
   showImage?: boolean;
   showNickName?: boolean;
   showPhoneNumber?: boolean;
-
   submitActions: Function;
 }
 
@@ -72,10 +71,10 @@ class FormRegisterUser extends React.Component<Props, State> {
   
   render() {
     const {
+      classSpinner,
       classRegistForm,
       classCancelRegist,
-      textRegistForm,
-      textCancelRegist,
+      classImageRegist,
       handleSubmit, 
       cancel, 
       submitting,
@@ -93,7 +92,7 @@ class FormRegisterUser extends React.Component<Props, State> {
           showImage &&
             <>
               <FileFieldReactive 
-                className={ `btn-outline-dark btn mb-3 ${(!fileLoad && submit) && 'error'}` }
+                className={ `mb-3 ${classImageRegist} ${(!fileLoad && submit) && 'error'}` }
                 onSelectFile={ (file: any) => this.setState({ fileLoad: file }) }
                 accept="image/x-png,image/gif,image/jpeg"
                 loadMessage="Subiendo el archivo"
@@ -180,25 +179,29 @@ class FormRegisterUser extends React.Component<Props, State> {
           !isLoading ?
             <div className="text-center mt-3">
               <button 
-                className={ `mr-3 r-login-cancel-regist ${classCancelRegist}` }
+                className={ `mr-3 ${classCancelRegist}` }
                 type="button"
                 onClick={ cancel }
               >
-                { textCancelRegist }
+                <FontAwesomeIcon icon="times"/>
+                <SpaceReactive/>
+                Cancelar
               </button>
 
               <button
-                className={ `r-login-regist-form ${classRegistForm}` }
+                className={ classRegistForm }
                 type="submit" 
                 disabled={ submitting }
                 onClick={ () => this.setState({ submit: true }) }
               >
-                { textRegistForm }
+                <FontAwesomeIcon icon="user-plus"/>
+                <SpaceReactive/>
+                Registrar usuario
               </button>
             </div>
           :
-            <div className="text-center r-login-spinner">
-              <FontAwesomeIcon icon="spinner" size="2x" spin />
+            <div className="text-center">
+              <FontAwesomeIcon className={ classSpinner } icon="spinner" size="2x" spin />
             </div>
         } 
       </form>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { LoginForm, MultiSelect, DatePicker, registerLocale, es, moment, Firebase, FileField, Cookies, UserData } from 'reactive';
+import { LoginForm, MultiSelect, DatePicker, registerLocale, es, moment, Firebase, FileField, UserData } from 'reactive';
 
 class TestView extends Component<any, any> {
   
@@ -41,36 +41,29 @@ class TestView extends Component<any, any> {
         
           <LoginForm
             className=""
+
             classIcon=""
             classLogin=""
             classRegist=""
             classGoogle=""
+
             classRecover=""
             classCancelRecover=""
+
             classRegistForm=""
             classCancelRegist=""
+            classImageRegist="btn btn-outline-danger"
+
             iconUrl=""
-
-            textEmail=""
-            textpassword=""
-            textRegist=""
-            textLogin=""
-            textGoogle=""
-            textPasswordLost=""
             textLoginMessage="Bienvenido $(name)"
-
-            textCancelRecover=""
-            textRecover=""
-
-            textRegistForm=""
-            textCancelRegist=""
-
+            textRegistMessage="Usuario registrado con $(email)"
             //showImage={ false }
             //showNickName={ false }
             //showPhoneNumber={ false }
 
             googleSingin
             useCookies
+            defaultUserRol={ 1 }
           
             onLogin={ (userData: UserData) => {
               console.log(userData);

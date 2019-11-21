@@ -8,6 +8,7 @@
     "css": "cd reactive && npm run css"
   },
   "devDependencies": {
+    "cryptr": "^6.0.1",
     "inputmask": "^4.0.9"
   }
 }

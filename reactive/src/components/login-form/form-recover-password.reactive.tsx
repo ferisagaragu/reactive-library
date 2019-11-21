@@ -3,15 +3,14 @@ import { Field, reduxForm } from '../../exports/redux.export';
 import { RenderTextFieldReactive } from '../redux-form/redux-render-text-field.reactive';
 import { FirebaseReactive } from '../firebase/firebase.reactive';
 import { foreachJSONReactive } from '../util/json.reactive';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { SpaceReactive } from '../space/space.reactive';
 
 let emailData: Array<string> = [];
 
 interface Props {
   classRecover: string;
   classCancelRecover: string;
-  textCancelRecover: React.ReactElement;
-  textRecover: React.ReactElement;
-  textEmailRecover: React.ReactElement;
   initialValues: any;
   handleSubmit: any;
   cancel: any;
@@ -35,13 +34,10 @@ class FormRecoverPassword extends React.Component<Props, State> {
     const { 
       classRecover,
       classCancelRecover,
-      textCancelRecover,
-      textRecover,
       handleSubmit, 
       cancel, 
       submitting, 
-      submitActions,
-      textEmailRecover
+      submitActions
     } = this.props;
     
     return (
@@ -50,25 +46,29 @@ class FormRecoverPassword extends React.Component<Props, State> {
           className="form-control"
           name="email"
           component={ RenderTextFieldReactive }
-          label={ textEmailRecover }
+          label="Correo electrónico"
           type="email"
         />
 
         <div className="text-center">
           <button 
-            className={ `mr-3 ${classCancelRecover} r-login-cancel-recover` }
+            className={ `mr-3 ${classCancelRecover}` }
             type="button"
             onClick={ cancel }
           >
-            { textCancelRecover }
+            <FontAwesomeIcon icon="times"/>
+            <SpaceReactive/>
+            Cancelar
           </button>
           
           <button
-            className={ `r-login-recover ${classRecover}` }
+            className={ classRecover }
             type="submit" 
             disabled={ submitting }
           >
-            { textRecover }
+            <FontAwesomeIcon icon="redo"/>
+            <SpaceReactive/>
+            Enviar correo de recuperación
           </button>
         </div>
       </form>

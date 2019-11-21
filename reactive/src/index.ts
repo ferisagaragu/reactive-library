@@ -230,6 +230,13 @@ export { Cookies } from './exports/cookies.export';
     https://www.npmjs.com/package/inputmask
 */
 export { Inputmask } from './exports/inputmask.export';
+
+/*
+  +cryptr
+    npm i cryptr
+    https://www.npmjs.com/package/cryptr
+*/
+export { Cryptr } from './exports/cryptr.export';
 //========================================================
 
 //==========================TYPES=========================

@@ -7,47 +7,30 @@ import { FormRecoverPasswordReactive } from './form-recover-password.reactive';
 import { Card, Col, Row } from 'react-bootstrap';
 import { FormRegisterUserReactive } from './form-register-user.reactive';
 import { keyReactive } from '../key/key.reactive';
-import { SpaceReactive } from '../space/space.reactive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Cookies } from '../../exports/cookies.export';
+import { Cryptr } from '../../exports/cryptr.export';
 
 interface Props { 
   className?: string;
+  classSpinner?: string;
   classIcon?: string;
   classLogin?: string;
   classRegist?: string;
   classGoogle?: string;
   classRecover?: string;
   classCancelRecover?: string;
+  classImageRegist?: string;
   classRegistForm?: string;
   classCancelRegist?: string;
-  
-
-  iconUrl?: string;
-
-  textEmail?: string;
-  textpassword?: string;
-
-  textRegist?: React.ReactElement | string; 
-  textLogin?: React.ReactElement | string;
-  textGoogle?: React.ReactElement | string;
-  textPasswordLost?: React.ReactElement | string;
-
   textLoginMessage: string;
-
-  textEmailRecover?: string;
-  textCancelRecover?: React.ReactElement | string;
-  textRecover?: React.ReactElement | string;
-
-  textRegistForm?: React.ReactElement | string;
-  textCancelRegist?: React.ReactElement | string;
-
+  textRegistMessage: string;
+  iconUrl?: string;
+  defaultUserRol?: number;
   googleSingin?: boolean;
-
   showImage?: boolean;
   showNickName?: boolean;
   showPhoneNumber?: boolean;
-  
   useCookies?: boolean;
   onLogin: Function;
   onRegist: Function;
@@ -58,6 +41,7 @@ interface State {
   caseShow: number;
   cssAnimation: string;
   isLoadingRegist: boolean;
+  isAutoLogin: any;
 }
 
 export class RenderLoginReactive extends React.Component<Props,State> {
@@ -71,17 +55,20 @@ export class RenderLoginReactive extends React.Component<Props,State> {
       isLoadig: false,
       caseShow: 0,
       cssAnimation: '',
-      isLoadingRegist: false
+      isLoadingRegist: false,
+      isAutoLogin: null
     }
   }
 
+  componentDidMount() {
+    this.setState({ isAutoLogin: this.getCookieUser() });
+    this.logIn(this.getCookieUser());
+  }
+
   private logIn(formData: any): void {
-    const { onLogin, textLoginMessage } = this.props;
+    const { onLogin } = this.props;
 
     this.setState({ isLoadig: true });
-    const result: any = textLoginMessage.match(/\$\((.*?)\)/g);
-    const finalKey: string = result ? result[0].replace('$(','').replace(')','') : '';
-
     this.firebase.signInWithEmailAndPassword(formData.email, formData.password, 
       (userData: any) => {
         this.firebase.once(`userData/${userData.uid}`, (fireData: any) => {
@@ -94,20 +81,18 @@ export class RenderLoginReactive extends React.Component<Props,State> {
             email: data.email,
             phoneNumber: data.phoneNumber,
             photoURL: data.photoURL,
-            role: data.role
+            role: data.role,
+            active: data.active
           });
           
-          toastReactive(
-            'success', 
-            finalKey ? 
-              finalUserData[finalKey] 
-            : 
-              finalUserData.displayName, 
-            'bottom'
-          );
           onLogin(finalUserData);
           this.setCookieUser(formData.email, formData.password);
-          this.setState({ isLoadig: false });
+          this.setState({ isLoadig: false, isAutoLogin: null });
+          toastReactive(
+            'success', 
+            this.getLoginMessage(finalUserData), 
+            'bottom'
+          );
         });
       },
       (error: any) => {
@@ -116,18 +101,15 @@ export class RenderLoginReactive extends React.Component<Props,State> {
           this.getErrorMessage(error), 
           'bottom'
         );
-        this.setState({ isLoadig: false });
+        this.setState({ isLoadig: false, isAutoLogin: null });
       }
     );
   }
 
   private logInGoogle(): void {
-    const { onLogin, textLoginMessage } = this.props;
+    const { onLogin, defaultUserRol } = this.props;
 
     this.setState({ isLoadig: true });
-    const result: any = textLoginMessage.match(/\$\((.*?)\)/g);
-    const finalKey: string = result ? result[0].replace('$(','').replace(')','') : '';
-
     this.firebase.signInWithGooglePopup(
       (token: any, fireData: any) => {
         this.firebase.once(`userData/${fireData.uid}`,
@@ -144,17 +126,15 @@ export class RenderLoginReactive extends React.Component<Props,State> {
                 phoneNumber: userData.phoneNumber,
                 photoURL: userData.photoURL,
                 role: userData.role,
-                from: 'google'
+                from: 'google',
+                active: userData.active
               });
 
               onLogin(finalUserData, token);
               this.setState({ isLoadig: false });
               toastReactive(
                 'success', 
-                finalKey ? 
-                  finalUserData[finalKey] 
-                : 
-                  finalUserData.displayName, 
+                this.getLoginMessage(finalUserData), 
                 'bottom'
               );
             } else {
@@ -166,7 +146,8 @@ export class RenderLoginReactive extends React.Component<Props,State> {
                 email: fireData.email,
                 phoneNumber: fireData.phoneNumber,
                 photoURL: fireData.photoURL,
-                from: 'google'
+                from: 'google',
+                role: defaultUserRol ? defaultUserRol : -1
               });
 
               this.firebase.update(`userData/${fireData.uid}`, finalUserData);
@@ -174,10 +155,7 @@ export class RenderLoginReactive extends React.Component<Props,State> {
               this.setState({ isLoadig: false });
               toastReactive(
                 'success', 
-                finalKey ? 
-                  finalUserData[finalKey] 
-                : 
-                  finalUserData.displayName, 
+                this.getLoginMessage(finalUserData), 
                 'bottom'
               );
             }
@@ -195,21 +173,18 @@ export class RenderLoginReactive extends React.Component<Props,State> {
   }
 
   private onRegist(formData: any): void {
-    const { showImage, textLoginMessage } = this.props;
+    const { showImage } = this.props;
     this.setState({ isLoadingRegist: true });
 
     this.firebase.createUserWithEmailAndPassword(
       formData.email,
       formData.password,
       (fireData: any) => {
-        const result: any = textLoginMessage.match(/\$\((.*?)\)/g);
-        const finalKey: string = result ? result[0].replace('$(','').replace(')','') : '';
-
         if (showImage === false) {
-          this.registUser(formData, fireData, finalKey);
+          this.registUser(formData, fireData);
         } else {
           this.firebase.putStorage(`/user-img/${keyReactive()}`, formData.photoURL, (url: string) => {
-            this.registUser(formData, fireData, finalKey, url);
+            this.registUser(formData, fireData, url);
           });
         }
       },
@@ -224,8 +199,8 @@ export class RenderLoginReactive extends React.Component<Props,State> {
     );
   }
 
-  private registUser(formData: any, fireData: any, finalKey: string, url?: string): void {
-    const { onRegist } = this.props;
+  private registUser(formData: any, fireData: any, url?: string): void {
+    const { onRegist, defaultUserRol } = this.props;
     
     const finalUserData: UserData = new UserData({
       uid: fireData.uid ? fireData.uid : '',
@@ -234,7 +209,8 @@ export class RenderLoginReactive extends React.Component<Props,State> {
       lastName: formData.lastName,
       email: formData.email,
       phoneNumber: formData.phoneNumber ? formData.phoneNumber : '',
-      photoURL: url ? url : ''
+      photoURL: url ? url : '',
+      role: defaultUserRol ? defaultUserRol : -1
     });
 
     this.firebase.update(`userData/${fireData.uid}`, finalUserData);
@@ -244,10 +220,7 @@ export class RenderLoginReactive extends React.Component<Props,State> {
     this.setState({ isLoadingRegist: false, caseShow: 0 });
     toastReactive(
       'success', 
-      finalKey ? 
-        finalUserData[finalKey] 
-      : 
-        finalUserData.displayName, 
+      this.getRegistMessage(finalUserData), 
       'bottom'
     );
   }
@@ -270,6 +243,8 @@ export class RenderLoginReactive extends React.Component<Props,State> {
     );
   }
 
+
+
   private getErrorMessage(error: string, isRegist?: boolean): string {
     switch (error) {
       case 'auth/user-not-found': return 'El correo electrónico ingresado no esta registrado';
@@ -284,50 +259,63 @@ export class RenderLoginReactive extends React.Component<Props,State> {
   private setCookieUser(email: string, password: string): void {
     const { useCookies } = this.props;
     if (useCookies) {
-      Cookies.set('userData', JSON.stringify({ email, password }));
+      const cryptr = new Cryptr('reactive-secret');
+      Cookies.set('userData', JSON.stringify({ email, password: cryptr.encrypt(password) }));
     }
   }
 
-  /*private getCookieUser(): any {
-    return JSON.parse(Cookies.get('userData'));
-  }*/
+  private getCookieUser(): any {
+    const cryptr = new Cryptr('reactive-secret');
+    const cookieData = Cookies.get('userData');
+
+    if (cookieData) {
+      const { email, password } = JSON.parse(Cookies.get('userData'));
+      return { email, password: cryptr.decrypt(password) };
+    } 
+
+    return null;
+  }
+
+  private getLoginMessage(userData: UserData): string {
+    const { textLoginMessage } = this.props;
+    const result: any = textLoginMessage.match(/\$\((.*?)\)/g);
+    const finalKey: string = result ? result[0].replace('$(','').replace(')','') : '';
+    return textLoginMessage.replace(`$(${finalKey})`,userData[finalKey]);
+  }
+
+  private getRegistMessage(userData: UserData): string {
+    const { textRegistMessage } = this.props;
+    const result: any = textRegistMessage.match(/\$\((.*?)\)/g);
+    const finalKey: string = result ? result[0].replace('$(','').replace(')','') : '';
+    return textRegistMessage.replace(`$(${finalKey})`,userData[finalKey]);
+  }
 
   render() {
     const {
       className,
+
+      classSpinner,
+
       classRegist,
       classLogin,
       classGoogle,
       classIcon,
+
       classRecover,
       classCancelRecover,
+
       classRegistForm,
       classCancelRegist,
+      classImageRegist,
 
       iconUrl,
-
-      textEmail,
-      textpassword,
-
-      textRegist,
-      textLogin,
-      textGoogle,
-      textPasswordLost,
-
-      textEmailRecover,
-      textCancelRecover,
-      textRecover,
-
-      textRegistForm,
-      textCancelRegist,
-
       showImage,
       showNickName,
       showPhoneNumber,
 
       googleSingin
     } = this.props;
-    const { isLoadig, caseShow, cssAnimation, isLoadingRegist } = this.state;
+    const { isLoadig, caseShow, cssAnimation, isLoadingRegist, isAutoLogin } = this.state;
 
     return (
       <Row className="justify-content-center">
@@ -336,14 +324,13 @@ export class RenderLoginReactive extends React.Component<Props,State> {
             caseShow === -1 && 
               <Card className={ `login-container ${className} login-in` }>
                 <FormRegisterUserReactive
+                  classSpinner={ classSpinner }
                   classRegistForm={ classRegistForm ? classRegistForm : 'btn btn-outline-info' }
                   classCancelRegist={ classCancelRegist ? classCancelRegist : 'btn btn-outline-danger' }
+                  classImageRegist={ classImageRegist ? classImageRegist : 'btn btn-outline-dark' }
                   submitActions={ (formData: any) => this.onRegist(formData) }
                   cancel={ () => this.setState({ caseShow: 0, cssAnimation: 'login-in' }) }
-                  textRegistForm={ textRegistForm ? textRegistForm : <><FontAwesomeIcon icon="user-plus"/><SpaceReactive/>Registrar usuario</> }
-                  textCancelRegist={ textCancelRegist ? textCancelRegist : <><FontAwesomeIcon icon="times"/><SpaceReactive/>Cancelar</> }
                   isLoading={ isLoadingRegist }
-
                   showImage={ showImage === undefined ? true : showImage }
                   showNickName={ showNickName === undefined ? true : showNickName }
                   showPhoneNumber={ showPhoneNumber === undefined ? true : showPhoneNumber }
@@ -354,29 +341,28 @@ export class RenderLoginReactive extends React.Component<Props,State> {
           {
             caseShow === 0 && 
               <Card className={ `login-container ${className} ${cssAnimation}` }>
-                <LoginFormReactive
-                  classRegist={ classRegist ? classRegist : 'btn btn-outline-info' }
-                  classLogin={ classLogin ? classLogin : 'btn btn-outline-success' }
-                  classGoogle={ classGoogle ? classGoogle : 'btn btn-outline-dark' }
-                  classIcon={ classIcon }
-                  iconUrl={ iconUrl }
-
-                  submitActions={ (formData: any) => this.logIn(formData) }
-                  onGoogle={ () => this.logInGoogle() }
-                  cancel={ () => this.setState({ caseShow: -1 }) }
-                  isLoading={ isLoadig }
-
-                  textEmail={ textEmail ? textEmail : 'Correo electrónico' }
-                  textPassword={ textpassword ? textpassword: 'Contraseña' }
-
-                  textRegist={ textRegist ? textRegist : <><FontAwesomeIcon icon="user-plus"/><SpaceReactive/>Registrar un nuevo usuario</> }
-                  textLogin={ textLogin ? textLogin : <><FontAwesomeIcon icon="user-check"/><SpaceReactive/>Iniciar sesión</> }
-                  textGoogle={ textGoogle ? textGoogle : 'Iniciar sesión con Google' }
-                  textPasswordLost={ textPasswordLost ? textPasswordLost : '¿No recuerdas tu contraseña?' }
-
-                  googleSingin={ googleSingin }
-                  recoverPassword={ () => this.setState({ caseShow: 1 }) }
-                />
+                {
+                  isAutoLogin ?
+                    <div className="text-center">
+                      <h3>Iniciando sesión</h3>
+                      <FontAwesomeIcon className={ `${classSpinner} mt-4`} icon="spinner" size="3x" spin/>
+                    </div>
+                  :
+                    <LoginFormReactive
+                      classSpinner={ classSpinner }
+                      classRegist={ classRegist ? classRegist : 'btn btn-outline-info' }
+                      classLogin={ classLogin ? classLogin : 'btn btn-outline-success' }
+                      classGoogle={ classGoogle ? classGoogle : 'btn btn-outline-dark' }
+                      classIcon={ classIcon }
+                      iconUrl={ iconUrl }
+                      submitActions={ (formData: any) => this.logIn(formData) }
+                      onGoogle={ () => this.logInGoogle() }
+                      cancel={ () => this.setState({ caseShow: -1 }) }
+                      isLoading={ isLoadig }
+                      googleSingin={ googleSingin }
+                      recoverPassword={ () => this.setState({ caseShow: 1 }) }
+                    />
+                }
               </Card>
           }
           
@@ -388,9 +374,6 @@ export class RenderLoginReactive extends React.Component<Props,State> {
                   cancel={ () => this.setState({ caseShow: 0, cssAnimation: 'login-in' }) }
                   classRecover={ classRecover ? classRecover : 'btn btn-outline-info' }
                   classCancelRecover={ classCancelRecover ? classCancelRecover : 'btn btn-outline-danger'}
-                  textCancelRecover={ textCancelRecover ? textCancelRecover : <><FontAwesomeIcon icon="times"/><SpaceReactive/>Cancelar</> }
-                  textRecover={ textRecover ? textRecover : <><FontAwesomeIcon icon="redo"/><SpaceReactive/>Enviar correo de recuperación</> }
-                  textEmailRecover={ textEmailRecover ? textEmailRecover : 'Correo electrónico' }
                 />
               </Card>
           }

@@ -7,6 +7,7 @@ import { GoogleIcon } from './res/google.icon';
 import { SpaceReactive } from '../space/space.reactive';
 
 interface Props { 
+  classSpinner: string;
   classLogin: string;
   classRegist: string;
   classGoogle: string;
@@ -16,12 +17,6 @@ interface Props {
   submitting: any;
   isLoading: boolean;
   iconUrl: string;
-  textEmail: string;
-  textPassword: string;
-  textRegist: React.ReactElement;
-  textLogin: React.ReactElement;
-  textGoogle: React.ReactElement;
-  textPasswordLost: React.ReactElement;
   googleSingin?: boolean;
   onGoogle: Function;
   submitActions: Function;
@@ -33,6 +28,7 @@ interface State { }
 class LoginForm extends React.Component<Props, State> {
   render() {
     const { 
+      classSpinner,
       classIcon,
       classLogin,
       classRegist, 
@@ -44,13 +40,6 @@ class LoginForm extends React.Component<Props, State> {
       submitActions, 
       isLoading, 
       iconUrl, 
-      
-      textEmail,
-      textPassword,
-      textRegist, 
-      textLogin,
-      textGoogle,
-      textPasswordLost,
 
       googleSingin,
       onGoogle,
@@ -64,28 +53,28 @@ class LoginForm extends React.Component<Props, State> {
           <Col md={ 12 } className="text-center mb-3">
             {
               iconUrl ?
-                <img className={ `${classIcon} r-login-icon` } alt="login logo" src={ iconUrl } />
+                <img className={ `${classIcon}` } alt="login logo" src={ iconUrl } />
               :
-                <FontAwesomeIcon style={{ fill: '' }} className="mb-5" icon="user" size="8x" /> 
+                <FontAwesomeIcon className="mb-5" icon="user" size="8x" /> 
             }
           </Col>
         </Row>
 
         <Field
-          className="form-control r-login-user-name"
+          className="form-control"
           name="email"
           type="email"
           component={ RenderTextFieldReactive }
-          label={ textEmail }
+          label="Correo electrónico"
           disabled={ isLoading }
         />
 
         <Field 
-          className="form-control r-login-password"
+          className="form-control"
           name="password"
           type="password"
           component={ RenderTextFieldReactive }
-          label={ textPassword }
+          label="Contraseña"
           disabled={ isLoading }
         />
 
@@ -94,19 +83,23 @@ class LoginForm extends React.Component<Props, State> {
             <>
               <div className="text-center mt-4">
                 <button
-                  className={ `mr-3 ${classRegist} r-login-regist` } 
+                  className={ `mr-3 ${classRegist}` } 
                   type="button" 
                   onClick={ () => cancel() }
                 >
-                  { textRegist }
+                  <FontAwesomeIcon icon="user-plus"/>
+                  <SpaceReactive/>
+                  Registrar un nuevo usuario
                 </button>
 
                 <button 
-                  className={ `${classLogin} r-login-login` }
+                  className={ `${classLogin}` }
                   type="submit" 
                   disabled={ submitting }
                 >
-                  { textLogin }
+                  <FontAwesomeIcon icon="user-check"/>
+                  <SpaceReactive/>
+                  Iniciar sesión
                 </button>
               </div>
 
@@ -114,26 +107,26 @@ class LoginForm extends React.Component<Props, State> {
                 googleSingin &&
                 <div className="text-center mt-3 mb-3">
                   <button 
-                    className={ `${classGoogle} r-login-google` }
+                    className={ `${classGoogle}` }
                     type="button"
                     onClick={ () => onGoogle() }
                   > 
                     <GoogleIcon />
                     <SpaceReactive spaces={ 2 } />
-                    { textGoogle }
+                    Iniciar sesión con Google
                   </button>
                 </div>
               } 
 
               <div className="text-center mt-2">
                 <button className="login-recover-password" type="button" onClick={ () => recoverPassword() }>
-                  { textPasswordLost }
+                  ¿No recuerdas tu contraseña?
                 </button>
               </div>
             </>
           : 
-            <div className="text-center r-login-spinner">
-              <FontAwesomeIcon icon="spinner" size="2x" spin />
+            <div className="text-center">
+              <FontAwesomeIcon className={ classSpinner } icon="spinner" size="2x" spin />
             </div>
         }
       </form>

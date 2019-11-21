@@ -8,7 +8,8 @@ export class UserData {
   photoURL: string;
   role: number;
   from: 'google' | 'email-password';
-  
+  active: boolean;
+
   constructor(data: any | UserData) {
     this.uid = '';
     this.displayName = '';
@@ -17,6 +18,7 @@ export class UserData {
     this.photoURL = '';
     this.role = -1;
     this.from = 'email-password';
+    this.active = true;
 
     Object.assign(this, data);
   }
