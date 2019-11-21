@@ -3,8 +3,8 @@ import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface Props {
-  edit: boolean;
-  drop: boolean;
+  edit?: boolean;
+  drop?: boolean;
   disabled: boolean;
   onEdit: Function;
   onDrop: Function;

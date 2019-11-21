@@ -26,8 +26,7 @@ export default class InputSearchTable extends React.Component<Props, State> {
   private onEnter(e?: any): void {
     const { onSearch } = this.props;
     if (e) {
-      let event = e || window.event;
-      let charCode = event.which || event.keyCode;
+      let charCode = e.which || e.keyCode;
 
       if ( charCode == '13' ) {
         onSearch(this.inputRef.current.value);

@@ -220,8 +220,8 @@ export default class TableReactive extends React.Component<Props, State> {
     return (
       <td className="text-center action-row-reactive" key={ keyReactive() }>
         <ActionTableReactive 
-          drop={ drop ? true : false } 
-          edit={ edit ? true : false }
+          drop={ drop } 
+          edit={ edit }
           onEdit={ () => this.initEdit(element) }  
           onDrop={ () => this.onDrop(element) }
           disabled={ isCreate || isEdit }

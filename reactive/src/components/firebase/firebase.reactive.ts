@@ -21,36 +21,26 @@ export class FirebaseReactive {
 
   //REGIST AND LOGIN WHIT EMAIL
   public createUserWithEmailAndPassword(email: string, password: string, onRegist: Function, onError?: Function | undefined): void {
-    let errorCode: string = '';
-    let errorMessage: string = '';
+    let isError: string = '';
 
     firebase.auth().createUserWithEmailAndPassword(email, password).catch((error: any) => {
-      errorCode = error.code;
-      errorMessage = error.message;
-
-      if (onError) {
-        onError(errorCode, errorMessage);
-      }
+      isError = error;
+      this.onErrorCall(error, onError);
     }).then((data: any) => {
-      if (!errorCode) {
+      if (!isError) {
         onRegist(data.user);
       }
     });
   }
 
   public signInWithEmailAndPassword(email: string, password: string, onLogIn: Function, onError?: Function | undefined): void {
-    let errorCode: string = '';
-    let errorMessage: string = '';
+    let isError: string = '';
     
     firebase.auth().signInWithEmailAndPassword(email, password).catch((error: any) => {
-      errorCode = error.code;
-      errorMessage = error.message;
-
-      if (onError) {
-        onError(errorCode, errorMessage);
-      }
+      isError = error;
+      this.onErrorCall(error, onError);
     }).then((data: any) => {
-      if (!errorCode) {
+      if (!isError) {
         onLogIn(data.user);
       }
     });
@@ -152,5 +142,11 @@ export class FirebaseReactive {
         onSuccess(url, snapshot);
       });
     });
+  }
+
+  private onErrorCall(error: any, onError?: Function): void {
+    if (onError) {
+      onError(error.code, error.message);
+    }
   }
 }

@@ -7,8 +7,5 @@
     "deploy": "cd test && npm run deploy",
     "css": "cd reactive && npm run css",
     "sonar-scanner": "cd reactive && npm run sonarqube"
-  },
-  "devDependencies": {
-    "sonar-scanner": "^3.1.0"
   }
 }
