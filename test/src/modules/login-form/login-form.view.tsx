@@ -1,14 +1,29 @@
 import React, { Component } from 'react';
-import { Row, Col, SyntaxHighlighter, tomorrow } from 'reactive';
+import { Row, Col, SyntaxHighlighter, tomorrow, LoginForm, UserData } from 'reactive';
 import PropsTableComponent from '../../shared/props-table/props-table.component';
 import { exampleCode, props, exampleMode } from './props-login.data';
 
 interface Props {}
 
-interface State {}
+interface State {
+  loginData: UserData;
+  registData: UserData;
+}
 
 class LoginFormView extends Component<Props,State> {
+
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {
+      loginData: new UserData({}),
+      registData: new UserData({})
+    }
+  }
+
   render() {
+    const { loginData, registData } = this.state;
+
     return (
       <Row>
         <Col md={ 12 }>
@@ -55,6 +70,40 @@ class LoginFormView extends Component<Props,State> {
           > 
             { exampleCode }
           </SyntaxHighlighter>
+        </Col>
+
+        <Col className="mb-5" md={ 12 }>
+          <h4 className="mb-3">
+            Demo
+          </h4>
+
+          <LoginForm
+            textLoginMessage="Bienvenido $(name)"
+            textRegistMessage="Usuario registrado con $(email)"
+            googleSingin
+            useCookies
+            defaultUserRol={ 1 }
+            onLogin={ (userData: UserData) => this.setState({ loginData: userData }) }
+            onRegist={ (userData: UserData) => this.setState({ registData: userData }) }
+          />
+
+          <div className="mt-5">
+            <SyntaxHighlighter 
+              language="json"
+              style={ tomorrow } 
+            > 
+              { JSON.stringify(loginData) }
+            </SyntaxHighlighter>
+          </div>
+
+          <div className="mt-2">
+            <SyntaxHighlighter 
+              language="json"
+              style={ tomorrow } 
+            > 
+              { JSON.stringify(registData) }
+            </SyntaxHighlighter>
+          </div>
         </Col>
       </Row>
     );
