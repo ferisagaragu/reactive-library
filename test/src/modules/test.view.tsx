@@ -16,11 +16,6 @@ class TestView extends Component<any, any> {
     };
   }
 
-  componentDidMount() {
-    //Cookies.set('name', 'value');
-    //console.log(Cookies.get('name'))
-  }
-
   handleChange = (date: any) => {
     this.setState({
       startDate: date
@@ -38,40 +33,19 @@ class TestView extends Component<any, any> {
 
     return (
       <div>
-        
-          <LoginForm
-            className=""
-
-            classIcon=""
-            classLogin=""
-            classRegist=""
-            classGoogle=""
-
-            classRecover=""
-            classCancelRecover=""
-
-            classRegistForm=""
-            classCancelRegist=""
-            classImageRegist="btn btn-outline-danger"
-
-            iconUrl=""
-            textLoginMessage="Bienvenido $(name)"
-            textRegistMessage="Usuario registrado con $(email)"
-            //showImage={ false }
-            //showNickName={ false }
-            //showPhoneNumber={ false }
-
-            googleSingin
-            useCookies
-            defaultUserRol={ 1 }
-          
-            onLogin={ (userData: UserData) => {
-              console.log(userData);
-            }}
-            onRegist={ (userData: UserData) => {
-              console.log(userData);
-            }}
-          />
+        <LoginForm
+          textLoginMessage="Bienvenido $(name)"
+          textRegistMessage="Usuario registrado con $(email)"
+          googleSingin
+          useCookies
+          defaultUserRol={ 1 }
+          onLogin={ (userData: UserData) => {
+            console.log(userData);
+          }}
+          onRegist={ (userData: UserData) => {
+            console.log(userData);
+          }}
+        />
 
 
         <FileField 

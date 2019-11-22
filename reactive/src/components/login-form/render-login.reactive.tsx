@@ -61,8 +61,7 @@ export class RenderLoginReactive extends React.Component<Props,State> {
   }
 
   componentDidMount() {
-    this.setState({ isAutoLogin: this.getCookieUser() });
-    this.logIn(this.getCookieUser());
+    this.loginWithCookies();
   }
 
   private logIn(formData: any): void {
@@ -233,6 +232,7 @@ export class RenderLoginReactive extends React.Component<Props,State> {
           `Se envío el correo de recuperación a ${formData.email}`, 
           'bottom'
         );
+        this.setState({ caseShow: 0 });
       }, () => {
         toastReactive(
           'error', 
@@ -242,8 +242,6 @@ export class RenderLoginReactive extends React.Component<Props,State> {
       } 
     );
   }
-
-
 
   private getErrorMessage(error: string, isRegist?: boolean): string {
     switch (error) {
@@ -265,10 +263,11 @@ export class RenderLoginReactive extends React.Component<Props,State> {
   }
 
   private getCookieUser(): any {
+    const { useCookies } = this.props;
     const cryptr = new Cryptr('reactive-secret');
     const cookieData = Cookies.get('userData');
 
-    if (cookieData) {
+    if (cookieData && useCookies) {
       const { email, password } = JSON.parse(Cookies.get('userData'));
       return { email, password: cryptr.decrypt(password) };
     } 
@@ -288,6 +287,16 @@ export class RenderLoginReactive extends React.Component<Props,State> {
     const result: any = textRegistMessage.match(/\$\((.*?)\)/g);
     const finalKey: string = result ? result[0].replace('$(','').replace(')','') : '';
     return textRegistMessage.replace(`$(${finalKey})`,userData[finalKey]);
+  }
+
+  private loginWithCookies(): void {
+    const { useCookies } = this.props;
+    const cookesData = this.getCookieUser();
+    
+    if (cookesData && useCookies) {
+      this.setState({ isAutoLogin: this.getCookieUser() });
+      this.logIn(this.getCookieUser());
+    }
   }
 
   render() {
