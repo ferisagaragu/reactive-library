@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { LoginForm, MultiSelect, DatePicker, registerLocale, es, moment, Firebase, FileField, UserData } from 'reactive';
+import { MultiSelect, DatePicker, registerLocale, es, moment, Firebase, FileField } from 'reactive';
 
 class TestView extends Component<any, any> {
   
@@ -33,21 +33,6 @@ class TestView extends Component<any, any> {
 
     return (
       <div>
-        <LoginForm
-          textLoginMessage="Bienvenido $(name)"
-          textRegistMessage="Usuario registrado con $(email)"
-          googleSingin
-          useCookies
-          defaultUserRol={ 1 }
-          onLogin={ (userData: UserData) => {
-            console.log(userData);
-          }}
-          onRegist={ (userData: UserData) => {
-            console.log(userData);
-          }}
-        />
-
-
         <FileField 
           className="btn-outline-bug btn"
           onSelectFile={ (file: any) => {

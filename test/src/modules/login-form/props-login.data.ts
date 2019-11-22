@@ -144,6 +144,27 @@ export const props: Array<PropsModel> = [
   })
 ];
 
+export const propsLogout: Array<PropsModel> = [
+  new PropsModel({
+    propName: 'className',
+    type: 'string',
+    required: false,
+    description: 'Esta es la clase css para el boton'
+  }),
+  new PropsModel({
+    propName: 'label',
+    type: 'string | ReactElement',
+    required: false,
+    description: 'Este debe ser un string o un elemento de React'
+  }),
+  new PropsModel({
+    propName: 'onClick',
+    type: 'Function',
+    required: false,
+    description: 'Este debe ser un string o un elemento de React'
+  })
+];
+
 export const exampleMode = [
   new PropsModel({
     propName: 'uid',
@@ -249,5 +270,9 @@ export const exampleCode = (
     onRegist={ (userRegistData: UserData) => {
       //on regist event
     }}
+  />
+  
+  <LogoutButton 
+    className="btn btn-outline-info" 
   />`
 );

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Row, Col, SyntaxHighlighter, tomorrow, LoginForm, UserData } from 'reactive';
+import { Row, Col, SyntaxHighlighter, tomorrow, LoginForm, UserData, LogoutButton } from 'reactive';
 import PropsTableComponent from '../../shared/props-table/props-table.component';
-import { exampleCode, props, exampleMode } from './props-login.data';
+import { exampleCode, props, exampleMode, propsLogout } from './props-login.data';
 
 interface Props {}
 
@@ -41,6 +41,12 @@ class LoginFormView extends Component<Props,State> {
         <Col className="mb-5" md={ 12 }>
           <PropsTableComponent
             propsData={ props }
+          />
+        </Col>
+
+        <Col className="mb-5" md={ 12 }>
+          <PropsTableComponent
+            propsData={ propsLogout }
           />
         </Col>
 
@@ -85,6 +91,10 @@ class LoginFormView extends Component<Props,State> {
             defaultUserRol={ 1 }
             onLogin={ (userData: UserData) => this.setState({ loginData: userData }) }
             onRegist={ (userData: UserData) => this.setState({ registData: userData }) }
+          />
+
+          <LogoutButton 
+            className="btn btn-outline-info" 
           />
 
           <div className="mt-5">

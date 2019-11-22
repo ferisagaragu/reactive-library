@@ -268,7 +268,7 @@ export class RenderLoginReactive extends React.Component<Props,State> {
     const cookieData = Cookies.get('userData');
 
     if (cookieData && useCookies) {
-      const { email, password } = JSON.parse(Cookies.get('userData'));
+      const { email, password } = JSON.parse(cookieData);
       return { email, password: cryptr.decrypt(password) };
     } 
 
