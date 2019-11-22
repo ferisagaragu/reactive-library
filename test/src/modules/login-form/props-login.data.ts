@@ -144,6 +144,69 @@ export const props: Array<PropsModel> = [
   })
 ];
 
+export const exampleMode = [
+  new PropsModel({
+    propName: 'uid',
+    type: 'string',
+    required: true,
+    description: 'Este es el id unico del usuario creado por Firebase'
+  }),
+  new PropsModel({
+    propName: 'displayName',
+    type: 'string',
+    required: true,
+    description: 'Este es el nombre de usuario(nickname)'
+  }),
+  new PropsModel({
+    propName: 'name',
+    type: 'string',
+    required: true,
+    description: 'Este es el nombre del usuario'
+  }),
+  new PropsModel({
+    propName: 'lastName',
+    type: 'string',
+    required: true,
+    description: 'Estos son los apellidos del usuario'
+  }),
+  new PropsModel({
+    propName: 'email',
+    type: 'string',
+    required: true,
+    description: 'Este es el correo del usuario'
+  }),
+  new PropsModel({
+    propName: 'phoneNumber',
+    type: 'string',
+    required: true,
+    description: 'Este es el numero telefonico del usuario'
+  }),
+  new PropsModel({
+    propName: 'photoURL',
+    type: 'string',
+    required: true,
+    description: 'Este es el URL que contiene la imagen del usuario'
+  }),
+  new PropsModel({
+    propName: 'role',
+    type: 'number',
+    required: true,
+    description: 'Este es el rol que tiene el usuario'
+  }),
+  new PropsModel({
+    propName: 'from',
+    type: `'google' | 'email-password'`,
+    required: true,
+    description: 'Este indica de donde proviene el registro del usuario'
+  }),
+  new PropsModel({
+    propName: 'active',
+    type: 'boolean',
+    required: true,
+    description: 'Este indica si el usuario esta activo o no'
+  })
+];
+
 export const exampleCode = (
 ` <LoginForm
     className="YOUR CSS CLASS"
