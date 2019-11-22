@@ -2,35 +2,75 @@ import PropsModel from "../../core/models/props.model";
 
 export const props: Array<PropsModel> = [
   new PropsModel({
-    propName: 'menuData',
-    type: 'Array<BurgerElement>',
+    propName: 'className',
+    type: 'string',
     required: false,
-    description: 'Contenido del burger menu'
+    description: 'Esta es la clase css y se aplica directamente al card del login'
   }),
   new PropsModel({
-    propName: 'left',
-    type: 'ReactElement',
+    propName: 'classSpinner',
+    type: 'string',
     required: false,
-    description: 'Este contendra codigo Html que se alineara a la izquierda'
+    description: 'Esta es la clase css para el spinner que se muestra cuando hay alguna carga de datos'
   }),
   new PropsModel({
-    propName: 'center',
-    type: 'ReactElement',
+    propName: 'classIcon',
+    type: 'string',
     required: false,
-    description: 'Este contendra codigo Html que se alineara al centro'
+    description: 'Esta es la clase css para el icono que se muetra en la seccion de iniciar sesión'
   }),
   new PropsModel({
-    propName: 'right',
-    type: 'ReactElement',
+    propName: 'classLogin',
+    type: 'string',
     required: false,
-    description: 'Este contendra codigo Html que se alineara a la derecha'
+    description: 'Esta es la clase css para el boton de iniciar sesión'
   }),
   new PropsModel({
-    propName: 'child',
-    type: 'ReactElement',
+    propName: 'classRegist',
+    type: 'string',
     required: false,
-    description: 'Este debe entrar dentro de la etiqueta Footer'
+    description: 'Esta es la clase css para el boton de registrar un nuevo usuario'
+  }),
+  new PropsModel({
+    propName: 'classGoogle',
+    type: 'string',
+    required: false,
+    description: 'Esta es la clase css para el boton de inisio de sesión con Google'
+  }),
+  new PropsModel({
+    propName: 'classRecover',
+    type: 'string',
+    required: false,
+    description: 'Esta es la clase css para el boton de recuperar cuenta de usuario'
+  }),
+  new PropsModel({
+    propName: 'classCancelRecover',
+    type: 'string',
+    required: false,
+    description: 'Esta es la clase css para el boton de cancelar recuperación de cuenta de usuario'
+  }),
+  new PropsModel({
+    propName: 'classImageRegist',
+    type: 'string',
+    required: false,
+    description: 'Esta es la clase css para el boton de subir imagen de usuario'
   })
+
+  /*
+    classRegistForm?: string;
+    classCancelRegist?: string;
+    textLoginMessage: string;
+    textRegistMessage: string;
+    iconUrl?: string;
+    defaultUserRol?: number;
+    googleSingin?: boolean;
+    showImage?: boolean;
+    showNickName?: boolean;
+    showPhoneNumber?: boolean;
+    useCookies?: boolean;
+    onLogin: Function;
+    onRegist: Function;
+  */
 ];
 
 export const exampleCode = (
@@ -51,6 +91,21 @@ export const exampleCode = (
     showImage={ false }
     showNickName={ false }
     showPhoneNumber={ false }
+    googleSingin
+    useCookies
+    defaultUserRol={ 1 }
+    onLogin={ (userData: UserData) => {
+      //on login event
+    }}
+    onRegist={ (userRegistData: UserData) => {
+      //on regist event
+    }}
+  />
+  
+  //Implementación simple 
+  <LoginForm
+    textLoginMessage="Bienvenido $(name)"
+    textRegistMessage="Usuario registrado con $(email)"
     googleSingin
     useCookies
     defaultUserRol={ 1 }

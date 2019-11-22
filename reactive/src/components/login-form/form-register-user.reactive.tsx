@@ -59,7 +59,7 @@ class FormRegisterUser extends React.Component<Props, State> {
     const { submitActions, showImage } = this.props;
     const { fileLoad } = this.state;
 
-    if (fileLoad && showImage) {
+    if (fileLoad && showImage && (Math.trunc((fileLoad.size ? fileLoad.size : 0) / 1024) < 3000)) {
       formValues.photoURL = fileLoad; 
       submitActions(formValues);
     }
@@ -92,7 +92,13 @@ class FormRegisterUser extends React.Component<Props, State> {
           showImage &&
             <>
               <FileFieldReactive 
-                className={ `mb-3 ${classImageRegist} ${(!fileLoad && submit) && 'error'}` }
+                className={ 
+                  `mb-3 
+                  ${classImageRegist} 
+                  ${(!fileLoad && submit) && 'error'} 
+                  ${(fileLoad && !(Math.trunc((fileLoad.size ? fileLoad.size : 0) / 1024) < 3000)) && 'error'}
+                  ` 
+                }
                 onSelectFile={ (file: any) => this.setState({ fileLoad: file }) }
                 accept="image/x-png,image/gif,image/jpeg"
                 loadMessage="Subiendo el archivo"
@@ -109,6 +115,13 @@ class FormRegisterUser extends React.Component<Props, State> {
                     <div className="text-danger text-center mb-3">
                       La imagen de perfil es requerida
                     </div>
+                }
+                {
+                  (fileLoad && !(Math.trunc((fileLoad.size ? fileLoad.size : 0) / 1024) < 3000)) &&
+                    <div className="text-danger text-center mb-3">
+                      El tamaño de la imagen de perfil no puede superar los 3MB
+                    </div>
+
                 }
               </>
             </>

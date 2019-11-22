@@ -41,7 +41,7 @@ export class FileFieldReactive extends React.Component<Props, State> {
   private onSelectFile(file: any): void {
     const { onSelectFile } = this.props;
     onSelectFile(file);
-    this.setState({ fileRender: URL.createObjectURL(file) });
+    this.setState({ fileRender: file ? URL.createObjectURL(file) : null });
   }
   
   render() {
