@@ -54,23 +54,94 @@ export const props: Array<PropsModel> = [
     type: 'string',
     required: false,
     description: 'Esta es la clase css para el boton de subir imagen de usuario'
+  }),
+  new PropsModel({
+    propName: 'classRegistForm',
+    type: 'string',
+    required: false,
+    description: 'Esta es la clase css para el boton de registrar un nuevo usuario'
+  }),
+  new PropsModel({
+    propName: 'classCancelRegist',
+    type: 'string',
+    required: false,
+    description: 'Esta es la clase css para el boton de cancelar registro de un nuevo usuario'
+  }),
+  new PropsModel({
+    propName: 'textLoginMessage',
+    type: 'string',
+    required: true,
+    description: 'Este es el texto que aparecera cuando el usuario inicie sesión, ' + 
+    'este puede contener una variable como $(user) o $(email) ' + 
+    'y esta se llenara con la información del usuario'
+  }),
+  new PropsModel({
+    propName: 'textRegistMessage',
+    type: 'string',
+    required: true,
+    description: 'Este es el texto que aparecera cuando se registre un nuevo usuario, ' + 
+    'este puede contener una variable como $(user) o $(email) ' + 
+    'y esta se llenara con la información del usuario'
+  }),
+  new PropsModel({
+    propName: 'iconUrl',
+    type: 'string',
+    required: false,
+    description: 'Esta es la URL o la dirección de la imagen que se ' +
+    'mostrara en lugar del icono de usuario en el card de incio de sesión'
+  }),
+  new PropsModel({
+    propName: 'defaultUserRol',
+    type: 'number',
+    required: false,
+    description: 'Este es el rol que tendra el usuario al ser creado, si no se establece este sera -1 por default'
+  }),
+  new PropsModel({
+    propName: 'googleSingin',
+    type: 'boolean',
+    required: false,
+    description: 'Este indica si se permitira el inicio de sesión con una ventana pop de Google'
+  }),
+  new PropsModel({
+    propName: 'showImage',
+    type: 'boolean',
+    required: false,
+    description: 'Este indica si aparecera la imagen para registrar un nuevo usuario, ' +
+    'si no se encuentra por default esta aparecera en el registro'
+  }),
+  new PropsModel({
+    propName: 'showNickName',
+    type: 'boolean',
+    required: false,
+    description: 'Este indica si aparecera el nombre de usuario (nickname) para registrar un nuevo usuario, ' +
+    'si no se encuentra por default este aparecera en el registro'
+  }),
+  new PropsModel({
+    propName: 'showPhoneNumber',
+    type: 'boolean',
+    required: false,
+    description: 'Este indica si aparecera el numero telefonico para registrar un nuevo usuario, ' +
+    'si no se encuentra por default este aparecera en el registro'
+  }),
+  new PropsModel({
+    propName: 'useCookies',
+    type: 'boolean',
+    required: false,
+    description: 'Este indica si los datos del usuario se guardaran para que se haga un inicio de sesión automatico ' +
+    'este debe ser anulado con un cierre de sesión'
+  }),
+  new PropsModel({
+    propName: 'onLogin',
+    type: 'Function',
+    required: true,
+    description: 'Esta se disparara justo cuando el usuario inicie sesión'
+  }),
+  new PropsModel({
+    propName: 'onRegist',
+    type: 'Function',
+    required: true,
+    description: 'Esta se disparara justo cuando un nuevo usuario sea registrado'
   })
-
-  /*
-    classRegistForm?: string;
-    classCancelRegist?: string;
-    textLoginMessage: string;
-    textRegistMessage: string;
-    iconUrl?: string;
-    defaultUserRol?: number;
-    googleSingin?: boolean;
-    showImage?: boolean;
-    showNickName?: boolean;
-    showPhoneNumber?: boolean;
-    useCookies?: boolean;
-    onLogin: Function;
-    onRegist: Function;
-  */
 ];
 
 export const exampleCode = (

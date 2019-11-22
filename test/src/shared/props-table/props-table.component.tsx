@@ -40,7 +40,7 @@ class PropsTableComponent extends Component<Props,State> {
                     { data.propName }
                   </code>
                 </td>
-                <td className="td-props text-center">
+                <td className="td-props td-big-props text-center">
                   <code>
                     { data.type }
                   </code>

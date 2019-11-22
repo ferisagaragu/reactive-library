@@ -29,6 +29,10 @@ code {
   padding: 8px;
 }
 
+.td-big-props {
+  width: 150px;
+}
+
 .tr-props:nth-child(even) {
   background-color: #fff;
   border-top: 1px solid #c6cbd1;
