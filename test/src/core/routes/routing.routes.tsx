@@ -25,6 +25,7 @@ import KeyView from '../../modules/key/key.view';
 import Sweetalert2View from '../../modules/sweetalert2/sweetalert2.view';
 import CssView from '../../modules/css/css.view';
 import LoginFormView from '../../modules/login-form/login-form.view';
+import SpaceView from '../../modules/space/space.view';
 
 const Routing = () => {
   return (
@@ -53,6 +54,7 @@ const Routing = () => {
       <Route path="/sweetalert2/" exact component={ Sweetalert2View } />
       <Route path="/r-css/" exact component={ CssView } />
       <Route path="/login-form/" exact component={ LoginFormView } />
+      <Route path="/space/" exact component={ SpaceView } />
       <Route path="/" exact component={ HomeView } />
       <Route component={ NotFoundView } />
     </Switch>

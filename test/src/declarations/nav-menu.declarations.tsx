@@ -20,18 +20,6 @@ export const navMenu: Array<BurgerElement> = [
       new BurgerSubElement({
         uid: key(),
         icon: <ComponentIncon className="menu-icon"/>,
-        name: <label>Check Box</label>,
-        link: '/check-box'
-      }),
-      new BurgerSubElement({
-        uid: key(),
-        icon: <ComponentIncon className="menu-icon"/>,
-        name: <label>File Field</label>,
-        link: '/file-field'
-      }),
-      new BurgerSubElement({
-        uid: key(),
-        icon: <ComponentIncon className="menu-icon"/>,
         name: <label>Footer</label>,
         link: '/footer'
       }),
@@ -50,7 +38,7 @@ export const navMenu: Array<BurgerElement> = [
       new BurgerSubElement({
         uid: key(),
         icon: <ComponentIncon className="menu-icon"/>,
-        name: <label>Login Form</label>,
+        name: <label>Login /Logout</label>,
         link: '/login-form'
       }),
       new BurgerSubElement({
@@ -62,26 +50,8 @@ export const navMenu: Array<BurgerElement> = [
       new BurgerSubElement({
         uid: key(),
         icon: <ComponentIncon className="menu-icon"/>,
-        name: <label>Multi Select</label>,
-        link: '/multi-select'
-      }),
-      new BurgerSubElement({
-        uid: key(),
-        icon: <ComponentIncon className="menu-icon"/>,
-        name: <label>Select</label>,
-        link: '/react-select'
-      }),
-      new BurgerSubElement({
-        uid: key(),
-        icon: <ComponentIncon className="menu-icon"/>,
         name: <label>Single Modal</label>,
         link: '/single-modal'
-      }),
-      new BurgerSubElement({
-        uid: key(),
-        icon: <ComponentIncon className="menu-icon"/>,
-        name: <label>Single Select</label>,
-        link: '/single-select'
       }),
       new BurgerSubElement({
         uid: key(),
@@ -108,6 +78,37 @@ export const navMenu: Array<BurgerElement> = [
     icon: <CssIcon className="menu-icon"/>,
     name: <label>Reactive CSS</label>,
     link: '/r-css'
+  }),
+  new BurgerElement({
+    uid: key(),
+    icon: <FontAwesomeIcon icon="brain" />,
+    name: <label>Reactive Fields</label>,
+    items: [
+      new BurgerSubElement({
+        uid: key(),
+        icon: <ComponentIncon className="menu-icon"/>,
+        name: <label>Check Box</label>,
+        link: '/check-box'
+      }),
+      new BurgerSubElement({
+        uid: key(),
+        icon: <ComponentIncon className="menu-icon"/>,
+        name: <label>File Field</label>,
+        link: '/file-field'
+      }),
+      new BurgerSubElement({
+        uid: key(),
+        icon: <ComponentIncon className="menu-icon"/>,
+        name: <label>Multi Select</label>,
+        link: '/multi-select'
+      }),
+      new BurgerSubElement({
+        uid: key(),
+        icon: <ComponentIncon className="menu-icon"/>,
+        name: <label>Single Select</label>,
+        link: '/single-select'
+      })
+    ]
   }),
   new BurgerElement({
     uid: key(),

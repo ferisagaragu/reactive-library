@@ -6,7 +6,8 @@ const icons: any = [
   awesomeIcons.faFlask,
   awesomeIcons.faFileExport,
   awesomeIcons.faCube,
-  awesomeIcons.faCogs
+  awesomeIcons.faCogs,
+  awesomeIcons.faBrain
 ];
 
 export default icons;

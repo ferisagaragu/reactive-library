@@ -28,7 +28,7 @@ class LoginFormView extends Component<Props,State> {
       <Row>
         <Col md={ 12 }>
           <h2 className="mb-5">
-            Login Form
+            Login Form / Logout Button
           </h2>
         </Col>
 
