@@ -23,21 +23,29 @@ class App extends Component<any, any> {
         <Header
           className="r-gradient"
           left={
-            <Link title="Inicio" className="no-link" to="/home">
-              <Row>
-                <Col className="mt-1" md={ 1 }>
-                  <ReactiveLogo 
-                    className="reactive-log r-spin" 
-                  /> 
-                </Col>
+            <Row>
+              <Link title="Inicio" className="r-no-link ml-3" to="/home">
+                <Row>
+                  <Col className="mt-1" md={ 1 }>
+                    <ReactiveLogo 
+                      className="reactive-log r-spin" 
+                    /> 
+                  </Col>
 
-                <Col md={ 10 }>
-                  <h3 className="ml-3">
-                    Reactive
-                  </h3>
-                </Col>
-              </Row>
-            </Link>
+                  <Col md={ 3 }>
+                    <h3 className="ml-3">
+                      Reactive
+                    </h3>
+                  </Col>
+                </Row>
+              </Link>
+
+              <Col md={ 3 }>
+                <code>
+                  v 0.1 - beta
+                </code>
+              </Col>
+            </Row>
           }
           menuData={ navMenu }
         />
@@ -64,14 +72,14 @@ class App extends Component<any, any> {
           center={
             <Row>
               <Col md={ 6 }>
-                <a style={{ color: '#fff' }} href="https://console.firebase.google.com/">
+                <a className="r-no-link" href="https://console.firebase.google.com/">
                   <FirebaseIcon style={{ width: '64px', height: '64px', padding: '10px' }} />
                   <h4>Firebase</h4>
                 </a>
               </Col>
 
               <Col md={ 6 }>
-                <a style={{ color: '#fff' }} href="https://github.com/ferisagaragu/reactive-library">
+                <a className="r-no-link" href="https://github.com/ferisagaragu/reactive-library">
                   <GitHubIcon style={{ fill: '#fff', width: '64px', height: '64px', padding: '10px' }} />
                   <h4>GitHub Repo</h4>
                 </a>

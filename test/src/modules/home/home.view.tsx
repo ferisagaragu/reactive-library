@@ -15,7 +15,6 @@ class HomeView extends Component<Props,State> {
         <h2>
           Documentacion Reactive
         </h2>
-        <code>v 0.1 - beta</code>
 
         <Col md={ 12 }>
           <a href="https://github.com/ferisagaragu/reactive-library">

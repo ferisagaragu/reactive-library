@@ -30,7 +30,13 @@ class CssView extends Component<Props,State> {
             r-gradient
           </code>
 
-          <div className="mt-5 r-gradient css-div2" />
+          <div className="mt-5 mb-5 r-gradient css-div2" />
+
+          <code>
+            r-no-link
+          </code>
+          <br /> <br />
+          <a className="mt-5 mb-5 r-no-link" href="home">Home</a>
         </Col>
       </Row>
     );
