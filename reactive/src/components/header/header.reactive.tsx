@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { BurgerElement } from '../../exports/model/burger-element.model';
 import { NavMenuReactive } from './nav-menu.reactive';
+import { onWindowResize } from '../reducers/window-resize.actions';
+import { connect } from '../../exports/redux.export';
 
 const reactBurguer = require('react-burger-menu');
 const Menu = reactBurguer.slide;
@@ -12,19 +14,42 @@ interface Props {
   right?: React.ReactElement;
   center?: React.ReactElement;
   menuData?: Array<BurgerElement>;
+  minSize?: string;
+  maxSize?: string;
+  windowSize?: string;
+  onWindowResize: Function;
 }
 
 interface State {
   isOpenMenu: boolean;
 }
 
-export class HeaderReactive extends React.Component<Props, State> {
+class HeaderReactive extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
 
     this.state = {
       isOpenMenu: false
+    }
+  }
+
+  componentDidMount() {
+    this.props.onWindowResize();
+  }
+
+  private setBurgerMenuSize(): void {
+    const { windowSize, minSize, maxSize } = this.props;
+    const menuBurger: any = document.getElementsByClassName('bm-menu-wrap')[0];
+
+    if (!menuBurger) {
+      return;
+    }
+
+    if (windowSize === 'xs' || windowSize === 'sm') {
+      menuBurger.style.width =  minSize ? minSize : '300px';
+    } else {
+      menuBurger.style.width = maxSize ? maxSize : '400px';
     }
   }
 
@@ -47,6 +72,7 @@ export class HeaderReactive extends React.Component<Props, State> {
   render() {
     const { left, right, center, children, className, menuData } = this.props;
     const { isOpenMenu } = this.state;
+    menuData && this.setBurgerMenuSize();
 
     return (
       <header className={ `header-reactive ${className ? className : ''}` }>
@@ -55,7 +81,7 @@ export class HeaderReactive extends React.Component<Props, State> {
             <Row>
               {
                 menuData &&
-                  <Col  className="burger-reactive" md={ 1 }>
+                  <Col className="burger-reactive" xs={ 1 } sm={ 1 } md={ 1 }>
                     <Menu
                       isOpen={ isOpenMenu }
                       onStateChange={ (isOpenStatus: any) => this.setState({ isOpenMenu: isOpenStatus.isOpen }) }
@@ -67,7 +93,7 @@ export class HeaderReactive extends React.Component<Props, State> {
 
               {
                 left && 
-                  <Col className="text-left" md={ center ? menuData ? 3 : 4 : menuData ? 5 : 6 }>
+                  <Col className="text-left" xs={ center ? menuData ? 3 : 4 : menuData ? 5 : 6 }  sm={ center ? menuData ? 3 : 4 : menuData ? 5 : 6 } md={ center ? menuData ? 3 : 4 : menuData ? 5 : 6 }>
                     { left }
                   </Col>
               }
@@ -93,3 +119,13 @@ export class HeaderReactive extends React.Component<Props, State> {
     );
   }
 }
+
+const mapStateToProps = (state: any) => ({
+  windowSize: state.windowSize
+});
+
+const mapDispatchToProps = (dispatch: Function) => ({
+  onWindowResize: () => dispatch(onWindowResize())
+});
+
+export const Header = connect(mapStateToProps, mapDispatchToProps)(HeaderReactive);

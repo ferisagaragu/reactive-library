@@ -137,6 +137,11 @@ export const navMenu: Array<BurgerElement> = [
   }),
   new BurgerElement({
     uid: key(),
+    icon: <ReduxIcon className="menu-icon"/>,
+    name: <label>Redux Reducers</label>
+  }),
+  new BurgerElement({
+    uid: key(),
     icon: <FontAwesomeIcon icon="file-export" />,
     name: <label>Reactive Exports</label>,
     items: [

@@ -1,3 +1,11 @@
+
+@media(max-width: 767px) {
+  .r-app-container {
+    padding-top: 100px;
+    padding-bottom: 450px;
+  }
+}
+
 header {
   background: rgb(54,0,51);
   background: linear-gradient(245deg, rgba(54,0,51,1) 0%, rgba(11,135,147,1) 100%);
@@ -44,10 +52,6 @@ code {
   color: aliceblue;
   background-size: 400% 400%;
 	animation: r-gradient 15s ease infinite;
-}
-
-.bm-menu-wrap {
-  width: 400px !important;
 }
 
 .reactive-log {

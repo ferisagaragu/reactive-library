@@ -1,4 +1,4 @@
-import { Action } from '../interfaces/action.interface';
+import { Action } from 'reactive';
 import { UserDataReducerEnum } from '../enums/user-data-reducer.enum';
 import { toast } from 'reactive';
 

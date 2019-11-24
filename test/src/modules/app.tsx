@@ -17,7 +17,10 @@ import { ReactComponent as ReactiveLogo } from '../styles/svg/reactive.svg';
 import { ReactComponent as NeuroBrainIcon } from '../styles/svg/neuron.svg';
 
 class App extends Component<any, any> {
+
   render() {
+    const { windowSize } = this.props;
+
     return (
       <>
         <Header
@@ -26,13 +29,13 @@ class App extends Component<any, any> {
             <Row>
               <Link title="Inicio" className="r-no-link ml-3" to="/home">
                 <Row>
-                  <Col className="mt-1" md={ 1 }>
+                  <Col className="mt-1" xs={ 1 } md={ 1 }>
                     <ReactiveLogo 
                       className="reactive-log r-spin" 
                     /> 
                   </Col>
 
-                  <Col md={ 3 }>
+                  <Col xs={ 3 } md={ 3 }>
                     <h3 className="ml-3">
                       Reactive
                     </h3>
@@ -40,11 +43,14 @@ class App extends Component<any, any> {
                 </Row>
               </Link>
 
-              <Col md={ 3 }>
-                <code>
-                  v 0.1 - beta
-                </code>
-              </Col>
+              {
+                windowSize !== 'sm' && windowSize !== 'xs' &&
+                  <Col md={ 3 }>
+                    <code>
+                      v 0.1 - beta
+                    </code>
+                  </Col>
+              }
             </Row>
           }
           menuData={ navMenu }
@@ -105,9 +111,8 @@ class App extends Component<any, any> {
 }
 
 const mapStateToProps = (state: any) => ({
-  userData: state.userData
+  userData: state.userData,
+  windowSize: state.windowSize
 });
 
-const mapDispatchToProps = (dispatch: Function) => ({});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, null)(App);

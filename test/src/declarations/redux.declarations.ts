@@ -1,9 +1,10 @@
-import { combineReducers, reducer } from 'reactive';
+import { combineReducers, reducer, windowSize } from 'reactive';
 import { userData } from '../core/reducers/user-data.reducers';
 
 export const reducers = combineReducers({
   form: reducer,
-  userData
+  userData,
+  windowSize
 });
 
 export const initState = {

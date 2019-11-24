@@ -29,7 +29,19 @@ export const propsHeader: Array<PropsModel> = [
     propName: 'child',
     type: 'ReactElement',
     required: false,
-    description: 'Este debe entrar dentro de la etiqueta Footer'
+    description: 'Este debe entrar dentro de la etiqueta Home'
+  }),
+  new PropsModel({
+    propName: 'minSize',
+    type: 'string',
+    required: false,
+    description: 'Este debe contener el valor que se usara si la pantalla es chica o mobil por defecto es 300px'
+  }),
+  new PropsModel({
+    propName: 'maxSize',
+    type: 'string',
+    required: false,
+    description: 'Este debe contener el valor que se usara si la pantalla es grande por defecto es 400px'
   })
 ];
 
