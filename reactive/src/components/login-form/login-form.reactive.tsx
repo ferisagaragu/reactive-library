@@ -18,6 +18,8 @@ interface Props {
   isLoading: boolean;
   iconUrl: string;
   googleSingin?: boolean;
+  regist: boolean;
+  recover: boolean;
   onGoogle: Function;
   submitActions: Function;
   recoverPassword: Function;
@@ -44,7 +46,9 @@ class LoginForm extends React.Component<Props, State> {
       googleSingin,
       onGoogle,
 
-      recoverPassword
+      recoverPassword,
+      regist,
+      recover
     } = this.props;
     
     return (
@@ -82,15 +86,18 @@ class LoginForm extends React.Component<Props, State> {
           !isLoading ?
             <>
               <div className="text-center mt-4">
-                <button
-                  className={ `mr-3 ${classRegist}` } 
-                  type="button" 
-                  onClick={ () => cancel() }
-                >
-                  <FontAwesomeIcon icon="user-plus"/>
-                  <SpaceReactive/>
-                  Registrar un nuevo usuario
-                </button>
+                {
+                  (regist === undefined  || regist) &&
+                    <button
+                      className={ `mr-3 ${classRegist}` } 
+                      type="button" 
+                      onClick={ () => cancel() }
+                    >
+                      <FontAwesomeIcon icon="user-plus"/>
+                      <SpaceReactive/>
+                      Registrar un nuevo usuario
+                    </button>
+                }
 
                 <button 
                   className={ `${classLogin}` }
@@ -118,11 +125,14 @@ class LoginForm extends React.Component<Props, State> {
                 </div>
               } 
 
-              <div className="text-center mt-2">
-                <button className="login-recover-password" type="button" onClick={ () => recoverPassword() }>
-                  ¿No recuerdas tu contraseña?
-                </button>
-              </div>
+              {
+                (recover === undefined  || recover) &&
+                  <div className="text-center mt-2">
+                    <button className="login-recover-password" type="button" onClick={ () => recoverPassword() }>
+                      ¿No recuerdas tu contraseña?
+                    </button>
+                  </div>
+              }
             </>
           : 
             <div className="text-center">

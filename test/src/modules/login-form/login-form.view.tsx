@@ -93,9 +93,9 @@ class LoginFormView extends Component<Props,State> {
             onRegist={ (userData: UserData) => this.setState({ registData: userData }) }
           />
 
-          <LogoutButton 
+          {/*<LogoutButton 
             className="btn btn-outline-info" 
-          />
+          />*/}
 
           <div className="mt-5">
             <SyntaxHighlighter 

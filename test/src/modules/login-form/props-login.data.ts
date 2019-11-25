@@ -141,6 +141,18 @@ export const props: Array<PropsModel> = [
     type: 'Function',
     required: true,
     description: 'Esta se disparara justo cuando un nuevo usuario sea registrado'
+  }),
+  new PropsModel({
+    propName: 'regist',
+    type: 'boolean',
+    required: false,
+    description: 'Este indica si aparecera el boton de registrar nuevo usuario'
+  }),
+  new PropsModel({
+    propName: 'recover',
+    type: 'boolean',
+    required: false,
+    description: 'Este indicara si aparecera el link para recuperar la contraseña'
   })
 ];
 

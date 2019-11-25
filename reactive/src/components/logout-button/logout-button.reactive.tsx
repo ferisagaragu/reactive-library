@@ -3,11 +3,15 @@ import { FirebaseReactive } from '../firebase/firebase.reactive';
 import { Cookies } from '../../exports/cookies.export';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { SpaceReactive } from '../space/space.reactive';
+import { toastReactive } from '../swal/swal.reactive';
+import { DropdownButton, Dropdown } from 'react-bootstrap';
 
 interface Props {
   className?: string;
   label?: string | React.ReactElement;
-  onClick?: Function;
+  src?: string;
+  title?: string;
+  onLogOut: Function;
 }
 
 interface State {}
@@ -17,32 +21,46 @@ export class LogoutButtonReactive extends React.Component<Props, State> {
   firebase: FirebaseReactive = new FirebaseReactive();
 
   private onClick(): void {
-    const { onClick } = this.props;
+    const { onLogOut } = this.props;
     this.firebase.signOut(() => {
       Cookies.remove('userData');
-      onClick && onClick();
+      toastReactive('error', 'Sesión cerrada', 'bottom');
+      onLogOut && onLogOut();
     });
   }
   
   render() {
-    const { className, label } = this.props;
+    const { className, label, src, title, children } = this.props;
 
     return (
-      <button
-        className={ className }
-        onClick={ () => this.onClick() }
-      >
-        {
-          label ?
-            label
-          :
-            <>
-              <FontAwesomeIcon icon="sign-out-alt"/>
-              <SpaceReactive />
-              Cerrar sesión
-            </>
+      <DropdownButton 
+        className={ `reactive-user-button ${className}` }
+        id="reactive-user-button"
+        title={ 
+          <img 
+            alt="userImge" 
+            className="rounded-circle r-icon-32" 
+            src={ src } 
+            title={ title } 
+          /> 
         }
-      </button>
+      > 
+        {
+          children
+        }
+        <Dropdown.Item onClick={ () => this.onClick() }>
+          {
+            label ?
+              label
+            :
+              <>
+                <FontAwesomeIcon icon="sign-out-alt"/>
+                <SpaceReactive />
+                Cerrar sesión
+              </>
+          }
+        </Dropdown.Item>
+      </DropdownButton>
     );
   }
 }

@@ -15,6 +15,7 @@ export { TreeReactive as Tree } from './components/tree/tree.reactive';
 export { GradientButtonReactive as GradientButton } from './components/gradient-button/gradient-button.reactive';
 export { RenderLoginReactive as LoginForm } from './components/login-form/render-login.reactive';
 export { LogoutButtonReactive as LogoutButton } from './components/logout-button/logout-button.reactive';
+export { LogoutItemReactive as LogoutItem } from './components/logout-button/logout-item.reactive';
 export { SpaceReactive as Space } from './components/space/space.reactive';
 export { BugReportReactive as BugReport } from './components/bug-report/bug-report.reactive';
 export { FileFieldReactive as FileField } from './components/react-field/file-field.reactive';

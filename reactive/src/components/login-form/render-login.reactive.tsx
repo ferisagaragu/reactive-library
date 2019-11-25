@@ -32,6 +32,8 @@ interface Props {
   showNickName?: boolean;
   showPhoneNumber?: boolean;
   useCookies?: boolean;
+  regist?: boolean;
+  recover?: boolean;
   onLogin: Function;
   onRegist: Function;
 }
@@ -86,7 +88,6 @@ export class RenderLoginReactive extends React.Component<Props,State> {
           
           onLogin(finalUserData);
           this.setCookieUser(formData.email, formData.password);
-          this.setState({ isLoadig: false, isAutoLogin: null });
           toastReactive(
             'success', 
             this.getLoginMessage(finalUserData), 
@@ -302,27 +303,23 @@ export class RenderLoginReactive extends React.Component<Props,State> {
   render() {
     const {
       className,
-
       classSpinner,
-
       classRegist,
       classLogin,
       classGoogle,
       classIcon,
-
       classRecover,
       classCancelRecover,
-
       classRegistForm,
       classCancelRegist,
       classImageRegist,
-
       iconUrl,
       showImage,
       showNickName,
       showPhoneNumber,
-
-      googleSingin
+      googleSingin,
+      regist,
+      recover
     } = this.props;
     const { isLoadig, caseShow, cssAnimation, isLoadingRegist, isAutoLogin } = this.state;
 
@@ -370,6 +367,8 @@ export class RenderLoginReactive extends React.Component<Props,State> {
                       isLoading={ isLoadig }
                       googleSingin={ googleSingin }
                       recoverPassword={ () => this.setState({ caseShow: 1 }) }
+                      regist={ regist }
+                      recover={ recover }
                     />
                 }
               </Card>

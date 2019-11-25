@@ -8,7 +8,5 @@ export const reducers = combineReducers({
 });
 
 export const initState = {
-  userData: {
-    data: 'Hola princeso'
-  }
+  userData: null
 };
