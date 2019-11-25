@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col, SyntaxHighlighter, tomorrow, LoginForm, UserData, LogoutButton, LogoutItem } from 'reactive';
 import PropsTableComponent from '../../shared/props-table/props-table.component';
-import { exampleCode, props, exampleMode, propsLogout } from './props-login.data';
+import { exampleCode, props, exampleMode, propsLogout, propsItem } from './props-login.data';
 
 interface Props {}
 
@@ -39,14 +39,23 @@ class LoginFormView extends Component<Props,State> {
         </Col>
         
         <Col className="mb-5" md={ 12 }>
+          <code>LoginForm</code>
           <PropsTableComponent
             propsData={ props }
           />
         </Col>
 
         <Col className="mb-5" md={ 12 }>
+          <code>LogoutButton</code>
           <PropsTableComponent
             propsData={ propsLogout }
+          />
+        </Col>
+
+        <Col className="mb-5" md={ 12 }>
+          <code>LogoutItem</code>
+          <PropsTableComponent
+            propsData={ propsItem }
           />
         </Col>
 

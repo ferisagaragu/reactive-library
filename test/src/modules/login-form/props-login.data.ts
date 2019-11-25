@@ -161,7 +161,7 @@ export const propsLogout: Array<PropsModel> = [
     propName: 'className',
     type: 'string',
     required: false,
-    description: 'Esta es la clase css para el boton'
+    description: 'Esta es la clase css'
   }),
   new PropsModel({
     propName: 'label',
@@ -170,12 +170,33 @@ export const propsLogout: Array<PropsModel> = [
     description: 'Este debe ser un string o un elemento de React'
   }),
   new PropsModel({
-    propName: 'onClick',
-    type: 'Function',
+    propName: 'src',
+    type: 'string',
     required: false,
-    description: 'Este debe ser un string o un elemento de React'
+    description: 'Este debe ser un string que contenga la url o la ruta de la imagen del usuario'
+  }),
+  new PropsModel({
+    propName: 'title',
+    type: 'string',
+    required: false,
+    description: 'Este sera el tooltip que se pondra en el boton de usuario'
+  }),
+  new PropsModel({
+    propName: 'onLogOut',
+    type: 'Function',
+    required: true,
+    description: 'Esta funcion se ejecutara despues de borrar los cookies si es que existen'
   })
 ];
+
+export const propsItem = [
+  new PropsModel({
+    propName: 'onClick',
+    type: 'Function',
+    required: true,
+    description: 'Esta funcion se ejecutara cuando se le de click al item'
+  })
+]
 
 export const exampleMode = [
   new PropsModel({
@@ -285,6 +306,13 @@ export const exampleCode = (
   />
   
   <LogoutButton 
-    className="btn btn-outline-info" 
-  />`
+    className="mt-1"
+    src={ YOUR PHOTO }
+    title={ YOUR TITLE }
+    onLogOut={ () => { YOUR ACTION LOGOUT } } 
+  >
+    <LogoutItem onClick={ () => {} }>
+      ELEMENTO DEL MENU
+    </LogoutItem>
+  </LogoutButton>`
 );
