@@ -146,6 +146,7 @@ export {
   Tabs,
   Tooltip,
   Toast,
+  DropdownButton,
   Container,
   Row,
   Col

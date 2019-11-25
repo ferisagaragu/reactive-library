@@ -8,6 +8,24 @@ export const props: Array<PropsModel> = [
     description: 'Esta es la clase css'
   }),
   new PropsModel({
+    propName: 'classBug',
+    type: 'string',
+    required: false,
+    description: 'Esta es la clase css del boton bug'
+  }),
+  new PropsModel({
+    propName: 'classReport',
+    type: 'string',
+    required: false,
+    description: 'Esta es la clase css del boton report'
+  }),
+  new PropsModel({
+    propName: 'buttonSize',
+    type: `'sm' | 'lg' | undefined`,
+    required: false,
+    description: 'Esta es el tamaño de los botones'
+  }),
+  new PropsModel({
     propName: 'adminRole',
     type: 'boolean',
     required: true,

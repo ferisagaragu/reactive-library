@@ -13,6 +13,9 @@ import { alertQuestionReactive } from '../swal/swal.reactive';
 
 interface Props {
   className?: string;
+  classBug?: string | undefined;
+  classReport?: string | undefined;
+  buttonSize?: 'sm' | 'lg' | undefined;
   adminRole: boolean;
   titleAlter: string;
   textAlter: string;
@@ -68,7 +71,7 @@ export class BugReportReactive extends React.Component<Props, State> {
 
   render() {
     const { isShow, isShowAdmin, bugData } = this.state;
-    const { children, adminRole, className } = this.props;
+    const { children, adminRole, className, classBug, classReport, buttonSize } = this.props;
 
   	return (
       <div className={ className }>
@@ -105,9 +108,10 @@ export class BugReportReactive extends React.Component<Props, State> {
         </ModalReactive>
 
         <Button
-          className="btn-outline-bug"
+          className={ `btn-outline-bug ${classBug}` }
           onClick={ () => this.setState({ isShow: true }) }
           variant="outline-dark"
+          size={ buttonSize }
         >
           <FontAwesomeIcon icon="bug" />
           { 
@@ -122,9 +126,10 @@ export class BugReportReactive extends React.Component<Props, State> {
         {
           adminRole &&
             <Button
-              className="ml-3"
+              className={ `${classReport ? classReport : 'ml-3'}` }
               onClick={ () => this.setState({ isShowAdmin: true }) }
               variant="outline-info"
+              size={ buttonSize }
             >
               <FontAwesomeIcon icon="file-medical-alt" />
               <SpaceReactive />

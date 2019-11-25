@@ -1,15 +1,7 @@
 import React, { Component } from 'react';
-import {
-  connect, 
-  Header, 
-  Footer,
-  Container,
-  Row,
-  Col,
-  Link,
-  BugReport
-} from 'reactive';
+import { connect, Header, Footer, Container, Row, Col, Link, BugReport, DropdownButton, LogoutButton } from 'reactive';
 import Routing from '../core/routes/routing.routes';
+
 import { navMenu } from '../declarations/nav-menu.declarations';
 import { ReactComponent as GitHubIcon } from '../styles/svg/github-logo.svg';
 import { ReactComponent as FirebaseIcon } from '../styles/svg/firebase-logo.svg';
@@ -53,6 +45,15 @@ class App extends Component<any, any> {
               }
             </Row>
           }
+          right={
+            <DropdownButton 
+              className={ `reactive-user-button mt-1` }
+              id="reactive-user-button"
+              title={ <img className="rounded-circle" src="https://lh3.googleusercontent.com/--kQk-D8sBIs/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rcnlN07JosEDqPL0-zr5JgwT5xHfw.CMID/s32-c/photo.jpg" /> }
+            >
+              <LogoutButton className="dropdown-item" />
+            </DropdownButton>
+          }
           menuData={ navMenu }
         />
  
@@ -63,40 +64,83 @@ class App extends Component<any, any> {
         <Footer 
           className="r-gradient"
           left={
-            <Row className="mt-4 ml-1">
-              <Col md={ 1 }>
-                <NeuroBrainIcon style={{ width: '64px', height: '64px', padding: '10px' }}/>
-              </Col>
+            <Row>
+              <Col className="p-3 text-center" xs={ 6 } sm={ 6 } md={ 6 }>
+                <NeuroBrainIcon 
+                  className={ `${ 
+                      windowSize === 'xs' || windowSize === 'sm' ?
+                        'r-icon-32'
+                      :
+                        'r-icon-42'
+                    }` 
+                  } 
+                />
 
-              <Col className="ml-3" md={ 2 }>
-                <h3 className="m-3">
-                  NeuroBrain
-                </h3>
+                {
+                  !(windowSize === 'xs' || windowSize === 'sm') && 
+                    <h4 className="m-3">
+                      NeuroBrain
+                    </h4>
+                }
               </Col>
             </Row>
           }
           center={
             <Row>
-              <Col md={ 6 }>
+              <Col className="p-3"  xs={ 6 } sm={ 6 } md={ 6 }>
                 <a className="r-no-link" href="https://console.firebase.google.com/">
-                  <FirebaseIcon style={{ width: '64px', height: '64px', padding: '10px' }} />
-                  <h4>Firebase</h4>
+                  <FirebaseIcon 
+                    className={ `${ 
+                        windowSize === 'xs' || windowSize === 'sm' ?
+                          'r-icon-32'
+                        :
+                          'r-icon-42'
+                      }` 
+                    }  
+                  />
+                  {
+                    !(windowSize === 'xs' || windowSize === 'sm') && 
+                      <h4 className="m-3">
+                        Firebase
+                      </h4>
+                  }
                 </a>
               </Col>
 
-              <Col md={ 6 }>
+              <Col className="p-3" xs={ 6 } sm={ 6 } md={ 6 }>
                 <a className="r-no-link" href="https://github.com/ferisagaragu/reactive-library">
-                  <GitHubIcon style={{ fill: '#fff', width: '64px', height: '64px', padding: '10px' }} />
-                  <h4>GitHub Repo</h4>
+                  <GitHubIcon 
+                    className={ `${ 
+                        windowSize === 'xs' || windowSize === 'sm' ?
+                          'r-icon-32'
+                        :
+                          'r-icon-42'
+                      }` 
+                    }   
+                  />
+                  {
+                    !(windowSize === 'xs' || windowSize === 'sm') && 
+                      <h4 className="m-3">
+                        GitHub Repo
+                      </h4>
+                  }
                 </a>
               </Col>
             </Row>
           }
           right={
             <Row>
-              <Col className="text-right mt-3">
+              <Col 
+                className={ `text-right ${!(windowSize === 'xs' || windowSize === 'sm') && 'mt-3'} p-3` } 
+                xs={ 12 }
+                sm={ 12 } 
+                md={ 12 }
+              >
                 <BugReport
-                  className="mt-4 ml-4"
+                  className={ `${!(windowSize === 'xs' || windowSize === 'sm') && 'mt-4 ml-4'}` }
+                  classBug={ windowSize === 'xs' || windowSize === 'sm' ? 'bug-report-mini mr-1' : '' }
+                  classReport={ windowSize === 'xs' || windowSize === 'sm' ? 'bug-report-mini' : '' }
+                  buttonSize={ windowSize === 'xs' || windowSize === 'sm' ? 'sm' : undefined }
                   adminRole={ true }
                   titleAlter="Resolver el problema"
                   textAlter="¿Estas seguro de que quieres marcar el problema como resuelto?"

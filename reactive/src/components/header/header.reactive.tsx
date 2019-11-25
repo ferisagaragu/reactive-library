@@ -100,14 +100,14 @@ class HeaderReactive extends React.Component<Props, State> {
 
               {
                 center && 
-                  <Col className="text-center" md={ 4 }>
+                  <Col className="text-center" xs={ 4 } sm={ 4 } md={ 4 }>
                     { center }
                   </Col>
               }
 
               {
                 right && 
-                  <Col className="text-right" md={ center ? 4 : 6 }>
+                  <Col className="text-right" xs={ center ? 4 : 5 } sm={ center ? 4 : 5 } md={ center ? 4 : 6 }>
                     { right }
                   </Col>
               }
