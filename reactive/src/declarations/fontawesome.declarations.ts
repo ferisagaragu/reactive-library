@@ -26,7 +26,8 @@ const icons: any = [
   awesomeIcons.faRedo,
   awesomeIcons.faUserPlus,
   awesomeIcons.faUserCheck,
-  awesomeIcons.faSignOutAlt
+  awesomeIcons.faSignOutAlt,
+  awesomeIcons.faUserCircle
 ];
 
 export const awesomeIconsReactive = awesomeIcons;

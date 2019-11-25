@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Col, SyntaxHighlighter, tomorrow, LoginForm, UserData, LogoutButton } from 'reactive';
+import { Row, Col, SyntaxHighlighter, tomorrow, LoginForm, UserData, LogoutButton, LogoutItem } from 'reactive';
 import PropsTableComponent from '../../shared/props-table/props-table.component';
 import { exampleCode, props, exampleMode, propsLogout } from './props-login.data';
 
@@ -93,9 +93,17 @@ class LoginFormView extends Component<Props,State> {
             onRegist={ (userData: UserData) => this.setState({ registData: userData }) }
           />
 
-          {/*<LogoutButton 
-            className="btn btn-outline-info" 
-          />*/}
+          <div className="logout-demo">
+            <LogoutButton
+              src=""
+              title="YOUR TOOLTIP"
+              onLogOut={ () => {} } 
+            >
+              <LogoutItem onClick={ () => {} }>
+                Elemento del menu
+              </LogoutItem>
+            </LogoutButton>
+          </div>
 
           <div className="mt-5">
             <SyntaxHighlighter 

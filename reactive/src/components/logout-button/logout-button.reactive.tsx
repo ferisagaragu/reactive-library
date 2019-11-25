@@ -37,12 +37,15 @@ export class LogoutButtonReactive extends React.Component<Props, State> {
         className={ `reactive-user-button ${className}` }
         id="reactive-user-button"
         title={ 
-          <img 
-            alt="userImge" 
-            className="rounded-circle r-icon-32" 
-            src={ src } 
-            title={ title } 
-          /> 
+          src ?
+            <img 
+              alt="userImge" 
+              className="rounded-circle r-icon-32" 
+              src={ src } 
+              title={ title } 
+            /> 
+          :
+            <FontAwesomeIcon icon="user-circle" size="2x" />
         }
       > 
         {

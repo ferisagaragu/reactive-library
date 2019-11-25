@@ -98,12 +98,6 @@ code {
   font-size: 13px;
 }
 
-
-
-
-#reactive-user-button {
-  color: #fff;
-  background-color: transparent;
-  border-color: transparent;
-  padding: 0px;
+.logout-demo {
+  background: black;
 }

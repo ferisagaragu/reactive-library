@@ -611,6 +611,15 @@ Note: Beware of modifying this element as it can break the animations - you shou
 }
 /*=================================================*/
 
+/*user-button*/
+#reactive-user-button {
+  color: #fff;
+  background-color: transparent;
+  border-color: transparent;
+  padding: 0px;
+}
+/*=================================================*/
+
 /*r-css*/
 .r-app-container {
   padding-top: 100px;
