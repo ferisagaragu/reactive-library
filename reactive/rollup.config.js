@@ -7,6 +7,7 @@ import resolve from 'rollup-plugin-node-resolve';
 import url from 'rollup-plugin-url';
 import svgr from '@svgr/rollup';
 import pkg from './package.json';
+import babel from 'rollup-plugin-babel';
 
 export default {
   input: 'src/index.ts',
@@ -39,6 +40,8 @@ export default {
     commonjs()
   ],
   external: [
-    'react-router-dom'
+    'react-router-dom',
+    'react',
+    'react-dom'
   ]
 }

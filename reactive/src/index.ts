@@ -240,6 +240,9 @@ export { Inputmask } from './exports/inputmask.export';
     https://www.npmjs.com/package/cryptr
 */
 export { Cryptr } from './exports/cryptr.export';
+
+export const ReactDOM = require('react-dom');
+export const React = require('react');
 //========================================================
 
 //==========================TYPES=========================

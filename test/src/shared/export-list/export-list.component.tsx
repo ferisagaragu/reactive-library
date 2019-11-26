@@ -13,14 +13,15 @@ class ExportListComponent extends Component<Props,State> {
 
     return (
       <ul>
-        {
-          exportData.map((element: any) => (
-            <li key={ key() }>
-              <code>
-                { element }
-              </code>
-            </li>
-          ))
+        { 
+          exportData &&
+            exportData.map((element: any) => (
+              <li key={ key() }>
+                <code>
+                  { element }
+                </code>
+              </li>
+            ))
         }
       </ul>
     );

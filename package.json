@@ -4,7 +4,7 @@
   "scripts": {
     "library": "cd reactive && npm start",
     "test": "cd test && npm start",
-    "deploy": "cd test && npm run deploy",
+    "deploy": "cd reactive && npm run test-lib && cd .. && cd test && npm run deploy && cd .. && cd reactive && npm run test-dev",
     "css": "cd reactive && npm run css",
     "sonar-scanner": "cd reactive && npm run sonarqube",
     "sonar-scanner-test": "cd test && npm run sonarqube"

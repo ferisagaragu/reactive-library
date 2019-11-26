@@ -33,28 +33,29 @@ class FunctionTableComponent extends Component<Props,State> {
         
         <tbody>
           {
-            propsData.map((data: FunctionModel) => (
-              <tr key={ key() } className="tr-props">
-                <td className="td-props">
-                  <code>
-                    { data.functionName }
-                  </code>
-                </td>
-                <td className="td-props text-center">
-                  <code>
-                    { data.params }
-                  </code>
-                </td>
-                <td className="td-props text-center">
-                  <code>
-                    { data.returnStr }
-                  </code>
-                </td>
-                <td className="td-props">
-                  { data.description }
-                </td>
-              </tr>
-            ))
+            propsData &&
+              propsData.map((data: FunctionModel) => (
+                <tr key={ key() } className="tr-props">
+                  <td className="td-props">
+                    <code>
+                      { data.functionName }
+                    </code>
+                  </td>
+                  <td className="td-props text-center">
+                    <code>
+                      { data.params }
+                    </code>
+                  </td>
+                  <td className="td-props text-center">
+                    <code>
+                      { data.returnStr }
+                    </code>
+                  </td>
+                  <td className="td-props">
+                    { data.description }
+                  </td>
+                </tr>
+              ))
           }
         </tbody>
       </table>

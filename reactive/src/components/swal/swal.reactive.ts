@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
+//import withReactContent from 'sweetalert2-react-content';
 
-const swal = withReactContent(Swal);
+//const swal = withReactContent(Swal);
 
 export const toastReactive = (
   iconType: "success" | "error" | "warning" | "info" | "question" , 
@@ -11,7 +11,7 @@ export const toastReactive = (
   'bottom' | 'bottom-start' | 'bottom-end' | 'bottom-left' | 'bottom-right'
 ): void => {
   
-  const Toast = swal.mixin({
+  const Toast = Swal.mixin({
     toast: true,
     position: !position ? 'bottom-end' : position,
     showConfirmButton: false,

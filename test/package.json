@@ -2,6 +2,18 @@
   "name": "test",
   "version": "0.1.0",
   "private": true,
+  "jest": {
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/src/core",
+      "<rootDir>/src/config",
+      "<rootDir>/src/declarations",
+      "<rootDir>/src/index.tsx",
+      "<rootDir>/src/serviceWorker.ts",
+      "<rootDir>/src/modules/app.tsx",
+      ".data.*",
+      ".view.*"
+    ]
+  },
   "dependencies": {
     "@types/jest": "24.0.19",
     "@types/node": "12.7.12",
@@ -16,7 +28,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "set CI=true && react-scripts test --coverage",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "npm run build && firebase deploy",
