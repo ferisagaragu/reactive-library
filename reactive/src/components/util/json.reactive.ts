@@ -12,6 +12,10 @@ export function foreachJSONReactive(jsonElement: any, forEach: Function): void {
 export function oderJSONByReactive(jsonElement: any, orderElements: Array<string>): any {
   let out: any = {};
 
+  if (!jsonElement || !orderElements) {
+    return {};
+  }
+
   orderElements.forEach(element => {
     out[element] = jsonElement[element];
   });

@@ -1,4 +1,5 @@
-import { React, ReactDOM } from 'reactive';
+import React from 'react';
+import { ReactDOM } from 'reactive';
 import ExportListComponent from './export-list.component';
 
 it('test 1 - Export List', () => {

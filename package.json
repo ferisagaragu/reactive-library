@@ -3,8 +3,12 @@
   "license": "MIT",
   "scripts": {
     "library": "cd reactive && npm start",
-    "test": "cd test && npm start",
-    "deploy": "cd reactive && npm run test-lib && cd .. && cd test && npm run deploy && cd .. && cd reactive && npm run test-dev",
+    "library-test": "cd test && npm start",
+    "library:test": "cd reactive && npm test",
+    "library-test:test": "cd test && npm test",
+    "library:resume": "cd reactive && npm test:resume",
+    "library-test:resume": "cd test && npm test:resume",
+    "deploy": "cd test && npm run deploy",
     "css": "cd reactive && npm run css",
     "sonar-scanner": "cd reactive && npm run sonarqube",
     "sonar-scanner-test": "cd test && npm run sonarqube"

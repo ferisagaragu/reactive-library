@@ -8,21 +8,31 @@
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
+  "jest": {
+    "collectCoverageFrom": [
+      "**/*.{ts,tsx}",
+      "!**/*.d.{ts}",
+      "!**/index.ts",
+      "!**/*.model.{ts,tsx}",
+      "!**/*.export.{ts,tsx}",
+      "!**/*.declarations.{ts,tsx}",
+      "!**/*.config.{ts,tsx}"
+    ]
+  },
   "engines": {
     "node": ">=8",
     "npm": ">=5"
   },
   "scripts": {
-    "test": "cross-env CI=1 react-scripts-ts test --env=jsdom",
+    "test": "cross-env CI=1 react-scripts-ts test --env=jsdom --coverage",
     "test:watch": "react-scripts-ts test --env=jsdom",
+    "test:resume": "cd coverage/lcov-report && start index.html",
     "build": "rollup -c",
     "start": "rollup -c -w",
     "prepare": "npm run build",
     "predeploy": "cd example && npm install && npm run build",
     "css": "robocopy .\\src\\style .\\dist\\style reactive.css /s",
-    "sonarqube": "sonar-scanner",
-    "test-dev": "npm i react && npm i react-dom",
-    "test-lib": "npm uninstall react && npm uninstall react-dom"
+    "sonarqube": "sonar-scanner"
   },
   "dependencies": {
     "react": "^16.12.0",
@@ -38,7 +48,6 @@
     "prop-types": "^15.5.4",
     "react": "^16.12.0",
     "react-bootstrap": "^1.0.0-beta.14",
-    "react-dom": "^16.12.0",
     "sweetalert2-react-content": "^1.1.0",
     "sweetalert2": "^8.18.3",
     "firebase": "^7.2.0",
