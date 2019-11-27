@@ -241,8 +241,7 @@ export { Inputmask } from './exports/inputmask.export';
 */
 export { Cryptr } from './exports/cryptr.export';
 
-export const ReactDOM = require('react-dom');
-export const React = require('react');
+export { ReactDOM } from './exports/react-dom.export';
 //========================================================
 
 //==========================TYPES=========================

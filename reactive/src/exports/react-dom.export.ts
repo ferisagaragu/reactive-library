@@ -1,0 +1,1 @@
+export const ReactDOM = require('react-dom');
