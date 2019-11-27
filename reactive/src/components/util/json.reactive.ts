@@ -98,7 +98,7 @@ export function getIndexInJSONArrayReactive(
 
 export function isJSONReactive(value: any): boolean {
   const json = JSON.stringify(value);
-  if (!(json.charAt(0) === '{') && !(json.charAt(json.length) === '}')) {
+  if (json.charAt(0) !== '{' && json.charAt(json.length) !== '}') {
     return false;
   }
 
