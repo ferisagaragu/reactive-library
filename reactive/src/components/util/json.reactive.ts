@@ -2,10 +2,9 @@ export function foreachJSONReactive(jsonElement: any, forEach: Function): void {
   let index: number = 0;
   
   for (let jsonKey in jsonElement) {
-    if (jsonElement.hasOwnProperty(jsonKey)) {
+    jsonElement.hasOwnProperty(jsonKey) &&
       forEach(jsonElement[jsonKey], jsonKey, index);
       index++;
-    } 
   }
 }
 
@@ -27,9 +26,8 @@ export function convertJSONToArrayReactive(jsonElement: any): Array<any> {
   const out: Array<any> = [];
   
   for (let jsonKey in jsonElement) {
-    if (jsonElement.hasOwnProperty(jsonKey)) {
+    jsonElement.hasOwnProperty(jsonKey) &&
       out.push(jsonElement[jsonKey]);
-    } 
   }
 
   return out;
@@ -38,6 +36,14 @@ export function convertJSONToArrayReactive(jsonElement: any): Array<any> {
 export function removeInJSONArrayReactive(jsonElement: Array<any>, jsonKey: any, matchRemove: any): Array<any> {
   let removeIndex = -1;
   
+  if (!jsonElement) {
+    return [];
+  }
+
+  if (!jsonKey || !matchRemove) {
+    return jsonElement;
+  }
+
   jsonElement.forEach((element: any, index: number) => {
     if (element[jsonKey] === matchRemove) {
       removeIndex = index;
@@ -56,6 +62,10 @@ export function replaceInJSONArrayReactive(
 ): Array<any> {
   let replaceIndex = -1;
   
+  if (!jsonElement) {
+    return [];
+  }
+
   jsonElement.forEach((element: any, index: number) => {
     if (element[jsonKey] === matchUpdate) {
       replaceIndex = index;
@@ -73,6 +83,10 @@ export function getIndexInJSONArrayReactive(
 ): number {
   let replaceIndex = -1;
   
+  if (!jsonElement) {
+    return -1;
+  }
+
   jsonElement.forEach((element: any, index: number) => {
     if (element[jsonKey] === matchUpdate) {
       replaceIndex = index;
@@ -83,10 +97,10 @@ export function getIndexInJSONArrayReactive(
 }
 
 export function isJSONReactive(value: any): boolean {
-  try {
-    JSON.stringify(value);
-    return true;
-  } catch (ex) {
+  const json = JSON.stringify(value);
+  if (!(json.charAt(0) === '{') && !(json.charAt(json.length) === '}')) {
     return false;
   }
+
+  return true;
 }

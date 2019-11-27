@@ -1,4 +1,5 @@
-import { React, ReactDOM } from 'reactive';
+import React from 'react';
+import { ReactDOM } from 'reactive';
 import FunctionTableComponent from './fuction-table.component';
 
 it('test 1 - Function Table', () => {

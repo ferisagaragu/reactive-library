@@ -1,4 +1,5 @@
-import { React, ReactDOM } from 'reactive';
+import React from 'react';
+import { ReactDOM } from 'reactive';
 import PropsTableComponent from './props-table.component';
 
 it('test 1 - Props Table', () => {
