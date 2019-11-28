@@ -9,17 +9,13 @@ interface State {}
 
 export class SpaceReactive extends React.Component<Props, State> {
   
-  private renderSpaces(): Array<React.ReactElement> {
-    const { spaces } = this.props;
+  private renderSpaces(spaces: number): Array<React.ReactElement> {
     const out: Array<React.ReactElement> = [];
 
-    if (spaces) {
-      for (let index = 0; index < spaces; index++) {
-        out.push(<i key={ keyReactive() }>&nbsp;</i>);
-      }
-      return out;
+    for (let index = 0; index < spaces; index++) {
+      out.push(<i key={ keyReactive() }>&nbsp;</i>);
     }
-
+    
     return out;
   }
   
@@ -29,7 +25,7 @@ export class SpaceReactive extends React.Component<Props, State> {
       <>
         {
           spaces ?
-            this.renderSpaces()
+            this.renderSpaces(spaces)
           :
             <>&nbsp;</>
         }

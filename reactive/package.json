@@ -16,7 +16,8 @@
       "!**/*.model.{ts,tsx}",
       "!**/*.export.{ts,tsx}",
       "!**/*.declarations.{ts,tsx}",
-      "!**/*.config.{ts,tsx}"
+      "!**/*.config.{ts,tsx}",
+      "!**/firebase.reactive.ts"
     ]
   },
   "engines": {
@@ -32,7 +33,7 @@
     "prepare": "npm run build",
     "predeploy": "cd example && npm install && npm run build",
     "css": "robocopy .\\src\\style .\\dist\\style reactive.css /s",
-    "sonarqube": "sonar-scanner"
+    "sonarqube": "npm run test && sonar-scanner"
   },
   "dependencies": {
     "react": "^16.12.0",
