@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { SpaceReactive } from '../space/space.reactive';
 import { RenderTextAreaReactive } from '../redux-form/redux-render-text-area.reactive';
 import { Button } from 'react-bootstrap';
-import { problemsLevel, problems, suggest } from './data/select-data.reactive';
+import { problemsLevel, problems, suggest } from './data/select.data';
 import { moment } from '../../exports/moment.export';
 import { keyReactive } from '../key/key.reactive';
 

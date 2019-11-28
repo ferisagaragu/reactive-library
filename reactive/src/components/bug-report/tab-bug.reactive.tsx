@@ -5,7 +5,7 @@ import { SpaceReactive } from '../space/space.reactive';
 import { keyReactive } from '../key/key.reactive';
 import { BugElement } from '../../exports/model/bug-element.model';
 import { Link } from 'react-router-dom';
-import { problemsLevel } from './data/select-data.reactive';
+import { problemsLevel } from './data/select.data';
 import { CheckBoxReactive } from '../react-field/checkbox.reactive';
 
 interface Props {

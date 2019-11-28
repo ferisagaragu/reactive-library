@@ -17,7 +17,7 @@ export { RenderLoginReactive as LoginForm } from './components/login-form/render
 export { LogoutButtonReactive as LogoutButton } from './components/logout-button/logout-button.reactive';
 export { LogoutItemReactive as LogoutItem } from './components/logout-button/logout-item.reactive';
 export { SpaceReactive as Space } from './components/space/space.reactive';
-export { BugReportReactive as BugReport } from './components/bug-report/bug-report.reactive';
+export { BugReportReactive as BugReport } from './components/bug-report/bug-report.view.reactive';
 export { FileFieldReactive as FileField } from './components/react-field/file-field.reactive';
 export { CheckBoxReactive as CheckBox } from './components/react-field/checkbox.reactive';
 export { 

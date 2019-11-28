@@ -4,7 +4,7 @@ import { Button, Badge } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { SpaceReactive } from '../space/space.reactive';
 import { FormBugReactive } from './form-bug.reactive';
-import { problems, problemsLevel } from './data/select-data.reactive';
+import { problems, problemsLevel } from './data/select.data';
 import { TabBug } from './tab-bug.reactive';
 import { BugElement } from '../../exports/model/bug-element.model';
 import { FirebaseReactive } from '../firebase/firebase.reactive';
