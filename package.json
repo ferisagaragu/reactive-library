@@ -3,16 +3,20 @@
   "license": "MIT",
   "scripts": {
     "library": "cd reactive && npm start",
-    "library-test": "cd test && npm start",
     "library:test": "cd reactive && npm run test",
-    "library-test:test": "cd test && npm run test",
     "library:watch": "cd reactive && npm run test:watch",
-    "library-test:watch": "cd test && npm run test:watch",
     "library:resume": "cd reactive && npm run test:resume",
+    "library:sonar": "cd reactive && npm run sonarqube",
+    "library-test": "cd test && npm start",
+    "library-test:test": "cd test && npm run test",
+    "library-test:watch": "cd test && npm run test:watch",
     "library-test:resume": "cd test && npm run test:resume",
+    "library-test:sonar": "cd test && npm run sonarqube",
     "deploy": "cd test && npm run deploy",
     "css": "cd reactive && npm run css",
-    "sonar-scanner": "cd reactive && npm run sonarqube",
-    "sonar-scanner-test": "cd test && npm run sonarqube"
+    "sonar": "C:\\sonarqube-7.4\\bin\\windows-x86-64\\StartSonar.bat"
+  },
+  "dependencies": {
+    "@types/react-test-renderer": "^16.9.1"
   }
 }

@@ -32,76 +32,70 @@ export class TabBug extends React.Component<Props, State> {
       case 'mild': return 0;
       case 'medium': return 1;
       case 'serious': return 2;
+      default: return 3;
     }
-
-    return -1;
   }
 
-  private loadBug(filterBug: string): React.ReactElement {
-    const { bugData, onCheck } = this.props;
+  private loadBug(filterBug: Array<BugElement>): React.ReactElement {
+    const { onCheck } = this.props;
     
-    if (bugData) {
-      return (
-        <ListGroup variant="flush">
-          {
-            bugData.filter((element: BugElement) => element.problemType === filterBug && !element.resolved)
-            .map((element: BugElement) => (
-              <ListGroup.Item key={ keyReactive() }>
-                <Row>
-                  <Col md={ 11 }>
-                    <code>
-                      { element.uid }
-                    </code> 
-                    <SpaceReactive />
-                    -
-                    <SpaceReactive />
-                    { element.description }
-                    <SpaceReactive />
-                  </Col>
+    return (
+      <ListGroup variant="flush">
+        {
+          filterBug.map((element: BugElement) => (
+            <ListGroup.Item key={ keyReactive() }>
+              <Row>
+                <Col md={ 11 }>
+                  <code>
+                    { element.uid }
+                  </code> 
+                  <SpaceReactive />
+                  -
+                  <SpaceReactive />
+                  { element.description }
+                  <SpaceReactive />
+                </Col>
 
-                  <Col md={ 1 }>
-                    <CheckBoxReactive
-                      onChange={ (value: boolean, checkbox: any) => onCheck(value, element, checkbox) }
-                      checked={ element.resolved } 
-                    />
-                  </Col>
-                </Row>
+                <Col md={ 1 }>
+                  <CheckBoxReactive
+                    onChange={ (value: boolean, checkbox: any) => onCheck(value, element, checkbox) }
+                    checked={ element.resolved } 
+                  />
+                </Col>
+              </Row>
 
-                <Row>
-                  <Col md={ filterBug === 'bug' ? 4 : 6 }>
-                    <SpaceReactive spaces={ 4 } />
-                    <Link to={ element.location }>
-                      { element.location }
-                    </Link>
-                  </Col>
-                  
-                  {
-                    filterBug === 'bug' &&
-                      <Col className="text-center" md={ 4 }>
-                        { problemsLevel[this.levelProblem(element.levelProblem)].label }
-                      </Col>
-                  }
-                  
-                  <Col className="text-right" md={ filterBug === 'bug' ? 4 : 6 }>
-                    { element.createDate }
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-            ))
-          }
-        </ListGroup>
-      );
-    }
-
-    return <></>;
+              <Row>
+                <Col md={ element.problemType === 'bug' ? 4 : 6 }>
+                  <SpaceReactive spaces={ 4 } />
+                  <Link to={ element.location }>
+                    { element.location }
+                  </Link>
+                </Col>
+                
+                {
+                  element.problemType === 'bug' &&
+                    <Col className="text-center" md={ 4 }>
+                      { problemsLevel[this.levelProblem(element.levelProblem)].label }
+                    </Col>
+                }
+                
+                <Col className="text-right" md={ element.problemType === 'bug' ? 4 : 6 }>
+                  { element.createDate }
+                </Col>
+              </Row>
+            </ListGroup.Item>
+          ))
+        }
+      </ListGroup>
+    );
   }
 
   render() {
     const { tabSelect } = this.state;
     const { bugData } = this.props;
-    const bugNumber = bugData.filter((element: BugElement) => element.problemType === 'bug' && !element.resolved).length;
-    const improvementNumber = bugData.filter((element: BugElement) => element.problemType === 'improvement' && !element.resolved).length;
-    const petition = bugData.filter((element: BugElement) => element.problemType === 'petition' && !element.resolved).length;
+    const bugElement: Array<BugElement> = bugData ? bugData.filter((element: BugElement) => element.problemType === 'bug' && !element.resolved) : [];
+    const improvementElement: Array<BugElement> = bugData ? bugData.filter((element: BugElement) => element.problemType === 'improvement' && !element.resolved) : [];
+    const petitionElement: Array<BugElement> = bugData ? bugData.filter((element: BugElement) => element.problemType === 'petition' && !element.resolved) : [];
 
     return (
       <Tabs 
@@ -118,17 +112,17 @@ export class TabBug extends React.Component<Props, State> {
               Errores
               <SpaceReactive />
               { 
-                bugNumber !== 0 &&
+                bugElement.length !== 0 &&
                   <Badge pill variant="danger">
-                    { bugNumber }
+                    { bugElement.length }
                   </Badge>
               }
             </div> 
           }
         > 
           { 
-            bugNumber !== 0 ?
-              this.loadBug('bug') 
+            bugElement.length !== 0 ?
+              this.loadBug(bugElement) 
             :
               <div className="text-center mt-5">
                 No hay errores reportados
@@ -145,17 +139,17 @@ export class TabBug extends React.Component<Props, State> {
               Mejoras
               <SpaceReactive />
               { 
-                improvementNumber !== 0 &&
+                improvementElement.length !== 0 &&
                   <Badge pill variant="danger">
-                    { improvementNumber }
+                    { improvementElement.length }
                   </Badge>
               }
             </div> 
           }
         >
           { 
-            improvementNumber !== 0 ?
-              this.loadBug('improvement')
+            improvementElement.length !== 0 ?
+              this.loadBug(improvementElement)
             :
               <div className="text-center mt-5">
                 No hay mejoras reportadas
@@ -172,17 +166,17 @@ export class TabBug extends React.Component<Props, State> {
               Petición
               <SpaceReactive />
               { 
-                petition !== 0 &&
+                petitionElement.length !== 0 &&
                   <Badge pill variant="danger">
-                    { petition }
+                    { petitionElement.length }
                   </Badge>
               }
             </div> 
           }
         >
           { 
-            petition !== 0 ?
-              this.loadBug('petition')
+            petitionElement.length !== 0 ?
+              this.loadBug(petitionElement)
             :
               <div className="text-center mt-5">
                 No hay peticiones reportadas

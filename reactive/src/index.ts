@@ -218,7 +218,7 @@ export { moment } from './exports/moment.export';
 
 /*
 */
-export { EditorState, Editor } from './exports/draft-wysiwyg.export';
+//export { EditorState, Editor } from './exports/draft-wysiwyg.export';
 
 /*
   +js-cookie ->
@@ -240,6 +240,12 @@ export { Inputmask } from './exports/inputmask.export';
     https://www.npmjs.com/package/cryptr
 */
 export { Cryptr } from './exports/cryptr.export';
+
+/*
+  +@tinymce/tinymce-react
+  
+*/
+export const Editor = require('@tinymce/tinymce-react').Editor;  
 
 export { ReactDOM } from './exports/react-dom.export';
 //========================================================

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { MultiSelect, DatePicker, registerLocale, es, moment, Firebase, FileField } from 'reactive';
+import { MultiSelect, DatePicker, registerLocale, es, moment, Firebase, FileField, Editor } from 'reactive';
 
 class TestView extends Component<any, any> {
   
   firebase: Firebase = new Firebase();
+  editor: any;
 
   constructor(props: any) {
     super(props);
@@ -14,6 +15,13 @@ class TestView extends Component<any, any> {
       startDate: new Date(),
       isLoad: false
     };
+
+    this.editor = React.createRef();
+  }
+
+  componentDidMount() {
+    console.log(this.editor);
+    console.log(document.getElementsByClassName('tox-notifications-container')[0]);
   }
 
   handleChange = (date: any) => {
@@ -33,6 +41,25 @@ class TestView extends Component<any, any> {
 
     return (
       <div>
+        <Editor
+          ref={ this.editor }
+          initialValue="<p>This is the initial content of the editor</p>"
+          init={{
+            height: 500,
+            menubar: false,
+            plugins: [
+              'advlist autolink lists link image charmap print preview anchor',
+              'searchreplace visualblocks code fullscreen',
+              'insertdatetime media table paste code help wordcount'
+            ],
+            toolbar:
+              'undo redo | formatselect | bold italic backcolor |' +
+              'alignleft aligncenter alignright alignjustify |' +
+              'bullist numlist outdent indent | removeformat | help'
+          }}
+          onChange={(content: any, editor: any) => { console.log(content); console.log(editor); }}
+       />
+       
         <FileField 
           className="btn-outline-bug btn"
           onSelectFile={ (file: any) => {

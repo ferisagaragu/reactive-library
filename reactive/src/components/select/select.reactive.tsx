@@ -44,6 +44,7 @@ export const MultiSelectReactive = ({ className, options, onChange, placeholder,
 export const SingleSelectReactive = ({ className, options, onChange, placeholder, noOptionsMessage, defaultValue, isSearchable, value }: SingleProps) => {
   return (
     <Select
+      classNamePrefix='select'
       className={ className }
       defaultValue={ defaultValue } 
       options={ options }
