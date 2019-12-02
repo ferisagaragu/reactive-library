@@ -1,14 +1,10 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import * as awesomeIcons from '@fortawesome/free-solid-svg-icons';
 import { FormBugReactive } from './form-bug.reactive';
 import { Provider, createStore, combineReducers, reducer } from '../../exports/redux.export';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { problems, problemsLevel } from './data/select.data';
-import * as Enzyme from 'enzyme';
-import * as Adapter from 'enzyme-adapter-react-16';
-
-Enzyme.configure({ adapter: new Adapter() });
+import { testMount } from '../../exports/enzyme.export';
 
 const store = createStore(combineReducers({ form: reducer }), {});
 
@@ -18,14 +14,16 @@ const icons: any = [
   awesomeIcons.faBug,
   awesomeIcons.faArrowDown,
   awesomeIcons.faClipboardList,
-  awesomeIcons.faMagic
+  awesomeIcons.faMagic,
+  awesomeIcons.faMinus,
+  awesomeIcons.faArrowUp,
+  awesomeIcons.faBoxes,
+  awesomeIcons.faMinus
 ];
 library.add(icons);
 
-it('test 1 -', () => {
-  const div = document.createElement('div'); 
-  
-  ReactDOM.render(
+it('test 1 - FormBug: functionality test', () => {
+  const wrapper = testMount(
     <Provider store={ store }>
       <FormBugReactive 
         submitActions={ () => {} }
@@ -35,140 +33,112 @@ it('test 1 -', () => {
           levelProblem: problemsLevel[0]
         }}
       />
-    </Provider>,
-    div
+    </Provider>
   );
-
-  ReactDOM.unmountComponentAtNode(div);
+  wrapper.unmount();
 });
 
-it('test 2 - valid form', () => {
-  const div = document.createElement('div'); 
-  document.body.appendChild(div);
-  
-  ReactDOM.render(
+it('test 2 - FormBug: functionality test by validation when clicking submit, the messages must be output is required in each field', () => {
+  const wrapper = testMount(
     <Provider store={ store }>
       <FormBugReactive 
         submitActions={ () => {} }
         cancel={ () => {} }
       />
-    </Provider>,
-    div
+    </Provider>
   );
 
-  const submit = div.getElementsByTagName('button')[1];
-  submit.dispatchEvent(new MouseEvent('click', {bubbles: true}));
+  const form = wrapper.find('form');
+  form.simulate('submit');
 
-  const resDivs = div.getElementsByClassName('text-danger');
-  expect(resDivs[0].innerHTML).toBe('El tipo de problema es requerido');
-  expect(resDivs[1].innerHTML).toBe('La descripción es requerida');
+  const messages = wrapper.find('.text-danger');
+  expect(messages.at(0).props().children).toBe('El tipo de problema es requerido');
+  expect(messages.at(1).props().children).toBe('La descripción es requerida');
 
-  ReactDOM.unmountComponentAtNode(div);
-  document.body.removeChild(div);
+  wrapper.unmount();
 });
 
-it('test 3 - form cancel', () => {
-  const div = document.createElement('div'); 
-  document.body.appendChild(div);
-  
-  ReactDOM.render(
+it('test 3 - FormBug: functionality test by validation when clicking submit, you should leave the message required in the "Problem level" field', () => {
+  const wrapper = testMount(
     <Provider store={ store }>
       <FormBugReactive 
         submitActions={ () => {} }
         cancel={ () => {} }
+        initialValues={{
+          problemType: problems[0]
+        }}
       />
-    </Provider>,
-    div
+    </Provider>
   );
 
-  const submit = div.getElementsByTagName('button')[0];
-  submit.dispatchEvent(new MouseEvent('click', {bubbles: true}));
+  const form = wrapper.find('form');
+  form.simulate('submit');
 
-  ReactDOM.unmountComponentAtNode(div);
-  document.body.removeChild(div);
+  const messages = wrapper.find('.text-danger');
+  expect(messages.at(1).props().children).toBe('El tipo nivel del problema es requerido');
+
+  wrapper.unmount();
 });
 
-it('test 4 - form submit', () => {
-  const div = document.createElement('div'); 
-  document.body.appendChild(div);
-  
-  ReactDOM.render(
+it('test 4 - FormBug: functionality test by validation when clicking submit, you must return values in the submitActions event', () => {
+  const wrapper = testMount(
     <Provider store={ store }>
       <FormBugReactive 
-        submitActions={ () => jest.fn() }
+        submitActions={ (data: any) => expect(data).not.toBe(!null) }
         cancel={ () => {} }
         initialValues={{
           problemType: problems[0],
           levelProblem: problemsLevel[0],
-          description: 'example text'
+          description: 'test text'
         }}
       />
-    </Provider>,
-    div
+    </Provider>
   );
 
-  const submit = div.getElementsByTagName('button')[1];
-  submit.dispatchEvent(new MouseEvent('click', {bubbles: true}));
+  const form = wrapper.find('form');
+  form.simulate('submit');
 
-  ReactDOM.unmountComponentAtNode(div);
-  document.body.removeChild(div);
+  wrapper.unmount();
 });
 
-it('test 5 - form submit sin tipo del problema', () => {
-  const div = document.createElement('div'); 
-  document.body.appendChild(div);
-  
-  ReactDOM.render(
+it('test 5 - FormBug: functionality test by validation when clicking submit, without the level of the problem, it must return values in the submitActions event', () => {
+  const wrapper = testMount(
     <Provider store={ store }>
       <FormBugReactive 
-        submitActions={ () => jest.fn() }
+        submitActions={ (data: any) => expect(data).not.toBe(!null) }
         cancel={ () => {} }
         initialValues={{
           problemType: problems[1],
-          description: 'example text'
+          description: 'test text'
         }}
       />
-    </Provider>,
-    div
+    </Provider>
   );
 
-  const submit = div.getElementsByTagName('button')[1];
-  submit.dispatchEvent(new MouseEvent('click', {bubbles: true}));
+  const form = wrapper.find('form');
+  form.simulate('submit');
 
-  ReactDOM.unmountComponentAtNode(div);
-  document.body.removeChild(div);
+  wrapper.unmount();
 });
 
-it('test 6 - form submit sin el nivel del problema lleno', () => {
-  const div = document.createElement('div'); 
-  document.body.appendChild(div);
-  
-  ReactDOM.render(
+it('test 6 - FormBug: functionality test by clicking on the cancel button', () => {
+  const wrapper = testMount(
     <Provider store={ store }>
       <FormBugReactive 
-        submitActions={ () => jest.fn() }
+        submitActions={ () => {} }
         cancel={ () => {} }
-        initialValues={{
-          problemType: problems[0],
-          description: 'example text'
-        }}
       />
-    </Provider>,
-    div
+    </Provider>
   );
 
-  const submit = div.getElementsByTagName('button')[1];
-  submit.dispatchEvent(new MouseEvent('click', {bubbles: true}));
-      
-  const labelResult = div.getElementsByClassName('text-danger')[1];
-  expect(labelResult.innerHTML).toBe('El tipo nivel del problema es requerido');
+  const cancelButton = wrapper.find('button[type="button"]');
+  cancelButton.simulate('click');
 
-  ReactDOM.unmountComponentAtNode(div);
-  document.body.removeChild(div);
+  wrapper.unmount();
 });
 
-it('test 7 - form submit al cambiar el tipo de problema css-2b097c-container', () => {
-  const wrapper = Enzyme.mount(
+it('test 7 - FormBug: functionality test when changing the type of problem', () => {
+  const wrapper = testMount(
     <Provider store={ store }>
       <FormBugReactive 
         submitActions={ () => jest.fn() }
@@ -186,10 +156,12 @@ it('test 7 - form submit al cambiar el tipo de problema css-2b097c-container', (
   select.simulate('mouseDown', { button: 0 });
   const elementSecond = wrapper.find('.select__option').at(2);
   elementSecond.simulate('click');
+  
+  wrapper.unmount();
 });
 
-it('test 8 - form submit al cambiar el tipo de problema css-2b097c-container', () => {
-  const wrapper = Enzyme.mount(
+it('test 8 - FormBug: functionality test when selecting each of the problem levels', () => {
+  const wrapper = testMount(
     <Provider store={ store }>
       <FormBugReactive 
         submitActions={ () => jest.fn() }
@@ -214,31 +186,4 @@ it('test 8 - form submit al cambiar el tipo de problema css-2b097c-container', (
   select.simulate('mouseDown', { button: 0 });
   const elementThird = wrapper.find('.select__option').at(4);
   elementThird.simulate('click');
-
-  console.log(wrapper.find('.select__option').debug())
 });
-
-
-/*
-
-const wrapper = Enzyme.mount(
-    <Provider store={ store }>
-      <FormBugReactive 
-        submitActions={ () => jest.fn() }
-        cancel={ () => {} }
-        initialValues={{
-          problemType: problems[0]
-        }}
-      />
-    </Provider>
-  );
-
-  const select = wrapper.find('form');
-  select.simulate('submit');
-
-  
-
-  //console.log(wrapper.update().debug());
-
-  console.log(wrapper.find('.text-danger').at(2).debug());
- */
