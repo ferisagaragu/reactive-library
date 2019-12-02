@@ -1,10 +1,12 @@
 import * as React from 'react';
+import * as Enzyme from 'enzyme';
+import * as Adapter from 'enzyme-adapter-react-16';
 import * as awesomeIcons from '@fortawesome/free-solid-svg-icons';
 import { FormBugReactive } from './form-bug.reactive';
 import { Provider, createStore, combineReducers, reducer } from '../../exports/redux.export';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { problems, problemsLevel } from './data/select.data';
-import { testMount } from '../../exports/enzyme.export';
+Enzyme.configure({ adapter: new Adapter() });
 
 const store = createStore(combineReducers({ form: reducer }), {});
 
@@ -23,7 +25,7 @@ const icons: any = [
 library.add(icons);
 
 it('test 1 - FormBug: functionality test', () => {
-  const wrapper = testMount(
+  const wrapper = Enzyme.mount(
     <Provider store={ store }>
       <FormBugReactive 
         submitActions={ () => {} }
@@ -39,7 +41,7 @@ it('test 1 - FormBug: functionality test', () => {
 });
 
 it('test 2 - FormBug: functionality test by validation when clicking submit, the messages must be output is required in each field', () => {
-  const wrapper = testMount(
+  const wrapper = Enzyme.mount(
     <Provider store={ store }>
       <FormBugReactive 
         submitActions={ () => {} }
@@ -59,7 +61,7 @@ it('test 2 - FormBug: functionality test by validation when clicking submit, the
 });
 
 it('test 3 - FormBug: functionality test by validation when clicking submit, you should leave the message required in the "Problem level" field', () => {
-  const wrapper = testMount(
+  const wrapper = Enzyme.mount(
     <Provider store={ store }>
       <FormBugReactive 
         submitActions={ () => {} }
@@ -81,7 +83,7 @@ it('test 3 - FormBug: functionality test by validation when clicking submit, you
 });
 
 it('test 4 - FormBug: functionality test by validation when clicking submit, you must return values in the submitActions event', () => {
-  const wrapper = testMount(
+  const wrapper = Enzyme.mount(
     <Provider store={ store }>
       <FormBugReactive 
         submitActions={ (data: any) => expect(data).not.toBe(!null) }
@@ -102,7 +104,7 @@ it('test 4 - FormBug: functionality test by validation when clicking submit, you
 });
 
 it('test 5 - FormBug: functionality test by validation when clicking submit, without the level of the problem, it must return values in the submitActions event', () => {
-  const wrapper = testMount(
+  const wrapper = Enzyme.mount(
     <Provider store={ store }>
       <FormBugReactive 
         submitActions={ (data: any) => expect(data).not.toBe(!null) }
@@ -122,7 +124,7 @@ it('test 5 - FormBug: functionality test by validation when clicking submit, wit
 });
 
 it('test 6 - FormBug: functionality test by clicking on the cancel button', () => {
-  const wrapper = testMount(
+  const wrapper = Enzyme.mount(
     <Provider store={ store }>
       <FormBugReactive 
         submitActions={ () => {} }
@@ -138,7 +140,7 @@ it('test 6 - FormBug: functionality test by clicking on the cancel button', () =
 });
 
 it('test 7 - FormBug: functionality test when changing the type of problem', () => {
-  const wrapper = testMount(
+  const wrapper = Enzyme.mount(
     <Provider store={ store }>
       <FormBugReactive 
         submitActions={ () => jest.fn() }
@@ -161,7 +163,7 @@ it('test 7 - FormBug: functionality test when changing the type of problem', () 
 });
 
 it('test 8 - FormBug: functionality test when selecting each of the problem levels', () => {
-  const wrapper = testMount(
+  const wrapper = Enzyme.mount(
     <Provider store={ store }>
       <FormBugReactive 
         submitActions={ () => jest.fn() }

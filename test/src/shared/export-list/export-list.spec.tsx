@@ -1,8 +1,9 @@
 import React from 'react';
-import { ReactDOM } from 'reactive';
+import { ReactDOM, Enzyme, Adapter } from 'reactive';
 import ExportListComponent from './export-list.component';
+Enzyme.configure({ adapter: new Adapter() });
 
-it('test 1 - Export List', () => {
+it('test 1 - ExportListComponent: functionality test', () => {
   const demoList: Array<any> = [
     'createStore',
     'applyMiddleware',
@@ -15,23 +16,21 @@ it('test 1 - Export List', () => {
     'change',
     'untouch'
   ];
-
-  const div = document.createElement('div');
-  ReactDOM.render(<ExportListComponent exportData={ demoList }/>, div);  
-  ReactDOM.unmountComponentAtNode(div);
+  
+  const wrapper = Enzyme.mount(
+    <ExportListComponent exportData={ demoList }/>
+  );
+  wrapper.unmount();
 });
 
-it('test 2 - Export List', () => {
-  const demoList: Array<any> = [];
-  const div = document.createElement('div');
-  ReactDOM.render(<ExportListComponent exportData={ demoList }/>, div); 
-  expect(div.innerHTML.toString()).toBe('<ul></ul>');
-  ReactDOM.unmountComponentAtNode(div);
+it('test 2 - ExportListComponent: functionality test by empty parameter submission test', () => {
+  const wrapper = Enzyme.mount(<ExportListComponent exportData={ [] }/>);
+  expect(wrapper.find('ul').props().children.length).toBe(0);
+  wrapper.unmount();
 });
 
-it('test 3 - Export List', () => {
+it('test 3 - ExportListComponent: functionality test with sending null parameters', () => {
   const demoList: any = null;
-  const div = document.createElement('div');
-  ReactDOM.render(<ExportListComponent exportData={ demoList }/>, div); 
-  ReactDOM.unmountComponentAtNode(div);
+  const wrapper = Enzyme.mount(<ExportListComponent exportData={ demoList }/>);
+  wrapper.unmount();
 });

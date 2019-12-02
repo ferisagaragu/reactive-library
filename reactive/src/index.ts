@@ -247,6 +247,9 @@ export { Cryptr } from './exports/cryptr.export';
 */
 export const Editor = require('@tinymce/tinymce-react').Editor;  
 
+export const Enzyme = require('enzyme');
+export const Adapter = require('enzyme-adapter-react-16');
+
 export { ReactDOM } from './exports/react-dom.export';
 //========================================================
 
