@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactDOM, Enzyme, Adapter } from 'reactive';
+import { Enzyme, Adapter } from 'reactive';
 import ExportListComponent from './export-list.component';
 Enzyme.configure({ adapter: new Adapter() });
 

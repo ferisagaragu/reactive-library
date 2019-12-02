@@ -1,60 +1,75 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import * as Enzyme from 'enzyme';
+import * as Adapter from 'enzyme-adapter-react-16';
 import { FooterReactive } from './footer.reactive';
+Enzyme.configure({ adapter: new Adapter() });
 
 it('test 1 - FooterReactive: functionality test', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(
+  const wrapper = Enzyme.mount(
     <FooterReactive 
       className="test-css"
       left={ <label>left</label> }
       right={ <label>right</label> }
       center={ <label>center</label> }
-    />, div
-  );  
-  expect(div.getElementsByClassName('text-left')[0].innerHTML).toBe('<label>left</label>');
-  expect(div.getElementsByClassName('text-center')[0].innerHTML).toBe('<label>center</label>');
-  expect(div.getElementsByClassName('text-right')[0].innerHTML).toBe('<label>right</label>');
-  ReactDOM.unmountComponentAtNode(div);
+    />
+  );
+
+  const left = wrapper.find('.text-left').find('label');
+  expect(left.props().children).toBe('left');
+
+  const right = wrapper.find('.text-right').find('label');
+  expect(right.props().children).toBe('right');
+
+  const center = wrapper.find('.text-center').find('label');
+  expect(center.props().children).toBe('center');
+
+  wrapper.unmount();
 });
 
 it('test 2 - FooterReactive: functionality test by children', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(
+  const wrapper = Enzyme.mount(
     <FooterReactive>
       test footer
-    </FooterReactive>, div
-  );  
-  expect(div.getElementsByClassName('footer-reactive')[0].innerHTML).toBe('test footer');
-  ReactDOM.unmountComponentAtNode(div);
+    </FooterReactive>
+  );
+  
+  expect(wrapper.find('footer').props().children).toBe('test footer');
+  wrapper.unmount();
 });
 
 it('test 3 - FooterReactive: functionality test center without the parameter', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(
+  const wrapper = Enzyme.mount(
     <FooterReactive 
       className="test-css"
       left={ <label>left</label> }
       right={ <label>right</label> }
-    />, div
-  );  
-  expect(div.getElementsByClassName('text-left')[0].innerHTML).toBe('<label>left</label>');
-  expect(div.getElementsByClassName('text-center').length).toBe(0);
-  expect(div.getElementsByClassName('text-right')[0].innerHTML).toBe('<label>right</label>');
-  ReactDOM.unmountComponentAtNode(div);
+    />
+  );
+  
+  const left = wrapper.find('.text-left').find('label');
+  expect(left.props().children).toBe('left');
+
+  const right = wrapper.find('.text-right').find('label');
+  expect(right.props().children).toBe('right');
+
+  const center = wrapper.find('.text-center');
+  expect(center.exists()).toBe(false);
+
+  wrapper.unmount();
 });
 
 it('test 4 - FooterReactive: functionality test by sending null attributes', () => {
   const demoData: any = null;
-  const div = document.createElement('div');
-  ReactDOM.render(
+
+  const wrapper = Enzyme.mount(
     <FooterReactive 
       className="test-css"
       left={ demoData }
       right={ demoData }
       center={ demoData }
-    />, div
-  );  
-  expect(div.innerHTML).toBe('<footer class="footer-reactive test-css"></footer>');
-  ReactDOM.unmountComponentAtNode(div);
+    />
+  );
+
+  expect(wrapper.find('footer').props().children).toBe(undefined);
+  wrapper.unmount();
 });
