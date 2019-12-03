@@ -1,9 +1,11 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import * as Enzyme from 'enzyme';
+import * as Adapter from 'enzyme-adapter-react-16';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import * as awesomeIcons from '@fortawesome/free-solid-svg-icons';
 import { TabBug } from './tab-bug.reactive';
 import { BrowserRouter as Router } from 'react-router-dom';
+Enzyme.configure({ adapter: new Adapter() });
 
 const bugDemoData: any = [
   {
@@ -74,74 +76,59 @@ const icons: any = [
 library.add(icons);
 
 it('test 1 - TabBug: functionality test', () => {
-  const div = document.createElement('div');
-
-  ReactDOM.render(
+  const wrapper = Enzyme.mount(
     <Router>
       <TabBug 
         bugData={ bugDemoData }
         onCheck={ () => {} }
       />
-    </Router>,
-    div
+    </Router>
   );
-  ReactDOM.unmountComponentAtNode(div);
+  wrapper.unmount();
 });
 
 it('test 2 - TabBug: functionality test by emply array', () => {
-  const div = document.createElement('div');
-  document.body.appendChild(div);
-
-  ReactDOM.render(
+  const wrapper = Enzyme.mount(
     <Router>
       <TabBug 
         bugData={ [] }
         onCheck={ () => {} }
       />
-    </Router>,
-    div
+    </Router>
   );
-
-  div.getElementsByTagName('a')[1].click();
-  expect(div.getElementsByClassName('show')[0].innerHTML).toBe('<div class="text-center mt-5">No hay mejoras reportadas</div>');
-  ReactDOM.unmountComponentAtNode(div);
-  document.body.removeChild(div);
+  
+  const tagA = wrapper.find('#controlled-tab-example-tab-improvement').at(1);
+  tagA.simulate('click');
+  expect(wrapper.find('.show').find('div').at(1).props().children).toBe('No hay mejoras reportadas');
+  wrapper.unmount();
 });
 
 it('test 3 - TabBug: functionality test by check bug', () => {
-  const div: any = document.createElement('div');
-  document.body.appendChild(div);
-
-  ReactDOM.render(
+  const wrapper = Enzyme.mount(
     <Router>
       <TabBug 
         bugData={ bugDemoData }
         onCheck={ () => {} }
       />
-    </Router>,
-    div
+    </Router>
   );
-
-  div.querySelectorAll('input[type=checkbox]')[0].click();
-  ReactDOM.unmountComponentAtNode(div);
-  document.body.removeChild(div);
+  
+  const check = wrapper.find('input[type="checkbox"]').at(0);
+  check.simulate('change', { target: {checked: true} });
+  wrapper.unmount();
 });
 
 it('test 4 - TabBug: functionality test by null in bugData attribute', () => {
-  const div: any = document.createElement('div');
-  document.body.appendChild(div);
   const dataNull: any = null;
 
-  ReactDOM.render(
+  const wrapper = Enzyme.mount(
     <Router>
       <TabBug 
         bugData={ dataNull }
         onCheck={ () => {} }
       />
-    </Router>,
-    div
+    </Router>
   );
 
-  ReactDOM.unmountComponentAtNode(div);
-  document.body.removeChild(div);
+  wrapper.unmount();
 });
