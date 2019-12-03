@@ -1,7 +1,8 @@
 import React from 'react';
-import { ReactDOM, Enzyme, Adapter } from 'reactive';
+import { mount, configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import FunctionTableComponent from './fuction-table.component';
-Enzyme.configure({ adapter: new Adapter() });
+configure({ adapter: new Adapter() });
 
 it('test 1 - FunctionTableComponent: functionality test', () => {
   const propsDemo: Array<any> = [
@@ -18,17 +19,17 @@ it('test 1 - FunctionTableComponent: functionality test', () => {
       required: true
     }
   ]
-  const wrapper = Enzyme.mount(<FunctionTableComponent propsData={ propsDemo }/>);
+  const wrapper = mount(<FunctionTableComponent propsData={ propsDemo }/>);
   wrapper.unmount();
 });
 
 it('test 2 - FunctionTableComponent: functionality test by empty parameter submission test', () => {
-  const wrapper = Enzyme.mount(<FunctionTableComponent propsData={ [] }/>);
+  const wrapper = mount(<FunctionTableComponent propsData={ [] }/>);
   wrapper.unmount();
 });
 
 it('test 3 - FunctionTableComponent: functionality test with sending null parameters', () => {
   const propsDemo: any = null;
-  const wrapper = Enzyme.mount(<FunctionTableComponent propsData={ propsDemo }/>);
+  const wrapper = mount(<FunctionTableComponent propsData={ propsDemo }/>);
   wrapper.unmount();
 });

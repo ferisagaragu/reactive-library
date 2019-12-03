@@ -16,7 +16,5 @@
     "css": "cd reactive && npm run css",
     "sonar": "C:\\sonarqube-7.4\\bin\\windows-x86-64\\StartSonar.bat"
   },
-  "dependencies": {
-    "@types/react-test-renderer": "^16.9.1"
-  }
+  "dependencies": {}
 }
