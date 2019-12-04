@@ -4,7 +4,8 @@ import { initializeFirebaseApp, awesomeLibrary } from 'reactive';
 import icons from '../declarations/fontawesome.declarations';
 
 //REDUX
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const windowRef: any = window;
+const composeEnhancers = windowRef.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 export const store = createStore(reducers, initState, composeEnhancers(applyMiddleware(thunk)));
 
 //FIREBASE
