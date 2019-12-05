@@ -27,7 +27,7 @@ interface State {
   bugData: Array<BugElement>;
 }
 
-export class BugReportReactive extends React.Component<Props, State> {
+export class BugReportView extends React.Component<Props, State> {
   
   firebase: FirebaseReactive = new FirebaseReactive();
 

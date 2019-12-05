@@ -9,7 +9,7 @@ import 'animate.css';
 export { RenderTableReactive as Table } from './components/table/render-table.reactive';
 export { ModalReactive as Modal } from './components/modal/modal.reactive';
 export { SingleModalReactive as SingleModal } from './components/modal/single-modal.reactive';
-export { Header } from './components/header/header.view.reactive';
+export { Header } from './components/header/header.view';
 export { FooterReactive as Footer } from './components/footer/footer.reactive';
 export { TreeReactive as Tree } from './components/tree/tree.reactive';
 export { GradientButtonReactive as GradientButton } from './components/gradient-button/gradient-button.reactive';
@@ -17,7 +17,7 @@ export { RenderLoginReactive as LoginForm } from './components/login-form/render
 export { LogoutButtonReactive as LogoutButton } from './components/logout-button/logout-button.reactive';
 export { LogoutItemReactive as LogoutItem } from './components/logout-button/logout-item.reactive';
 export { SpaceReactive as Space } from './components/space/space.reactive';
-export { BugReportReactive as BugReport } from './components/bug-report/bug-report.view.reactive';
+export { BugReportView as BugReport } from './components/bug-report/bug-report.view';
 export { FileFieldReactive as FileField } from './components/react-field/file-field.reactive';
 export { CheckBoxReactive as CheckBox } from './components/react-field/checkbox.reactive';
 export { 
@@ -155,10 +155,10 @@ export {
 
 /*
   +fortawesome ->
-  npm i @fortawesome/fontawesome-svg-core 
-  npm i @fortawesome/free-solid-svg-icons 
-  npm i @fortawesome/react-fontawesome 
-  https://fontawesome.com/v5.4.1/how-to-use/on-the-web/using-with/react
+    npm i @fortawesome/fontawesome-svg-core 
+    npm i @fortawesome/free-solid-svg-icons 
+    npm i @fortawesome/react-fontawesome 
+    https://fontawesome.com/v5.4.1/how-to-use/on-the-web/using-with/react
 */
 export { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export { library as awesomeLibrary } from '@fortawesome/fontawesome-svg-core';

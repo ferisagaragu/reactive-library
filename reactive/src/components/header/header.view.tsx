@@ -24,7 +24,7 @@ interface State {
   isOpenMenu: boolean;
 }
 
-class HeaderReactive extends React.Component<Props, State> {
+class HeaderView extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
@@ -128,4 +128,4 @@ const mapDispatchToProps = (dispatch: Function) => ({
   onWindowResize: () => dispatch(onWindowResize())
 });
 
-export const Header = connect(mapStateToProps, mapDispatchToProps)(HeaderReactive);
+export const Header = connect(mapStateToProps, mapDispatchToProps)(HeaderView);

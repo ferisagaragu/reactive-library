@@ -1,25 +1,26 @@
 import * as React from 'react';
 import Select from "react-select";
 import makeAnimated from 'react-select/animated';
+import { SelectElement } from '../../exports/model/select-element.model';
 
 interface MultiProps {
   className?: string;
-  options: Array<any>;
+  options: Array<SelectElement>;
   onChange: Function;
   placeholder?: string;
   noOptionsMessage?: string;
-  defaultValue?: Array<any>;
+  defaultValue?: Array<SelectElement>;
   isSearchable?: boolean;
   value?: any;
 }
 
 interface SingleProps {
   className?: string;
-  options: Array<any>;
+  options: Array<SelectElement>;
   onChange: Function;
   placeholder?: string;
   noOptionsMessage?: string;
-  defaultValue?: any;
+  defaultValue?: SelectElement;
   isSearchable?: boolean;
   value?: any;
 }
@@ -27,6 +28,7 @@ interface SingleProps {
 export const MultiSelectReactive = ({ className, options, onChange, placeholder, noOptionsMessage, defaultValue, isSearchable, value }: MultiProps) => {
   return (
     <Select 
+      classNamePrefix='select'
       className={ className }
       components={ makeAnimated() }
       defaultValue={ defaultValue } 
