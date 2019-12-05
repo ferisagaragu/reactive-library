@@ -34,14 +34,7 @@ export class NavMenuReactive extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    const { expandedItem } = this.state;
-
-    if (expandedItem.includes(this.onLoadExpanded)) {
-      removeArrayByMatchReactive(this.expandedItems, this.onLoadExpanded);
-    } else {
-      this.expandedItems.push(this.onLoadExpanded);
-    }
-    
+    this.expandedItems.push(this.onLoadExpanded);
     this.setState({ expandedItem: this.expandedItems });
   }
 

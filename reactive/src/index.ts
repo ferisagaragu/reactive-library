@@ -9,7 +9,7 @@ import 'animate.css';
 export { RenderTableReactive as Table } from './components/table/render-table.reactive';
 export { ModalReactive as Modal } from './components/modal/modal.reactive';
 export { SingleModalReactive as SingleModal } from './components/modal/single-modal.reactive';
-export { Header } from './components/header/header.reactive';
+export { Header } from './components/header/header.view.reactive';
 export { FooterReactive as Footer } from './components/footer/footer.reactive';
 export { TreeReactive as Tree } from './components/tree/tree.reactive';
 export { GradientButtonReactive as GradientButton } from './components/gradient-button/gradient-button.reactive';
@@ -261,6 +261,6 @@ export { Action } from './exports/interface/action.export';
 //========================================================
 
 //==========================REDUCERS======================
-export { windowSize } from './components/reducers/window-resize.reactive';
+export { windowSize } from './components/reducers/window-resize.reducer';
 export { onWindowResize } from './components/reducers/window-resize.actions';
 //========================================================

@@ -14,6 +14,7 @@
       "!**/*.d.{ts}",
       "!**/index.ts",
       "!**/node_modules",
+      "!**/mock",
       "!**/*.model.{ts,tsx}",
       "!**/*.export.{ts,tsx}",
       "!**/*.declarations.{ts,tsx}",
