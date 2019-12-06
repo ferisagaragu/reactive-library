@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MultiSelect, DatePicker, registerLocale, es, moment, Firebase, FileField, Editor } from 'reactive';
+import { MultiSelect, DatePicker, registerLocale, es, moment, Firebase, FileField, Editor, MaskField, CheckBox } from 'reactive';
 
 class TestView extends Component<any, any> {
   
@@ -41,6 +41,10 @@ class TestView extends Component<any, any> {
 
     return (
       <div>
+        <MaskField value="99" mask="99" />
+        <div className="text-center">
+          <CheckBox checked={ true } />
+        </div>
         <Editor
           ref={ this.editor }
           initialValue="<p>This is the initial content of the editor</p>"

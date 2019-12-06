@@ -711,3 +711,78 @@ Note: Beware of modifying this element as it can break the animations - you shou
   }
 }
 /*=================================================*/
+
+/*check-box*/
+.margin-left-check-reactive {
+  margin-left: 15px;
+}
+
+.container-check-div-reactive {
+  width: 20px;
+  height: 20px;
+}
+
+.container-check-reactive {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin-bottom: 0px;
+}
+
+/* Hide the browser's default checkbox */
+.container-check-reactive input {
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark-reactive {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: transparent;
+  border-radius: 5px;
+  border: 1.4px solid #212121;
+}
+
+/* On mouse-over, add a grey background color */
+.container-check-reactive:hover input ~ .checkmark-reactive {
+  background-color: #f3f3f3;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container-check-reactive input:checked ~ .checkmark-reactive {
+  background-color: transparent;
+}
+
+/* Create the checkmark-reactive/indicator (hidden when not checked) */
+.checkmark-reactive:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark-reactive when checked */
+.container-check-reactive input:checked ~ .checkmark-reactive:after {
+  display: block;
+}
+
+/* Style the checkmark-reactive/indicator */
+.container-check-reactive .checkmark-reactive:after {
+  left: 7px;
+  top: 3px;
+  width: 5px;
+  height: 10px;
+  border: solid #212121;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+/*=================================================*/

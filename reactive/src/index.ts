@@ -20,6 +20,7 @@ export { SpaceReactive as Space } from './components/space/space.reactive';
 export { BugReportView as BugReport } from './components/bug-report/bug-report.view';
 export { FileFieldReactive as FileField } from './components/react-field/file-field.reactive';
 export { CheckBoxReactive as CheckBox } from './components/react-field/checkbox.reactive';
+export { MaskFieldReactive as MaskField } from './components/react-field/mask-field.reactive';
 export { 
   SingleSelectReactive as SingleSelect,
   MultiSelectReactive as MultiSelect 

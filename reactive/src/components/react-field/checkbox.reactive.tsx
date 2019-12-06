@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 interface Props {
+  className?: string;
   checked?: boolean;
   onInit?: Function;
   onChange?: Function;
@@ -38,11 +39,15 @@ export class CheckBoxReactive extends React.Component<Props,State> {
   
   render() {
     const { renderChecked } = this.state;
+    const { className } = this.props;
 
     return (
-      <>
-        <input ref={ this.inputRef } type="checkbox" onChange={ (evt) => this.onChange(evt.target) } checked={ renderChecked } />
-      </>
+      <div className={ `container-check-div-reactive ${className}` }>
+        <label className="container-check-reactive">
+          <input ref={ this.inputRef } type="checkbox" onChange={ (evt) => this.onChange(evt.target) } checked={ renderChecked } />
+          <span className="checkmark-reactive" />
+        </label>
+      </div>
     )
   }
 }

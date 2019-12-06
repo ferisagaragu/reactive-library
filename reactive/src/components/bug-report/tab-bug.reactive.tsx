@@ -58,6 +58,7 @@ export class TabBug extends React.Component<Props, State> {
 
                 <Col md={ 1 }>
                   <CheckBoxReactive
+                    className="margin-left-check-reactive"
                     onChange={ (value: boolean, checkbox: any) => onCheck(value, element, checkbox) }
                     checked={ element.resolved } 
                   />
