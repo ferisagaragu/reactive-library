@@ -21,7 +21,9 @@
       "!**/firebase.reactive.ts",
       "!**/*.data.{ts,tsx}",
       "!**/*.icon.{ts,tsx}",
-      "!**/*.view.*"
+      "!**/*.view.*",
+      "!**/*.actions.*",
+      "!**/*.reducer.*"
     ]
   },
   "engines": {
@@ -57,7 +59,6 @@
     "prop-types": "^15.5.4",
     "react": "^16.12.0",
     "react-bootstrap": "^1.0.0-beta.14",
-    "sweetalert2-react-content": "^1.1.0",
     "sweetalert2": "^8.18.3",
     "firebase": "^7.2.0",
     "react-datepicker": "^2.9.6",
@@ -115,7 +116,6 @@
     "rollup-plugin-url": "^1.4.0",
     "sonar-scanner": "^3.1.0",
     "sweetalert2": "^8.18.3",
-    "sweetalert2-react-content": "^1.1.0",
     "typescript": "^2.8.3",
     "uniqid": "^5.0.3"
   },
