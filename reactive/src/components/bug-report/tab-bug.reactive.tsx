@@ -32,7 +32,7 @@ export class TabBug extends React.Component<Props, State> {
       case 'mild': return 0;
       case 'medium': return 1;
       case 'serious': return 2;
-      default: return 3;
+      default: return 0;
     }
   }
 

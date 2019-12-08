@@ -1,10 +1,24 @@
 import * as React from 'react';
 import * as Enzyme from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import * as awesomeIcons from '@fortawesome/free-solid-svg-icons';
 import { TreeReactive } from './tree.reactive';
 import { TreeElement } from '../../exports/model/tree-element.model';
 import { keyReactive } from '../key/key.reactive';
 Enzyme.configure({ adapter: new Adapter() });
+
+
+const icons: any = [
+  awesomeIcons.faBug,
+  awesomeIcons.faClipboardList,
+  awesomeIcons.faMagic,
+  awesomeIcons.faArrowDown,
+  awesomeIcons.faMinus,
+  awesomeIcons.faArrowUp,
+  awesomeIcons.faBoxes
+];
+library.add(icons);
 
 const data = [
   new TreeElement({

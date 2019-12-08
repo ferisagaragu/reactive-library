@@ -60,15 +60,6 @@ export const problemsLevel: Array<SelectElement> = [
         <SpaceReactive />
         Grave
       </label> 
-  }),
-  new SelectElement({ 
-    value: 'default', 
-    label: 
-      <label className="text-secondary mt-2" >
-        <FontAwesomeIcon icon="boxes" /> 
-        <SpaceReactive />
-        default 
-      </label> 
   })
 ];
 
