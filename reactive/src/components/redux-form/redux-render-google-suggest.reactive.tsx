@@ -4,7 +4,7 @@ const ReactGoogleMapLoader = require('react-google-maps-loader').default;
 const ReactGooglePlacesSuggest = require("react-google-places-suggest").default;
 const MY_API_KEY = "AIzaSyCGfbafYQgjSAXzZ7ikqOwo7GBtmWZ0hjU";
  
-interface Props { 
+interface Props {
 	input: any;
 	label: string;
 	className: string;
@@ -14,7 +14,7 @@ interface Props {
 	onKeyUp: Function;
 }
 
-interface State { 
+interface State {
 	search: any;
 	value: any;
 }
