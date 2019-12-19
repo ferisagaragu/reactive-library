@@ -10,6 +10,6 @@
   </title>
 
   <title color="green">
-commands easy                                      1.0v
+commands easy   ${version}
   </title>
 </root>

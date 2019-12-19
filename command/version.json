@@ -4,6 +4,7 @@
     "/react-type/"
   ],
   "command-file": [
+    "/meta/presentation.xml",
     "/react-type/component.xml",
     "/react-type/structure.xml"
   ]
