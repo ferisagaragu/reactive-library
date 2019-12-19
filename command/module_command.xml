@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_command" default="compile.module.command">
+  <dirname property="module.command.basedir" file="${ant.file.module_command}"/>
+  
+  <property name="module.jdk.home.command" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.command" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.command" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.command" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="command.output.dir" value="${module.command.basedir}/out/production/command"/>
+  <property name="command.testoutput.dir" value="${module.command.basedir}/out/test/command"/>
+  
+  <path id="command.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="command.module.production.classpath">
+    <path refid="${module.jdk.classpath.command}"/>
+    <path refid="library.com.googlecode.json-simple:json-simple:1.1.1.classpath"/>
+    <path refid="library.org.fusesource.jansi:jansi:1.18.classpath"/>
+  </path>
+  
+  <path id="command.runtime.production.module.classpath">
+    <pathelement location="${command.output.dir}"/>
+    <path refid="library.com.googlecode.json-simple:json-simple:1.1.1.classpath"/>
+    <path refid="library.org.fusesource.jansi:jansi:1.18.classpath"/>
+  </path>
+  
+  <path id="command.module.classpath">
+    <path refid="${module.jdk.classpath.command}"/>
+    <pathelement location="${command.output.dir}"/>
+    <path refid="library.com.googlecode.json-simple:json-simple:1.1.1.classpath"/>
+    <path refid="library.org.fusesource.jansi:jansi:1.18.classpath"/>
+  </path>
+  
+  <path id="command.runtime.module.classpath">
+    <pathelement location="${command.testoutput.dir}"/>
+    <pathelement location="${command.output.dir}"/>
+    <path refid="library.com.googlecode.json-simple:json-simple:1.1.1.classpath"/>
+    <path refid="library.org.fusesource.jansi:jansi:1.18.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.command">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.command">
+    <patternset refid="excluded.from.module.command"/>
+  </patternset>
+  
+  <path id="command.module.sourcepath">
+    <dirset dir="${module.command.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.command" depends="compile.module.command.production,compile.module.command.tests" description="Compile module command"/>
+  
+  <target name="compile.module.command.production" depends="register.custom.compilers" description="Compile module command; production classes">
+    <mkdir dir="${command.output.dir}"/>
+    <javac2 destdir="${command.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.command}/javac">
+      <compilerarg line="${compiler.args.command}"/>
+      <bootclasspath refid="command.module.bootclasspath"/>
+      <classpath refid="command.module.production.classpath"/>
+      <src refid="command.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.command"/>
+    </javac2>
+    
+    <copy todir="${command.output.dir}">
+      <fileset dir="${module.command.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.command.tests" depends="register.custom.compilers,compile.module.command.production" description="compile module command; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.command" description="cleanup module">
+    <delete dir="${command.output.dir}"/>
+    <delete dir="${command.testoutput.dir}"/>
+  </target>
+</project>
