@@ -27,7 +27,7 @@ public class File {
       in.close();
       return out.substring(0, out.length() - 1);
     }
-    catch (Exception e) { System.err.println(e.getMessage()); }
+    catch (Exception e) { /*System.err.println(e.getMessage());*/ }
 
     return "";
   }

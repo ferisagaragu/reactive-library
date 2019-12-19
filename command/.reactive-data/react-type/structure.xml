@@ -7,8 +7,8 @@
   </mk>
 
   <rm>
-	<dir>/core/actions</dir>
-	<dir>/core/data</dir>
+    <dir>/core/actions</dir>
+    <dir>/core/data</dir>
   </rm>
 
   <success>Structure was created</success>

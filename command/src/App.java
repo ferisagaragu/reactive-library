@@ -1,4 +1,5 @@
 import core.doc.Documentation;
+import core.download.Download;
 import core.file.File;
 import core.text.Text;
 import org.fusesource.jansi.AnsiConsole;
@@ -6,10 +7,14 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.w3c.dom.NodeList;
 
+
 public class App {
 
   public static void main(String[] args) {
     AnsiConsole.systemInstall();
+    Download.update();
+
+    JSONObject version = core.file.File.readJSON("C:\\.reactive-data\\meta\\version.json");
     NodeList presentationDoc = File.readXml("C:\\.reactive-data\\meta\\presentation.xml").getElementsByTagName("title");
     JSONObject config = File.readJSON("C:\\.reactive-data\\reactive-config.json");
 
@@ -19,9 +24,8 @@ public class App {
 
 
     Text.title("\n" + presentationDoc.item(0).getTextContent());
-    Text.version("\n" + presentationDoc.item(1).getTextContent());
+    Text.version("\n" + presentationDoc.item(1).getTextContent().replace("${version}", version.get("version").toString()));
     Text.folder("commands executed in the " + absolutePath + " folder \n");
-
 
     do {
       try {
