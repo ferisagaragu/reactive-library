@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
-  <layout extension=".view.tsx" suffix="View" dir="/data">import { ${name} } from './${fileName}';
-
-class ${name} {
-  constructor() {
-    super();
-  }
-}
-
-export default ${name};</layout>
-
-<layout extension=".spec.tsx" suffix="View">import { ${name} } from './${fileName}';
+  <layout extension=".view.tsx" suffix="View">import { ${name} } from './${fileName}';
 
 class ${name} {
   constructor() {
