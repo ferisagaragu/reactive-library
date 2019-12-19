@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
-  <layout extension=".view.tsx" suffix="View">import { ${name} } from './${fileName}';
+  <layout extension=".view.tsx" suffix="View">import React, { Component } from 'react';
 
-class ${name} {
-  constructor() {
-    super();
+interface Props { }
+
+interface State { }
+
+class ${filename} extends Component<Props,State> {
+
+  constructor(props: Props) {
+    super(props);
   }
+
+  render() {
+    return (
+      <>
+
+      </>
+    );
+  }
+
 }
 
-export default ${name};</layout>
+export default ${filename};</layout>
 
-  <success>class was create</success>
+  <success>component was create</success>
 </root>
