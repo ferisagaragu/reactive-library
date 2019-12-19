@@ -1,6 +1,10 @@
 {
   "version": "0.0.1 - beta",
+  "clean": [
+    "/react-type/"
+  ],
   "command-file": [
-    "react-type/"
+    "/react-type/component.xml",
+    "/react-type/structure.xml"
   ]
 }
