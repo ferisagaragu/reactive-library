@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <mk>
+    <dir>/core/reducers</dir>
+    <dir>/core/actions</dir>
+    <dir>/model</dir>
+  </mk>
+
+  <rm>
+	<dir>/core/actions</dir>
+	<dir>/core/data</dir>
+  </rm>
+
+  <success>Structure was created</success>
+</root>
