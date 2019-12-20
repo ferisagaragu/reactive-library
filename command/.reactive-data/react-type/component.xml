@@ -6,7 +6,7 @@ interface Props { }
 
 interface State { }
 
-class ${filename} extends Component${(}Props,State${)} {
+class ${fileName} extends Component${(}Props,State${)} {
 
   constructor(props: Props) {
     super(props);
@@ -22,7 +22,7 @@ class ${filename} extends Component${(}Props,State${)} {
 
 }
 
-export default ${filename};</layout>
+export default ${fileName};</layout>
 
   <success>component was create</success>
 </root>
