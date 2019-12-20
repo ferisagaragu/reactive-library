@@ -77,7 +77,9 @@ public class File {
 
       String outStg = text
         .replace("${name}", Text.toCamelCase(name) + suffix)
-        .replace("${fileName}", Text.dropExtension(name + attributes.getNamedItem("extension").getTextContent()));
+        .replace("${fileName}", Text.dropExtension(name + attributes.getNamedItem("extension").getTextContent()))
+        .replace("${(}", "<")
+        .replace("${)}", ">");
 
       out.write(outStg);
       out.close();
