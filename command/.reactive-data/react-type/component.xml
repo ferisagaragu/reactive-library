@@ -6,7 +6,7 @@ interface Props { }
 
 interface State { }
 
-class ${filename} extends Component<Props,State> {
+class ${filename} extends Component${(}Props,State${)} {
 
   constructor(props: Props) {
     super(props);
@@ -14,9 +14,9 @@ class ${filename} extends Component<Props,State> {
 
   render() {
     return (
-      <>
+      ${(}${)}
 
-      </>
+      ${(}/${)}
     );
   }
 
