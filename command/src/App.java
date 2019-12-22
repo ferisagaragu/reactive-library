@@ -1,3 +1,4 @@
+import core.command.Command;
 import core.doc.Documentation;
 import core.download.Download;
 import core.file.File;
@@ -84,6 +85,10 @@ public class App {
                           File.rmdir(foldersrm.item(j).getTextContent());
                         }
                       }
+                    break;
+
+                    case "command":
+                      Command.ex(xmlData.item(i).getTextContent());
                     break;
 
                     case "success": Text.successln(xmlData.item(i).getTextContent()); break;

@@ -4,7 +4,7 @@ interface Props { }
 
 interface State { }
 
-class ComComponent extends Component<Props,State> {
+class DataDatComponent extends Component<Props,State> {
 
   constructor(props: Props) {
     super(props);
@@ -13,11 +13,11 @@ class ComComponent extends Component<Props,State> {
   render() {
     return (
       <>
-        com.component rendered
+        data-dat.component rendered
       </>
     );
   }
 
 }
 
-export default ComComponent;
+export default DataDatComponent;

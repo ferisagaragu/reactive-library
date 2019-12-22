@@ -16,6 +16,11 @@ public class Download {
   final static String configPath = "C:\\.reactive-data\\";
 
   public static void update() {
+    if (!checkConnection()) {
+      Text.infoln("There was a problem checking the updates");
+      return;
+    }
+
     String inf = core.file.File.read("C:\\.reactive-data\\meta\\inf.reactive");
     String infRemote = getText("https://raw.githubusercontent.com/ferisagaragu/reactive-library/master/command/inf.reactive");
 
@@ -120,4 +125,17 @@ public class Download {
     }
   }
 
+  private static boolean checkConnection() {
+
+    try {
+      URL url = new URL("http://www.google.com");
+      URLConnection connection = url.openConnection();
+      connection.connect();
+      return true;
+    } catch (Exception e) {
+      System.out.println("Internet is not connected");
+    }
+
+    return false;
+  }
 }
