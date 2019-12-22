@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
-  <layout extension=".view.tsx" suffix="View">import React, { Component } from 'react';
+  <layout extension=".view.tsx" suffix="View" folder="true">import React, { Component } from 'react';
 import { connect } from 'reactive';
 
 interface Props { }
 
 interface State { }
 
-class ${name} extends Component<Props, State> {
+class ${name} extends Component${(}Props, State${)} {
 
-  componentDidMount() {
-    
-  }
+  componentDidMount() { }
 
   render() {
     return (
-      <>
+      ${(}${)}
         ${fileName} rendered
-      </>
+      ${(}/${)}
     );
   }
 }

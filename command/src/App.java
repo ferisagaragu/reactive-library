@@ -51,9 +51,14 @@ public class App {
                       boolean status;
 
                       if (File.attributeExist(xmlData.item(i).getAttributes(), "dir")) {
-                        status = createFile(xmlData, i, null, true);
+                        status = createFile(xmlData, i, null, true, false);
                       } else {
-                        status = createFile(xmlData, i, command[2], false);
+                        if (File.attributeExist(xmlData.item(i).getAttributes(), "folder")) {
+                          String folder = xmlData.item(i).getAttributes().getNamedItem("folder").getTextContent();
+                          status = createFile(xmlData, i, command[2], false, Boolean.parseBoolean(folder));
+                        } else {
+                          status = createFile(xmlData, i, command[2], false, false);
+                        }
                       }
 
                       if (!status) {
@@ -96,7 +101,7 @@ public class App {
     } while (!exit);
   }
 
-  private static boolean createFile(NodeList xmlData, int i, String command,boolean mode) {
+  private static boolean createFile(NodeList xmlData, int i, String command,boolean mode, boolean folder) {
     return File.writeFile(
       xmlData.item(i).getTextContent(),
       xmlData.item(i).getAttributes(),
@@ -104,6 +109,8 @@ public class App {
         xmlData.item(i).getAttributes().getNamedItem("dir").getTextContent()
       :
         command
+      ,
+        folder
     );
   }
 }

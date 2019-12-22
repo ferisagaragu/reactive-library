@@ -55,14 +55,14 @@ public class File {
     return null;
   }
 
-  public static boolean writeFile(String text, NamedNodeMap attributes, String path) {
+  public static boolean writeFile(String text, NamedNodeMap attributes, String path, boolean folder) {
     String absolutePath = System.getProperty("user.dir") + "\\src";
     String suffix = "";
     String[] dataName = path.split("/");
     String name = dataName[dataName.length - 1];
 
     try { suffix = attributes.getNamedItem("suffix").getTextContent(); } catch (Exception e) {}
-    java.io.File file = new java.io.File(absolutePath + path.replace(name, ""));
+    java.io.File file = new java.io.File(absolutePath + (folder ? path : path.replace(name, "") ));
 
     file.mkdirs();
 
@@ -118,5 +118,9 @@ public class File {
     } catch (Exception e) {
       return false;
     }
+  }
+
+  public static String getFileName(String path) {
+    return new java.io.File(path).getName();
   }
 }

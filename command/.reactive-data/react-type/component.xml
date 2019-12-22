@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
-  <layout extension=".component.tsx" suffix="Component">import React, { Component } from 'react';
+  <layout extension=".component.tsx" suffix="Component" folder="true">import React, { Component } from 'react';
 
 interface Props { }
 
@@ -15,7 +15,7 @@ class ${name} extends Component${(}Props,State${)} {
   render() {
     return (
       ${(}${)}
-
+        ${fileName} rendered
       ${(}/${)}
     );
   }
