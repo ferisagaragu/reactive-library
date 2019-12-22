@@ -6,7 +6,7 @@
   "command-file": [
     "/meta/presentation.xml",
     "/react-type/component.xml",
-    "/react-type/view.xml",
+    "/react-type/module.xml",
     "/react-type/structure.xml",
     "/reactive-config.json"
   ]

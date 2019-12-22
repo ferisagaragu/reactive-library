@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <layout extension=".view.tsx" suffix="View">import React, { Component } from 'react';
+import { connect } from 'reactive';
+
+interface Props { }
+
+interface State { }
+
+class ${name} extends Component<Props, State> {
+
+  componentDidMount() {
+    
+  }
+
+  render() {
+    return (
+      <>
+        ${fileName} rendered
+      </>
+    );
+  }
+}
+
+const mapStateToProps = (state: any) => ({
+  //exampleData: state.exampleData
+});
+
+const mapDispatchToProps = (dispatch: Function) => ({
+  //setExampleData: () => dispatch(setExampleData(example))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(${name});</layout>
+
+  <success>component was create</success>
+</root>
