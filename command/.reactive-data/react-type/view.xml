@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
-  <layout extension=".component.tsx" suffix="Component">import React, { Component } from 'react';
+  <layout extension=".view.tsx" suffix="View">import React, { Component } from 'react';
 
 interface Props { }
 

@@ -99,3 +99,5 @@ node_modules/
 .scannerwork
 
 command/out/*
+command/.idea/*
+command/command.iml
