@@ -98,6 +98,8 @@ node_modules/
 # sonar
 .scannerwork
 
-command/out/*
-command/.idea/*
-command/command.iml
+/command/out/*
+/command/.idea/*
+/command/command.iml
+/command/command.xml
+/command/command.properties
