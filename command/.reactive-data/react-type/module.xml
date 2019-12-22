@@ -32,5 +32,5 @@ const mapDispatchToProps = (dispatch: Function) => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(${name});</layout>
 
-  <success>component was create</success>
+  <success>module was create</success>
 </root>
