@@ -14,7 +14,7 @@ class ${name} extends Component${(}Props, State${)} {
   render() {
     return (
       ${(}${)}
-        ${fileName} rendered
+        ${name} rendered
       ${(}/${)}
     );
   }
