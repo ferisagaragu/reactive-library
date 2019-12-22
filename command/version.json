@@ -7,7 +7,7 @@
     "/meta/presentation.xml",
     "/react-type/component.xml",
     "/react-type/module.xml",
-    "/react-type/structure.xml",
+    "/react-type/reactive.xml",
     "/reactive-config.json"
   ]
 }

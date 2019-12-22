@@ -1,4 +1,7 @@
 {
+  "ref": {
+    "react-reactive": "react-type\\reactive.xml"
+  },
   "generate": {
     "react-module": "react-type\\module.xml",
     "react-component": "react-type\\component.xml",
