@@ -55,8 +55,7 @@ public class File {
     return null;
   }
 
-  public static boolean writeFile(String text, NamedNodeMap attributes, String path, boolean folder) {
-    String absolutePath = System.getProperty("user.dir") + "\\src";
+  public static boolean writeFile(String absolutePath, String text, NamedNodeMap attributes, String path, boolean folder) {
     String suffix = "";
     String[] dataName = path.split("/");
     String name = dataName[dataName.length - 1];
@@ -91,14 +90,12 @@ public class File {
     return false;
   }
 
-  public static boolean mkdir(String path) {
-    String absolutePath = System.getProperty("user.dir") + "\\src";
+  public static boolean mkdir(String absolutePath, String path) {
     return new java.io.File(absolutePath + path).mkdirs();
   }
 
-  public static boolean rmdir(String path) {
-    String absolutePath = System.getProperty("user.dir") + "\\src" + path;
-    return deleteDirectory(new java.io.File(absolutePath));
+  public static boolean rmdir(String absolutePath, String path) {
+    return deleteDirectory(new java.io.File(absolutePath + path));
   }
 
   private static boolean deleteDirectory(java.io.File directoryToBeDeleted) {

@@ -8,6 +8,7 @@
     "/react-type/component.xml",
     "/react-type/module.xml",
     "/react-type/reactive.xml",
+    "/react-type/structure.xml",
     "/reactive-config.json"
   ]
 }

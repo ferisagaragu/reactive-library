@@ -52,13 +52,13 @@ public class App {
                       boolean status;
 
                       if (File.attributeExist(xmlData.item(i).getAttributes(), "dir")) {
-                        status = createFile(xmlData, i, null, true, false);
+                        status = createFile(absolutePath, xmlData, i, null, true, false);
                       } else {
                         if (File.attributeExist(xmlData.item(i).getAttributes(), "folder")) {
                           String folder = xmlData.item(i).getAttributes().getNamedItem("folder").getTextContent();
-                          status = createFile(xmlData, i, command[2], false, Boolean.parseBoolean(folder));
+                          status = createFile(absolutePath, xmlData, i, command[2], false, Boolean.parseBoolean(folder));
                         } else {
-                          status = createFile(xmlData, i, command[2], false, false);
+                          status = createFile(absolutePath, xmlData, i, command[2], false, false);
                         }
                       }
 
@@ -73,7 +73,7 @@ public class App {
                       NodeList folders = xmlData.item(i).getChildNodes();
                       for (int j = 0; j < folders.getLength(); j++) {
                         if (!folders.item(j).getNodeName().equals("#text")) {
-                          File.mkdir(folders.item(j).getTextContent());
+                          File.mkdir(absolutePath, folders.item(j).getTextContent());
                         }
                       }
                     break;
@@ -82,7 +82,7 @@ public class App {
                       NodeList foldersrm = xmlData.item(i).getChildNodes();
                       for (int j = 0; j < foldersrm.getLength(); j++) {
                         if (!foldersrm.item(j).getNodeName().equals("#text")) {
-                          File.rmdir(foldersrm.item(j).getTextContent());
+                          File.rmdir(absolutePath, foldersrm.item(j).getTextContent());
                         }
                       }
                     break;
@@ -106,8 +106,9 @@ public class App {
     } while (!exit);
   }
 
-  private static boolean createFile(NodeList xmlData, int i, String command,boolean mode, boolean folder) {
+  private static boolean createFile(String absolutePath, NodeList xmlData, int i, String command,boolean mode, boolean folder) {
     return File.writeFile(
+      absolutePath,
       xmlData.item(i).getTextContent(),
       xmlData.item(i).getAttributes(),
       mode ?
