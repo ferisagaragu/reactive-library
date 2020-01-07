@@ -113,4 +113,22 @@ public class Text {
 
     return finalOut.substring(0, finalOut.length() - 1);
   }
+
+  public static String getPackage(String path) {
+    if (path.split("src").length == 1) {
+      return "";
+    } else {
+      String out = path.split("src")[1];
+      return "package " + out.replace("\\", ".").substring(1,out.length()) + ";";
+    }
+  }
+
+  public static String getIntoSrcPackage(String path) {
+    if (path.split("src").length == 1) {
+      return "";
+    } else {
+      String out = path.split("src")[1];
+      return out.replace("\\", ".").substring(1,out.length());
+    }
+  }
 }

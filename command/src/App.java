@@ -21,8 +21,7 @@ public class App {
 
     boolean exit = false;
     final String configPath = "C:\\.reactive-data\\";
-    final String absolutePath = System.getProperty("user.dir") + "\\src";
-
+    String absolutePath = System.getProperty("user.dir") + "\\src";
 
     Text.title("\n" + presentationDoc.item(0).getTextContent());
     Text.version("\n" + presentationDoc.item(1).getTextContent().replace("${version}", version.get("version").toString()));
@@ -36,6 +35,11 @@ public class App {
           Documentation.generateDoc(config);
         } else if (command[0].equals("bye")) {
           exit = true;
+        } else if (command[0].equals("cd")) {
+          if (new java.io.File(absolutePath + command[1]).exists()) {
+            absolutePath = new java.io.File(absolutePath + command[1]).getPath();
+            Text.infoln("Path change to " + absolutePath);
+          }
         } else {
 
             JSONObject obj = (JSONObject) new JSONParser().parse(config.get(command[0]).toString());

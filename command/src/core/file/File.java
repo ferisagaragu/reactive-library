@@ -78,7 +78,10 @@ public class File {
         .replace("${name}", Text.toCamelCase(name) + suffix)
         .replace("${fileName}", Text.dropExtension(name + attributes.getNamedItem("extension").getTextContent()))
         .replace("${(}", "<")
-        .replace("${)}", ">");
+        .replace("${)}", ">")
+        .replace("${and}", "&")
+        .replace("${package}", Text.getPackage(file.getAbsolutePath()))
+        .replace("${intoSrc}", Text.getIntoSrcPackage(absolutePath));
 
       out.write(outStg);
       out.close();

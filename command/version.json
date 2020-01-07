@@ -1,7 +1,8 @@
 {
   "version": "0.0.1",
   "clean": [
-    "/react-type/"
+    "/react-type/",
+    "/spring-boot/"
   ],
   "command-file": [
     "/meta/presentation.xml",
@@ -9,6 +10,7 @@
     "/react-type/module.xml",
     "/react-type/reactive.xml",
     "/react-type/structure.xml",
+    "/spring-boot/jwt-user-crud.xml",
     "/reactive-config.json"
   ]
 }
