@@ -7,13 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c67f7b3a-58eb-4a05-9597-8ba5f5d8703c" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.reactive-data/command.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.reactive-data/start.bat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/command.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/inf.reactive" beforeDir="false" afterPath="$PROJECT_DIR$/inf.reactive" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/version.json" beforeDir="false" afterPath="$PROJECT_DIR$/version.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.reactive-data/start.bat" beforeDir="false" afterPath="$PROJECT_DIR$/.reactive-data/start.bat" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,7 +135,7 @@
       <option name="presentableId" value="Default" />
       <updated>1576003595849</updated>
       <workItem from="1578101171139" duration="15028000" />
-      <workItem from="1578365785190" duration="15279000" />
+      <workItem from="1578365785190" duration="15746000" />
     </task>
     <servers />
   </component>
