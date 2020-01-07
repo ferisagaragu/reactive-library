@@ -12,6 +12,7 @@
     "/react-type/structure.xml",
     "/spring-boot/jwt-user-crud.xml",
     "/reactive-config.json",
+    "reactive-update.bat",
     "/reactive.bat"
   ]
 }
