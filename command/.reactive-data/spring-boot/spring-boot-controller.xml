@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <layout extension=".java" suffix="Controller" folder="true">package test.data.Auth;
+
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
+
+@CrossOrigin(origins = "*")
+@RestController
+@RequestMapping("/example")
+public class AuthControllerController {
+
+	//Your service instances here
+
+	/**
+	 	@apiGroup Auth
+		@apiVersion 0.0.1
+		@apiDescription Servicio para registrar un nuevo usuario
+		@api {post} auth/signup/ signup
+		@apiPermission none
+
+		@apiParamExample {json} Request-Body:
+			{
+				"name": "your user name",
+				"lastName": "your last name",
+				"phoneNumber": "your phone number",
+				"imageUrl": "your account photo",
+				"userName": "your user name",
+				"email": "your email"
+			}
+
+		@apiSuccessExample {json} HTTP/1.1 200 OK
+			{
+				"timestamp": "2020-01-03T04:05:37.126+0000",
+				"status": 200,
+				"message": "your success message"
+			}
+
+		@apiErrorExample {json} HTTP/1.1 400 Bad Request
+			{
+				"timestamp": "2020-01-03T16:42:13.727+0000",
+				"status": 400,
+				"error": "BAD_REQUEST",
+				"message": "your problem message"
+			}
+
+		@apiErrorExample {json} HTTP/1.1 500 Internal Server Error
+			{
+				"timestamp": "2020-01-03T17:37:02.348+0000",
+				"status": 500,
+				"error": "Internal Server Error",
+				"message": "your error message"
+			}
+	*/
+	@PostMapping("/example")
+	public ResponseEntity<Object> signup(
+		@RequestBody Map<String, Object> req
+	) {
+		try {
+			return null;
+		} catch (ResponseStatusException e) {
+			return null;
+		}
+	}
+
+}
+  </layout>
+
+  <success>module was create</success>
+</root>

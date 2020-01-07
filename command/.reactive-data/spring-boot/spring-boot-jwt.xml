@@ -2054,7 +2054,7 @@ public class AuthController {
 	/**
 	 	@apiGroup Auth
 		@apiVersion 0.0.1
-		@apiDescription Servicio para iniciar sesión
+		@apiDescription Servicio para iniciar sesiÃ³n
 		@api {post} auth/signin signin
 		@apiPermission none
 
@@ -2115,7 +2115,7 @@ public class AuthController {
 	/**
 	 	@apiGroup Auth
 		@apiVersion 0.0.1
-		@apiDescription Servicio para recuperar contraseña del usuario
+		@apiDescription Servicio para recuperar contraseÃ±a del usuario
 		@api {post} auth/recoverPassword recoverPassword
 		@apiPermission none
 
@@ -2161,7 +2161,7 @@ public class AuthController {
 	/**
 	 	@apiGroup Auth
 		@apiVersion 0.0.1
-		@apiDescription Servicio para cambiar la contraseña recuperada
+		@apiDescription Servicio para cambiar la contraseÃ±a recuperada
 		@api {post} auth/changePassword changePassword
 		@apiPermission none
 
@@ -2235,11 +2235,11 @@ public class UserController {
 	/**
 	 	@apiGroup User
 		@apiVersion 0.0.1
-		@apiDescription Servicio para iniciar sesión por primera vez
+		@apiDescription Servicio para iniciar sesiÃ³n por primera vez
 		@api {post} user/firstSignin/:id firstSignin
 		@apiPermission {user} {admin}
 
-		@apiParam {number} Id Identificador único
+		@apiParam {number} Id Identificador Ãºnico
 
 		@apiParamExample {json} Request-Body:
 			{
@@ -2297,7 +2297,7 @@ public class UserController {
 		@api {put} user/update/:id update
 		@apiPermission {user} {admin}
 
-		@apiParam {number} Id Identificador único
+		@apiParam {number} Id Identificador Ãºnico
 
 		@apiParamExample {json} Request-Body:
 			{
@@ -2371,7 +2371,7 @@ public class UserController {
 		@api {put} user/blocked/:id blocked
 		@apiPermission {admin}
 
-		@apiParam {number} Id Identificador único
+		@apiParam {number} Id Identificador Ãºnico
 
 		@apiParamExample {json} Request-Body:
 			{
@@ -2427,11 +2427,11 @@ public class UserController {
 	/**
 		@apiGroup User
 		@apiVersion 0.0.1
-		@apiDescription Servicio para eliminar un usuario (eliminación lógica)
+		@apiDescription Servicio para eliminar un usuario (eliminaciÃ³n lÃ³gica)
 		@api {delete} user/delete/:id delete
 		@apiPermission {admin}
 
-		@apiParam {number} Id Identificador único
+		@apiParam {number} Id Identificador Ãºnico
 
 		@apiSuccessExample {json} HTTP/1.1 200 OK
 			{
@@ -2481,6 +2481,5 @@ public class UserController {
   </layout>
   <info>Controller files was created</info>
   <!--=================================================-->
-  <success>Spring boot JWT structure and files was created success
-  </success>
+  <success>Spring boot JWT structure and files was created success</success>
 </root>

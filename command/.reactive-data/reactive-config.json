@@ -6,6 +6,7 @@
     "react-module": "react-type\\module.xml",
     "react-component": "react-type\\component.xml",
     "structure": "react-type\\structure.xml",
-    "spring-boot-jwt": "spring-boot\\jwt-user-crud.xml"
+    "spring-boot-jwt": "spring-boot\\spring-boot-jwt.xml",
+    "spring-boot-controller": "spring-boot\\spring-boot-controller.xml"
   }
 }

@@ -7,6 +7,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c67f7b3a-58eb-4a05-9597-8ba5f5d8703c" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/.reactive-data/spring-boot/spring-boot-jwt.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.reactive-data/meta/presentation.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.reactive-data/meta/presentation.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.reactive-data/react-type/component.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.reactive-data/react-type/component.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.reactive-data/react-type/module.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.reactive-data/react-type/module.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.reactive-data/react-type/reactive.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.reactive-data/react-type/reactive.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.reactive-data/react-type/structure.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.reactive-data/react-type/structure.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.reactive-data/reactive-config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.reactive-data/reactive-config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.reactive-data/reactive-update.bat" beforeDir="false" afterPath="$PROJECT_DIR$/.reactive-data/reactive-update.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.reactive-data/spring-boot/jwt-user-crud.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.reactive-data/spring-boot/spring-boot-controller.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/version.json" beforeDir="false" afterPath="$PROJECT_DIR$/version.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -48,7 +58,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.reactive-data" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.reactive-data/spring-boot" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -58,8 +68,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Develop\Projects\reactive-project\reactive-library\command\.reactive-data" />
       <recent name="C:\Develop\Projects\reactive-project\reactive-library\command\.reactive-data\spring-boot" />
+      <recent name="C:\Develop\Projects\reactive-project\reactive-library\command\.reactive-data" />
       <recent name="C:\Develop\Projects\reactive-project\reactive-library\command" />
       <recent name="C:\Develop\Projects\reactive-project\reactive-library\command\.reactive-data\react-type" />
       <recent name="C:\Develop\Projects\reactive-project\reactive-library\command\out\artifacts" />
@@ -142,7 +152,7 @@
       <workItem from="1578420705141" duration="1100000" />
       <workItem from="1578421861409" duration="193000" />
       <workItem from="1578422080594" duration="37000" />
-      <workItem from="1578422142713" duration="653000" />
+      <workItem from="1578422142713" duration="2820000" />
     </task>
     <servers />
   </component>
