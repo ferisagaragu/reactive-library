@@ -58,8 +58,8 @@ public class AuthControllerController {
 			}
 	*/
 	@PostMapping("/example")
-	public ResponseEntity<Object> signup(
-		@RequestBody Map<String, Object> req
+	public ResponseEntity${(}Object> example(
+		@RequestBody Map${(}String, Object> req
 	) {
 		try {
 			return null;
