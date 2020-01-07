@@ -14,14 +14,13 @@ public class App {
   public static void main(String[] args) {
     AnsiConsole.systemInstall();
     Download.update();
-
     JSONObject version = core.file.File.readJSON("C:\\.reactive-data\\meta\\version.json");
     NodeList presentationDoc = File.readXml("C:\\.reactive-data\\meta\\presentation.xml").getElementsByTagName("title");
     JSONObject config = File.readJSON("C:\\.reactive-data\\reactive-config.json");
 
     boolean exit = false;
     final String configPath = "C:\\.reactive-data\\";
-    String absolutePath = System.getProperty("user.dir") + "\\src";
+    String absolutePath = args[0] + "\\src";
 
     Text.title("\n" + presentationDoc.item(0).getTextContent());
     Text.version("\n" + presentationDoc.item(1).getTextContent().replace("${version}", version.get("version").toString()));
