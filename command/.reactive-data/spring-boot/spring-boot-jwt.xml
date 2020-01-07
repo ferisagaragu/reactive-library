@@ -2054,7 +2054,7 @@ public class AuthController {
 	/**
 	 	@apiGroup Auth
 		@apiVersion 0.0.1
-		@apiDescription Servicio para iniciar sesiÃ³n
+		@apiDescription Servicio para iniciar sesiÃƒÂ³n
 		@api {post} auth/signin signin
 		@apiPermission none
 
@@ -2115,7 +2115,7 @@ public class AuthController {
 	/**
 	 	@apiGroup Auth
 		@apiVersion 0.0.1
-		@apiDescription Servicio para recuperar contraseÃ±a del usuario
+		@apiDescription Servicio para recuperar contraseÃƒÂ±a del usuario
 		@api {post} auth/recoverPassword recoverPassword
 		@apiPermission none
 
@@ -2161,7 +2161,7 @@ public class AuthController {
 	/**
 	 	@apiGroup Auth
 		@apiVersion 0.0.1
-		@apiDescription Servicio para cambiar la contraseÃ±a recuperada
+		@apiDescription Servicio para cambiar la contraseÃƒÂ±a recuperada
 		@api {post} auth/changePassword changePassword
 		@apiPermission none
 
@@ -2235,11 +2235,11 @@ public class UserController {
 	/**
 	 	@apiGroup User
 		@apiVersion 0.0.1
-		@apiDescription Servicio para iniciar sesiÃ³n por primera vez
+		@apiDescription Servicio para iniciar sesiÃƒÂ³n por primera vez
 		@api {post} user/firstSignin/:id firstSignin
 		@apiPermission {user} {admin}
 
-		@apiParam {number} Id Identificador Ãºnico
+		@apiParam {number} Id Identificador ÃƒÂºnico
 
 		@apiParamExample {json} Request-Body:
 			{
@@ -2297,7 +2297,7 @@ public class UserController {
 		@api {put} user/update/:id update
 		@apiPermission {user} {admin}
 
-		@apiParam {number} Id Identificador Ãºnico
+		@apiParam {number} Id Identificador ÃƒÂºnico
 
 		@apiParamExample {json} Request-Body:
 			{
@@ -2371,7 +2371,7 @@ public class UserController {
 		@api {put} user/blocked/:id blocked
 		@apiPermission {admin}
 
-		@apiParam {number} Id Identificador Ãºnico
+		@apiParam {number} Id Identificador ÃƒÂºnico
 
 		@apiParamExample {json} Request-Body:
 			{
@@ -2427,11 +2427,11 @@ public class UserController {
 	/**
 		@apiGroup User
 		@apiVersion 0.0.1
-		@apiDescription Servicio para eliminar un usuario (eliminaciÃ³n lÃ³gica)
+		@apiDescription Servicio para eliminar un usuario (eliminaciÃƒÂ³n lÃƒÂ³gica)
 		@api {delete} user/delete/:id delete
 		@apiPermission {admin}
 
-		@apiParam {number} Id Identificador Ãºnico
+		@apiParam {number} Id Identificador ÃƒÂºnico
 
 		@apiSuccessExample {json} HTTP/1.1 200 OK
 			{

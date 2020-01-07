@@ -8,6 +8,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c67f7b3a-58eb-4a05-9597-8ba5f5d8703c" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/doc/Documentation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/doc/Documentation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/file/File.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/file/File.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/text/Text.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/text/Text.java" afterDir="false" />
     </list>
@@ -59,21 +60,22 @@
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\IntelliJ IDEA 2019.3.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Develop\Projects\reactive-project\reactive-library\command\.reactive-data" />
+      <recent name="C:\Develop\Projects\reactive-project\reactive-library\command" />
+      <recent name="C:\Develop\Projects\reactive-project\reactive-library\command\.reactive-data\spring-boot" />
+      <recent name="C:\Develop\Projects\reactive-project\reactive-library\command\out\artifacts\command_jar" />
+      <recent name="C:\Develop\Projects\reactive-project\reactive-library\command\.reactive-data\meta" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="test.exception" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Develop\Projects\reactive-project\reactive-library\command\.reactive-data\spring-boot" />
       <recent name="C:\Develop\Projects\reactive-project\reactive-library\command\.reactive-data" />
       <recent name="C:\Develop\Projects\reactive-project\reactive-library\command" />
       <recent name="C:\Develop\Projects\reactive-project\reactive-library\command\.reactive-data\react-type" />
       <recent name="C:\Develop\Projects\reactive-project\reactive-library\command\out\artifacts" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="test.exception" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Develop\Projects\reactive-project\reactive-library\command" />
-      <recent name="C:\Develop\Projects\reactive-project\reactive-library\command\.reactive-data\spring-boot" />
-      <recent name="C:\Develop\Projects\reactive-project\reactive-library\command\out\artifacts\command_jar" />
-      <recent name="C:\Develop\Projects\reactive-project\reactive-library\command\.reactive-data\meta" />
     </key>
   </component>
   <component name="RunManager" selected="Application.App">
@@ -145,7 +147,7 @@
       <workItem from="1578421861409" duration="193000" />
       <workItem from="1578422080594" duration="37000" />
       <workItem from="1578422142713" duration="3108000" />
-      <workItem from="1578425856406" duration="1385000" />
+      <workItem from="1578425856406" duration="2822000" />
     </task>
     <servers />
   </component>

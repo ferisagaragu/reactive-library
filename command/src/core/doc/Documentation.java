@@ -24,7 +24,7 @@ public class Documentation {
               if (nodeChildrens.item(i).getNodeName().equals("layout")) {
                 if (nodeChildrens.item(i).getAttributes().getNamedItem("dir") == null) {
                   especial = true;
-                  Text.command(data.toString(), data2.toString(), " YOUR_PATH");
+                  Text.command(data.toString(), data2.toString(), "YOUR_PATH");
                 }
               }
             }

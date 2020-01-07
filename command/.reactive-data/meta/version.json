@@ -10,7 +10,8 @@
     "/react-type/module.xml",
     "/react-type/reactive.xml",
     "/react-type/structure.xml",
-    "/spring-boot/jwt-user-crud.xml",
+    "/spring-boot/spring-boot-jwt.xml",
+    "/spring-boot/spring-boot-controller.xml",
     "/reactive-config.json"
   ]
 }

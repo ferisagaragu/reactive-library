@@ -82,13 +82,14 @@ public class File {
         .replace("${and}", "&")
         .replace("${package}", Text.getPackage(file.getAbsolutePath()))
         .replace("${intoSrc}", Text.getIntoSrcPackage(absolutePath))
-        .replace("${smartPackage}", Text.getSmartPackage(absolutePath));
+        .replace("${smartPackage}", Text.getSmartPackage(file.getAbsolutePath()));
 
       out.write(outStg);
       out.close();
       return true;
     } catch (Exception e) {
-      Text.errorln("check your xml layout\n");
+      Text.errorln("check your xml layout\n" + e.getMessage());
+      e.printStackTrace();
     }
 
     return false;

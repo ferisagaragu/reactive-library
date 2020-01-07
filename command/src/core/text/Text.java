@@ -149,17 +149,17 @@ public class Text {
 
       if (out.contains("org")) {
         String superOut = out.split("org")[1];
-        return "org." + superOut.replace("\\", ".").substring(1,out.length());
+        return "org" + superOut.replace("\\", ".");
       }
 
       if (out.contains("com")) {
         String superOut = out.split("com")[1];
-        return "com." + superOut.replace("\\", ".").substring(1,out.length());
+        return "com" + superOut.replace("\\", ".");
       }
 
       if (out.contains("edu")) {
         String superOut = out.split("edu")[1];
-        return "edu." + superOut.replace("\\", ".").substring(1,out.length());
+        return "edu" + superOut.replace("\\", ".");
       }
 
       return out.replace("\\", ".").substring(1,out.length());
