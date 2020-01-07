@@ -84,6 +84,15 @@ public class Text {
     return null;
   }
 
+  public static void command(String param1, String param2, String param3) {
+    System.out.print("\t" + ansi().fg(CYAN).a(param1).reset() + " ");
+    System.out.print(ansi().fg(GREEN).a(param2).reset() + " ");
+    if (!param3.isEmpty()) {
+      System.out.print(ansi().fg(YELLOW).a(param3).reset());
+    }
+    System.out.println();
+  }
+
   public static String toCamelCase(String name) {
     if (name.split("-").length > 1) {
       String data[] = name.split("-");

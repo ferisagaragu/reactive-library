@@ -7,18 +7,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c67f7b3a-58eb-4a05-9597-8ba5f5d8703c" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.reactive-data/spring-boot/jwt-user-crud.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/command.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.reactive-data/reactive-config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.reactive-data/reactive-config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.reactive-data/spring-boot/jwt-user-crud.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.reactive-data/spring-boot/jwt-user-crud.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/command.jar" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/inf.reactive" beforeDir="false" afterPath="$PROJECT_DIR$/inf.reactive" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/file/File.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/file/File.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/doc/Documentation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/doc/Documentation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/text/Text.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/text/Text.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/example/data-dat/data-dat.component.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/version.json" beforeDir="false" afterPath="$PROJECT_DIR$/version.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../test/command.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../test/command.jar" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +53,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.reactive-data/spring-boot" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -69,8 +63,8 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Develop\Projects\reactive-project\reactive-library\command\.reactive-data\spring-boot" />
       <recent name="C:\Develop\Projects\reactive-project\reactive-library\command" />
+      <recent name="C:\Develop\Projects\reactive-project\reactive-library\command\.reactive-data\spring-boot" />
       <recent name="C:\Develop\Projects\reactive-project\reactive-library\command\out\artifacts\command_jar" />
       <recent name="C:\Develop\Projects\reactive-project\reactive-library\command\.reactive-data\meta" />
     </key>
@@ -78,8 +72,8 @@
       <recent name="test.exception" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Develop\Projects\reactive-project\reactive-library\command" />
       <recent name="C:\Develop\Projects\reactive-project\reactive-library\command\.reactive-data\spring-boot" />
+      <recent name="C:\Develop\Projects\reactive-project\reactive-library\command" />
       <recent name="C:\Develop\Projects\reactive-project\reactive-library\command\.reactive-data\react-type" />
       <recent name="C:\Develop\Projects\reactive-project\reactive-library\command\out\artifacts" />
       <recent name="C:\Develop\Projects\reactive-project\reactive-library\command\src" />
@@ -145,7 +139,7 @@
       <option name="presentableId" value="Default" />
       <updated>1576003595849</updated>
       <workItem from="1578101171139" duration="15028000" />
-      <workItem from="1578365785190" duration="7832000" />
+      <workItem from="1578365785190" duration="12875000" />
     </task>
     <servers />
   </component>
@@ -166,21 +160,25 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="763" y="333" key="FileChooserDialogImpl/0.0.1920.1040/-1366.304.1366.728@0.0.1920.1040" timestamp="1578103727570" />
-    <state width="1877" height="311" key="GridCell.Tab.0.bottom" timestamp="1578161892791">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1877" height="311" key="GridCell.Tab.0.bottom" timestamp="1578413160013">
+      <screen x="-1920" y="-316" width="1920" height="1040" />
     </state>
+    <state width="1877" height="311" key="GridCell.Tab.0.bottom/0.0.1366.728/-1920.-316.1920.1040@-1920.-316.1920.1040" timestamp="1578413160013" />
     <state width="1877" height="311" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1366.304.1366.728@0.0.1920.1040" timestamp="1578161892791" />
-    <state width="1877" height="311" key="GridCell.Tab.0.center" timestamp="1578161892790">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1877" height="311" key="GridCell.Tab.0.center" timestamp="1578413160013">
+      <screen x="-1920" y="-316" width="1920" height="1040" />
     </state>
+    <state width="1877" height="311" key="GridCell.Tab.0.center/0.0.1366.728/-1920.-316.1920.1040@-1920.-316.1920.1040" timestamp="1578413160013" />
     <state width="1877" height="311" key="GridCell.Tab.0.center/0.0.1920.1040/-1366.304.1366.728@0.0.1920.1040" timestamp="1578161892790" />
-    <state width="1877" height="311" key="GridCell.Tab.0.left" timestamp="1578161892790">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1877" height="311" key="GridCell.Tab.0.left" timestamp="1578413160013">
+      <screen x="-1920" y="-316" width="1920" height="1040" />
     </state>
+    <state width="1877" height="311" key="GridCell.Tab.0.left/0.0.1366.728/-1920.-316.1920.1040@-1920.-316.1920.1040" timestamp="1578413160013" />
     <state width="1877" height="311" key="GridCell.Tab.0.left/0.0.1920.1040/-1366.304.1366.728@0.0.1920.1040" timestamp="1578161892790" />
-    <state width="1877" height="311" key="GridCell.Tab.0.right" timestamp="1578161892790">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1877" height="311" key="GridCell.Tab.0.right" timestamp="1578413160013">
+      <screen x="-1920" y="-316" width="1920" height="1040" />
     </state>
+    <state width="1877" height="311" key="GridCell.Tab.0.right/0.0.1366.728/-1920.-316.1920.1040@-1920.-316.1920.1040" timestamp="1578413160013" />
     <state width="1877" height="311" key="GridCell.Tab.0.right/0.0.1920.1040/-1366.304.1366.728@0.0.1920.1040" timestamp="1578161892790" />
     <state x="463" y="166" key="SettingsEditor" timestamp="1578103731160">
       <screen x="0" y="0" width="1920" height="1040" />

@@ -13,7 +13,7 @@
     <dir>/controller</dir>
   </mk>
 
-  <success>Structure was created</success>
+  <info>Structure was created</info>
 
   <!--Util forlder-->
   <layout extension=".java" dir="/util/Text">${package}
@@ -333,6 +333,8 @@ public class Mail {
 
 }
   </layout>
+  
+  <info>Util files was created</info>
   <!--=================================================-->
 
   <!--Service-->
@@ -785,6 +787,7 @@ public class AuthServiceImpl implements IAuthService, UserDetailsService {
 
 }
   </layout>
+  <info>Service files was created</info>
   <!--=================================================-->
 
   <!--service/interfaces-->
@@ -815,6 +818,7 @@ public interface IAuthService {
 	ResponseEntity${(}Object> changePassword(Map${(}String, Object> req);
 }
   </layout>
+  <info>Interface files was created</info>
   <!--=================================================-->
 
   <!--security-->
@@ -1171,6 +1175,7 @@ public class JwtAuthEntryPoint implements AuthenticationEntryPoint {
 
 }
   </layout>
+  <info>Security files was created</info>
   <!--=================================================-->
 
   <!--response-->
@@ -1308,6 +1313,7 @@ public class UserResp {
 
 }
   </layout>
+  <info>Response files was created</info>
   <!--=================================================-->
 
   <!--property-->
@@ -1550,6 +1556,7 @@ public class AuthProperty {
 
 }
   </layout>
+  <info>Property files was created</info>
   <!--=================================================-->
 
   <!--exception-->
@@ -1699,6 +1706,7 @@ public class BadRequestException extends ResponseStatusException {
 
 }
   </layout>
+  <info>Exception files was created</info>
   <!--=================================================-->
 
   <!--entity-->
@@ -1931,6 +1939,7 @@ public class Role implements Serializable {
 
 }
   </layout>
+  <info>Entity files was created</info>
   <!--=================================================-->
 
   <!--dao-->
@@ -1963,6 +1972,7 @@ public interface IUserDAO extends JpaRepository${(}User, Long> {
 	Optional${(}User> findByRecoverCode(String recoverCode);
 }
   </layout>
+  <info>Dao files was created</info>
   <!--=================================================-->
 
   <!--controller-->
@@ -2469,5 +2479,8 @@ public class UserController {
 
 }
   </layout>
+  <info>Controller files was created</info>
   <!--=================================================-->
+  <success>Spring boot JWT structure and files was created success
+  </success>
 </root>
