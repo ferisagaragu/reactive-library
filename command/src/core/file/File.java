@@ -81,7 +81,8 @@ public class File {
         .replace("${)}", ">")
         .replace("${and}", "&")
         .replace("${package}", Text.getPackage(file.getAbsolutePath()))
-        .replace("${intoSrc}", Text.getIntoSrcPackage(absolutePath));
+        .replace("${intoSrc}", Text.getIntoSrcPackage(absolutePath))
+        .replace("${smartPackage}", Text.getSmartPackage(absolutePath));
 
       out.write(outStg);
       out.close();

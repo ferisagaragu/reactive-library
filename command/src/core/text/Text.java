@@ -140,4 +140,29 @@ public class Text {
       return out.replace("\\", ".").substring(1,out.length());
     }
   }
+
+  public static String getSmartPackage(String path) {
+    if (path.split("src").length == 1) {
+      return "";
+    } else {
+      String out = path.split("src")[1];
+
+      if (out.contains("org")) {
+        String superOut = out.split("org")[1];
+        return "org." + superOut.replace("\\", ".").substring(1,out.length());
+      }
+
+      if (out.contains("com")) {
+        String superOut = out.split("com")[1];
+        return "com." + superOut.replace("\\", ".").substring(1,out.length());
+      }
+
+      if (out.contains("edu")) {
+        String superOut = out.split("edu")[1];
+        return "edu." + superOut.replace("\\", ".").substring(1,out.length());
+      }
+
+      return out.replace("\\", ".").substring(1,out.length());
+    }
+  }
 }

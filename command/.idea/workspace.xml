@@ -7,17 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c67f7b3a-58eb-4a05-9597-8ba5f5d8703c" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.reactive-data/spring-boot/spring-boot-jwt.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.reactive-data/meta/presentation.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.reactive-data/meta/presentation.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.reactive-data/react-type/component.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.reactive-data/react-type/component.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.reactive-data/react-type/module.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.reactive-data/react-type/module.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.reactive-data/react-type/reactive.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.reactive-data/react-type/reactive.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.reactive-data/react-type/structure.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.reactive-data/react-type/structure.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.reactive-data/reactive-config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.reactive-data/reactive-config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.reactive-data/reactive-update.bat" beforeDir="false" afterPath="$PROJECT_DIR$/.reactive-data/reactive-update.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.reactive-data/spring-boot/jwt-user-crud.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.reactive-data/spring-boot/spring-boot-controller.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/version.json" beforeDir="false" afterPath="$PROJECT_DIR$/version.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/file/File.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/file/File.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/text/Text.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/text/Text.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,7 +144,8 @@
       <workItem from="1578420705141" duration="1100000" />
       <workItem from="1578421861409" duration="193000" />
       <workItem from="1578422080594" duration="37000" />
-      <workItem from="1578422142713" duration="2820000" />
+      <workItem from="1578422142713" duration="3108000" />
+      <workItem from="1578425856406" duration="1385000" />
     </task>
     <servers />
   </component>
