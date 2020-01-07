@@ -11,16 +11,16 @@ import org.springframework.web.server.ResponseStatusException;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/example")
+@RequestMapping("/${nameToLC}")
 public class ${name} {
 
 	//Your service instances here
 
 	/**
-	 	@apiGroup ExamplePost
+	 	@apiGroup Example
 		@apiVersion 0.0.1
 		@apiDescription Your description
-		@api {post} example/examplePost/ examplePost
+		@api {post} ${nameToLC}/example/ example
 		@apiPermission none
 
 		@apiParamExample {json} Request-Body:
@@ -43,8 +43,8 @@ public class ${name} {
 				your internal server error json response
 			}
 	*/
-	@PostMapping("/examplePost")
-	public ResponseEntity${(}Object> examplePost(
+	@PostMapping("/example")
+	public ResponseEntity${(}Object> example(
 		@RequestBody Map${(}String, Object> req
 	) {
 		try {
@@ -56,6 +56,8 @@ public class ${name} {
 
 }
   </layout>
+  
+  <reactive-command>cd ..</reactive-command>
 
   <success>module was create</success>
 </root>

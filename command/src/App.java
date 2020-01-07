@@ -32,12 +32,21 @@ public class App {
 
         if (command[0].equals("help")) {
           Documentation.generateDoc(config);
-        } else if (command[0].equals("bye")) {
+        } if (command[0].equals("location")) {
+          Text.infoln("Path in " + absolutePath);
+        }else if (command[0].equals("bye")) {
           exit = true;
         } else if (command[0].equals("cd")) {
-          if (new java.io.File(absolutePath + command[1]).exists()) {
-            absolutePath = new java.io.File(absolutePath + command[1]).getPath();
-            Text.infoln("Path change to " + absolutePath);
+          if (command[1].equals("..")) {
+            absolutePath = args[0] + "\\src";
+            Text.warningln("Path change to " + absolutePath);
+          } else {
+            if (new java.io.File(absolutePath + command[1]).exists()) {
+              absolutePath = new java.io.File(absolutePath + command[1]).getPath();
+              Text.warningln("Path change to " + absolutePath);
+            } else {
+              Text.errorln("Path not found " + new java.io.File(absolutePath + command[1]).getAbsolutePath());
+            }
           }
         } else {
 
@@ -97,6 +106,20 @@ public class App {
                     case "success": Text.successln(xmlData.item(i).getTextContent()); break;
                     case "info": Text.infoln(xmlData.item(i).getTextContent()); break;
                     case "warning": Text.warningln(xmlData.item(i).getTextContent()); break;
+                    case "location":
+                      String command2[] = xmlData.item(i).getTextContent().split(" ");
+                      if (command2[1].equals("..")) {
+                        absolutePath = args[0] + "\\src";
+                        Text.warningln("Path change to " + absolutePath);
+                      } else {
+                        if (new java.io.File(absolutePath + command2[1]).exists()) {
+                          absolutePath = new java.io.File(absolutePath + command2[1]).getPath();
+                          Text.warningln("Path change to " + absolutePath);
+                        } else {
+                          Text.errorln("Path not found " + new java.io.File(absolutePath + command2[1]).getAbsolutePath());
+                        }
+                      }
+                    break;
                   }
                 }
               }

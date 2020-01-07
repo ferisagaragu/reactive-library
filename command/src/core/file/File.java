@@ -6,6 +6,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
+import org.xml.sax.InputSource;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -34,10 +35,14 @@ public class File {
 
   public static Document readXml(String path) {
     try {
-      java.io.File fXmlFile = new java.io.File(path);
+      InputStream inputStream= new FileInputStream(path);
+      Reader reader = new InputStreamReader(inputStream,"UTF-8");
+      InputSource is = new InputSource(reader);
+      is.setEncoding("UTF-8");
+
       DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
       DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-      Document doc = dBuilder.parse(fXmlFile);
+      Document doc = dBuilder.parse(is);
       doc.getDocumentElement().normalize();
       return doc;
     } catch (Exception e) { e.printStackTrace(); }
@@ -77,11 +82,13 @@ public class File {
       String outStg = text
         .replace("${name}", Text.toCamelCase(name) + suffix)
         .replace("${fileName}", Text.dropExtension(name + attributes.getNamedItem("extension").getTextContent()))
+        .replace("${nameToLC}", name.toLowerCase())
         .replace("${(}", "<")
         .replace("${)}", ">")
         .replace("${and}", "&")
         .replace("${package}", Text.getPackage(file.getAbsolutePath()))
         .replace("${intoSrc}", Text.getIntoSrcPackage(absolutePath))
+        .replace("${smartIntoSrc}", Text.getSmartPackage(absolutePath))
         .replace("${smartPackage}", Text.getSmartPackage(file.getAbsolutePath()));
 
       out.write(outStg);

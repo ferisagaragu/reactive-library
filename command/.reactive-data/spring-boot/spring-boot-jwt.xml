@@ -16,7 +16,7 @@
   <info>Structure was created</info>
 
   <!--Util forlder-->
-  <layout extension=".java" dir="/util/Text">${package}
+  <layout extension=".java" dir="/util/Text">package ${smartPackage};
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,7 +80,7 @@ public class Text {
 }
   </layout>
 
-  <layout extension=".java" dir="/util/Response">${package}
+  <layout extension=".java" dir="/util/Response">package ${smartPackage};
 
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -141,7 +141,7 @@ public class Response {
 }
   </layout>
 
-  <layout extension=".java" dir="/util/Resource">${package}
+  <layout extension=".java" dir="/util/Resource">package ${smartPackage};
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -197,12 +197,12 @@ public class Resource {
 }
   </layout>
 
-  <layout extension=".java" dir="/util/Request">${package}
+  <layout extension=".java" dir="/util/Request">package ${smartPackage};
 
 import java.util.List;
 import java.util.Map;
 
-import ${intoSrc}.exception.BadRequestException;
+import ${smartIntoSrc}.exception.BadRequestException;
 
 import org.springframework.stereotype.Component;
 
@@ -261,7 +261,7 @@ public class Request {
 }
   </layout>
 
-  <layout extension=".java" dir="/util/Mail">${package}
+  <layout extension=".java" dir="/util/Mail">package ${smartPackage};
 
 import java.util.Date;
 import java.util.Properties;
@@ -338,16 +338,16 @@ public class Mail {
   <!--=================================================-->
 
   <!--Service-->
-  <layout extension=".java" dir="/service/UserServiceImp">${package}
+  <layout extension=".java" dir="/service/UserServiceImp">package ${smartPackage};
 
 import java.util.Map;
 
-import ${intoSrc}.dao.IUserDAO;
-import ${intoSrc}.entity.User;
-import ${intoSrc}.exception.BadRequestException;
-import ${intoSrc}.response.UserResp;
-import ${intoSrc}.service.interfaces.IUserService;
-import ${intoSrc}.util.Request;
+import ${smartIntoSrc}.dao.IUserDAO;
+import ${smartIntoSrc}.entity.User;
+import ${smartIntoSrc}.exception.BadRequestException;
+import ${smartIntoSrc}.response.UserResp;
+import ${smartIntoSrc}.service.interfaces.IUserService;
+import ${smartIntoSrc}.util.Request;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -502,26 +502,26 @@ public class UserServiceImp implements IUserService {
 }
   </layout>
 
-  <layout extension=".java" dir="/service/AuthServiceImpl">${package}
+  <layout extension=".java" dir="/service/AuthServiceImpl">package ${smartPackage};
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import ${intoSrc}.dao.IRoleDAO;
-import ${intoSrc}.dao.IUserDAO;
-import ${intoSrc}.entity.Role;
-import ${intoSrc}.entity.User;
-import ${intoSrc}.exception.BadRequestException;
-import ${intoSrc}.exception.UnauthorizedException;
-import ${intoSrc}.response.AuthResp;
-import ${intoSrc}.security.JwtProvider;
-import ${intoSrc}.security.UserPrinciple;
-import ${intoSrc}.service.interfaces.IAuthService;
-import ${intoSrc}.util.Mail;
-import ${intoSrc}.util.Request;
-import ${intoSrc}.util.Resource;
-import ${intoSrc}.util.Text;
+import ${smartIntoSrc}.dao.IRoleDAO;
+import ${smartIntoSrc}.dao.IUserDAO;
+import ${smartIntoSrc}.entity.Role;
+import ${smartIntoSrc}.entity.User;
+import ${smartIntoSrc}.exception.BadRequestException;
+import ${smartIntoSrc}.exception.UnauthorizedException;
+import ${smartIntoSrc}.response.AuthResp;
+import ${smartIntoSrc}.security.JwtProvider;
+import ${smartIntoSrc}.security.UserPrinciple;
+import ${smartIntoSrc}.service.interfaces.IAuthService;
+import ${smartIntoSrc}.util.Mail;
+import ${smartIntoSrc}.util.Request;
+import ${smartIntoSrc}.util.Resource;
+import ${smartIntoSrc}.util.Text;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -791,7 +791,7 @@ public class AuthServiceImpl implements IAuthService, UserDetailsService {
   <!--=================================================-->
 
   <!--service/interfaces-->
-  <layout extension=".java" dir="/service/interfaces/IUserService">${package}
+  <layout extension=".java" dir="/service/interfaces/IUserService">package ${smartPackage};
 
 import java.util.Map;
 
@@ -805,7 +805,7 @@ public interface IUserService {
 }
   </layout>
 
-  <layout extension=".java" dir="/service/interfaces/IAuthService">${package}
+  <layout extension=".java" dir="/service/interfaces/IAuthService">package ${smartPackage};
 
 import java.util.Map;
 
@@ -822,7 +822,7 @@ public interface IAuthService {
   <!--=================================================-->
 
   <!--security-->
-  <layout extension=".java" dir="/security/WebSecurityConfig">${package}
+  <layout extension=".java" dir="/security/WebSecurityConfig">package ${smartPackage};
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -838,7 +838,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import ${intoSrc}.service.AuthServiceImpl;
+import ${smartIntoSrc}.service.AuthServiceImpl;
 
 @Configuration
 @EnableWebSecurity
@@ -892,12 +892,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 }
   </layout>
 
-  <layout extension=".java" dir="/security/UserPrinciple">${package}
+  <layout extension=".java" dir="/security/UserPrinciple">package ${smartPackage};
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import ${intoSrc}.entity.User;
-import ${intoSrc}.util.Text;
+import ${smartIntoSrc}.entity.User;
+import ${smartIntoSrc}.util.Text;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -1008,7 +1008,7 @@ public class UserPrinciple implements UserDetails {
 }
   </layout>
 
-  <layout extension=".java" dir="/security/JwtProvider">${package}
+  <layout extension=".java" dir="/security/JwtProvider">package ${smartPackage};
 
 import io.jsonwebtoken.*;
 
@@ -1073,7 +1073,7 @@ public class JwtProvider {
 }
   </layout>
 
-  <layout extension=".java" dir="/security/JwtAuthTokenFilter">${package}
+  <layout extension=".java" dir="/security/JwtAuthTokenFilter">package ${smartPackage};
 
 import java.io.IOException;
 
@@ -1092,7 +1092,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import ${intoSrc}.service.AuthServiceImpl;
+import ${smartIntoSrc}.service.AuthServiceImpl;
 
 public class JwtAuthTokenFilter extends OncePerRequestFilter {
 
@@ -1150,7 +1150,7 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
 }
   </layout>
 
-  <layout extension=".java" dir="/security/JwtAuthEntryPoint">${package}
+  <layout extension=".java" dir="/security/JwtAuthEntryPoint">package ${smartPackage};
 
 import java.io.IOException;
 
@@ -1179,16 +1179,16 @@ public class JwtAuthEntryPoint implements AuthenticationEntryPoint {
   <!--=================================================-->
 
   <!--response-->
-  <layout extension=".java" dir="/response/AuthResp">${package}
+  <layout extension=".java" dir="/response/AuthResp">package ${smartPackage};
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import ${intoSrc}.entity.Role;
-import ${intoSrc}.entity.User;
-import ${intoSrc}.util.Response;
+import ${smartIntoSrc}.entity.Role;
+import ${smartIntoSrc}.entity.User;
+import ${smartIntoSrc}.util.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -1253,16 +1253,16 @@ public class AuthResp {
 }
   </layout>
 
-  <layout extension=".java" dir="/response/UserResp">${package}
+  <layout extension=".java" dir="/response/UserResp">package ${smartPackage};
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import ${intoSrc}.entity.Role;
-import ${intoSrc}.entity.User;
-import ${intoSrc}.util.Response;
+import ${smartIntoSrc}.entity.Role;
+import ${smartIntoSrc}.entity.User;
+import ${smartIntoSrc}.util.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -1317,7 +1317,7 @@ public class UserResp {
   <!--=================================================-->
 
   <!--property-->
-  <layout extension=".java" dir="/property/AuthProperty">${package}
+  <layout extension=".java" dir="/property/AuthProperty">package ${smartPackage};
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -1560,7 +1560,7 @@ public class AuthProperty {
   <!--=================================================-->
 
   <!--exception-->
-  <layout extension=".java" dir="/exception/UnauthorizedException">${package}
+  <layout extension=".java" dir="/exception/UnauthorizedException">package ${smartPackage};
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
@@ -1585,7 +1585,7 @@ public class UnauthorizedException extends ResponseStatusException {
 }
   </layout>
 
-  <layout extension=".java" dir="/exception/InternalServerErrorException">${package}
+  <layout extension=".java" dir="/exception/InternalServerErrorException">package ${smartPackage};
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
@@ -1610,7 +1610,7 @@ public class InternalServerErrorException extends ResponseStatusException {
 }
   </layout>
 
-  <layout extension=".java" dir="/exception/HttpExceptionResponse">${package}
+  <layout extension=".java" dir="/exception/HttpExceptionResponse">package ${smartPackage};
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -1657,7 +1657,7 @@ public class HttpExceptionResponse {
 }
   </layout>
 
-  <layout extension=".java" dir="/exception/ForbiddenException">${package}
+  <layout extension=".java" dir="/exception/ForbiddenException">package ${smartPackage};
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
@@ -1682,7 +1682,7 @@ public class ForbiddenException extends ResponseStatusException {
 }
   </layout>
 
-  <layout extension=".java" dir="/exception/BadRequestException">${package}
+  <layout extension=".java" dir="/exception/BadRequestException">package ${smartPackage};
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
@@ -1710,7 +1710,7 @@ public class BadRequestException extends ResponseStatusException {
   <!--=================================================-->
 
   <!--entity-->
-  <layout extension=".java" dir="/entity/User">${package}
+  <layout extension=".java" dir="/entity/User">package ${smartPackage};
 
 import java.io.Serializable;
 import java.util.List;
@@ -1728,7 +1728,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import ${intoSrc}.util.Text;
+import ${smartIntoSrc}.util.Text;
 
 @Entity
 @Table(name = "users")
@@ -1879,7 +1879,7 @@ public class User implements Serializable {
 }
   </layout>
 
-  <layout extension=".java" dir="/entity/Role">${package}
+  <layout extension=".java" dir="/entity/Role">package ${smartPackage};
 
 import java.io.Serializable;
 import java.util.List;
@@ -1891,7 +1891,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import ${intoSrc}.util.Text;
+import ${smartIntoSrc}.util.Text;
 
 @Entity
 @Table(name = "role")
@@ -1943,11 +1943,11 @@ public class Role implements Serializable {
   <!--=================================================-->
 
   <!--dao-->
-  <layout extension=".java" dir="/dao/IRoleDAO">${package}
+  <layout extension=".java" dir="/dao/IRoleDAO">package ${smartPackage};
 
 import java.util.Optional;
 
-import ${intoSrc}.entity.Role;
+import ${smartIntoSrc}.entity.Role;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -1957,11 +1957,11 @@ public interface IRoleDAO extends JpaRepository${(}Role, Long> {
 }
   </layout>
 
-  <layout extension=".java" dir="/dao/IUserDAO">${package}
+  <layout extension=".java" dir="/dao/IUserDAO">package ${smartPackage};
 
 import java.util.Optional;
 
-import ${intoSrc}.entity.User;
+import ${smartIntoSrc}.entity.User;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -1976,7 +1976,7 @@ public interface IUserDAO extends JpaRepository${(}User, Long> {
   <!--=================================================-->
 
   <!--controller-->
-  <layout extension=".java" dir="/controller/AuthController">${package}
+  <layout extension=".java" dir="/controller/AuthController">package ${smartPackage};
 
 import java.util.Map;
 
@@ -2054,7 +2054,7 @@ public class AuthController {
 	/**
 	 	@apiGroup Auth
 		@apiVersion 0.0.1
-		@apiDescription Servicio para iniciar sesiÃƒÂ³n
+		@apiDescription Servicio para iniciar sesiÃƒÆ’Ã‚Â³n
 		@api {post} auth/signin signin
 		@apiPermission none
 
@@ -2115,7 +2115,7 @@ public class AuthController {
 	/**
 	 	@apiGroup Auth
 		@apiVersion 0.0.1
-		@apiDescription Servicio para recuperar contraseÃƒÂ±a del usuario
+		@apiDescription Servicio para recuperar contraseÃƒÆ’Ã‚Â±a del usuario
 		@api {post} auth/recoverPassword recoverPassword
 		@apiPermission none
 
@@ -2161,7 +2161,7 @@ public class AuthController {
 	/**
 	 	@apiGroup Auth
 		@apiVersion 0.0.1
-		@apiDescription Servicio para cambiar la contraseÃƒÂ±a recuperada
+		@apiDescription Servicio para cambiar la contraseÃƒÆ’Ã‚Â±a recuperada
 		@api {post} auth/changePassword changePassword
 		@apiPermission none
 
@@ -2208,12 +2208,12 @@ public class AuthController {
 }
   </layout>
 
-  <layout extension=".java" dir="/controller/UserController">${package}
+  <layout extension=".java" dir="/controller/UserController">package ${smartPackage};
 
 import java.util.Map;
 
-import ${intoSrc}.exception.HttpExceptionResponse;
-import ${intoSrc}.service.interfaces.IUserService;
+import ${smartIntoSrc}.exception.HttpExceptionResponse;
+import ${smartIntoSrc}.service.interfaces.IUserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -2235,11 +2235,11 @@ public class UserController {
 	/**
 	 	@apiGroup User
 		@apiVersion 0.0.1
-		@apiDescription Servicio para iniciar sesiÃƒÂ³n por primera vez
+		@apiDescription Servicio para iniciar sesiÃƒÆ’Ã‚Â³n por primera vez
 		@api {post} user/firstSignin/:id firstSignin
 		@apiPermission {user} {admin}
 
-		@apiParam {number} Id Identificador ÃƒÂºnico
+		@apiParam {number} Id Identificador ÃƒÆ’Ã‚Âºnico
 
 		@apiParamExample {json} Request-Body:
 			{
@@ -2297,7 +2297,7 @@ public class UserController {
 		@api {put} user/update/:id update
 		@apiPermission {user} {admin}
 
-		@apiParam {number} Id Identificador ÃƒÂºnico
+		@apiParam {number} Id Identificador ÃƒÆ’Ã‚Âºnico
 
 		@apiParamExample {json} Request-Body:
 			{
@@ -2371,7 +2371,7 @@ public class UserController {
 		@api {put} user/blocked/:id blocked
 		@apiPermission {admin}
 
-		@apiParam {number} Id Identificador ÃƒÂºnico
+		@apiParam {number} Id Identificador ÃƒÆ’Ã‚Âºnico
 
 		@apiParamExample {json} Request-Body:
 			{
@@ -2427,11 +2427,11 @@ public class UserController {
 	/**
 		@apiGroup User
 		@apiVersion 0.0.1
-		@apiDescription Servicio para eliminar un usuario (eliminaciÃƒÂ³n lÃƒÂ³gica)
+		@apiDescription Servicio para eliminar un usuario (eliminaciÃƒÆ’Ã‚Â³n lÃƒÆ’Ã‚Â³gica)
 		@api {delete} user/delete/:id delete
 		@apiPermission {admin}
 
-		@apiParam {number} Id Identificador ÃƒÂºnico
+		@apiParam {number} Id Identificador ÃƒÆ’Ã‚Âºnico
 
 		@apiSuccessExample {json} HTTP/1.1 200 OK
 			{
@@ -2481,5 +2481,63 @@ public class UserController {
   </layout>
   <info>Controller files was created</info>
   <!--=================================================-->
+  
+  
+  <location>cd ..</location>
+  <location>cd /main</location>
+  
+    <layout extension=".properties" dir="/resources/application">#Server config
+server.port= 4000
+
+#Data config
+spring.jpa.database=POSTGRESQL
+spring.datasource.platform=postgres
+spring.datasource.url=jdbc:postgresql://localhost:5432/tlozbotw
+spring.datasource.username=postgres
+spring.datasource.password=fernny27
+spring.jpa.show-sql=true
+spring.jpa.generate-ddl=true
+spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.hibernate.ddl-auto=update
+
+#JWT config
+app.auth.jwt-secret=jwtTlozbotwSecret
+app.auth.jwt-expiration=18000000
+
+#Mail config
+app.auth.mail-user=javabrain.email@gmail.com
+app.auth.mail-password=sevjdmxtofenglzn
+
+#Mail send password
+app.auth.mail-subject=No Reply
+app.auth.mail-message=Thank you for registering in TLOZ BOTW Guide below we present the password for your first login.
+app.auth.mail-sub-message=Your password:
+app.auth.mail-app-name=TLOZ BOTW
+app.auth.mail-app-description=Zelda Guide
+
+app.auth.mail-recover-message=We know that you have lost your password, then we show you the recovery code so you can recover it.
+app.auth.mail-recover-sub-message=Your recover code:
+
+#Messages auth
+app.auth.user-no-exist=Upps user does not exist
+app.auth.user-no-password=Upps incorrect password
+app.auth.user-exist=Upps user already exists
+app.auth.mail-exist=Upps email already exists
+app.auth.phone-number-exist=Upps phone number already exist
+app.auth.user-created=User created successfully
+app.auth.user-activated=User successfully activated
+app.auth.user-update=User successfully updated
+app.auth.user-blocked=User successfully blocked
+app.auth.user-unlocked=User successfully unlocked
+app.auth.user-deleted=User successfully deleted
+app.auth.user-recover-password=Please check your email for your change password code
+app.auth.user-change-password=User password successfully update
+app.auth.user-was-signin=User already had his first login</layout>
+  
+  <info>application.properties files was created</info>
+  <location>cd ..</location>
+  
   <success>Spring boot JWT structure and files was created success</success>
 </root>
