@@ -4,23 +4,28 @@ import { Button } from 'react-bootstrap';
 interface Props {
   onClick?: Function;
   variant: 'blue-green' | 'yellow-orange' |
-           'ligthBlue-purple' | 'pink-orange' |
-           'green-ligthGreen' | 'green-yellow' |
+           'lightBlue-purple' | 'pink-orange' |
+           'green-lightGreen' | 'green-yellow' |
            'purple-darkPurple' | 'black-gray' |
-           'ligthBlue-blue' | 'purple-pink' |
-           'red-ligthRed' | 'ligthGray-gray';
+           'lightBlue-blue' | 'purple-pink' |
+           'red-lightRed' | 'lightGray-gray';
+  type?: "button" | "submit" | "reset" | undefined;
+  disabled?: boolean;
+  className?: string;
 }
 
 interface State {}
 
 export class GradientButtonReactive extends React.Component<Props, State> {
   render() {
-    const { onClick, variant } = this.props;
+    const { onClick, variant, type, disabled, className } = this.props;
 
     return (
       <Button
-        className={ `btn-hover ${variant}` }
+        className={ `btn-hover ${variant} ${className}` }
         onClick={ (evt: any) => onClick && onClick(evt) }
+        type={ type }
+        disabled={ disabled }
       >
         { this.props.children }
       </Button>

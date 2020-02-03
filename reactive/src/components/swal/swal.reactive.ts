@@ -59,3 +59,54 @@ export const alertQuestionReactive = (
     }
   });
 }
+
+export const alertLoading = (text: string): void => {
+  Swal.fire({
+    html: 
+      '<div class="col-md-12 text-center">' +
+        `<h3 class="mb-4">${text}</h3>` + 
+        '<div class="slider row">' +
+          '<div class="line"></div>' + 
+          '<div class="break dot1"></div>' + 
+          '<div class="break dot2"></div>' +
+          '<div class="break dot3"></div>' +
+        '</div>' +
+      '</div>',
+    showConfirmButton: false,
+    showCancelButton: false,
+    allowOutsideClick: false
+  });
+}
+
+export const closeAlertLoading = (): void => {
+  Swal.close();
+}
+
+export const alertInput = (
+  iconType: "success" | "error" | "warning" | "info" | "question", 
+  title: string, 
+  text: string,
+  input: 'text' | 'email' | 'url' | 'password' | 'textarea' | 
+  'select' | 'radio' | 'checkbox' | 'file' | 'range',
+  inputPlaceholder: string,
+  inputValue?: string,
+  validateMessage?: string,
+  onSuccess?: Function
+): void => {
+  Swal.fire({
+    type: iconType,
+    title,
+    text,
+    input,
+    inputPlaceholder,
+    inputValue: inputValue ? inputValue : '',
+    showCancelButton: true,
+    inputValidator: (value: any): any => {
+      if (validateMessage) {
+        if (!value) {
+          return validateMessage;
+        }
+      }
+    }
+  }).then((data: any) => onSuccess && onSuccess(data.value));  
+}

@@ -25,11 +25,14 @@ export {
   SingleSelectReactive as SingleSelect,
   MultiSelectReactive as MultiSelect 
 } from './components/select/select.reactive';
+export { UserButtonReactive as UserButton } from './components/user-button/user-button.view';
+export { UserOptionItemReactive as UserOptionItem } from './components/user-button/user-option-item.reactive';
 
 //+redux-form
 export { RenderTextFieldReactive as RenderTextField } from './components/redux-form/redux-render-text-field.reactive';
 export { RenderSingleSelectReactive as RenderSingleSelect } from './components/redux-form/redux-render-single-select.reactive';
 export { RenderTextAreaReactive as RenderTextArea } from './components/redux-form/redux-render-text-area.reactive';
+export { RenderMaskFieldReactive as RenderMaskField } from './components/redux-form/redux-render-mask-field.reactive';
 
 //+util
 export { 
@@ -64,7 +67,10 @@ export { keyReactive as key } from './components/key/key.reactive';
 export { 
   toastReactive as toast, 
   alertReactive as alert, 
-  alertQuestionReactive as alertQuestion 
+  alertQuestionReactive as alertQuestion,
+  alertLoading,
+  closeAlertLoading,
+  alertInput
 } from './components/swal/swal.reactive';
 
 /*
@@ -98,7 +104,9 @@ export {
   thunk,
   reducer,
   change,
-  untouch
+  untouch,
+  reduxForm,
+  Field
 } from './exports/redux.export'
 
 /*
@@ -111,7 +119,8 @@ export {
   BrowserRouter as Router, 
   Route, 
   Switch, 
-  Link 
+  Link,
+  useHistory
 } from 'react-router-dom';
 
 /*
@@ -247,6 +256,32 @@ export { Cryptr } from './exports/cryptr.export';
   
 */
 export const Editor = require('@tinymce/tinymce-react').Editor;
+
+
+/*
+  +axios
+  npm i axios
+  https://www.npmjs.com/package/axios
+*/
+export { axios, AxiosResponse, AxiosError } from './exports/axios.export';
+
+/* 
+  test
+*/
+export const Adapter = require('enzyme-adapter-react-16');
+export const Enzyme: { 
+  mount: Function;
+  configure: any;
+} = require('enzyme');
+Enzyme.configure({ adapter: new Adapter() });
+
+export interface Wrapper {
+  find: Function;
+  simulate: Function;
+  unmount: Function;
+}
+
+
 
 export { ReactDOM } from './exports/react-dom.export';
 //========================================================

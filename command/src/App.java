@@ -32,9 +32,9 @@ public class App {
 
         if (command[0].equals("help")) {
           Documentation.generateDoc(config);
-        } if (command[0].equals("location")) {
+        } else if (command[0].equals("location")) {
           Text.infoln("Path in " + absolutePath);
-        }else if (command[0].equals("bye")) {
+        } else if (command[0].equals("bye")) {
           exit = true;
         } else if (command[0].equals("cd")) {
           if (command[1].equals("..")) {

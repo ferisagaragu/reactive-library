@@ -134,13 +134,25 @@ export class FirebaseReactive {
     });
   }
 
-  public putStorage(ref: string, file: any, onSuccess: Function): void {
+  public putStorage(ref: string, file: any, onSuccess: Function, onError?: Function): void {
     const storageRef = firebase.storage().ref();
 
     storageRef.child(ref).put(file).then((snapshot: any) => {
       storageRef.child(ref).getDownloadURL().then((url: any) => {
         onSuccess(url, snapshot);
       });
+    }, (error: any) => {
+      onError && onError(error);
+    });
+  }
+
+  public removeStorage(ref: string, onSuccess?: Function, onError?: Function): void {
+    const storageRef = firebase.storage().ref();
+    
+    storageRef.child(ref).delete().then((snapshot: any) => {
+      onSuccess && onSuccess(snapshot);
+    },(error: any) => {
+      onError && onError(error);
     });
   }
 
