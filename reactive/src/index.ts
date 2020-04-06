@@ -33,6 +33,8 @@ export { RenderTextFieldReactive as RenderTextField } from './components/redux-f
 export { RenderSingleSelectReactive as RenderSingleSelect } from './components/redux-form/redux-render-single-select.reactive';
 export { RenderTextAreaReactive as RenderTextArea } from './components/redux-form/redux-render-text-area.reactive';
 export { RenderMaskFieldReactive as RenderMaskField } from './components/redux-form/redux-render-mask-field.reactive';
+export { RenderFileFieldReactive as RenderFileField } from './components/redux-form/redux-render-file-field.reactive';
+export { RenderMultiSelectReactive as RenderMultiSelect } from './components/redux-form/redux-render-multi-select.reactive';
 
 //+util
 export { 
@@ -47,6 +49,7 @@ export {
   splitArrayReactive as splitArray,
   removeArrayByMatchReactive as removeArrayByMatch 
 } from './components/util/array.reactive';
+export { toBase64Reactive as toBase64 } from './components/util/base64.reactive';
 //========================================================
 
 //============================MODIFY======================
@@ -160,7 +163,8 @@ export {
   DropdownButton,
   Container,
   Row,
-  Col
+  Col,
+  OverlayTrigger
 } from 'react-bootstrap';
 
 /*
@@ -198,7 +202,15 @@ export {
     npm i @types/react-syntax-highlighter
     https://www.npmjs.com/package/react-syntax-highlighter
 */
-export { SyntaxHighlighter } from './exports/syntaxhighlighter.export';
+export { 
+  SyntaxHighlighter, 
+  javascriptReactive as javascript,
+  jsxReactive as jsx,
+  tsxReactive as tsx,
+  highlight,
+  jsonscriptReactive as jsonscript,
+  typescriptReactive as typescript 
+} from './exports/syntaxhighlighter.export';
 export { prism, tomorrow, atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 /*

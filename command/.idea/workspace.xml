@@ -7,15 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c67f7b3a-58eb-4a05-9597-8ba5f5d8703c" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/MainTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/TextTransform.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../reactive/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../reactive/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../reactive/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../reactive/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../reactive/src/components/gradient-button/gradient-button.reactive.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../reactive/src/components/gradient-button/gradient-button.reactive.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../reactive/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../reactive/src/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../test/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../test/src/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,10 +48,10 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.reactive-data/spring-boot" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../reactive-command" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="project.structure.side.proportion" value="0.3908046" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\IntelliJ IDEA 2019.3.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
@@ -175,6 +167,9 @@
       <workItem from="1579798846679" duration="613000" />
       <workItem from="1579807527079" duration="5235000" />
       <workItem from="1579994540666" duration="9000" />
+      <workItem from="1580851253603" duration="1933000" />
+      <workItem from="1582080299735" duration="1247000" />
+      <workItem from="1582221025720" duration="56000" />
     </task>
     <servers />
   </component>
@@ -195,11 +190,12 @@
       <screen x="-1920" y="-316" width="1920" height="1040" />
     </state>
     <state x="-1193" y="75" key="#com.intellij.ws.actions.HttpClientConvertFromCurlDialog/0.0.1366.728/-1920.-316.1920.1040@-1920.-316.1920.1040" timestamp="1578421664271" />
-    <state x="-1157" y="17" key="FileChooserDialogImpl" timestamp="1579132357730">
-      <screen x="-1920" y="-316" width="1920" height="1040" />
+    <state x="527" y="104" key="FileChooserDialogImpl" timestamp="1582221080010">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="-1157" y="17" key="FileChooserDialogImpl/0.0.1366.728/-1920.-316.1920.1040@-1920.-316.1920.1040" timestamp="1579132357730" />
-    <state x="763" y="333" key="FileChooserDialogImpl/0.0.1920.1040/-1366.304.1366.728@0.0.1920.1040" timestamp="1578103727570" />
+    <state x="527" y="104" key="FileChooserDialogImpl/0.0.1366.728/-1920.-316.1920.1040@0.0.1366.728" timestamp="1582221080010" />
+    <state x="763" y="333" key="FileChooserDialogImpl/0.0.1920.1040/-1366.304.1366.728@0.0.1920.1040" timestamp="1582080861293" />
     <state width="1877" height="332" key="GridCell.Tab.0.bottom" timestamp="1579731011226">
       <screen x="-1920" y="-316" width="1920" height="1040" />
     </state>
@@ -224,11 +220,11 @@
       <screen x="-1920" y="-316" width="1920" height="1040" />
     </state>
     <state x="-1180" y="13" key="RestClientTextRequest/0.0.1366.728/-1920.-316.1920.1040@-1920.-316.1920.1040" timestamp="1578421605917" />
-    <state x="-1457" y="-150" key="SettingsEditor" timestamp="1579734032685">
-      <screen x="-1920" y="-316" width="1920" height="1040" />
+    <state x="463" y="166" key="SettingsEditor" timestamp="1582080864157">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="-1457" y="-150" key="SettingsEditor/0.0.1366.728/-1920.-316.1920.1040@-1920.-316.1920.1040" timestamp="1579734032685" />
-    <state x="463" y="166" key="SettingsEditor/0.0.1920.1040/-1366.304.1366.728@0.0.1920.1040" timestamp="1578103731160" />
+    <state x="463" y="166" key="SettingsEditor/0.0.1920.1040/-1366.304.1366.728@0.0.1920.1040" timestamp="1582080864157" />
     <state x="463" y="166" key="SettingsEditor/0.0.1920.1040/1920.312.1366.728@0.0.1920.1040" timestamp="1579123977226" />
     <state x="-1252" y="33" key="com.intellij.ide.util.TipDialog" timestamp="1579190094049">
       <screen x="-1920" y="-316" width="1920" height="1040" />

@@ -34,6 +34,7 @@ export default {
     svgr(),
     resolve(),
     typescript({
+      tsconfig: "tsconfig.json",
       rollupCommonJSResolveHack: true,
       clean: true
     }),
