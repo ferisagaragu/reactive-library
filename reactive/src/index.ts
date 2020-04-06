@@ -278,7 +278,7 @@ export const Editor = require('@tinymce/tinymce-react').Editor;
 export { axios, AxiosResponse, AxiosError } from './exports/axios.export';
 
 /* 
-  test
+  test falta pasar esto a exports
 */
 export const Adapter = require('enzyme-adapter-react-16');
 export const Enzyme: { 
