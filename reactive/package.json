@@ -102,7 +102,7 @@
     "react-iframe": "^1.8.0",
     "react-redux": "^7.1.1",
     "react-router-dom": "^5.1.2",
-    "react-scripts-ts": "^2.16.0",
+    "react-scripts-ts": "^4.0.8",
     "react-select": "^3.0.8",
     "react-syntax-highlighter": "^11.0.2",
     "redux": "^4.0.4",
